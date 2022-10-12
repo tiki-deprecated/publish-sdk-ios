@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D6A2C37F30D9F56A6008F75 /* Pods_tiki_sdk_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF4FCB45DA555985B8D113A /* Pods_tiki_sdk_ios.framework */; };
+		202EA84E985683C30896A915 /* Pods_tiki_sdk_ios_tiki_sdk_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B43959AF7D120BA882F21D /* Pods_tiki_sdk_ios_tiki_sdk_iosTests.framework */; };
 		8C1CB63928F74340009B4290 /* tiki_sdk_ios.docc in Sources */ = {isa = PBXBuildFile; fileRef = 8C1CB63828F74340009B4290 /* tiki_sdk_ios.docc */; };
 		8C1CB63F28F74340009B4290 /* tiki_sdk_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1CB63428F74340009B4290 /* tiki_sdk_ios.framework */; };
 		8C1CB64428F74340009B4290 /* tiki_sdk_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1CB64328F74340009B4290 /* tiki_sdk_iosTests.swift */; };
 		8C1CB64528F74340009B4290 /* tiki_sdk_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C1CB63728F74340009B4290 /* tiki_sdk_ios.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8C1CB64F28F743DE009B4290 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 8C1CB64E28F743DE009B4290 /* Podfile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,11 +27,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		184079CCD666B0A082AD77B3 /* Pods-tiki_sdk_ios-tiki_sdk_iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tiki_sdk_ios-tiki_sdk_iosTests.debug.xcconfig"; path = "Target Support Files/Pods-tiki_sdk_ios-tiki_sdk_iosTests/Pods-tiki_sdk_ios-tiki_sdk_iosTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2FF4FCB45DA555985B8D113A /* Pods_tiki_sdk_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tiki_sdk_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		55F9191F5CA3AC00CD4CBF7B /* Pods-tiki_sdk_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tiki_sdk_ios.debug.xcconfig"; path = "Target Support Files/Pods-tiki_sdk_ios/Pods-tiki_sdk_ios.debug.xcconfig"; sourceTree = "<group>"; };
+		5B69213DAA9FB8BFB300614F /* Pods-tiki_sdk_ios-tiki_sdk_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tiki_sdk_ios-tiki_sdk_iosTests.release.xcconfig"; path = "Target Support Files/Pods-tiki_sdk_ios-tiki_sdk_iosTests/Pods-tiki_sdk_ios-tiki_sdk_iosTests.release.xcconfig"; sourceTree = "<group>"; };
+		81B43959AF7D120BA882F21D /* Pods_tiki_sdk_ios_tiki_sdk_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tiki_sdk_ios_tiki_sdk_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C1CB63428F74340009B4290 /* tiki_sdk_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = tiki_sdk_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C1CB63728F74340009B4290 /* tiki_sdk_ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tiki_sdk_ios.h; sourceTree = "<group>"; };
 		8C1CB63828F74340009B4290 /* tiki_sdk_ios.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = tiki_sdk_ios.docc; sourceTree = "<group>"; };
 		8C1CB63E28F74340009B4290 /* tiki_sdk_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tiki_sdk_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C1CB64328F74340009B4290 /* tiki_sdk_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiki_sdk_iosTests.swift; sourceTree = "<group>"; };
+		8C1CB64E28F743DE009B4290 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		A4A4A666C169548711DD0F91 /* Pods-tiki_sdk_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tiki_sdk_ios.release.xcconfig"; path = "Target Support Files/Pods-tiki_sdk_ios/Pods-tiki_sdk_ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D6A2C37F30D9F56A6008F75 /* Pods_tiki_sdk_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,18 +55,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C1CB63F28F74340009B4290 /* tiki_sdk_ios.framework in Frameworks */,
+				202EA84E985683C30896A915 /* Pods_tiki_sdk_ios_tiki_sdk_iosTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5270D44F2BF9FB01BC2C0033 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2FF4FCB45DA555985B8D113A /* Pods_tiki_sdk_ios.framework */,
+				81B43959AF7D120BA882F21D /* Pods_tiki_sdk_ios_tiki_sdk_iosTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		76F339D36238F2350618E8FB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				55F9191F5CA3AC00CD4CBF7B /* Pods-tiki_sdk_ios.debug.xcconfig */,
+				A4A4A666C169548711DD0F91 /* Pods-tiki_sdk_ios.release.xcconfig */,
+				184079CCD666B0A082AD77B3 /* Pods-tiki_sdk_ios-tiki_sdk_iosTests.debug.xcconfig */,
+				5B69213DAA9FB8BFB300614F /* Pods-tiki_sdk_ios-tiki_sdk_iosTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8C1CB62A28F74340009B4290 = {
 			isa = PBXGroup;
 			children = (
+				8C1CB64E28F743DE009B4290 /* Podfile */,
 				8C1CB63628F74340009B4290 /* tiki_sdk_ios */,
 				8C1CB64228F74340009B4290 /* tiki_sdk_iosTests */,
 				8C1CB63528F74340009B4290 /* Products */,
+				76F339D36238F2350618E8FB /* Pods */,
+				5270D44F2BF9FB01BC2C0033 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,10 +139,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8C1CB64828F74340009B4290 /* Build configuration list for PBXNativeTarget "tiki_sdk_ios" */;
 			buildPhases = (
+				774A8A600F0D0DA5D5CFB75C /* [CP] Check Pods Manifest.lock */,
 				8C1CB62F28F74340009B4290 /* Headers */,
+				086DF1101CE6703684B04514 /* [CP-User] Run Flutter Build tiki_sdk_flutter Script */,
 				8C1CB63028F74340009B4290 /* Sources */,
 				8C1CB63128F74340009B4290 /* Frameworks */,
 				8C1CB63228F74340009B4290 /* Resources */,
+				80C44DBA0C7716367EE4D05D /* [CP-User] Embed Flutter Build tiki_sdk_flutter Script */,
 			);
 			buildRules = (
 			);
@@ -121,9 +160,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8C1CB64B28F74340009B4290 /* Build configuration list for PBXNativeTarget "tiki_sdk_iosTests" */;
 			buildPhases = (
+				22221C92261A019B58F5616D /* [CP] Check Pods Manifest.lock */,
 				8C1CB63A28F74340009B4290 /* Sources */,
 				8C1CB63B28F74340009B4290 /* Frameworks */,
 				8C1CB63C28F74340009B4290 /* Resources */,
+				5C5A28A147ACF0C005E0B948 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -177,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C1CB64F28F743DE009B4290 /* Podfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +230,90 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		086DF1101CE6703684B04514 /* [CP-User] Run Flutter Build tiki_sdk_flutter Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] Run Flutter Build tiki_sdk_flutter Script";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../tiki_sdk_flutter_module/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
+		};
+		22221C92261A019B58F5616D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tiki_sdk_ios-tiki_sdk_iosTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C5A28A147ACF0C005E0B948 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-tiki_sdk_ios-tiki_sdk_iosTests/Pods-tiki_sdk_ios-tiki_sdk_iosTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-tiki_sdk_ios-tiki_sdk_iosTests/Pods-tiki_sdk_ios-tiki_sdk_iosTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tiki_sdk_ios-tiki_sdk_iosTests/Pods-tiki_sdk_ios-tiki_sdk_iosTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		774A8A600F0D0DA5D5CFB75C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tiki_sdk_ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80C44DBA0C7716367EE4D05D /* [CP-User] Embed Flutter Build tiki_sdk_flutter Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] Embed Flutter Build tiki_sdk_flutter Script";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../tiki_sdk_flutter_module/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8C1CB63028F74340009B4290 /* Sources */ = {
@@ -341,6 +467,7 @@
 		};
 		8C1CB64928F74340009B4290 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55F9191F5CA3AC00CD4CBF7B /* Pods-tiki_sdk_ios.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -369,6 +496,7 @@
 		};
 		8C1CB64A28F74340009B4290 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4A4A666C169548711DD0F91 /* Pods-tiki_sdk_ios.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -397,6 +525,7 @@
 		};
 		8C1CB64C28F74340009B4290 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 184079CCD666B0A082AD77B3 /* Pods-tiki_sdk_ios-tiki_sdk_iosTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -413,6 +542,7 @@
 		};
 		8C1CB64D28F74340009B4290 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B69213DAA9FB8BFB300614F /* Pods-tiki_sdk_ios-tiki_sdk_iosTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

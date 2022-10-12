@@ -1,0 +1,6 @@
+framework module Pods_tiki_sdk_ios_tiki_sdk_iosTests {
+  umbrella header "Pods-tiki_sdk_ios-tiki_sdk_iosTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
