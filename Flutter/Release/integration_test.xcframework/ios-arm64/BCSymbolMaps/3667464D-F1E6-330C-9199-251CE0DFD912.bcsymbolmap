@@ -1,0 +1,172 @@
+BCSymbolMap Version: 2.0
+Apple clang version 13.0.0 (clang-1300.0.29.30)
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk
+iPhoneOS15.2.sdk
+/Users/ricardo/dev/tiki_sdk_ios/Flutter/Release/iphoneos/Pods.build/Release-iphoneos/integration_test.build/DerivedSources/integration_test_vers.c
+/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods
+-[FLTIntegrationTestRunner init]
+-[FLTIntegrationTestRunner testIntegrationTestWithResults:]
+___59-[FLTIntegrationTestRunner testIntegrationTestWithResults:]_block_invoke
+___copy_helper_block_e8_32s40s48b
+___destroy_helper_block_e8_32s40s48s
+-[FLTIntegrationTestRunner capturedScreenshotsByName]
++[FLTIntegrationTestRunner testCaseNameFromDartTestName:]
+-[FLTIntegrationTestRunner integrationTestPlugin]
+-[FLTIntegrationTestRunner setIntegrationTestPlugin:]
+-[FLTIntegrationTestRunner .cxx_destruct]
+_OBJC_SELECTOR_REFERENCES_
+_OBJC_CLASSLIST_REFERENCES_$_
+_OBJC_SELECTOR_REFERENCES_.2
+_OBJC_SELECTOR_REFERENCES_.4
+_OBJC_CLASSLIST_REFERENCES_$_.5
+_OBJC_SELECTOR_REFERENCES_.7
+_OBJC_SELECTOR_REFERENCES_.9
+_OBJC_SELECTOR_REFERENCES_.11
+_OBJC_SELECTOR_REFERENCES_.13
+_OBJC_CLASSLIST_REFERENCES_$_.14
+_OBJC_SELECTOR_REFERENCES_.16
+_OBJC_SELECTOR_REFERENCES_.18
+_OBJC_SELECTOR_REFERENCES_.22
+_OBJC_SELECTOR_REFERENCES_.24
+_OBJC_SELECTOR_REFERENCES_.26
+_OBJC_SELECTOR_REFERENCES_.28
+_OBJC_CLASSLIST_REFERENCES_$_.29
+_OBJC_SELECTOR_REFERENCES_.31
+_OBJC_CLASSLIST_REFERENCES_$_.32
+_OBJC_SELECTOR_REFERENCES_.34
+_OBJC_SELECTOR_REFERENCES_.36
+_OBJC_CLASSLIST_REFERENCES_$_.37
+_OBJC_SELECTOR_REFERENCES_.39
+_OBJC_SELECTOR_REFERENCES_.41
+_OBJC_CLASSLIST_REFERENCES_$_.42
+_OBJC_SELECTOR_REFERENCES_.46
+_OBJC_SELECTOR_REFERENCES_.50
+_OBJC_SELECTOR_REFERENCES_.54
+___block_descriptor_56_e8_32s40s48bs_e35_v32?0"NSString"8"NSString"16^B24l
+_OBJC_SELECTOR_REFERENCES_.57
+_OBJC_SELECTOR_REFERENCES_.59
+_OBJC_SELECTOR_REFERENCES_.61
+_OBJC_CLASSLIST_REFERENCES_$_.62
+_OBJC_SELECTOR_REFERENCES_.64
+_OBJC_SELECTOR_REFERENCES_.66
+_OBJC_SELECTOR_REFERENCES_.68
+_OBJC_SELECTOR_REFERENCES_.72
+__OBJC_$_CLASS_METHODS_FLTIntegrationTestRunner
+__OBJC_METACLASS_RO_$_FLTIntegrationTestRunner
+__OBJC_$_INSTANCE_METHODS_FLTIntegrationTestRunner
+_OBJC_IVAR_$_FLTIntegrationTestRunner._integrationTestPlugin
+__OBJC_$_INSTANCE_VARIABLES_FLTIntegrationTestRunner
+__OBJC_$_PROP_LIST_FLTIntegrationTestRunner
+__OBJC_CLASS_RO_$_FLTIntegrationTestRunner
+/Users/ricardo/dev/flutter/packages/integration_test/ios/Classes/FLTIntegrationTestRunner.m
+flutter/packages/integration_test/ios/Classes/FLTIntegrationTestRunner.m
+/Users/ricardo/dev
+__destroy_helper_block_e8_32s40s48s
+__copy_helper_block_e8_32s40s48b
+__59-[FLTIntegrationTestRunner testIntegrationTestWithResults:]_block_invoke
+llvm.loop.mustprogress
+__OBJC_METACLASS_RO_$_PodsDummy_integration_test
+__OBJC_CLASS_RO_$_PodsDummy_integration_test
+/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods/Target Support Files/integration_test/integration_test-dummy.m
+-[IntegrationTestIosTest testIntegrationTest:]
+___46-[IntegrationTestIosTest testIntegrationTest:]_block_invoke
+___copy_helper_block_e8_32s40s
+___destroy_helper_block_e8_32s40s
+_OBJC_CLASSLIST_REFERENCES_$_.1
+_OBJC_SELECTOR_REFERENCES_.3
+_OBJC_SELECTOR_REFERENCES_.5
+___block_descriptor_48_e8_32s40s_e24_v28?0:8B16"NSString"20l
+_OBJC_SELECTOR_REFERENCES_.12
+_OBJC_CLASSLIST_REFERENCES_$_.17
+_OBJC_SELECTOR_REFERENCES_.21
+_OBJC_SELECTOR_REFERENCES_.23
+__OBJC_METACLASS_RO_$_IntegrationTestIosTest
+__OBJC_$_INSTANCE_METHODS_IntegrationTestIosTest
+__OBJC_CLASS_RO_$_IntegrationTestIosTest
+/Users/ricardo/dev/flutter/packages/integration_test/ios/Classes/IntegrationTestIosTest.m
+__destroy_helper_block_e8_32s40s
+__copy_helper_block_e8_32s40s
+__46-[IntegrationTestIosTest testIntegrationTest:]_block_invoke
+flutter/packages/integration_test/ios/Classes/IntegrationTestIosTest.m
++[IntegrationTestPlugin instance]
+___33+[IntegrationTestPlugin instance]_block_invoke
+-[IntegrationTestPlugin initForRegistration]
+-[IntegrationTestPlugin init]
++[IntegrationTestPlugin registerWithRegistrar:]
+-[IntegrationTestPlugin setupChannels:]
+___39-[IntegrationTestPlugin setupChannels:]_block_invoke
+___copy_helper_block_e8_32s
+___destroy_helper_block_e8_32s
+-[IntegrationTestPlugin handleMethodCall:result:]
+-[IntegrationTestPlugin capturePngScreenshot]
+___45-[IntegrationTestPlugin capturePngScreenshot]_block_invoke
+-[IntegrationTestPlugin testResults]
+-[IntegrationTestPlugin setTestResults:]
+-[IntegrationTestPlugin capturedScreenshotsByName]
+-[IntegrationTestPlugin .cxx_destruct]
+_instance.onceToken
+_instance.sInstance
+___block_descriptor_32_e5_v8?0l
+___block_literal_global
+_OBJC_CLASSLIST_REFERENCES_$_.12
+_OBJC_SELECTOR_REFERENCES_.14
+_OBJC_CLASSLIST_REFERENCES_$_.15
+_OBJC_SELECTOR_REFERENCES_.17
+_OBJC_SELECTOR_REFERENCES_.19
+___block_descriptor_40_e8_32s_e37_v24?0"FlutterMethodCall"8?<v?>16l
+_OBJC_SELECTOR_REFERENCES_.32
+_OBJC_SELECTOR_REFERENCES_.40
+_OBJC_CLASSLIST_REFERENCES_$_.41
+_OBJC_SELECTOR_REFERENCES_.43
+_OBJC_CLASSLIST_REFERENCES_$_.44
+_OBJC_SELECTOR_REFERENCES_.48
+_OBJC_CLASSLIST_REFERENCES_$_.49
+_OBJC_SELECTOR_REFERENCES_.53
+_OBJC_SELECTOR_REFERENCES_.55
+_OBJC_CLASSLIST_REFERENCES_$_.60
+_OBJC_SELECTOR_REFERENCES_.62
+___block_descriptor_72_e8_32s_e40_v16?0"UIGraphicsImageRendererContext"8l
+_OBJC_SELECTOR_REFERENCES_.67
+_OBJC_CLASSLIST_REFERENCES_$_.68
+_OBJC_SELECTOR_REFERENCES_.70
+__OBJC_$_CLASS_METHODS_IntegrationTestPlugin
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSObject
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_NSObject
+__OBJC_$_PROP_LIST_NSObject
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSObject
+__OBJC_PROTOCOL_$_NSObject
+__OBJC_LABEL_PROTOCOL_$_NSObject
+__OBJC_$_PROTOCOL_REFS_UNUserNotificationCenterDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_UNUserNotificationCenterDelegate
+__OBJC_$_PROTOCOL_METHOD_TYPES_UNUserNotificationCenterDelegate
+__OBJC_PROTOCOL_$_UNUserNotificationCenterDelegate
+__OBJC_LABEL_PROTOCOL_$_UNUserNotificationCenterDelegate
+__OBJC_$_PROTOCOL_REFS_FlutterApplicationLifeCycleDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_FlutterApplicationLifeCycleDelegate
+__OBJC_$_PROTOCOL_METHOD_TYPES_FlutterApplicationLifeCycleDelegate
+__OBJC_PROTOCOL_$_FlutterApplicationLifeCycleDelegate
+__OBJC_LABEL_PROTOCOL_$_FlutterApplicationLifeCycleDelegate
+__OBJC_$_PROTOCOL_REFS_FlutterPlugin
+__OBJC_$_PROTOCOL_CLASS_METHODS_FlutterPlugin
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_FlutterPlugin
+__OBJC_$_PROTOCOL_CLASS_METHODS_OPT_FlutterPlugin
+__OBJC_$_PROTOCOL_METHOD_TYPES_FlutterPlugin
+__OBJC_PROTOCOL_$_FlutterPlugin
+__OBJC_LABEL_PROTOCOL_$_FlutterPlugin
+__OBJC_CLASS_PROTOCOLS_$_IntegrationTestPlugin
+__OBJC_METACLASS_RO_$_IntegrationTestPlugin
+__OBJC_$_INSTANCE_METHODS_IntegrationTestPlugin
+_OBJC_IVAR_$_IntegrationTestPlugin._testResults
+_OBJC_IVAR_$_IntegrationTestPlugin._capturedScreenshotsByName
+__OBJC_$_INSTANCE_VARIABLES_IntegrationTestPlugin
+__OBJC_$_PROP_LIST_IntegrationTestPlugin
+__OBJC_CLASS_RO_$_IntegrationTestPlugin
+/Users/ricardo/dev/flutter/packages/integration_test/ios/Classes/IntegrationTestPlugin.m
+flutter/packages/integration_test/ios/Classes/IntegrationTestPlugin.m
+flutter/packages/integration_test/ios/Classes/IntegrationTestPlugin.h
+__45-[IntegrationTestPlugin capturePngScreenshot]_block_invoke
+__destroy_helper_block_e8_32s
+__copy_helper_block_e8_32s
+__39-[IntegrationTestPlugin setupChannels:]_block_invoke
+__33+[IntegrationTestPlugin instance]_block_invoke
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/usr/include/dispatch/once.h

@@ -1,6 +1,2 @@
 ${PODS_ROOT}/Target Support Files/Pods-tiki_sdk_ios-tiki_sdk_iosTests/Pods-tiki_sdk_ios-tiki_sdk_iosTests-frameworks.sh
-${BUILT_PRODUCTS_DIR}/flutter_secure_storage/flutter_secure_storage.framework
-${BUILT_PRODUCTS_DIR}/integration_test/integration_test.framework
-${BUILT_PRODUCTS_DIR}/path_provider_ios/path_provider_ios.framework
-${BUILT_PRODUCTS_DIR}/sqlite3/sqlite3.framework
-${BUILT_PRODUCTS_DIR}/sqlite3_flutter_libs/sqlite3_flutter_libs.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/Flutter/Flutter.framework/Flutter

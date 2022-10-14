@@ -1,0 +1,88 @@
+BCSymbolMap Version: 2.0
+Apple clang version 13.0.0 (clang-1300.0.29.30)
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk
+iPhoneOS15.2.sdk
+/Users/ricardo/dev/tiki_sdk_ios/Flutter/Release/iphoneos/Pods.build/Release-iphoneos/flutter_secure_storage.build/DerivedSources/flutter_secure_storage_vers.c
+/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods
+__OBJC_METACLASS_RO_$_PodsDummy_flutter_secure_storage
+__OBJC_CLASS_RO_$_PodsDummy_flutter_secure_storage
+/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods/Target Support Files/flutter_secure_storage/flutter_secure_storage-dummy.m
+-[FlutterSecureStoragePlugin init]
++[FlutterSecureStoragePlugin registerWithRegistrar:]
+-[FlutterSecureStoragePlugin handleMethodCall:result:]
+-[FlutterSecureStoragePlugin write:forKey:forGroup:accessibilityAttr:forAccountName:forSynchronizable:]
+-[FlutterSecureStoragePlugin read:forGroup:forAccountName:forSynchronizable:]
+-[FlutterSecureStoragePlugin delete:forGroup:forAccountName:forSynchronizable:]
+-[FlutterSecureStoragePlugin deleteAll:forAccountName:forSynchronizable:]
+-[FlutterSecureStoragePlugin readAll:forAccountName:forSynchronizable:]
+-[FlutterSecureStoragePlugin containsKey:forGroup:forAccountName:forSynchronizable:]
+-[FlutterSecureStoragePlugin query]
+-[FlutterSecureStoragePlugin setQuery:]
+-[FlutterSecureStoragePlugin .cxx_destruct]
+_OBJC_SELECTOR_REFERENCES_
+_OBJC_CLASSLIST_REFERENCES_$_
+_OBJC_SELECTOR_REFERENCES_.4
+_OBJC_SELECTOR_REFERENCES_.6
+_OBJC_CLASSLIST_REFERENCES_$_.7
+_OBJC_SELECTOR_REFERENCES_.9
+_OBJC_SELECTOR_REFERENCES_.11
+_OBJC_CLASSLIST_REFERENCES_$_.12
+_OBJC_SELECTOR_REFERENCES_.14
+_OBJC_SELECTOR_REFERENCES_.16
+_OBJC_SELECTOR_REFERENCES_.20
+_OBJC_SELECTOR_REFERENCES_.22
+_OBJC_SELECTOR_REFERENCES_.24
+_OBJC_SELECTOR_REFERENCES_.34
+_OBJC_SELECTOR_REFERENCES_.36
+_OBJC_SELECTOR_REFERENCES_.40
+_OBJC_CLASSLIST_REFERENCES_$_.47
+_OBJC_SELECTOR_REFERENCES_.49
+_OBJC_SELECTOR_REFERENCES_.53
+_OBJC_SELECTOR_REFERENCES_.57
+_OBJC_SELECTOR_REFERENCES_.61
+_OBJC_SELECTOR_REFERENCES_.65
+_OBJC_SELECTOR_REFERENCES_.67
+_OBJC_SELECTOR_REFERENCES_.69
+_OBJC_SELECTOR_REFERENCES_.71
+_OBJC_SELECTOR_REFERENCES_.85
+_OBJC_SELECTOR_REFERENCES_.91
+_OBJC_CLASSLIST_REFERENCES_$_.96
+_OBJC_SELECTOR_REFERENCES_.98
+_OBJC_SELECTOR_REFERENCES_.100
+_OBJC_SELECTOR_REFERENCES_.102
+_OBJC_CLASSLIST_REFERENCES_$_.103
+_OBJC_SELECTOR_REFERENCES_.105
+__OBJC_$_CLASS_METHODS_FlutterSecureStoragePlugin
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSObject
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_NSObject
+__OBJC_$_PROP_LIST_NSObject
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSObject
+__OBJC_PROTOCOL_$_NSObject
+__OBJC_LABEL_PROTOCOL_$_NSObject
+__OBJC_$_PROTOCOL_REFS_UNUserNotificationCenterDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_UNUserNotificationCenterDelegate
+__OBJC_$_PROTOCOL_METHOD_TYPES_UNUserNotificationCenterDelegate
+__OBJC_PROTOCOL_$_UNUserNotificationCenterDelegate
+__OBJC_LABEL_PROTOCOL_$_UNUserNotificationCenterDelegate
+__OBJC_$_PROTOCOL_REFS_FlutterApplicationLifeCycleDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_FlutterApplicationLifeCycleDelegate
+__OBJC_$_PROTOCOL_METHOD_TYPES_FlutterApplicationLifeCycleDelegate
+__OBJC_PROTOCOL_$_FlutterApplicationLifeCycleDelegate
+__OBJC_LABEL_PROTOCOL_$_FlutterApplicationLifeCycleDelegate
+__OBJC_$_PROTOCOL_REFS_FlutterPlugin
+__OBJC_$_PROTOCOL_CLASS_METHODS_FlutterPlugin
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_FlutterPlugin
+__OBJC_$_PROTOCOL_CLASS_METHODS_OPT_FlutterPlugin
+__OBJC_$_PROTOCOL_METHOD_TYPES_FlutterPlugin
+__OBJC_PROTOCOL_$_FlutterPlugin
+__OBJC_LABEL_PROTOCOL_$_FlutterPlugin
+__OBJC_CLASS_PROTOCOLS_$_FlutterSecureStoragePlugin
+__OBJC_METACLASS_RO_$_FlutterSecureStoragePlugin
+__OBJC_$_INSTANCE_METHODS_FlutterSecureStoragePlugin
+_OBJC_IVAR_$_FlutterSecureStoragePlugin._query
+__OBJC_$_INSTANCE_VARIABLES_FlutterSecureStoragePlugin
+__OBJC_$_PROP_LIST_FlutterSecureStoragePlugin
+__OBJC_CLASS_RO_$_FlutterSecureStoragePlugin
+/Users/ricardo/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage-6.0.0/ios/Classes/FlutterSecureStoragePlugin.m
+flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage-6.0.0/ios/Classes/FlutterSecureStoragePlugin.m
+/Users/ricardo/dev
