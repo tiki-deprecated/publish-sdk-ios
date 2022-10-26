@@ -31,16 +31,20 @@ class TikiSdk{
     public func getConsent(
         source: String,
         origin: String? = nil
-    ) async throws -> String?  {
-        try await plugin.getConsent(source: source, origin: origin)
+    ) async throws -> TikiSdkFlutterConsent?  {
+        let json : String? = try await plugin.getConsent(source: source, origin: origin)
+        if(json == nil){
+            return nil;
+        }
+        return TikiSdkFlutterConsent.fromJson(jsonData: json!)
     }
 
     public func applyConsent(
         source: String,
         destination: TikiSdkFlutterDestination,
-        request: (String?) -> Unit,
-        onBlock: (String) -> Unit
-    )  async throws -> Unit  {
+        request: (String?) -> Void,
+        onBlock: (String) -> Void
+    )  async throws -> Void  {
         try await plugin.applyConsent(source: source, destination: destination, request: request, onBlock: onBlock)
     }
 
