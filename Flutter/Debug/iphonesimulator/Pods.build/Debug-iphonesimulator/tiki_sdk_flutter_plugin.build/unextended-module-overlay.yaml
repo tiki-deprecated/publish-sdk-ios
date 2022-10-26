@@ -1,0 +1,14 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/ricardo/dev/tiki_sdk_ios/Flutter/Debug/iphonesimulator/Debug-iphonesimulator/tiki_sdk_flutter_plugin/tiki_sdk_flutter_plugin.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/ricardo/dev/tiki_sdk_ios/Flutter/Debug/iphonesimulator/Pods.build/Debug-iphonesimulator/tiki_sdk_flutter_plugin.build/unextended-module.modulemap",
+    }]
+  }]
+}

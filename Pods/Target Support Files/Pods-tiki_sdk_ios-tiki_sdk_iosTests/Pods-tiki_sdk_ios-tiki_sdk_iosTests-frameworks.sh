@@ -176,10 +176,24 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/Flutter/Flutter.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/flutter_secure_storage/flutter_secure_storage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/integration_test/integration_test.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/path_provider_ios/path_provider_ios.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/sqlite3/sqlite3.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/sqlite3_flutter_libs/sqlite3_flutter_libs.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/tiki_sdk_flutter_plugin/tiki_sdk_flutter_plugin.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/Flutter/Flutter.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/flutter_secure_storage/flutter_secure_storage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/integration_test/integration_test.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/path_provider_ios/path_provider_ios.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/sqlite3/sqlite3.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/sqlite3_flutter_libs/sqlite3_flutter_libs.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/tiki_sdk_flutter_plugin/tiki_sdk_flutter_plugin.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

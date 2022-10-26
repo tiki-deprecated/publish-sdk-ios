@@ -1,16 +1,83 @@
 PODS:
-  - Flutter (3.3.400)
+  - Flutter (1.0.0)
+  - flutter_secure_storage (3.3.1):
+    - Flutter
+  - FlutterPluginRegistrant (0.0.1):
+    - Flutter
+    - flutter_secure_storage
+    - integration_test
+    - path_provider_ios
+    - sqlite3_flutter_libs
+    - tiki_sdk_flutter_plugin
+  - integration_test (0.0.1):
+    - Flutter
+  - path_provider_ios (0.0.1):
+    - Flutter
+  - PromisesObjC (2.1.1)
+  - PromisesSwift (2.1.1):
+    - PromisesObjC (= 2.1.1)
+  - sqlite3 (3.39.3):
+    - sqlite3/common (= 3.39.3)
+  - sqlite3/common (3.39.3)
+  - sqlite3/fts5 (3.39.3):
+    - sqlite3/common
+  - sqlite3/perf-threadsafe (3.39.3):
+    - sqlite3/common
+  - sqlite3/rtree (3.39.3):
+    - sqlite3/common
+  - sqlite3_flutter_libs (0.0.1):
+    - Flutter
+    - sqlite3 (~> 3.39.3)
+    - sqlite3/fts5
+    - sqlite3/perf-threadsafe
+    - sqlite3/rtree
+  - tiki_sdk_flutter_plugin (0.0.1):
+    - Flutter
+    - PromisesSwift
 
 DEPENDENCIES:
-  - Flutter (from `Flutter/Debug/Flutter.podspec`)
+  - Flutter (from `../tiki_sdk_flutter/tiki_sdk_flutter/.ios/Flutter`)
+  - flutter_secure_storage (from `../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/flutter_secure_storage/ios`)
+  - FlutterPluginRegistrant (from `../tiki_sdk_flutter/tiki_sdk_flutter/.ios/Flutter/FlutterPluginRegistrant`)
+  - integration_test (from `../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/integration_test/ios`)
+  - path_provider_ios (from `../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/path_provider_ios/ios`)
+  - sqlite3_flutter_libs (from `../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/sqlite3_flutter_libs/ios`)
+  - tiki_sdk_flutter_plugin (from `../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/tiki_sdk_flutter_plugin/ios`)
+
+SPEC REPOS:
+  trunk:
+    - PromisesObjC
+    - PromisesSwift
+    - sqlite3
 
 EXTERNAL SOURCES:
   Flutter:
-    :podspec: Flutter/Debug/Flutter.podspec
+    :path: "../tiki_sdk_flutter/tiki_sdk_flutter/.ios/Flutter"
+  flutter_secure_storage:
+    :path: "../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/flutter_secure_storage/ios"
+  FlutterPluginRegistrant:
+    :path: "../tiki_sdk_flutter/tiki_sdk_flutter/.ios/Flutter/FlutterPluginRegistrant"
+  integration_test:
+    :path: "../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/integration_test/ios"
+  path_provider_ios:
+    :path: "../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/path_provider_ios/ios"
+  sqlite3_flutter_libs:
+    :path: "../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/sqlite3_flutter_libs/ios"
+  tiki_sdk_flutter_plugin:
+    :path: "../tiki_sdk_flutter/tiki_sdk_flutter/.ios/.symlinks/plugins/tiki_sdk_flutter_plugin/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 6d996877cfc4facd0a14b56954ebec5e1989616c
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
+  FlutterPluginRegistrant: 76a387962f579dcdfa4a2d6146c63bb1de987d50
+  integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  PromisesSwift: 99fddfe4a0ec88a56486644c0da106694c92a604
+  sqlite3: 50117e9e063a9ef2b865f7bdf2f2601e5d368e9a
+  sqlite3_flutter_libs: c6ab7f23670a98fef45a137159452004bc552168
+  tiki_sdk_flutter_plugin: d63414a9ff768b16a3f9b18c9cc2394885090b8c
 
-PODFILE CHECKSUM: dd5b997b50b7e1359fbbd4d093cd6a7f3354b4d6
+PODFILE CHECKSUM: 0f0ae7452218c16ba6ee78490ca903c5f3d06e8d
 
 COCOAPODS: 1.11.3

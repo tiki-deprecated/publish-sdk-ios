@@ -1,0 +1,10 @@
+framework module tiki_sdk_flutter_plugin {
+  umbrella header "tiki_sdk_flutter_plugin-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module tiki_sdk_flutter_plugin.__Swift {
+    exclude header "tiki_sdk_flutter_plugin-Swift.h"
+}

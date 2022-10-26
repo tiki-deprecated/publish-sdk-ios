@@ -1,77 +1,47 @@
-    //
-    //  TikiSdk.swift
-    //  tiki_sdk_ios
-    //
-    //  Created by Ricardo on 12/10/22.
-    //
+import Flutter
+import tiki_sdk_flutter_plugin
 
-    import Foundation
-    import tiki_sdk_flutter_plugin
-
-
-    class TikiSdk{
-        
-        init(apiKey: String){
-            self.apiKey = apiKey
-        }
-
-        private var apiKey: String?
-        private var flutterPlugin : SwiftTikiSdkFlutterPlugin = SwiftTikiSdkFlutterPlugin()
-
-        func build() {
-            flutterPlugin.channel.invokeMethod(
-                "buildSdk",[
-                    "apiKey" : apiKey
-                ]
-            )
-        }
-
-        func assignOwnership( source: String,  type: String,  contains: Array<String>?,  origin: String)
-        {
-            flutterPlugin.channel.invokeMethod(
-                "assignOwnership", [
-                    "source" : source,
-                    "type" : type,
-                    "contains" : contains,
-                    "origin" : origin,
-                ]
-            )
-        }
-
-        func getConsent(source: String, origin: String?) {
-            flutterPlugin.channel.invokeMethod(
-                "getConsent", [
-                    "source" : source,
-                    "origin" : origin
-                ]
-            )
-        }
-
-        func modifyConsent(source: String, destination: TikiSdkDestination, about: String?, reward: String?
-        ) {
-            flutterPlugin.channel.invokeMethod(
-                "modifyConsent", [
-                    "source" : source,
-                    "destination" : destination.toJson(),
-                    "about" : about,
-                    "reward" : reward,
-                ])
-        }
-
-        func applyConsent(
-            source: String,
-            destination: TikiSdkDestination,
-            requestId: String,
-            request: () -> Unit,
-            onBlock: (String) -> Unit
-        ) {
-            flutterPlugin.requestCallbacks[requestId] = request
-            flutterPlugin.blockCallbacks[requestId] = onBlock
-            SwiftTikiSdkFlutterPlugin.channel.invokeMethod(
-                "applyConsent", [
-                    "source" : source,
-                    "destination" : destination,
-                    "requestId" : requestId,
-                ])
-        }
+class TikiSdk{
+    
+    let plugin: TikiSdkFlutterPlugin
+    
+    public init(apiKey: String, origin: String){
+        let channel = TikiSdkFlutterChannel(apiKey: apiKey, origin: origin)
+        plugin = channel.plugin!
     }
+    
+    public func assignOwnership(
+        source: String,
+        type: String,
+        contains: Array<String>,
+        origin: String? = nil
+    ) async throws -> String?  {
+        try await plugin.assignOwnership(source: source, type: type, contains: contains, origin: origin)
+    }
+
+    public func modifyConsent(
+        source: String,
+        destination: TikiSdkFlutterDestination,
+        about: String?,
+        reward: String?
+    ) async throws -> String?  {
+        try await plugin.modifyConsent(source: source, destination: destination, about: about, reward: reward)
+    }
+
+    public func getConsent(
+        source: String,
+        origin: String? = nil
+    ) async throws -> String?  {
+        try await plugin.getConsent(source: source, origin: origin)
+    }
+
+    public func applyConsent(
+        source: String,
+        destination: TikiSdkFlutterDestination,
+        request: (String?) -> Unit,
+        onBlock: (String) -> Unit
+    )  async throws -> Unit  {
+        try await plugin.applyConsent(source: source, destination: destination, request: request, onBlock: onBlock)
+    }
+
+}

@@ -1,0 +1,36 @@
+Target dependency graph (11 targets)
+Flutter in Pods, no dependencies
+flutter_secure_storage in Pods, depends on:
+Flutter in Pods (explicit)
+integration_test in Pods, depends on:
+Flutter in Pods (explicit)
+path_provider_ios in Pods, depends on:
+Flutter in Pods (explicit)
+sqlite3 in Pods, no dependencies
+sqlite3_flutter_libs in Pods, depends on:
+Flutter in Pods (explicit)
+sqlite3 in Pods (explicit)
+PromisesObjC in Pods, no dependencies
+PromisesSwift in Pods, depends on:
+PromisesObjC in Pods (explicit)
+tiki_sdk_flutter_plugin in Pods, depends on:
+Flutter in Pods (explicit)
+PromisesSwift in Pods (explicit)
+FlutterPluginRegistrant in Pods, depends on:
+Flutter in Pods (explicit)
+flutter_secure_storage in Pods (explicit)
+integration_test in Pods (explicit)
+path_provider_ios in Pods (explicit)
+sqlite3_flutter_libs in Pods (explicit)
+tiki_sdk_flutter_plugin in Pods (explicit)
+Pods-Runner in Pods, depends on:
+Flutter in Pods (explicit)
+FlutterPluginRegistrant in Pods (explicit)
+PromisesObjC in Pods (explicit)
+PromisesSwift in Pods (explicit)
+flutter_secure_storage in Pods (explicit)
+integration_test in Pods (explicit)
+path_provider_ios in Pods (explicit)
+sqlite3 in Pods (explicit)
+sqlite3_flutter_libs in Pods (explicit)
+tiki_sdk_flutter_plugin in Pods (explicit)

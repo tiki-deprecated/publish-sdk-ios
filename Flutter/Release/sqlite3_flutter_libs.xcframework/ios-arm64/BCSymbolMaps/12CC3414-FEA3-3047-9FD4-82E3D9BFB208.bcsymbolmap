@@ -3,10 +3,10 @@ Apple clang version 13.0.0 (clang-1300.0.29.30)
 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk
 iPhoneOS15.2.sdk
 /Users/ricardo/dev/tiki_sdk_ios/Flutter/Release/iphoneos/Pods.build/Release-iphoneos/sqlite3_flutter_libs.build/DerivedSources/sqlite3_flutter_libs_vers.c
-/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods
+/Users/ricardo/dev/tiki_sdk_flutter/tiki_sdk_flutter/.ios/Pods
 __OBJC_METACLASS_RO_$_PodsDummy_sqlite3_flutter_libs
 __OBJC_CLASS_RO_$_PodsDummy_sqlite3_flutter_libs
-/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods/Target Support Files/sqlite3_flutter_libs/sqlite3_flutter_libs-dummy.m
+/Users/ricardo/dev/tiki_sdk_flutter/tiki_sdk_flutter/.ios/Pods/Target Support Files/sqlite3_flutter_libs/sqlite3_flutter_libs-dummy.m
 +[Sqlite3FlutterLibsPlugin registerWithRegistrar:]
 __OBJC_$_CLASS_METHODS_Sqlite3FlutterLibsPlugin
 __OBJC_$_PROTOCOL_INSTANCE_METHODS_NSObject

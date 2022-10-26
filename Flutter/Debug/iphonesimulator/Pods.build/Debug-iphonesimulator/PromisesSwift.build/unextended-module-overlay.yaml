@@ -1,0 +1,14 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/ricardo/dev/tiki_sdk_ios/Flutter/Debug/iphonesimulator/Debug-iphonesimulator/PromisesSwift/Promises.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/ricardo/dev/tiki_sdk_ios/Flutter/Debug/iphonesimulator/Pods.build/Debug-iphonesimulator/PromisesSwift.build/unextended-module.modulemap",
+    }]
+  }]
+}

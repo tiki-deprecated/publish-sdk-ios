@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import tiki_sdk_ios
+import PromiseKit
 
 class tiki_sdk_iosTests: XCTestCase {
 
@@ -18,19 +18,38 @@ class tiki_sdk_iosTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func initSDK() throws {
+        let a = Promise.init()
+        try a.wait();
+        assert(true)
     }
 
-    func testPerformanceExample() throws {
+    func createOwnership() throws {
+        assert(true)
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
         }
     }
 
+    func giveConsent() throws {
+        assert(true)
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
+    }
+    
+    func modifyConsent() throws {
+        assert(true)
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
+    }
+    
+    func applyConsent() throws {
+        assert(true)
+        
+    }
 }

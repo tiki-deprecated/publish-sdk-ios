@@ -191,7 +191,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import Flutter;
-@import ObjectiveC;
 @import UserNotifications;
 #endif
 
@@ -210,14 +209,20 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
-@protocol FlutterPluginRegistrar;
 @class FlutterMethodCall;
+@protocol FlutterPluginRegistrar;
+@class NSString;
+@protocol FlutterBinaryMessenger;
+@protocol FlutterMethodCodec;
+@protocol NSObject;
 
-SWIFT_CLASS("_TtC23tiki_sdk_flutter_plugin25SwiftTikiSdkFlutterPlugin")
-@interface SwiftTikiSdkFlutterPlugin : NSObject <FlutterPlugin>
-+ (void)registerWithRegistrar:(id <FlutterPluginRegistrar> _Nonnull)registrar;
+SWIFT_CLASS("_TtC23tiki_sdk_flutter_plugin21TikiSdkFlutterChannel")
+@interface TikiSdkFlutterChannel : FlutterMethodChannel <FlutterPlugin>
 - (void)handleMethodCall:(FlutterMethodCall * _Nonnull)call result:(FlutterResult _Nonnull)result;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
++ (void)registerWithRegistrar:(id <FlutterPluginRegistrar> _Nonnull)registrar;
+- (nonnull instancetype)initWithName:(NSString * _Nonnull)name binaryMessenger:(id <FlutterBinaryMessenger> _Nonnull)messenger codec:(id <FlutterMethodCodec, NSObject> _Nonnull)codec SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 #if __has_attribute(external_source_symbol)
@@ -418,7 +423,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import Flutter;
-@import ObjectiveC;
 @import UserNotifications;
 #endif
 
@@ -437,14 +441,20 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
-@protocol FlutterPluginRegistrar;
 @class FlutterMethodCall;
+@protocol FlutterPluginRegistrar;
+@class NSString;
+@protocol FlutterBinaryMessenger;
+@protocol FlutterMethodCodec;
+@protocol NSObject;
 
-SWIFT_CLASS("_TtC23tiki_sdk_flutter_plugin25SwiftTikiSdkFlutterPlugin")
-@interface SwiftTikiSdkFlutterPlugin : NSObject <FlutterPlugin>
-+ (void)registerWithRegistrar:(id <FlutterPluginRegistrar> _Nonnull)registrar;
+SWIFT_CLASS("_TtC23tiki_sdk_flutter_plugin21TikiSdkFlutterChannel")
+@interface TikiSdkFlutterChannel : FlutterMethodChannel <FlutterPlugin>
 - (void)handleMethodCall:(FlutterMethodCall * _Nonnull)call result:(FlutterResult _Nonnull)result;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
++ (void)registerWithRegistrar:(id <FlutterPluginRegistrar> _Nonnull)registrar;
+- (nonnull instancetype)initWithName:(NSString * _Nonnull)name binaryMessenger:(id <FlutterBinaryMessenger> _Nonnull)messenger codec:(id <FlutterMethodCodec, NSObject> _Nonnull)codec SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 #if __has_attribute(external_source_symbol)

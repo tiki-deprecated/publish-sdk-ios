@@ -1,0 +1,78 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e989da425bb6d6d5d8dbb95e4afffb82217"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e987cb9c58d33d05677fb576674bac57313"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e980eb3705e9e04386ff26289cf4a880adf"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e9809ad3ea68f8eb069e147f62c5d752fe7"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e986f0e8be830d0d3c28782ddeefee89819"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e98312b4bc59bbbe2c06c205bf4da6737f5"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e98f10882e1684b8a3dfdec597bc0a47af3"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e98ed40b4d6efca84b18a65efda8999ea5d"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e98571e4e34b09fc4b3712323a8c5b27905"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e9824aca2d35853b4eb24b83dc0aa2f067a"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e9807f78f70f025be911a14576ab46cca52"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e989da425bb6d6d5d8dbb95e4afffb82217"
+    }
+  ],
+  "containerPath" : "/Users/ricardo/dev/tiki_sdk_flutter/tiki_sdk_flutter/.ios/Pods/Pods.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "configurationName" : "Debug",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+          "BITCODE_GENERATION_MODE" : "marker",
+          "BUILD_LIBRARY_FOR_DISTRIBUTION" : "YES",
+          "ONLY_ACTIVE_ARCH" : "NO",
+          "SDKROOT" : "iphoneos15.2",
+          "SYMROOT" : "/Users/ricardo/dev/tiki_sdk_flutter/tiki_sdk_flutter/../../tiki_sdk_ios/Flutter/Debug/iphoneos"
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "build",
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : false,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : false
+}

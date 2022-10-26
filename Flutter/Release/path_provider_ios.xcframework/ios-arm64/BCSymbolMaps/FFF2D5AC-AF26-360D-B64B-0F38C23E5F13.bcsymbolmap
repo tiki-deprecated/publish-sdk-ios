@@ -3,7 +3,7 @@ Apple clang version 13.0.0 (clang-1300.0.29.30)
 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk
 iPhoneOS15.2.sdk
 /Users/ricardo/dev/tiki_sdk_ios/Flutter/Release/iphoneos/Pods.build/Release-iphoneos/path_provider_ios.build/DerivedSources/path_provider_ios_vers.c
-/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods
+/Users/ricardo/dev/tiki_sdk_flutter/tiki_sdk_flutter/.ios/Pods
 +[FLTPathProviderPlugin registerWithRegistrar:]
 -[FLTPathProviderPlugin getApplicationDocumentsPathWithError:]
 _GetDirectoryOfType
@@ -107,4 +107,4 @@ FLTPathProviderApiGetCodec
 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/usr/include/dispatch/once.h
 __OBJC_METACLASS_RO_$_PodsDummy_path_provider_ios
 __OBJC_CLASS_RO_$_PodsDummy_path_provider_ios
-/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods/Target Support Files/path_provider_ios/path_provider_ios-dummy.m
+/Users/ricardo/dev/tiki_sdk_flutter/tiki_sdk_flutter/.ios/Pods/Target Support Files/path_provider_ios/path_provider_ios-dummy.m

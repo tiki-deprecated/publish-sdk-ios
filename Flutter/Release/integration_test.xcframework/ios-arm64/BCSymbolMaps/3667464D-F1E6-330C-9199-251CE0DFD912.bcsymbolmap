@@ -3,7 +3,7 @@ Apple clang version 13.0.0 (clang-1300.0.29.30)
 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk
 iPhoneOS15.2.sdk
 /Users/ricardo/dev/tiki_sdk_ios/Flutter/Release/iphoneos/Pods.build/Release-iphoneos/integration_test.build/DerivedSources/integration_test_vers.c
-/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods
+/Users/ricardo/dev/tiki_sdk_flutter/tiki_sdk_flutter/.ios/Pods
 -[FLTIntegrationTestRunner init]
 -[FLTIntegrationTestRunner testIntegrationTestWithResults:]
 ___59-[FLTIntegrationTestRunner testIntegrationTestWithResults:]_block_invoke
@@ -67,7 +67,7 @@ __59-[FLTIntegrationTestRunner testIntegrationTestWithResults:]_block_invoke
 llvm.loop.mustprogress
 __OBJC_METACLASS_RO_$_PodsDummy_integration_test
 __OBJC_CLASS_RO_$_PodsDummy_integration_test
-/Users/ricardo/dev/tiki_sdk_flutter/.ios/Pods/Target Support Files/integration_test/integration_test-dummy.m
+/Users/ricardo/dev/tiki_sdk_flutter/tiki_sdk_flutter/.ios/Pods/Target Support Files/integration_test/integration_test-dummy.m
 -[IntegrationTestIosTest testIntegrationTest:]
 ___46-[IntegrationTestIosTest testIntegrationTest:]_block_invoke
 ___copy_helper_block_e8_32s40s
