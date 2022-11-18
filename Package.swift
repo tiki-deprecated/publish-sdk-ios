@@ -23,7 +23,6 @@ let package = Package(
                            "Promises",
                            "sqlite3_flutter_libs",
                            "sqlite3",
-                           "tiki_sdk_flutter_plugin"
                           ]),
         
         .binaryTarget(name: "FBLPromises",
@@ -56,10 +55,10 @@ let package = Package(
         
         .binaryTarget(name: "App",
                       url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/App.xcframework.zip",
-                      checksum: "9d9f34972c0b2b13fe87e4f0bd31ab3e4572601c57caa93ca2d9eb77de8b4e7c"),
-        .binaryTarget(name: "tiki_sdk_flutter_plugin",
-                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/tiki_sdk_flutter_plugin.xcframework.zip",
-                      checksum: "3451c64865ad58040af78845057ba8b0a31606b80dd816f2b3ca847c5dbbda47"),
+                      checksum: "3ca2b64c364cad444f644ce89a8ead5d1529fd27ee2905fe426d4e42611c267a"),
+//        .binaryTarget(name: "tiki_sdk_flutter_plugin",
+//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/tiki_sdk_flutter_plugin.xcframework.zip",
+//                      checksum: "3451c64865ad58040af78845057ba8b0a31606b80dd816f2b3ca847c5dbbda47"),
 
         .testTarget(
             name: "TikiSdkTests",
