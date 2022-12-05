@@ -15,51 +15,47 @@ let package = Package(
             name: "TikiSdk",
             dependencies: [
                            "App",
-                           "FBLPromises",
                            "flutter_secure_storage",
                            "Flutter",
                            "FlutterPluginRegistrant",
                            "path_provider_ios",
-                           "Promises",
                            "sqlite3_flutter_libs",
                            "sqlite3",
                           ]),
         
-        .binaryTarget(name: "FBLPromises",
-                   url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/FBLPromises.xcframework.zip",
-                   checksum: "af2f8e364f3625fa424f9978d4cf872e29fade272cc9ba5f1d10f9fa264add5d"),
-        .binaryTarget(name: "Promises",
-                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/Promises.xcframework.zip",
-                      checksum: "5dd93eb33ad198c16595fcd3a1d97847496d5ccb5cae9ef660b0a3a0538cd4cf"),
         .binaryTarget(name: "path_provider_ios",
-                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/path_provider_ios.xcframework.zip",
-                      checksum: "e84e9b328f26abd56bcca2b8bdcf0205313b2f3b8d64cea2f67fb58f3124b11e"),
+//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
+                      path:"./Frameworks/path_provider_ios.xcframework"),
+//                      checksum: "6640afac3b7d622e51e9b886b2dde631f7a57b4f52b3cb0b5115b4eba5e9a899"),
 
         
         .binaryTarget(name: "sqlite3_flutter_libs",
-                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/sqlite3_flutter_libs.xcframework.zip",
-                      checksum: "e052c42d71abf96b3d4558136f57936f1995be9c4afc760ed4626b052f17f873"),
+//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
+                      path:"./Frameworks/sqlite3_flutter_libs.xcframework"),
+//                      checksum: "8b7e6570bc7a507f4d6d1046aa7548302273fd157710fa914d269b5a9d8c557f"),
         .binaryTarget(name: "sqlite3",
-                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/sqlite3.xcframework.zip",
-                      checksum: "376d4610702678a48cb9bea34f9fe60d4e4d226a167be7419b78119c230ca06e"),
+//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
+                      path:"./Frameworks/sqlite3.xcframework"),
+//                      checksum: "0e9c7da39d70d62313362199368639920babba5c8c2fd3c8e1547edc305ae7b8"),
         .binaryTarget(name: "flutter_secure_storage",
-                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/flutter_secure_storage.xcframework.zip",
-                      checksum: "cf8c8ed632b6685259292572cf7b9c9df6b1867a28f4ba4ca1c6371fbdb71e99"),
+//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
+                      path:"./Frameworks/flutter_secure_storage.xcframework"),
+//                      checksum: "157ef7a8e1f399ca9a399b383506be834bf70d363f6434f5836a7be4caac1239"),
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/Flutter.xcframework.zip",
-                      checksum: "5f2a17156361a62a1a9aa0237d9c17095cda808b1733dec82546e39e841d07d2"),
+//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
+                      path:"./Frameworks/Flutter.xcframework"),
+//                      checksum: "90a40afb00cdece7c34f57ba1103cee0711feec3d30d02035c7658376a73a4d7"),
         .binaryTarget(name: "FlutterPluginRegistrant",
-                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/FlutterPluginRegistrant.xcframework.zip",
-                      checksum: "a53db7c12bebc32b47a913859bf03b14cb3350e54450c372df9bde141852a1ce"),
+//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
+                      path:"./Frameworks/FlutterPluginRegistrant.xcframework"),
+//                      checksum: "9c8d688a1953d85360eb2fce008e559557bdae9244022ce484e93bbc80ed2adb"),
         
         
         .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/App.xcframework.zip",
-                      checksum: "9d9f34972c0b2b13fe87e4f0bd31ab3e4572601c57caa93ca2d9eb77de8b4e7c"),
-//        .binaryTarget(name: "tiki_sdk_flutter_plugin",
-//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main/Frameworks/tiki_sdk_flutter_plugin.xcframework.zip",
-//                      checksum: "3451c64865ad58040af78845057ba8b0a31606b80dd816f2b3ca847c5dbbda47"),
-
+//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
+                      path:"./Frameworks/App.xcframework"),
+//                      checksum: "e11b47193f61021400ebe86eef6a71b65135a32c30e060da42a26983ed367bfb"),
+        
         .testTarget(
             name: "TikiSdkTests",
             dependencies: ["TikiSdk"]),

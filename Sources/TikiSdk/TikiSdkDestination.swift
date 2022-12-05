@@ -1,5 +1,5 @@
 import Foundation
-public struct TikiSdkDestination:Codable {
+public class TikiSdkDestination:Codable {
     public var uses: Array<String> = []
     public var paths: Array<String> = []
     

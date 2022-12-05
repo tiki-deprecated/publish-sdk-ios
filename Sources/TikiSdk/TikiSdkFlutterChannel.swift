@@ -1,5 +1,4 @@
 import Flutter
-import Promises
 
 public class TikiSdkFlutterChannel: FlutterMethodChannel {
 
@@ -24,10 +23,10 @@ public class TikiSdkFlutterChannel: FlutterMethodChannel {
         let response = (call.arguments as? Dictionary<String, String>)?["response"]
         switch (call.method) {
             case "success" :
-                tikiSdk!.promises[requestId]!.fulfill(response)
+                tikiSdk!.completions[requestId]!(true, response)
             break
             case "error" :
-                tikiSdk!.promises[requestId]!.reject(TikiSdkError(message: response))
+                tikiSdk!.completions[requestId]!(false, response)
             break
             default : result(FlutterError(code: "-1", message: "Uninplemented", details: call.arguments))
         }
