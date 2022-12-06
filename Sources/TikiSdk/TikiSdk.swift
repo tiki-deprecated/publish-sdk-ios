@@ -4,6 +4,7 @@ public typealias TikiSdkCompletion = (Bool, String?) -> Void
 public class TikiSdk{
     var completions: Dictionary<String, TikiSdkCompletion> = [:]
     var methodChannel: TikiSdkFlutterChannel
+    var address: String?
 
     public init(origin: String, apiKey: String = "") {
         methodChannel = TikiSdkFlutterChannel(apiKey: apiKey, origin: origin)
@@ -33,8 +34,8 @@ public class TikiSdk{
         source: String,
         destination: TikiSdkDestination,
         completion: @escaping TikiSdkCompletion,
-        about: String?,
-        reward: String?
+        about: String? = nil,
+        reward: String? = nil
     ) {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(

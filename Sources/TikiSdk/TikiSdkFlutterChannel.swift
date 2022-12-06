@@ -17,13 +17,16 @@ public class TikiSdkFlutterChannel: FlutterMethodChannel {
     }
     
     @objc(handleMethodCall:result:) public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let requestId = (call.arguments as? Dictionary<String, String>)?["requestId"] else {
+        guard let requestId = (call.arguments as? Dictionary<String, Any>)?["requestId"] as? String else {
             result(FlutterError.init(code: "-1", message: "missing requestId argument", details: call.arguments))
             return
         }
-        let response = (call.arguments as? Dictionary<String, String>)?["response"]
+        let response = (call.arguments as? Dictionary<String, Any>)?["response"] as? String
         switch (call.method) {
             case "success" :
+                if(requestId == "build"){
+                    tikiSdk?.address = response!
+                }
                 print(response)
                 tikiSdk!.completions[requestId]?(true, response)
             break
@@ -45,7 +48,8 @@ public class TikiSdkFlutterChannel: FlutterMethodChannel {
         methodChannel!.invokeMethod(
             "build", arguments: [
                 "apiKey" : apiKey,
-                "origin" : origin
+                "origin" : origin,
+                "requestId" : "build"
             ]
         )
     }
