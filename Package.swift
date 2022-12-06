@@ -27,7 +27,6 @@ let package = Package(
 //                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
                       path:"./Frameworks/path_provider_ios.xcframework"),
 //                      checksum: "6640afac3b7d622e51e9b886b2dde631f7a57b4f52b3cb0b5115b4eba5e9a899"),
-
         
         .binaryTarget(name: "sqlite3_flutter_libs",
 //                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
