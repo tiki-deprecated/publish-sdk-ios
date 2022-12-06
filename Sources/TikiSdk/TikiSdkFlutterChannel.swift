@@ -1,7 +1,7 @@
 import Flutter
 import FlutterPluginRegistrant
 
-public class TikiSdkFlutterChannel: FlutterMethodChannel {
+public class TikiSdkFlutterChannel {
 
     let channelId = "tiki_sdk_flutter"
     var flutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
@@ -10,7 +10,6 @@ public class TikiSdkFlutterChannel: FlutterMethodChannel {
     public var methodChannel: FlutterMethodChannel? = nil
 
     public init(apiKey: String? =  nil, origin: String? = nil) {
-        super.init()
         if(methodChannel == nil){
             setupChannel(apiKey: apiKey ?? "", origin: origin ?? "")
         }

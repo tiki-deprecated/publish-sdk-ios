@@ -3,12 +3,14 @@ import Flutter
 public typealias TikiSdkCompletion = (Bool, String?) -> Void
 public class TikiSdk{
     var completions: Dictionary<String, TikiSdkCompletion> = [:]
-    var methodChannel: TikiSdkFlutterChannel
+    var tikiSdkFlutterChannel: TikiSdkFlutterChannel
+    var methodChannel: FlutterMethodChannel
     var address: String?
 
     public init(origin: String, apiKey: String = "") {
-        methodChannel = TikiSdkFlutterChannel(apiKey: apiKey, origin: origin)
-        methodChannel.tikiSdk = self;
+        tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiKey: apiKey, origin: origin)
+        methodChannel = tikiSdkFlutterChannel.methodChannel!
+        tikiSdkFlutterChannel.tikiSdk = self;
     }
 
     public func assignOwnership(
