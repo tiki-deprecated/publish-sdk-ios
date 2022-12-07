@@ -1,22 +1,26 @@
 import Flutter
-import Promises
 
+public typealias TikiSdkCompletion = (_ success: Bool, _ response: String?) -> Void
 public class TikiSdk{
-    var promises: Dictionary<String, Promise<String?>> = [:]
-    var methodChannel: TikiSdkFlutterChannel
+    var completions: Dictionary<String, TikiSdkCompletion> = [:]
+    var tikiSdkFlutterChannel: TikiSdkFlutterChannel
+    var methodChannel: FlutterMethodChannel
+    var address: String?
 
-    public init(origin: String, apiKey: String = "") {
-        methodChannel = TikiSdkFlutterChannel(apiKey: apiKey, origin: origin)
-        methodChannel.tikiSdk = self;
+    public init(origin: String, apiKey: String, onBuild: TikiSdkCompletion? = nil) {
+        tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiKey: apiKey, origin: origin)
+        methodChannel = tikiSdkFlutterChannel.methodChannel
+        tikiSdkFlutterChannel.tikiSdk = self;
+        completions["build"] = onBuild
     }
 
     public func assignOwnership(
         source: String,
         type: String,
         contains: Array<String>,
+        completion: @escaping TikiSdkCompletion,
         origin: String? = nil
-    ) async throws -> String?  {
-
+    ) {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "assignOwnership", arguments: [
@@ -26,17 +30,16 @@ public class TikiSdk{
                 "contains" : contains,
                 "origin" : origin as Any
             ])
-        let promise = Promise<String?>.pending()
-        promises[requestId] = promise
-        return try awaitPromise(promise)
+        completions[requestId] = completion
     }
 
     public func modifyConsent(
         source: String,
         destination: TikiSdkDestination,
-        about: String?,
-        reward: String?
-    ) async throws -> String?  {
+        completion: @escaping TikiSdkCompletion,
+        about: String? = nil,
+        reward: String? = nil
+    ) {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "modifyConsent", arguments: [
@@ -47,15 +50,14 @@ public class TikiSdk{
                 "reward" : reward,
                 ]
         )
-        let promise = Promise<String?>.pending()
-        promises[requestId] = promise
-        return try awaitPromise(promise)
+        completions[requestId] = completion
     }
 
     public func getConsent(
         source: String,
+        completion: @escaping TikiSdkCompletion,
         origin: String? = nil
-    ) async throws -> String?  {
+    ) {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "getConsent",  arguments: [
@@ -64,17 +66,15 @@ public class TikiSdk{
                 "origin" : origin as Any
             ]
         )
-        let promise = Promise<String?>.pending()
-        promises[requestId] = promise
-        return try awaitPromise(promise)
+        completions[requestId] = completion
     }
 
     public func applyConsent(
         source: String,
         destination: TikiSdkDestination,
-        request: (String?) -> Void,
-        onBlock: (String) -> Void
-    )  async throws -> Void  {
+        request:  @escaping (String?) -> Void,
+        onBlock:  @escaping (String?) -> Void
+    ) {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "applyConsent",  arguments: [
@@ -83,12 +83,13 @@ public class TikiSdk{
                 "destination" : destination.toJson(),
             ]
         )
-        do {
-            let promise = Promise<String?>.pending()
-            let response = try awaitPromise(promise)
-            return request(response)
-        } catch {
-            return onBlock("no consent")
+        completions[requestId] = { result, response in
+            if(result){
+                request(response)
+            }else{
+                onBlock(response)
+            }
         }
+        
     }
 }

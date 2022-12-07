@@ -1,4 +1,4 @@
-public struct TikiSdkConsent : Codable{
+public class TikiSdkConsent : Codable{
     /**
      * Transaction ID corresponding to the ownership mint for the data source.
      */
