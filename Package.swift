@@ -23,38 +23,30 @@ let package = Package(
                            "sqlite3",
                           ]),
         
+        .binaryTarget(name: "App",
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.16%2B2-ios/App.xcframework.zip",
+        checksum: "65a6ad3cd05b410f02ea17b778f69c32596296c9e7cd45156b29904598708493"),
+        .binaryTarget(name: "flutter_secure_storage",
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.16%2B2-ios/flutter_secure_storage.xcframework.zip",
+                      checksum: "fb1db1c4104cf5a0577f7342479c29db5dc4c2374335e430327535f6e6513668"),
+        .binaryTarget(name: "Flutter",
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.16%2B2-ios/Flutter.xcframework.zip",
+                      checksum: "de1544a0931cf4ae4ff8e519fdb10a2d17866bafcae172e8ca3bc847d3177a9d"),
+        .binaryTarget(name: "FlutterPluginRegistrant",
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.16%2B2-ios/FlutterPluginRegistrant.xcframework.zip",
+                      checksum: "cad07261a21c8302f7a5475cff49a7da30c54db1359376a36e4ea204ec251449"),
         .binaryTarget(name: "path_provider_ios",
-//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
-                      path:"./Frameworks/path_provider_ios.xcframework"),
-//                      checksum: "6640afac3b7d622e51e9b886b2dde631f7a57b4f52b3cb0b5115b4eba5e9a899"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.16%2B2-ios/path_provider_ios.xcframework.zip",
+                      checksum: "a1cac1bb500c1e4b87037b217825ef7989e2fc943405e9195e7171334870762e"),
         
         .binaryTarget(name: "sqlite3_flutter_libs",
-//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
-                      path:"./Frameworks/sqlite3_flutter_libs.xcframework"),
-//                      checksum: "8b7e6570bc7a507f4d6d1046aa7548302273fd157710fa914d269b5a9d8c557f"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.16%2B2-ios/sqlite3_flutter_libs.xcframework.zip",
+                      checksum: "b21e2b84b912bc35cc308ea5c1d2c8a5f739ab0ea07d3a0c7543704a30329235"),
         .binaryTarget(name: "sqlite3",
-//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
-                      path:"./Frameworks/sqlite3.xcframework"),
-//                      checksum: "0e9c7da39d70d62313362199368639920babba5c8c2fd3c8e1547edc305ae7b8"),
-        .binaryTarget(name: "flutter_secure_storage",
-//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
-                      path:"./Frameworks/flutter_secure_storage.xcframework"),
-//                      checksum: "157ef7a8e1f399ca9a399b383506be834bf70d363f6434f5836a7be4caac1239"),
-        .binaryTarget(name: "Flutter",
-//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
-                      path:"./Frameworks/Flutter.xcframework"),
-//                      checksum: "90a40afb00cdece7c34f57ba1103cee0711feec3d30d02035c7658376a73a4d7"),
-        .binaryTarget(name: "FlutterPluginRegistrant",
-//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
-                      path:"./Frameworks/FlutterPluginRegistrant.xcframework"),
-//                      checksum: "9c8d688a1953d85360eb2fce008e559557bdae9244022ce484e93bbc80ed2adb"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.16%2B2-ios/sqlite3.xcframework.zip",
+                      checksum: "5ddfad96e261bc3283383891d37bc04b8b4177aa651708bc205358b263486a85"),
         
-        
-        .binaryTarget(name: "App",
-//                      url: "https://github.com/tiki/tiki-sdk-ios/raw/main
-                      path:"./Frameworks/App.xcframework"),
-//                      checksum: "e11b47193f61021400ebe86eef6a71b65135a32c30e060da42a26983ed367bfb"),
-        
+
         .testTarget(
             name: "TikiSdkTests",
             dependencies: ["TikiSdk"]),

@@ -1,16 +1,17 @@
 import Flutter
 
-public typealias TikiSdkCompletion = (Bool, String?) -> Void
+public typealias TikiSdkCompletion = (_ success: Bool, _ response: String?) -> Void
 public class TikiSdk{
     var completions: Dictionary<String, TikiSdkCompletion> = [:]
     var tikiSdkFlutterChannel: TikiSdkFlutterChannel
     var methodChannel: FlutterMethodChannel
     var address: String?
 
-    public init(origin: String, apiKey: String = "") {
+    public init(origin: String, apiKey: String, onBuild: TikiSdkCompletion? = nil) {
         tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiKey: apiKey, origin: origin)
-        methodChannel = tikiSdkFlutterChannel.methodChannel!
+        methodChannel = tikiSdkFlutterChannel.methodChannel
         tikiSdkFlutterChannel.tikiSdk = self;
+        completions["build"] = onBuild
     }
 
     public func assignOwnership(
