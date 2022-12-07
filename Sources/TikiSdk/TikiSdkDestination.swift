@@ -1,7 +1,20 @@
 import Foundation
-public struct TikiSdkDestination:Codable {
+public class TikiSdkDestination:Codable {
     public var uses: Array<String> = []
     public var paths: Array<String> = []
+    
+    init(uses : Array<String> = [], paths : Array<String> = []){
+        self.uses = uses
+        self.paths = paths
+    }
+    
+    public static func all() -> TikiSdkDestination{
+        return TikiSdkDestination(uses: ["*"], paths: ["*"])
+    }
+    
+    public static func none() -> TikiSdkDestination{
+        return TikiSdkDestination(uses: [], paths: [])
+    }
     
     public static func fromJson(jsonString : String) -> TikiSdkDestination{
         let decoder = JSONDecoder()

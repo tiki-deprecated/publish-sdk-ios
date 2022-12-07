@@ -1,48 +1,49 @@
 import Flutter
-import Promises
+import FlutterPluginRegistrant
 
-public class TikiSdkFlutterChannel: FlutterMethodChannel {
+public class TikiSdkFlutterChannel {
 
     let channelId = "tiki_sdk_flutter"
-    var flutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
+    
+    var flutterEngine: FlutterEngine
+    
     public var tikiSdk: TikiSdk?
-    
-    public var methodChannel: FlutterMethodChannel? = nil
+    public var methodChannel: FlutterMethodChannel
 
-    public init(apiKey: String? =  nil, origin: String? = nil) {
-        super.init()
-        if(methodChannel == nil){
-            setupChannel(apiKey: apiKey ?? "", origin: origin ?? "")
-        }
-    }
-    
-    @objc(handleMethodCall:result:) public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let requestId = (call.arguments as! Dictionary<String, String>)["requestId"] else {
-            result(FlutterError.init(code: "-1", message: "missing requestId argument", details: call.arguments))
-            return
-        }
-        let response = (call.arguments as? Dictionary<String, String>)?["response"]
-        switch (call.method) {
-            case "success" :
-                tikiSdk!.promises[requestId]!.fulfill(response)
-            break
-            case "error" :
-                tikiSdk!.promises[requestId]!.reject(TikiSdkError(message: response))
-            break
-            default : result(FlutterError(code: "-1", message: "Uninplemented", details: call.arguments))
-        }
-    }
-
-    func setupChannel(apiKey: String, origin: String) {
-        if (methodChannel == nil) {
-            flutterEngine.run()
-            methodChannel = FlutterMethodChannel.init(name: channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-        }
-        methodChannel!.invokeMethod(
+    public init(apiKey: String, origin: String) {
+        flutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
+        flutterEngine.run()
+        GeneratedPluginRegistrant.register(with: flutterEngine);
+        methodChannel = FlutterMethodChannel.init(name: channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+        methodChannel.setMethodCallHandler(handle)
+        methodChannel.invokeMethod(
             "build", arguments: [
                 "apiKey" : apiKey,
-                "origin" : origin
+                "origin" : origin,
+                "requestId" : "build"
             ]
         )
     }
+    
+    public func handle(call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let requestId = (call.arguments as? Dictionary<String, Any>)?["requestId"] as? String else {
+            result(FlutterError.init(code: "-1", message: "missing requestId argument", details: call.arguments))
+            return
+        }
+        let response = (call.arguments as? Dictionary<String, Any>)?["response"] as? String
+        switch (call.method) {
+            case "success" :
+                if(requestId == "build"){
+                    tikiSdk!.address = response!
+                }
+                tikiSdk!.completions[requestId]?(true, response)
+            break
+            case "error" :
+                tikiSdk!.completions[requestId]?(false, response)
+            break
+            default :
+                result(FlutterError(code: "-1", message: "Uninplemented", details: call.arguments))
+        }
+    }
+
 }
