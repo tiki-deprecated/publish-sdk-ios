@@ -1,9 +1,11 @@
 // swift-tools-version:5.5.0
 
 import PackageDescription
+import AppKit
 
 let package = Package(
     name: "TikiSdk",
+    description: "A Swift Package for adding TIKI's decentralized infrastructure to **iOS** projects. Add tokenized data ownership, consent, and rewards to your app in minutes.",
     products: [
         .library(
             name: "TikiSdk",
