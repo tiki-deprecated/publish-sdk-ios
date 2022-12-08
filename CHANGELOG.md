@@ -1,3 +1,7 @@
+## 0.0.7
+
+* fix Package import
+
 ## 0.0.6
 
 * Add chagenlog and license files

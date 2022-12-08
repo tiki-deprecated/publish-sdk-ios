@@ -1,7 +1,6 @@
 // swift-tools-version:5.5.0
 
 import PackageDescription
-import AppKit
 
 let package = Package(
     name: "TikiSdk",
