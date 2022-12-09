@@ -4,8 +4,8 @@
 
 A Swift Package for adding TIKI's decentralized infrastructure to **iOS** projects. Add tokenized data ownership, consent, and rewards to your app in minutes.
 
-### [🎬 How to get started ➝](https://docs.mytiki.com/docs/tiki-sdk-flutter-getting-started)
-- **[API Reference ➝](https://docs.mytiki.com/reference/tiki-sdk-flutter-tiki-sdk-flutter-builder)**
+### [🎬 How to get started ➝](https://docs.mytiki.com/docs/tiki-sdk-ios-getting-started)
+- **[API Reference ➝](https://docs.mytiki.com/reference/tiki-sdk-ios-tiki-sdk)**
 - **[Swift Docs ➝](https://tiki-sdk-ios.docs.mytiki.com)**
 
 #### Basic Architecture
