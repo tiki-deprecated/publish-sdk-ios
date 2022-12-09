@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "TikiSdk",
+    platforms: [
+            .iOS(.v14)
+    ],
     products: [
         .library(
             name: "TikiSdk",
@@ -22,7 +25,6 @@ let package = Package(
                            "sqlite3_flutter_libs",
                            "sqlite3",
                           ]),
-        
         .binaryTarget(name: "App",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.17/App_release.xcframework.zip",
                       checksum: "7cddad9f12c44424a6f5bcebb5def5c6a63fac5f2a9f2de7760bbe913d43f154"),
