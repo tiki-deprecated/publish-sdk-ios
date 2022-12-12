@@ -1,26 +1,25 @@
 import Flutter
-
-/// The completion type for TikiSdkFlutterChannelCalls
-public typealias TikiSdkCompletion = (_ success: Bool, _ response: String?) -> Void
+import Darwin
 
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
-    var completions: Dictionary<String, TikiSdkCompletion> = [:]
-    var continuations: Dictionary<String, CheckedContinuation<String, Never>> = [:]
+
+    var continuations: Dictionary<String, CheckedContinuation<String, Error>> = [:]
     var tikiSdkFlutterChannel: TikiSdkFlutterChannel
     var methodChannel: FlutterMethodChannel
-    var address: String?
+    
+    public var address: String?
 
     /// Initialized the TIKI SDK.
     ///
     /// - Parameters:
     ///     - origin: The default *origin* for all transactions.
     ///     - apiId: The *apiId* for connecting to TIKI cloud.
-    public init(origin: String, apiId: String) async {
+    public init(origin: String, apiId: String) async throws{
         tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiId: apiId, origin: origin)
         methodChannel = tikiSdkFlutterChannel.methodChannel
         tikiSdkFlutterChannel.tikiSdk = self;
-        address = await withCheckedContinuation { continuation in
+        address = try await withCheckedThrowingContinuation { (continuation : CheckedContinuation<String, Error> ) in
                 continuations["build"] = continuation
         }
     }
@@ -42,7 +41,7 @@ public class TikiSdk{
         contains: Array<String>,
         about: String,
         origin: String? = nil
-    ) async -> String {
+    ) async throws -> String {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "assignOwnership", arguments: [
@@ -52,7 +51,7 @@ public class TikiSdk{
                 "contains" : contains,
                 "origin" : origin as Any
             ])
-        return await withCheckedContinuation { continuation in
+        return try await withCheckedThrowingContinuation { continuation in
                 continuations[requestId] = continuation
         }
     }
@@ -68,7 +67,6 @@ public class TikiSdk{
     /// - Parameters
     ///     - source: String,
     ///     - destination: TikiSdkDestination,
-    ///     - completion: @escaping TikiSdkCompletion,
     ///     - about: String? = nil,
     ///     - reward: String? = nil
     ///     - expiry
@@ -77,11 +75,10 @@ public class TikiSdk{
     public func modifyConsent(
         source: String,
         destination: TikiSdkDestination,
-        completion: @escaping TikiSdkCompletion,
         about: String? = nil,
         reward: String? = nil,
         expiry: Date
-    ) async -> String {
+    ) async throws -> String {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "modifyConsent", arguments: [
@@ -92,7 +89,7 @@ public class TikiSdk{
                 "reward" : reward,
                 ]
         )
-        return await withCheckedContinuation { continuation in
+        return try await withCheckedThrowingContinuation { continuation in
                 continuations[requestId] = continuation
         }
     }
@@ -110,9 +107,8 @@ public class TikiSdk{
     /// - Returns: Latest *TikiSdkConsent* for *source* and *origin*.
     public func getConsent(
         source: String,
-        completion: @escaping TikiSdkCompletion,
         origin: String? = nil
-    ) async -> String {
+    ) async throws -> String {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "getConsent",  arguments: [
@@ -121,7 +117,7 @@ public class TikiSdk{
                 "origin" : origin as Any
             ]
         )
-        return await withCheckedContinuation { continuation in
+        return try await withCheckedThrowingContinuation { continuation in
                 continuations[requestId] = continuation
         }
     }
@@ -143,7 +139,7 @@ public class TikiSdk{
         request:  @escaping (String?) -> Void,
         onBlock:  @escaping (String?) -> Void,
         origin: String
-    ) async -> String {
+    ) async -> Void {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "applyConsent",  arguments: [
@@ -152,8 +148,13 @@ public class TikiSdk{
                 "destination" : destination.toJson(),
             ]
         )
-        return await withCheckedContinuation { continuation in
+        do{
+            let response = try await withCheckedThrowingContinuation { continuation in
                 continuations[requestId] = continuation
+            }
+            request(response);
+        }catch {
+            onBlock(error.localizedDescription)
         }
     }
 }

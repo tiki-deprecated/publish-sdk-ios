@@ -36,13 +36,14 @@ public class TikiSdkFlutterChannel {
                 if(requestId == "build"){
                     tikiSdk!.address = response!
                 }
-                tikiSdk!.completions[requestId]?(true, response)
+                tikiSdk!.continuations[requestId]?.resume(returning: response!)
             break
             case "error" :
-                tikiSdk!.completions[requestId]?(false, response)
+                tikiSdk!.continuations[requestId]?.resume(throwing: TikiSdkError(message: response))
             break
             default :
                 result(FlutterError(code: "-1", message: "Uninplemented", details: call.arguments))
+                tikiSdk!.continuations[requestId]?.resume(throwing: TikiSdkError(message: "Uninplemented method"))
         }
     }
 
