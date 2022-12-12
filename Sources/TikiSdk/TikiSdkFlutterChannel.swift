@@ -10,6 +10,7 @@ public class TikiSdkFlutterChannel {
     public var tikiSdk: TikiSdk?
     public var methodChannel: FlutterMethodChannel
 
+    /// Initializes the Flutter Engine and Platform Channels and builds the Dart SDK.
     public init(apiId: String, origin: String) {
         flutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
         flutterEngine.run()
@@ -25,6 +26,11 @@ public class TikiSdkFlutterChannel {
         )
     }
     
+    /// Handles the method calls from Flutter.
+    ///
+    /// When calling TIKI SDK Flutter from native code, one should pass a requestId
+    /// that will identify to which request the response belongs to.
+    /// All the calls are asynchronous and should be treated like this.
     public func handle(call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let requestId = (call.arguments as? Dictionary<String, Any>)?["requestId"] as? String else {
             result(FlutterError.init(code: "-1", message: "missing requestId argument", details: call.arguments))

@@ -19,6 +19,12 @@ public class TikiSdkConsent : Codable{
     /// The Consent expiration date. nil for no expiration.
     public var expiry: Int?
 
+    /// Builds *TikiSdkConsent* from *jsonString*
+    ///
+    /// - Parameters
+    ///     - jsonString: valid json representation of *TikiSdkConsent*
+    ///
+    /// - Returns: *TikiSdkConsent*
     public static func fromJson(jsonString : String) -> TikiSdkConsent{
         let decoder = JSONDecoder()
         do {
@@ -29,6 +35,9 @@ public class TikiSdkConsent : Codable{
         }
     }
     
+    /// Converts this to a JSON String
+    ///
+    /// - Returns: valid json representation of *TikiSdkConsent*
     public func toJson() -> String{
         let encoder = JSONEncoder()
         do {
