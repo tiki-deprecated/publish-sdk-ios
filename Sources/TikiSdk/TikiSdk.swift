@@ -15,6 +15,8 @@ public class TikiSdk{
     /// - Parameters:
     ///     - origin: The default *origin* for all transactions.
     ///     - apiId: The *apiId* for connecting to TIKI cloud.
+    ///
+    /// - Throws: *TikiSdkError*
     public init(origin: String, apiId: String) async throws{
         tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiId: apiId, origin: origin)
         methodChannel = tikiSdkFlutterChannel.methodChannel
@@ -27,19 +29,19 @@ public class TikiSdk{
     /// Assign ownership to a given *source*.
     ///
     /// - Parameters:
-    ///    - source: String,
-    ///    - type: String,
-    ///    - contains: The list of items the data contains is described by [contains]
-    ///    - about:
-    ///    - completion: @escaping TikiSdkCompletion,
-    ///    - origin: String? = nil
+    ///    - source: The identification of the data *source*.
+    ///    - type: The *type* of data source (point, pool or stream) identified by *TikiSdkDataTypeEnum*.
+    ///    - contains: The list of items the data *contains*.
+    ///    - about: A description about the data.
+    ///    - origin: Optional override for default origin.
     ///
     /// - Returns:A base64 url-safe representation of the ownership transaction id.
+    /// - Throws: *TikiSdkError*
     public func assignOwnership(
         source: String,
-        type: String,
+        type: TikiSdkDataType,
         contains: Array<String>,
-        about: String,
+        about: String?,
         origin: String? = nil
     ) async throws -> String {
         let requestId = UUID().uuidString
@@ -47,8 +49,9 @@ public class TikiSdk{
             "assignOwnership", arguments: [
                 "requestId" : requestId,
                 "source" : source,
-                "type" : type,
+                "type" : type.rawValue,
                 "contains" : contains,
+                "about" : about as Any,
                 "origin" : origin as Any
             ])
         return try await withCheckedThrowingContinuation { continuation in
@@ -65,13 +68,14 @@ public class TikiSdk{
     /// means revoked consent.
     ///
     /// - Parameters
-    ///     - source: String,
-    ///     - destination: TikiSdkDestination,
-    ///     - about: String? = nil,
-    ///     - reward: String? = nil
-    ///     - expiry
+    ///     - source: The identification of the data *source*.
+    ///     - destination: *TikiSdkDestination*.
+    ///     - about: A description about the data.
+    ///     - reward: An optional reward the user will receive for granting consent.
+    ///     - expiry: The consent expiration date.
     ///
-    ///  - Returns: The created *TikiSdkConsent*.
+    /// - Returns: The created *TikiSdkConsent*.
+    /// - Throws: *TikiSdkError*
     public func modifyConsent(
         source: String,
         destination: TikiSdkDestination,
@@ -85,8 +89,9 @@ public class TikiSdk{
                 "requestId" : requestId,
                 "source" : source,
                 "destination" : destination.toJson(),
-                "about" : about,
-                "reward" : reward,
+                "about" : about as Any,
+                "reward" : reward as Any,
+                "expiry" : expiry.timeIntervalSince1970 * 1000
                 ]
         )
         return try await withCheckedThrowingContinuation { continuation in
@@ -101,10 +106,12 @@ public class TikiSdk{
     /// If no *origin* is specified, it uses the default origin.
     ///
     /// - Parameters
-    ///     - source
-    ///     - destination
+    ///     - source: The identification of the data *source*.
+    ///     - destination: *TikiSdkDestination*.
+    ///    - origin: Optional override for default origin.
     ///
     /// - Returns: Latest *TikiSdkConsent* for *source* and *origin*.
+    /// - Throws: *TikiSdkError*
     public func getConsent(
         source: String,
         origin: String? = nil
@@ -128,16 +135,16 @@ public class TikiSdk{
     /// executed. Else *onBlocked* is called.
     ///
     /// - Parameters
-    ///     - source
-    ///     - destination
-    ///     - request
-    ///     - onBlock
-    ///     - origin
+    ///     - source: The identification of the data *source*.
+    ///     - destination: *TikiSdkDestination*.
+    ///     - request: The function to run if the consent is given.
+    ///     - onBlocked: The function to run if the consent is not given.
+    ///    - origin: Optional override for default origin.
     public func applyConsent(
         source: String,
         destination: TikiSdkDestination,
-        request:  @escaping (String?) -> Void,
-        onBlock:  @escaping (String?) -> Void,
+        request:  @escaping () -> Void,
+        onBlocked:  @escaping (String?) -> Void,
         origin: String
     ) async -> Void {
         let requestId = UUID().uuidString
@@ -146,15 +153,16 @@ public class TikiSdk{
                 "requestId" : requestId,
                 "source" : source,
                 "destination" : destination.toJson(),
+                "origin" : origin as Any
             ]
         )
         do{
-            let response = try await withCheckedThrowingContinuation { continuation in
+            try await withCheckedThrowingContinuation { continuation in
                 continuations[requestId] = continuation
             }
-            request(response);
+            request();
         }catch {
-            onBlock(error.localizedDescription)
+            onBlocked(error.localizedDescription)
         }
     }
 }
