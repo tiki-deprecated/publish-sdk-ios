@@ -6,20 +6,13 @@ final class TikiSdkTests: XCTestCase {
     let apiKey = "2b8de004-cbe0-4bd5-bda6-b266d54f5c90"
     var tikiSdk : TikiSdk?
 
-    func testBuild(){
-        var ok = false
-        var result = false
-        tikiSdk = TikiSdk(
-            origin: "com.mytiki.iosTests",
-            apiKey: apiKey,
-            onBuild: { success, response in
-                result = true
-                ok = success
-            })
-        while(!result){
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {}
+    func testBuild() async {
+        do{
+            tikiSdk = try await TikiSdk(origin: "com.mytiki.iosTests", apiId: apiKey)
+            XCTAssertTrue(tikiSdk!.address!.count == 32)
+        }catch{
+            XCTFail(error.localizedDescription)
         }
-        XCTAssertTrue(ok)
     }
         
 //    func testAssign(){

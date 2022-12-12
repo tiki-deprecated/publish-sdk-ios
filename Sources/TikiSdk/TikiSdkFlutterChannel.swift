@@ -10,7 +10,7 @@ public class TikiSdkFlutterChannel {
     public var tikiSdk: TikiSdk?
     public var methodChannel: FlutterMethodChannel
 
-    public init(apiKey: String, origin: String) {
+    public init(apiId: String, origin: String) {
         flutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
         flutterEngine.run()
         GeneratedPluginRegistrant.register(with: flutterEngine);
@@ -18,7 +18,7 @@ public class TikiSdkFlutterChannel {
         methodChannel.setMethodCallHandler(handle)
         methodChannel.invokeMethod(
             "build", arguments: [
-                "apiKey" : apiKey,
+                "apiId" : apiId,
                 "origin" : origin,
                 "requestId" : "build"
             ]
@@ -36,13 +36,14 @@ public class TikiSdkFlutterChannel {
                 if(requestId == "build"){
                     tikiSdk!.address = response!
                 }
-                tikiSdk!.completions[requestId]?(true, response)
+                tikiSdk!.continuations[requestId]?.resume(returning: response!)
             break
             case "error" :
-                tikiSdk!.completions[requestId]?(false, response)
+                tikiSdk!.continuations[requestId]?.resume(throwing: TikiSdkError(message: response))
             break
             default :
                 result(FlutterError(code: "-1", message: "Uninplemented", details: call.arguments))
+                tikiSdk!.continuations[requestId]?.resume(throwing: TikiSdkError(message: "Uninplemented method"))
         }
     }
 
