@@ -7,19 +7,13 @@ final class TikiSdkTests: XCTestCase {
     var tikiSdk : TikiSdk?
 
     func testBuild(){
-        var ok = false
         var result = false
         tikiSdk = TikiSdk(
             origin: "com.mytiki.iosTests",
             apiKey: apiKey,
             onBuild: { success, response in
                 result = true
-                ok = success
             })
-        while(!result){
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {}
-        }
-        XCTAssertTrue(ok)
     }
         
 //    func testAssign(){
