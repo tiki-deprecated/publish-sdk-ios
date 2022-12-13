@@ -9,7 +9,7 @@ public class TikiSdk{
     
     public var address: String?
     
-    /// Initialized the TIKI SDK.
+    /// Initializes the TIKI SDK.
     ///
     /// - Parameters:
     ///     - origin: The default *origin* for all transactions.
