@@ -1,31 +1,30 @@
 import Flutter
-import Darwin
 
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
-
+    
     var continuations: Dictionary<String, CheckedContinuation<String, Error>> = [:]
     var tikiSdkFlutterChannel: TikiSdkFlutterChannel
     var methodChannel: FlutterMethodChannel
     
     public var address: String?
-
-    /// Initialized the TIKI SDK.
+    
+    /// Initializes the TIKI SDK.
     ///
     /// - Parameters:
     ///     - origin: The default *origin* for all transactions.
     ///     - apiId: The *apiId* for connecting to TIKI cloud.
     ///
     /// - Throws: *TikiSdkError*
-    public init(origin: String, apiId: String) async throws{
-        tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiId: apiId, origin: origin)
+    public init(origin: String, apiId: String, address: String? = nil) async throws{
+        tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiId: apiId, origin: origin, address: address)
         methodChannel = tikiSdkFlutterChannel.methodChannel
         tikiSdkFlutterChannel.tikiSdk = self;
-        address = try await withCheckedThrowingContinuation { (continuation : CheckedContinuation<String, Error> ) in
-                continuations["build"] = continuation
+        self.address = try await withCheckedThrowingContinuation { continuation in
+            continuations["build"] = continuation
         }
     }
-
+    
     /// Assign ownership to a given *source*.
     ///
     /// - Parameters:
@@ -35,13 +34,13 @@ public class TikiSdk{
     ///    - about: A description about the data.
     ///    - origin: Optional override for default origin.
     ///
-    /// - Returns:A base64 url-safe representation of the ownership transaction id.
+    /// - Returns:A base64 url-safe no-padding representation of the ownership transaction id.
     /// - Throws: *TikiSdkError*
     public func assignOwnership(
         source: String,
-        type: TikiSdkDataType,
+        type: TikiSdkDataTypeEnum,
         contains: Array<String>,
-        about: String?,
+        about: String? = nil,
         origin: String? = nil
     ) async throws -> String {
         let requestId = UUID().uuidString
@@ -55,10 +54,34 @@ public class TikiSdk{
                 "origin" : origin as Any
             ])
         return try await withCheckedThrowingContinuation { continuation in
-                continuations[requestId] = continuation
+            continuations[requestId] = continuation
         }
     }
-
+    
+    /// Gets the ownership for a *source*.
+    ///
+    /// - Parameters:
+    ///    - source: The identification of the data *source*.
+    ///    - origin: Optional override for default origin.
+    /// - Returns: *TikiSdkOwnership*
+    /// - Throws: *TikiSdkError*
+    public func getOwnership(
+        source : String,
+        origin : String? = nil
+    ) async throws -> TikiSdkOwnership{
+        let requestId = UUID().uuidString
+        methodChannel.invokeMethod(
+            "getOwnership", arguments: [
+                "requestId" : requestId,
+                "source" : source,
+                "origin" : origin as Any
+            ])
+        let jsonOwnership = try await withCheckedThrowingContinuation { continuation in
+            continuations[requestId] = continuation
+        }
+        return TikiSdkOwnership.fromJson(jsonString: jsonOwnership)
+    }
+    
     /// Modify consent for an ownership identified by [ownershipId].
     ///
     /// The Ownership must be granted before modifying consent. Consent is applied
@@ -68,7 +91,7 @@ public class TikiSdk{
     /// means revoked consent.
     ///
     /// - Parameters
-    ///     - source: The identification of the data *source*.
+    ///     - ownershipId: The transaction id of the ownership registry.
     ///     - destination: *TikiSdkDestination*.
     ///     - about: A description about the data.
     ///     - reward: An optional reward the user will receive for granting consent.
@@ -77,28 +100,33 @@ public class TikiSdk{
     /// - Returns: The created *TikiSdkConsent*.
     /// - Throws: *TikiSdkError*
     public func modifyConsent(
-        source: String,
+        ownershipId: String,
         destination: TikiSdkDestination,
         about: String? = nil,
         reward: String? = nil,
-        expiry: Date
-    ) async throws -> String {
+        expiry: Date? = nil
+    ) async throws -> TikiSdkConsent {
         let requestId = UUID().uuidString
+        var expiration = expiry?.timeIntervalSince1970
+        if(expiration != nil){
+            expiration! *= 1000
+        }
         methodChannel.invokeMethod(
             "modifyConsent", arguments: [
                 "requestId" : requestId,
-                "source" : source,
+                "ownershipId" : ownershipId,
                 "destination" : destination.toJson(),
                 "about" : about as Any,
                 "reward" : reward as Any,
-                "expiry" : expiry.timeIntervalSince1970 * 1000
-                ]
+                "expiry" : expiration as Any
+            ]
         )
-        return try await withCheckedThrowingContinuation { continuation in
-                continuations[requestId] = continuation
+        let jsonConsent = try await withCheckedThrowingContinuation { continuation in
+            continuations[requestId] = continuation
         }
+        return TikiSdkConsent.fromJson(jsonString: jsonConsent);
     }
-
+    
     /// Gets latest consent given for a *source* and *origin*.
     ///
     /// It does not validate if the consent is expired or if it can be applied to
@@ -108,14 +136,14 @@ public class TikiSdk{
     /// - Parameters
     ///     - source: The identification of the data *source*.
     ///     - destination: *TikiSdkDestination*.
-    ///    - origin: Optional override for default origin.
+    ///     - origin: Optional override for default origin.
     ///
     /// - Returns: Latest *TikiSdkConsent* for *source* and *origin*.
     /// - Throws: *TikiSdkError*
     public func getConsent(
         source: String,
         origin: String? = nil
-    ) async throws -> String {
+    ) async throws -> TikiSdkConsent {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "getConsent",  arguments: [
@@ -124,9 +152,10 @@ public class TikiSdk{
                 "origin" : origin as Any
             ]
         )
-        return try await withCheckedThrowingContinuation { continuation in
-                continuations[requestId] = continuation
+        let jsonConsent = try await withCheckedThrowingContinuation { continuation in
+            continuations[requestId] = continuation
         }
+        return TikiSdkConsent.fromJson(jsonString: jsonConsent);
     }
     
     /// Apply consent for a given *source* and *destination*.
@@ -143,9 +172,9 @@ public class TikiSdk{
     public func applyConsent(
         source: String,
         destination: TikiSdkDestination,
-        request:  @escaping () -> Void,
-        onBlocked:  @escaping (String?) -> Void,
-        origin: String
+        request:  (() -> Void),
+        onBlocked:  ((String) -> Void)?,
+        origin: String? = nil
     ) async -> Void {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
@@ -162,7 +191,7 @@ public class TikiSdk{
             }
             request();
         }catch {
-            onBlocked(error.localizedDescription)
+            onBlocked?(error.localizedDescription)
         }
     }
 }

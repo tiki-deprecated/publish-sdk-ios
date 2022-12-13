@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    
+    <title>TikiSdk| Documentation</title>
+    
+    <link rel="icon"       href="../../../favicon.ico" />
+    <link rel="mask-icon"  href="../../../favicon.svg" color="#333333" />
+    <link rel='stylesheet' href='../../../css/site.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="doc-topic">
+        <nav role="navigation" class="nav documentation-nav">
+  <div class="nav__wrapper">
+    <div class="nav__background"></div>
+    <div class="nav-content">
+      <div class="nav-title">
+        <span class="nav-title-link inactive">Documentation</span>
+      </div>
+      <div class="nav-menu">
+        <div class="nav-menu-tray">
+          <ul class="nav-menu-items hierarchy">
+            
+              <li class="nav-menu-item hierarchy-item">
+                
+                
+                  <a href="../index.html" class="item">TikiSdk</a>
+                
+              </li>
+            
+              <li class="nav-menu-item hierarchy-item">
+                
+                  <span class="current item">TikiSdk</span>
+                
+                
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main id="main" role="main" class="main">
+  <div class="topictitle">
+  <span class="eyebrow">Class</span>
+  <h1 class="title">TikiSdk</h1>
+</div>
+
+  <div class="container content-grid">
+  <div class="description">
+    <div class="abstract content">
+      The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
+    </div>
+  </div>
+  
+  <!-- The sidebar once we have one: <div class="summary"></div> -->
+  
+  <div class="primary-content">
+    <section id='declaration' class='declaration'>
+  <h2>Declaration</h2>
+  <div class='declaration-group'>
+    <pre class='source indented'><code><span class='token-keyword'>class</span> <span class='token-identifier'>TikiSdk</span></code></pre>
+  </div>
+</section>
+
+  </div>
+</div>
+
+  
+  <section id='topics' class='contenttable alt-light'>
+  <div class='container'>
+    <h2 class='title'>Topics</h2>
+
+    
+      <div class="row contenttable-section">
+        <div class="col section-title large-3 medium-3 small-12">
+          <h3 class="title">Initializers</h3>
+        </div>
+  
+        <div class="col section-content large-9 medium-9 small-12">
+          
+            <div class="link-block topic">
+              
+                <a href="../../../documentation/tikisdk/tikisdk/init(origin:apiid:address:).html" class="link has-adjacent-elements">
+                  <code class="decorated-title"><span class='identifier'>init</span><span class='decorator'>(</span><span class='decorator'>origin</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>, </span><span class='decorator'>apiId</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>, </span><span class='decorator'>address</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>?) </span><span class='decorator'>async</span><span class='decorator empty-token'> </span><span class='decorator'>throws</span></code>
+                </a>
+              
+              
+              <div class="abstract">
+                <div class="content">Initialized the TIKI SDK.</div>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="row contenttable-section">
+        <div class="col section-title large-3 medium-3 small-12">
+          <h3 class="title">Instance Properties</h3>
+        </div>
+  
+        <div class="col section-content large-9 medium-9 small-12">
+          
+            <div class="link-block topic">
+              
+                <a href="../../../documentation/tikisdk/tikisdk/address.html" class="link has-adjacent-elements">
+                  <code class="decorated-title"><span class='decorator'>var</span><span class='decorator empty-token'> </span><span class='identifier'>address</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>?</span></code>
+                </a>
+              
+              
+              <div class="abstract">
+                <div class="content"></div>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="row contenttable-section">
+        <div class="col section-title large-3 medium-3 small-12">
+          <h3 class="title">Instance Methods</h3>
+        </div>
+  
+        <div class="col section-content large-9 medium-9 small-12">
+          
+            <div class="link-block topic">
+              
+                <a href="../../../documentation/tikisdk/tikisdk/applyconsent(source:destination:request:onblocked:origin:).html" class="link has-adjacent-elements">
+                  <code class="decorated-title"><span class='decorator'>func</span><span class='decorator empty-token'> </span><span class='identifier'>applyConsent</span><span class='decorator'>(</span><span class='decorator'>source</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>, </span><span class='decorator'>destination</span><span class='decorator'>: </span><span class='decorator'>TikiSdkDestination</span><span class='decorator'>, </span><span class='decorator'>request</span><span class='decorator'>: (() -&gt; </span><span class='decorator'>Void</span><span class='decorator'>), </span><span class='decorator'>onBlocked</span><span class='decorator'>: ((</span><span class='decorator'>String</span><span class='decorator'>) -&gt; </span><span class='decorator'>Void</span><span class='decorator'>)?, </span><span class='decorator'>origin</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>?) </span><span class='decorator'>async</span></code>
+                </a>
+              
+              
+              <div class="abstract">
+                <div class="content">Apply consent for a given <em>source</em> and <em>destination</em>.</div>
+              </div>
+            </div>
+          
+            <div class="link-block topic">
+              
+                <a href="../../../documentation/tikisdk/tikisdk/assignownership(source:type:contains:about:origin:).html" class="link has-adjacent-elements">
+                  <code class="decorated-title"><span class='decorator'>func</span><span class='decorator empty-token'> </span><span class='identifier'>assignOwnership</span><span class='decorator'>(</span><span class='decorator'>source</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>, </span><span class='decorator'>type</span><span class='decorator'>: </span><span class='decorator'>TikiSdkDataTypeEnum</span><span class='decorator'>, </span><span class='decorator'>contains</span><span class='decorator'>: </span><span class='decorator'>Array</span><span class='decorator'>&lt;</span><span class='decorator'>String</span><span class='decorator'>&gt;, </span><span class='decorator'>about</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>?, </span><span class='decorator'>origin</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>?) </span><span class='decorator'>async</span><span class='decorator empty-token'> </span><span class='decorator'>throws</span><span class='decorator'> -&gt; </span><span class='decorator'>String</span></code>
+                </a>
+              
+              
+              <div class="abstract">
+                <div class="content">Assign ownership to a given <em>source</em>.</div>
+              </div>
+            </div>
+          
+            <div class="link-block topic">
+              
+                <a href="../../../documentation/tikisdk/tikisdk/getconsent(source:origin:).html" class="link has-adjacent-elements">
+                  <code class="decorated-title"><span class='decorator'>func</span><span class='decorator empty-token'> </span><span class='identifier'>getConsent</span><span class='decorator'>(</span><span class='decorator'>source</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>, </span><span class='decorator'>origin</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>?) </span><span class='decorator'>async</span><span class='decorator empty-token'> </span><span class='decorator'>throws</span><span class='decorator'> -&gt; </span><span class='decorator'>TikiSdkConsent</span></code>
+                </a>
+              
+              
+              <div class="abstract">
+                <div class="content">Gets latest consent given for a <em>source</em> and <em>origin</em>.</div>
+              </div>
+            </div>
+          
+            <div class="link-block topic">
+              
+                <a href="../../../documentation/tikisdk/tikisdk/getownership(source:origin:).html" class="link has-adjacent-elements">
+                  <code class="decorated-title"><span class='decorator'>func</span><span class='decorator empty-token'> </span><span class='identifier'>getOwnership</span><span class='decorator'>(</span><span class='decorator'>source</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>, </span><span class='decorator'>origin</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>?) </span><span class='decorator'>async</span><span class='decorator empty-token'> </span><span class='decorator'>throws</span><span class='decorator'> -&gt; </span><span class='decorator'>TikiSdkOwnership</span></code>
+                </a>
+              
+              
+              <div class="abstract">
+                <div class="content">Gets the ownership for a <em>source</em>.</div>
+              </div>
+            </div>
+          
+            <div class="link-block topic">
+              
+                <a href="../../../documentation/tikisdk/tikisdk/modifyconsent(ownershipid:destination:about:reward:expiry:).html" class="link has-adjacent-elements">
+                  <code class="decorated-title"><span class='decorator'>func</span><span class='decorator empty-token'> </span><span class='identifier'>modifyConsent</span><span class='decorator'>(</span><span class='decorator'>ownershipId</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>, </span><span class='decorator'>destination</span><span class='decorator'>: </span><span class='decorator'>TikiSdkDestination</span><span class='decorator'>, </span><span class='decorator'>about</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>?, </span><span class='decorator'>reward</span><span class='decorator'>: </span><span class='decorator'>String</span><span class='decorator'>?, </span><span class='decorator'>expiry</span><span class='decorator'>: </span><span class='decorator'>Date</span><span class='decorator'>?) </span><span class='decorator'>async</span><span class='decorator empty-token'> </span><span class='decorator'>throws</span><span class='decorator'> -&gt; </span><span class='decorator'>TikiSdkConsent</span></code>
+                </a>
+              
+              
+              <div class="abstract">
+                <div class="content">Modify consent for an ownership identified by [ownershipId].</div>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+    
+  </div>
+</section>
+
+  
+</main>
+
+      </div>
+    </div>
+    <footer class="footer"></footer>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>
