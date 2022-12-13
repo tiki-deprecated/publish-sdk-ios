@@ -38,7 +38,7 @@ public class TikiSdk{
     /// - Throws: *TikiSdkError*
     public func assignOwnership(
         source: String,
-        type: TikiSdkDataType,
+        type: TikiSdkDataTypeEnum,
         contains: Array<String>,
         about: String? = nil,
         origin: String? = nil
@@ -172,9 +172,9 @@ public class TikiSdk{
     public func applyConsent(
         source: String,
         destination: TikiSdkDestination,
-        request:  @escaping () -> Void,
-        onBlocked:  @escaping (String?) -> Void,
-        origin: String
+        request:  (() -> Void),
+        onBlocked:  ((String) -> Void)?,
+        origin: String? = nil
     ) async -> Void {
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
@@ -191,7 +191,7 @@ public class TikiSdk{
             }
             request();
         }catch {
-            onBlocked(error.localizedDescription)
+            onBlocked?(error.localizedDescription)
         }
     }
 }

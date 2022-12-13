@@ -6,7 +6,7 @@ public class TikiSdkOwnership : Codable{
     public var source : String
 
     /// The type of the data source: data point, pool or stream.
-    public var type : TikiSdkDataType
+    public var type : TikiSdkDataTypeEnum
 
      /// The origin from which the data was generated.
     public var origin : String
