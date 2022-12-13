@@ -11,7 +11,7 @@ public class TikiSdkFlutterChannel {
     public var methodChannel: FlutterMethodChannel
 
     /// Initializes the Flutter Engine and Platform Channels and builds the Dart SDK.
-    public init(apiId: String, origin: String) {
+    public init(apiId: String, origin: String, address : String? = nil) {
         flutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
         flutterEngine.run()
         GeneratedPluginRegistrant.register(with: flutterEngine);
@@ -21,6 +21,7 @@ public class TikiSdkFlutterChannel {
             "build", arguments: [
                 "apiId" : apiId,
                 "origin" : origin,
+                "address" : address,
                 "requestId" : "build"
             ]
         )

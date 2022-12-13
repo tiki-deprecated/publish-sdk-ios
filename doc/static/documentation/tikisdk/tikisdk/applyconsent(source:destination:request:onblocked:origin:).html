@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    
+    <title>applyConsent(source:destination:request:onBlocked:origin:)| Documentation</title>
+    
+    <link rel="icon"       href="../../../favicon.ico" />
+    <link rel="mask-icon"  href="../../../favicon.svg" color="#333333" />
+    <link rel='stylesheet' href='../../../css/site.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="doc-topic">
+        <nav role="navigation" class="nav documentation-nav">
+  <div class="nav__wrapper">
+    <div class="nav__background"></div>
+    <div class="nav-content">
+      <div class="nav-title">
+        <span class="nav-title-link inactive">Documentation</span>
+      </div>
+      <div class="nav-menu">
+        <div class="nav-menu-tray">
+          <ul class="nav-menu-items hierarchy">
+            
+              <li class="nav-menu-item hierarchy-item">
+                
+                
+                  <a href="../index.html" class="item">TikiSdk</a>
+                
+              </li>
+            
+              <li class="nav-menu-item hierarchy-item">
+                
+                
+                  <a href="index.html" class="item">TikiSdk</a>
+                
+              </li>
+            
+              <li class="nav-menu-item hierarchy-item">
+                
+                  <span class="current item">applyConsent(source:destination:request:onBlocked:origin:)</span>
+                
+                
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main id="main" role="main" class="main">
+  <div class="topictitle">
+  <span class="eyebrow">Instance Method</span>
+  <h1 class="title">applyConsent(source:destination:request:onBlocked:origin:)</h1>
+</div>
+
+  <div class="container content-grid">
+  <div class="description">
+    <div class="abstract content">
+      Apply consent for a given <em>source</em> and <em>destination</em>.
+    </div>
+  </div>
+  
+  <!-- The sidebar once we have one: <div class="summary"></div> -->
+  
+  <div class="primary-content">
+    <section id='declaration' class='declaration'>
+  <h2>Declaration</h2>
+  <div class='declaration-group'>
+    <pre class='source indented'><code><span class='token-keyword'>func</span> <span class='token-identifier'>applyConsent</span>(<span class='token-externalParam'>source</span>: String, <span class='token-externalParam'>destination</span>: <a class='type-identifier-link' href='../../../documentation/tikisdk/tikisdkdestination/index.html'><span>TikiSdkDestination</span></a>, <span class='token-externalParam'>request</span>: <span class='token-keyword'>@escaping</span> () -&gt; Void, <span class='token-externalParam'>onBlocked</span>: <span class='token-keyword'>@escaping</span> (String?) -&gt; Void, <span class='token-externalParam'>origin</span>: String) <span class='token-keyword'>async</span></code></pre>
+  </div>
+</section>
+<div class='content'><h2 id='discussion'>Discussion</h2><p>If consent exists for the destination and is not expired, <em>request</em> will be executed. Else <em>onBlocked</em> is called.</p><ul><li><p><p>Parameters</p><ul><li><p><p>source: The identification of the data <em>source</em>.</p></p></li><li><p><p>destination: <em>TikiSdkDestination</em>.</p></p></li><li><p><p>request: The function to run if the consent is given.</p></p></li><li><p><p>onBlocked: The function to run if the consent is not given.</p></p></li><li><p><p>origin: Optional override for default origin.</p></p></li></ul></p></li></ul></div>
+  </div>
+</div>
+
+  
+  
+  
+</main>
+
+      </div>
+    </div>
+    <footer class="footer"></footer>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>

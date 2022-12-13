@@ -2,13 +2,13 @@ import Flutter
 
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
-
+    
     var continuations: Dictionary<String, CheckedContinuation<String, Error>> = [:]
     var tikiSdkFlutterChannel: TikiSdkFlutterChannel
     var methodChannel: FlutterMethodChannel
     
     public var address: String?
-
+    
     /// Initialized the TIKI SDK.
     ///
     /// - Parameters:
@@ -16,15 +16,15 @@ public class TikiSdk{
     ///     - apiId: The *apiId* for connecting to TIKI cloud.
     ///
     /// - Throws: *TikiSdkError*
-    public init(origin: String, apiId: String) async throws{
-        tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiId: apiId, origin: origin)
+    public init(origin: String, apiId: String, address: String? = nil) async throws{
+        tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiId: apiId, origin: origin, address: address)
         methodChannel = tikiSdkFlutterChannel.methodChannel
         tikiSdkFlutterChannel.tikiSdk = self;
-        address = try await withCheckedThrowingContinuation { (continuation : CheckedContinuation<String, Error> ) in
-                continuations["build"] = continuation
+        self.address = try await withCheckedThrowingContinuation { continuation in
+            continuations["build"] = continuation
         }
     }
-
+    
     /// Assign ownership to a given *source*.
     ///
     /// - Parameters:
@@ -54,12 +54,21 @@ public class TikiSdk{
                 "origin" : origin as Any
             ])
         return try await withCheckedThrowingContinuation { continuation in
-                continuations[requestId] = continuation
+            continuations[requestId] = continuation
         }
     }
-
-    /// Gets the ownership for a [source] and optional [origin].
-    public func getOwnership(source : String, origin : String? = nil) async throws -> TikiSdkOwnership{
+    
+    /// Gets the ownership for a *source*.
+    ///
+    /// - Parameters:
+    ///    - source: The identification of the data *source*.
+    ///    - origin: Optional override for default origin.
+    /// - Returns: *TikiSdkOwnership*
+    /// - Throws: *TikiSdkError*
+    public func getOwnership(
+        source : String,
+        origin : String? = nil
+    ) async throws -> TikiSdkOwnership{
         let requestId = UUID().uuidString
         methodChannel.invokeMethod(
             "getOwnership", arguments: [
@@ -68,11 +77,11 @@ public class TikiSdk{
                 "origin" : origin as Any
             ])
         let jsonOwnership = try await withCheckedThrowingContinuation { continuation in
-                continuations[requestId] = continuation
+            continuations[requestId] = continuation
         }
         return TikiSdkOwnership.fromJson(jsonString: jsonOwnership)
     }
-        
+    
     /// Modify consent for an ownership identified by [ownershipId].
     ///
     /// The Ownership must be granted before modifying consent. Consent is applied
@@ -110,14 +119,14 @@ public class TikiSdk{
                 "about" : about as Any,
                 "reward" : reward as Any,
                 "expiry" : expiration as Any
-                ]
+            ]
         )
         let jsonConsent = try await withCheckedThrowingContinuation { continuation in
-                continuations[requestId] = continuation
+            continuations[requestId] = continuation
         }
         return TikiSdkConsent.fromJson(jsonString: jsonConsent);
     }
-
+    
     /// Gets latest consent given for a *source* and *origin*.
     ///
     /// It does not validate if the consent is expired or if it can be applied to
@@ -144,10 +153,9 @@ public class TikiSdk{
             ]
         )
         let jsonConsent = try await withCheckedThrowingContinuation { continuation in
-                continuations[requestId] = continuation
+            continuations[requestId] = continuation
         }
         return TikiSdkConsent.fromJson(jsonString: jsonConsent);
-
     }
     
     /// Apply consent for a given *source* and *destination*.
