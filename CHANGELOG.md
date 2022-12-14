@@ -1,3 +1,7 @@
+## 0.0.8
+* added swift doc autogenerate and hosting
+* added readme doc sync
+
 ## 0.0.7
 
 * fix Package import

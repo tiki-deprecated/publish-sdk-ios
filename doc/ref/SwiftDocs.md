@@ -5,5 +5,5 @@ slug: tiki-sdk-ios-docs
 hidden: false
 order: 5
 type: link
-link_url: https://tiki-sdk-ios.docs.mytiki.com/
+link_url: https://tiki-sdk-ios.docs.mytiki.com/documentation/tikisdk
 ---
