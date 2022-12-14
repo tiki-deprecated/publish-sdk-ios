@@ -27,7 +27,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: './TikiSdk.doccarchive/'
+          path: './doc/TikiSdk.doccarchive/'
 
       - name: Deploy to GitHub Pages
         id: deployment
