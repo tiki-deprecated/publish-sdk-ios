@@ -3,29 +3,10 @@ import FlutterPluginRegistrant
 
 public class TikiSdkFlutterChannel {
 
-    let channelId = "tiki_sdk_flutter"
-    
-    var flutterEngine: FlutterEngine
+    static let channelId = "tiki_sdk_flutter"
     
     public var tikiSdk: TikiSdk?
-    public var methodChannel: FlutterMethodChannel
-
-    /// Initializes the Flutter Engine and Platform Channels and builds the Dart SDK.
-    public init(apiId: String, origin: String, address : String? = nil) {
-        flutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
-        flutterEngine.run()
-        GeneratedPluginRegistrant.register(with: flutterEngine);
-        methodChannel = FlutterMethodChannel.init(name: channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-        methodChannel.setMethodCallHandler(handle)
-        methodChannel.invokeMethod(
-            "build", arguments: [
-                "apiId" : apiId,
-                "origin" : origin,
-                "address" : address,
-                "requestId" : "build"
-            ]
-        )
-    }
+    public var methodChannel: FlutterMethodChannel? = nil
     
     /// Handles the method calls from Flutter.
     ///
@@ -43,7 +24,7 @@ public class TikiSdkFlutterChannel {
                 if(requestId == "build"){
                     tikiSdk!.address = response!
                 }
-                tikiSdk!.continuations[requestId]?.resume(returning: response!)
+                tikiSdk!.continuations[requestId]?.resume(returning: response ?? "")
             break
             case "error" :
                 tikiSdk!.continuations[requestId]?.resume(throwing: TikiSdkError(message: response))

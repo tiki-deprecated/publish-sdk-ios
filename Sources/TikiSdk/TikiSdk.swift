@@ -1,13 +1,14 @@
 import Flutter
+import FlutterPluginRegistrant
 
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
     
     var continuations: Dictionary<String, CheckedContinuation<String, Error>> = [:]
-    var tikiSdkFlutterChannel: TikiSdkFlutterChannel
-    var methodChannel: FlutterMethodChannel
+    var tikiSdkFlutterChannel: TikiSdkFlutterChannel = TikiSdkFlutterChannel()
+    var methodChannel: FlutterMethodChannel? = nil
     
-    public var address: String?
+    public var address: String? = nil
     
     /// Initializes the TIKI SDK.
     ///
@@ -17,9 +18,23 @@ public class TikiSdk{
     ///
     /// - Throws: *TikiSdkError*
     public init(origin: String, apiId: String, address: String? = nil) async throws{
-        tikiSdkFlutterChannel = TikiSdkFlutterChannel(apiId: apiId, origin: origin, address: address)
-        methodChannel = tikiSdkFlutterChannel.methodChannel
-        tikiSdkFlutterChannel.tikiSdk = self;
+        DispatchQueue.main.async {
+            let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
+            flutterEngine.run()
+            GeneratedPluginRegistrant.register(with: flutterEngine);
+            self.tikiSdkFlutterChannel.methodChannel = FlutterMethodChannel.init(name: TikiSdkFlutterChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+            self.tikiSdkFlutterChannel.methodChannel!.setMethodCallHandler(self.tikiSdkFlutterChannel.handle)
+            self.tikiSdkFlutterChannel.tikiSdk = self
+            self.tikiSdkFlutterChannel.methodChannel!.invokeMethod(
+                "build", arguments: [
+                    "apiId" : apiId,
+                    "origin" : origin,
+                    "address" : address,
+                    "requestId" : "build"
+                ]
+            )
+            self.methodChannel = self.tikiSdkFlutterChannel.methodChannel
+        }
         self.address = try await withCheckedThrowingContinuation { continuation in
             continuations["build"] = continuation
         }
@@ -44,7 +59,7 @@ public class TikiSdk{
         origin: String? = nil
     ) async throws -> String {
         let requestId = UUID().uuidString
-        methodChannel.invokeMethod(
+        self.methodChannel!.invokeMethod(
             "assignOwnership", arguments: [
                 "requestId" : requestId,
                 "source" : source,
@@ -70,7 +85,7 @@ public class TikiSdk{
         origin : String? = nil
     ) async throws -> TikiSdkOwnership{
         let requestId = UUID().uuidString
-        methodChannel.invokeMethod(
+        methodChannel!.invokeMethod(
             "getOwnership", arguments: [
                 "requestId" : requestId,
                 "source" : source,
@@ -105,13 +120,13 @@ public class TikiSdk{
         about: String? = nil,
         reward: String? = nil,
         expiry: Date? = nil
-    ) async throws -> TikiSdkConsent {
+    ) async throws -> TikiSdkConsent? {
         let requestId = UUID().uuidString
         var expiration = expiry?.timeIntervalSince1970
         if(expiration != nil){
             expiration! *= 1000
         }
-        methodChannel.invokeMethod(
+        methodChannel!.invokeMethod(
             "modifyConsent", arguments: [
                 "requestId" : requestId,
                 "ownershipId" : ownershipId,
@@ -143,9 +158,9 @@ public class TikiSdk{
     public func getConsent(
         source: String,
         origin: String? = nil
-    ) async throws -> TikiSdkConsent {
+    ) async throws -> TikiSdkConsent? {
         let requestId = UUID().uuidString
-        methodChannel.invokeMethod(
+        methodChannel!.invokeMethod(
             "getConsent",  arguments: [
                 "requestId" : requestId,
                 "source" : source,
@@ -173,11 +188,11 @@ public class TikiSdk{
         source: String,
         destination: TikiSdkDestination,
         request:  (() -> Void),
-        onBlocked:  ((String) -> Void)?,
+        onBlocked:  ((String) -> Void)? = nil,
         origin: String? = nil
     ) async -> Void {
         let requestId = UUID().uuidString
-        methodChannel.invokeMethod(
+        methodChannel!.invokeMethod(
             "applyConsent",  arguments: [
                 "requestId" : requestId,
                 "source" : source,
