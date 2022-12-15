@@ -16,7 +16,7 @@ public class TikiSdkConsent : Codable{
     /// The transaction id of this registry.
     public var transactionId: String
     
-    /// The Consent expiration date. nil for no expiration.
+    /// The Consent expiration in miliseconds since Epoch. nil for no expiration.
     public var expiry: Int?
 
     /// Builds *TikiSdkConsent* from *jsonString*
@@ -25,13 +25,14 @@ public class TikiSdkConsent : Codable{
     ///     - jsonString: valid json representation of *TikiSdkConsent*
     ///
     /// - Returns: *TikiSdkConsent*
-    public static func fromJson(jsonString : String) -> TikiSdkConsent{
+    public static func fromJson(jsonString : String) -> TikiSdkConsent? {
         let decoder = JSONDecoder()
         do {
             let tikiSdkConsent = try decoder.decode(TikiSdkConsent.self, from:  Data(jsonString.utf8))
             return tikiSdkConsent
         } catch {
-            objc_exception_rethrow()
+            print(error)
+            return nil
         }
     }
     
