@@ -1,4 +1,15 @@
+## 0.0.10
+
+* update tiki sdk flutter to 0.0.20
+* add tests 
+* run tests in release pipeline
+
+## 0.0.9
+
+* add swift docs release action
+
 ## 0.0.8
+
 * added swift doc autogenerate and hosting
 * added readme doc sync
 

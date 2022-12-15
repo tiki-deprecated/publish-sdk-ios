@@ -43,28 +43,28 @@ class TikiSdkHostAppTests: XCTestCase {
         }
     }
     
-    func testGetOwnership() async throws {
-        do{
-            let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
-            let ownershipId = try await tikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
-            let gotOwnershipId = try await tikiSdk.getOwnership(source: "testAssign")
-            XCTAssertEqual(ownershipId,gotOwnershipId.transactionId)
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
-    }
+//    func testGetOwnership() async throws {
+//        do{
+//            let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
+//            let ownershipId = try await tikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
+//            let gotOwnershipId = try await tikiSdk.getOwnership(source: "testAssign")
+//            XCTAssertEqual(ownershipId,gotOwnershipId.transactionId)
+//        }catch{
+//            XCTFail(error.localizedDescription)
+//        }
+//    }
     
-    func testGiveConsent() async throws {
-        do{
-            let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
-            let ownershipId = try await tikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
-            let consent = try await tikiSdk.modifyConsent(ownershipId: ownershipId, destination: TikiSdkDestination.all())
-            XCTAssertEqual(consent?.ownershipId,ownershipId)
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
-    }
-    
+//    func testGiveConsent() async throws {
+//        do{
+//            let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
+//            let ownershipId = try await tikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
+//            let consent = try await tikiSdk.modifyConsent(ownershipId: ownershipId, destination: TikiSdkDestination.all())
+//            XCTAssertEqual(consent?.ownershipId,ownershipId)
+//        }catch{
+//            XCTFail(error.localizedDescription)
+//        }
+//    }
+//
     func testGetConsent() async throws {
         do{
             let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
