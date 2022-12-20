@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/ricardo/dev/tiki-sdk-ios/TikiSdkHostApp/TikiSdkHostApp.xcodeproj">
+      location = "self:/Users/ricardo/dev/tiki-sdk-ios/IntegrationTests/IntegrationTests.xcodeproj">
    </FileRef>
 </Workspace>
