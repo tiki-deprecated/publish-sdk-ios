@@ -1,3 +1,9 @@
+## 0.0.11
+
+* update TIKI SDK Flutter to 0.0.23
+* refactor TikiPlatformChannel
+* Add IntegrationTest project
+
 ## 0.0.10
 
 * update tiki sdk flutter to 0.0.20
