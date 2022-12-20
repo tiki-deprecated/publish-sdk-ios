@@ -10,7 +10,6 @@
 		8C616602294BC9B20032A058 /* IntegrationTestsRunnerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C616601294BC9B20032A058 /* IntegrationTestsRunnerApp.swift */; };
 		8C616604294BC9B20032A058 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C616603294BC9B20032A058 /* ContentView.swift */; };
 		8C616606294BC9B50032A058 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C616605294BC9B50032A058 /* Assets.xcassets */; };
-		8C616609294BC9B50032A058 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C616608294BC9B50032A058 /* Preview Assets.xcassets */; };
 		8C616613294BC9B50032A058 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C616612294BC9B50032A058 /* IntegrationTests.swift */; };
 		8C61662A294BCA030032A058 /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C616629294BCA030032A058 /* TikiSdk */; };
 /* End PBXBuildFile section */
@@ -204,7 +203,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C616609294BC9B50032A058 /* Preview Assets.xcassets in Resources */,
 				8C616606294BC9B50032A058 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
