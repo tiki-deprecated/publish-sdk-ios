@@ -54,17 +54,5 @@ let package = Package(
         .binaryTarget(name: "sqlite3",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.23/sqlite3.xcframework.zip",
                       checksum: "70cf1ea34007eea177d12c47627dc378b19ac20db3f3afe7100eb272bc692a91"),
-        
-        .testTarget(
-            name: "TikiSdkTests",
-            dependencies: ["TikiSdk",
-                           "App",
-                           "flutter_secure_storage",
-                           "Flutter",
-                           "FlutterPluginRegistrant",
-                           "path_provider_ios",
-                           "sqlite3_flutter_libs",
-                           "sqlite3",
-                          ]),
         ]
 )
