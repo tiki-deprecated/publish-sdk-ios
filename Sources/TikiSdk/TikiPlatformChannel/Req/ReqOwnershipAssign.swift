@@ -5,6 +5,7 @@
 
 import Foundation
 
+/// The request for the `assignOwnership` method call in the Platform Channel.
 struct ReqOwnershipAssign: Req {
     let requestId, source : String
     let type : TikiSdkDataTypeEnum

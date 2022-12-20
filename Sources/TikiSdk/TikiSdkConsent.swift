@@ -1,5 +1,12 @@
 import Foundation
 
+/// The Consent NFT data structure.
+///
+/// It registers the consent from the creator of
+/// an Ownership NFT for the use of that data in a specific *destination*.
+///
+/// Optionally the Consent can describe *about* its usage, a *reward* that will
+/// be given in exchange and an *expiry* date and time for the consent.
 public class TikiSdkConsent : Codable{
     /// Transaction ID corresponding to the ownership mint for the data source.
     public var ownershipId: String
@@ -16,6 +23,6 @@ public class TikiSdkConsent : Codable{
     /// The transaction id of this registry.
     public var transactionId: String
     
-    /// The Consent expiration in miliseconds since Epoch. nil for no expiration.
+    /// The Consent expiration in miliseconds since Epoch. *nil* for no expiration.
     public var expiry: Int?
 }

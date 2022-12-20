@@ -5,6 +5,9 @@
 
 import Foundation
 
+/// The request for the `applyConsent` method call in the Platform Channel.
+///
+/// It uses the *source* and *destination* to verify if the consent was given.
 struct ReqConsentApply: Req {
     let requestId, source: String
     let destination: TikiSdkDestination

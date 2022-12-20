@@ -60,4 +60,21 @@ class IntegrationTests: XCTestCase {
         }
     }
     
+    func testApplyConsent() async throws {
+        do{
+            var ok = false
+            let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
+            let ownershipId = try await tikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
+            let _ = try await tikiSdk.modifyConsent(ownershipId: ownershipId, destination: TikiSdkDestination.all(), about: "about", reward: "some reward", expiry: nil)
+            try await tikiSdk.applyConsent(source: "testAssign", destination: TikiSdkDestination.all(), request: {
+                ok = true
+            }, onBlocked: { msg in
+                XCTFail(msg)
+            })
+            XCTAssert(ok)
+        }catch{
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
 }
