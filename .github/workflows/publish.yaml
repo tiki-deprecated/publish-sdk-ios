@@ -23,8 +23,8 @@ jobs:
 
       - name: Run tests
         run: |
-          cd TikiSdkHostApp
-          xcodebuild test -project TikiSdkHostApp.xcodeproj -scheme TikiSdkHostApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
+          cd IntegrationTests
+          xcodebuild test -project IntegrationTests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
 
       - name: Release
         uses: ncipollo/release-action@v1
