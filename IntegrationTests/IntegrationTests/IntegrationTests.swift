@@ -1,28 +1,11 @@
 import XCTest
-@testable import TikiSdkHostApp
 @testable import TikiSdk
 
-class TikiSdkHostAppTests: XCTestCase {
+class IntegrationTests: XCTestCase {
 
     let origin = "com.mytiki.iostest"
     let apiId = "2b8de004-cbe0-4bd5-bda6-b266d54f5c90"
 
-    
-    func testConsentFromToJson(){
-        
-    }
-    
-    func testOwnershipFromToJson(){
-        
-    }
-    
-    func testTikiSdkDataTypeEnumFromToJson(){
-        
-    }
-    
-    func testTikiSdkDestinationFromToJson(){
-        
-    }
     
     func testInitSdk() async throws {
         do{
