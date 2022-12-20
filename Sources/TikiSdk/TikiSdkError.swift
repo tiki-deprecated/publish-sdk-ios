@@ -1,5 +1,6 @@
 import Foundation
 
+/// The *Error* object for TIKI SDK
 public struct TikiSdkError : Error {
 
     var message: String?

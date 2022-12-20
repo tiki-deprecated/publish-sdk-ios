@@ -5,6 +5,7 @@
 
 import Foundation
 
+/// The request for the `modifyConsent`method call in the Platform Channel.
 struct ReqConsentModify: Req {
     let requestId, ownershipId: String
     let destination: TikiSdkDestination

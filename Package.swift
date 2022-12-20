@@ -27,33 +27,33 @@ let package = Package(
                           ]),
         
             .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.20/App_debug.xcframework.zip",
-                      //checksum: "b45f94d0a4fec948086ae914dae851691c16e1588205108758821a3714a1e26d"), // release - production
-                      checksum: "8ce19771c7a65b2ed52c47708053bc5c66315dca7eb33c1ee1751bccc6297dd7"), // debug - testing
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.23/App_debug.xcframework.zip",
+//                      //checksum: "b45f94d0a4fec948086ae914dae851691c16e1588205108758821a3714a1e26d"), // release - production
+                      checksum: "2f4f281278d4664bc946a7656f274169d86b0443dc86339ab79ee10d0b25dace"), // debug - testing
                           
         .binaryTarget(name: "flutter_secure_storage",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.20/flutter_secure_storage_release.xcframework.zip",
-                      checksum: "53aa9903d25338f88b4c79cbae7be817bd0142cefdc0f9100485b43036567344"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.23/flutter_secure_storage.xcframework.zip",
+                      checksum: "519b5f7f732132ac150790fb454807ed2f9754fcaf90e4be1ed27e0ffaaddea5"),
         
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.20/Flutter_release.xcframework.zip",
-                      checksum: "8c54ea3394f1f918cd18a06caf663fdc893ce6a765cc8fac1b0ace7f0a5cfe36"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.23/Flutter.xcframework.zip",
+                      checksum: "2fc172d14fa8aeccdebb9b8e1dc45987f891e31a378b2b2ffde0ca2dbbd52b69"),
         
         .binaryTarget(name: "FlutterPluginRegistrant",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.20/FlutterPluginRegistrant_release.xcframework.zip",
-                      checksum: "353734413d43606df20a29afd833ea605de3bde2f0d3fa994794c3007de120f7"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.23/FlutterPluginRegistrant.xcframework.zip",
+                      checksum: "0c1b7e4ef296511befde3bbd082829e13ce92e6debbf9a323bf20a43c66b6b8a"),
         
         .binaryTarget(name: "path_provider_ios",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.20/path_provider_ios_release.xcframework.zip",
-                      checksum: "bfbb511c9cdb3c25e6d8c13732998f32df7a018a60c133e07cfbb4ff4f1e0655"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.23/path_provider_ios.xcframework.zip",
+                      checksum: "df0e451aa4e2114a8235a27ade3b0d8b707f259e19284665897f00a0394bd1d0"),
         
         .binaryTarget(name: "sqlite3_flutter_libs",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.20/sqlite3_flutter_libs_release.xcframework.zip",
-                    checksum: "3695f2056600725d1e6f89e391737798fb6420011229bf2d6628dab4f0b86f71"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.23/sqlite3_flutter_libs.xcframework.zip",
+                    checksum: "8daea627a965c295bf4e64e0f7cf418d4c3697a6ffad54c477c9ca1a1ffd1be2"),
         
         .binaryTarget(name: "sqlite3",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.20/sqlite3_release.xcframework.zip",
-                      checksum: "44696efbae2d302e4cbf5da60083a0771edb4e97ff7952cc21e89187503606df"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.23/sqlite3.xcframework.zip",
+                      checksum: "70cf1ea34007eea177d12c47627dc378b19ac20db3f3afe7100eb272bc692a91"),
         
         .testTarget(
             name: "TikiSdkTests",

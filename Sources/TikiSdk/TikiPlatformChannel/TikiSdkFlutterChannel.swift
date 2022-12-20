@@ -1,6 +1,7 @@
 import Flutter
 import FlutterPluginRegistrant
 
+/// The definition of Flutter Platform Channels for TIKI SDK
 public class TikiSdkFlutterChannel {
 
     static let channelId = "tiki_sdk_flutter"

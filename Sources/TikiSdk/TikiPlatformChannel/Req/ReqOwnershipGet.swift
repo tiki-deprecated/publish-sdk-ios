@@ -5,6 +5,7 @@
 
 import Foundation
 
+/// The request for the `getOwnership` method call in the Platform Channel.
 struct ReqOwnershipGet: Req {
     let requestId, source: String
     let origin: String?

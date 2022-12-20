@@ -1,5 +1,8 @@
 import Foundation
 
+/// The Ownership NFT.
+///
+/// The registry of ownership to a given data point, pool, or stream.
 public class TikiSdkOwnership : Codable{
     
     /// The identification of the source.
