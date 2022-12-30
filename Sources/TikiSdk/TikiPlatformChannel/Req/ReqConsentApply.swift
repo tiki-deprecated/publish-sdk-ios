@@ -9,19 +9,7 @@ import Foundation
 ///
 /// It uses the *source* and *destination* to verify if the consent was given.
 struct ReqConsentApply: Req {
-    let requestId, source: String
+    let source: String
     let destination: TikiSdkDestination
     let origin: String?
-
-    /// Converts this to a JSON String
-    ///
-    /// - Returns: valid json representation
-    public func toJson() -> String{
-        let encoder = JSONEncoder()
-        do {
-            return String(data: try encoder.encode(self), encoding: String.Encoding.utf8)!;
-        } catch {
-            objc_exception_rethrow()
-        }
-    }
 }

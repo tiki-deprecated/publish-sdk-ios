@@ -7,6 +7,6 @@
 ///
 /// It returns the *message* of the error and the String representation of the
 /// *stackTrace*
-struct RspError : Rsp {
-    let requestId, message, stackTrace : String
+struct RspError : Decodable {
+    let message, stackTrace : String
 }
