@@ -7,7 +7,7 @@ import Foundation
 
 
 /// The request for the `getConsent` call in the Platform Channel.
-struct ReqConsentGet: Req {
+struct ReqConsentGet: Encodable {
     let source: String
     let origin: String?
 }

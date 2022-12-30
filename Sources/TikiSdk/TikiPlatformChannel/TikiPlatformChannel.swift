@@ -2,7 +2,7 @@ import Flutter
 import FlutterPluginRegistrant
 
 /// The definition of Flutter Platform Channels for TIKI SDK
-public class TikiSdkFlutterChannel {
+public class TikiPlatformChannel {
     
     public var channel: FlutterMethodChannel? = nil
     
@@ -14,15 +14,12 @@ public class TikiSdkFlutterChannel {
     /// When calling TIKI SDK Flutter from native code, one should pass a requestId
     /// that will identify to which request the response belongs to.
     /// All the calls are asynchronous and should be treated like this.
-    public func handle(call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let response = (call.arguments as? Dictionary<String, Any>)?["response"] as? String else {
-            result(FlutterError.init(code: "-1", message: "missing response argument", details: call.arguments))
-            return
-        }
+    public func handle(call: FlutterMethodCall, result: @escaping FlutterResult){
         guard let requestId : String = (call.arguments as? Dictionary<String, Any>)?["requestId"] as? String else {
-            result(FlutterError.init(code: "-1", message: "missing requestId argument", details: call.arguments))
+            result(FlutterError.init(code: "400", message: "Bad Request", details: ["arguments" : call.arguments, "description" : "Missing requestId"]))
             return
         }
+        let response: String = (call.arguments as? Dictionary<String, Any>)?["response"] as? String ?? ""
         switch (call.method) {
             case "success" :
                 let callback = callbacks[requestId]!
@@ -37,19 +34,20 @@ public class TikiSdkFlutterChannel {
                 }
             break
             default :
-                result(FlutterError(code: "-1", message: "Uninplemented", details: call.arguments))
-            callbacks[requestId]?(nil, TikiSdkError(message: "Unimplemented method", stackTrace: Thread.callStackSymbols.joined(separator: "\n")))
+                result(FlutterError(code: "404", message: "Not Found", details: call.arguments))
+                callbacks[requestId]?(nil, TikiSdkError(message: "Unimplemented method", stackTrace: Thread.callStackSymbols.joined(separator: "\n")))
         }
         callbacks.remove(at: callbacks.index(forKey: requestId)!)
     }
     
-    public func invokeMethod<T: Decodable>(
+    public func invokeMethod<T: Decodable, R: Encodable>(
            method: MethodEnum,
-           request: Req,
+           request: R,
            continuation: CheckedContinuation<T, Error>
-    ) -> Void {
+    ) throws -> Void {
            let requestId = UUID().uuidString
-           let jsonRequest = String(data: request.toJSONData()!, encoding: String.Encoding.utf8)
+           let jsonData = try JSONEncoder().encode(request)
+           let jsonRequest = String(data: jsonData, encoding: String.Encoding.utf8)
            callbacks[requestId] = { jsonString, err in
                if(err != nil){
                    continuation.resume(throwing: err!)
