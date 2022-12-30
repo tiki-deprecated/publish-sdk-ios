@@ -4,42 +4,40 @@ import FlutterPluginRegistrant
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
     
-    var continuations: Dictionary<String, CheckedContinuation<String, Error>> = [:]
     var tikiSdkFlutterChannel: TikiSdkFlutterChannel = TikiSdkFlutterChannel()
-    var methodChannel: FlutterMethodChannel? = nil
-    
     public var address: String? = nil
-    var origin: String? = nil
     
     /// Initializes the TIKI SDK.
     ///
     /// - Parameters:
     ///     - origin: The default *origin* for all transactions.
     ///     - apiId: The *apiId* for connecting to TIKI cloud.
+    ///     - address: The *address* of the user node in TIKI blockchain. If null a new address will be created.
     ///
     /// - Throws: *TikiSdkError*
     public init(origin: String, apiId: String, address: String? = nil) async throws{
-        DispatchQueue.main.async {
-            let buildRequest = ReqBuild(requestId: "build", apiId: apiId, origin: origin, address: address)
-            let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
-            flutterEngine.run()
-            GeneratedPluginRegistrant.register(with: flutterEngine);
-            self.tikiSdkFlutterChannel.methodChannel = FlutterMethodChannel.init(name: TikiSdkFlutterChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-            self.tikiSdkFlutterChannel.methodChannel!.setMethodCallHandler(self.tikiSdkFlutterChannel.handle)
-            self.tikiSdkFlutterChannel.tikiSdk = self
-            self.tikiSdkFlutterChannel.methodChannel!.invokeMethod(
-                "build", arguments: [ "request": buildRequest.toJson() ]
+        self.tikiSdkFlutterChannel.channel = await withCheckedContinuation{(continuation: CheckedContinuation<FlutterMethodChannel, Never>) in
+            DispatchQueue.main.async {
+                let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
+                flutterEngine.run()
+                GeneratedPluginRegistrant.register(with: flutterEngine);
+                let channel = FlutterMethodChannel.init(name: TikiSdkFlutterChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+                channel.setMethodCallHandler(self.tikiSdkFlutterChannel.handle)
+                continuation.resume(returning: channel)
+            }
+        }
+        let rspBuild: RspBuild = try await withCheckedThrowingContinuation{ continuation in
+            let buildRequest = ReqBuild(apiId: apiId, origin: origin, address: address)
+            self.tikiSdkFlutterChannel.invokeMethod(
+                method: MethodEnum.BUILD,
+                request: buildRequest,
+                continuation: continuation
             )
-            self.methodChannel = self.tikiSdkFlutterChannel.methodChannel
         }
-        let response: String = try await withCheckedThrowingContinuation { continuation in
-            continuations["build"] = continuation
-        }
-        let rspBuild = try JSONDecoder().decode(RspBuild.self, from:  Data(response.utf8))
         self.address = rspBuild.address
-        self.origin = origin
     }
-    
+
+
     /// Assign ownership to a given *source*.
     ///
     /// - Parameters:
@@ -58,20 +56,18 @@ public class TikiSdk{
         about: String? = nil,
         origin: String? = nil
     ) async throws -> String {
-        let requestId = UUID().uuidString
-        let assignReq = ReqOwnershipAssign(
-            requestId: requestId, source: source, type: type, contains: contains, about: about, origin: origin ?? origin)
-        self.methodChannel!.invokeMethod(
-            "assignOwnership", arguments: [
-                "request" : assignReq.toJson()
-            ])
-        let response: String = try await withCheckedThrowingContinuation { continuation in
-            continuations[requestId] = continuation
+        let rspOwnership: RspOwnership = try await withCheckedThrowingContinuation{ continuation in
+            let assignReq = ReqOwnershipAssign(
+                    source: source, type: type, contains: contains, about: about, origin: origin)
+            self.tikiSdkFlutterChannel.invokeMethod(
+                method: MethodEnum.ASSIGN_OWNERSHIP,
+                request: assignReq,
+                continuation: continuation
+            )
         }
-        let rspOwnership = try JSONDecoder().decode(RspOwnership.self, from:  Data(response.utf8))
         return rspOwnership.ownership.transactionId
     }
-    
+
     /// Gets the ownership for a *source*.
     ///
     /// - Parameters:
@@ -83,20 +79,19 @@ public class TikiSdk{
         source : String,
         origin : String? = nil
     ) async throws -> TikiSdkOwnership{
-        let requestId = UUID().uuidString
-        let getReq = ReqOwnershipGet(requestId: requestId, source: source, origin: origin ?? self.origin)
-        methodChannel!.invokeMethod(
-            "getOwnership", arguments: [
-                "request" : getReq.toJson()
-            ])
-        let response: String = try await withCheckedThrowingContinuation { continuation in
-            continuations[requestId] = continuation
+        let rspOwnership : RspOwnership = try await withCheckedThrowingContinuation{ continuation in
+            let getReq = ReqOwnershipGet(
+                    source: source, origin: origin)
+            self.tikiSdkFlutterChannel.invokeMethod(
+                method: MethodEnum.GET_OWNERSHIP,
+                request: getReq,
+                continuation: continuation
+            )
         }
-        let rspOwnership = try JSONDecoder().decode(RspOwnership.self, from:  Data(response.utf8))
         return rspOwnership.ownership
     }
-    
-    /// Modify consent for an ownership identified by [ownershipId].
+
+    /// Modify consent for an ownership identified by *ownershipId*.
     ///
     /// The Ownership must be granted before modifying consent. Consent is applied
     /// on an explicit only basis. Meaning all requests will be denied by default
@@ -120,19 +115,21 @@ public class TikiSdk{
         reward: String? = nil,
         expiry: Date? = nil
     ) async throws -> TikiSdkConsent? {
-        let requestId = UUID().uuidString
-        let modifyReq = ReqConsentModify(requestId: requestId, ownershipId: ownershipId, destination: destination)
-        methodChannel!.invokeMethod(
-            "modifyConsent", arguments: [
-                "request" : modifyReq.toJson()
-            ])
-        let response: String = try await withCheckedThrowingContinuation { continuation in
-            continuations[requestId] = continuation
+        let rspConsent : RspConsentGet = try await withCheckedThrowingContinuation{ continuation in
+            let getReq = ReqConsentModify(ownershipId : ownershipId,
+                                       destination : destination,
+                                       about: about,
+                                       reward: reward,
+                                       expiry:  expiry)
+            self.tikiSdkFlutterChannel.invokeMethod(
+                method: MethodEnum.MODIFY_CONSENT,
+                request: getReq,
+                continuation: continuation
+            )
         }
-        let rspConsent = try JSONDecoder().decode(RspConsentGet.self, from:  Data(response.utf8))
         return rspConsent.consent
     }
-    
+
     /// Gets latest consent given for a *source* and *origin*.
     ///
     /// It does not validate if the consent is expired or if it can be applied to
@@ -141,7 +138,6 @@ public class TikiSdk{
     ///
     /// - Parameters
     ///     - source: The identification of the data *source*.
-    ///     - destination: *TikiSdkDestination*.
     ///     - origin: Optional override for default origin.
     ///
     /// - Returns: Latest *TikiSdkConsent* for *source* and *origin*.
@@ -150,16 +146,15 @@ public class TikiSdk{
         source: String,
         origin: String? = nil
     ) async throws -> TikiSdkConsent? {
-        let requestId = UUID().uuidString
-        let getReq = ReqConsentGet(requestId: requestId, source: source, origin: origin ?? self.origin)
-        methodChannel!.invokeMethod(
-            "getConsent", arguments: [
-                "request" : getReq.toJson()
-            ])
-        let response: String = try await withCheckedThrowingContinuation { continuation in
-            continuations[requestId] = continuation
+        let rspConsent: RspConsentGet = try await withCheckedThrowingContinuation{ continuation in
+            let getReq = ReqConsentGet(
+                    source: source, origin: origin)
+            self.tikiSdkFlutterChannel.invokeMethod(
+                method: MethodEnum.GET_CONSENT,
+                request: getReq,
+                continuation: continuation
+            )
         }
-        let rspConsent = try JSONDecoder().decode(RspConsentGet.self, from:  Data(response.utf8))
         return rspConsent.consent
     }
     
@@ -173,7 +168,7 @@ public class TikiSdk{
     ///     - destination: *TikiSdkDestination*.
     ///     - request: The function to run if the consent is given.
     ///     - onBlocked: The function to run if the consent is not given.
-    ///    - origin: Optional override for default origin.
+    ///     - origin: Optional override for default origin.
     public func applyConsent(
         source: String,
         destination: TikiSdkDestination,
@@ -181,17 +176,15 @@ public class TikiSdk{
         onBlocked:  ((String) -> Void)? = nil,
         origin: String? = nil
     ) async throws -> Void {
-        let requestId = UUID().uuidString
-        let reqApply = ReqConsentApply(requestId: requestId, source: source, destination: destination, origin: origin ?? self.origin)
-        methodChannel!.invokeMethod(
-            "applyConsent",  arguments: [
-                "request" : reqApply.toJson()
-            ]
-        )
-        let response: String = try await withCheckedThrowingContinuation { continuation in
-            continuations[requestId] = continuation
+        let rspConsentApply: RspConsentApply = try await withCheckedThrowingContinuation{ continuation in
+            let getReq = ReqConsentApply(
+                source: source, destination: destination, origin: origin)
+            self.tikiSdkFlutterChannel.invokeMethod(
+                method: MethodEnum.APPLY_CONSENT,
+                request: getReq,
+                continuation: continuation
+            )
         }
-        let rspConsentApply = try JSONDecoder().decode(RspConsentApply.self, from:  Data(response.utf8))
         if(rspConsentApply.success){
             request();
         }else{

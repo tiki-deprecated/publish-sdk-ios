@@ -16,6 +16,17 @@ class IntegrationTests: XCTestCase {
         }
     }
     
+    func testInitSdkWithAddress() async throws {
+        do{
+            let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
+            let address = tikiSdk.address
+            let tikiSdk2 = try await TikiSdk(origin: origin, apiId: apiId, address: address)
+            XCTAssertEqual(tikiSdk.address, tikiSdk2.address)
+        }catch{
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
     func testAssignOwnership() async throws {
         do{
             let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
@@ -25,7 +36,7 @@ class IntegrationTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
-    
+
     func testGetOwnership() async throws {
         do{
             let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
@@ -36,7 +47,7 @@ class IntegrationTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
-    
+
     func testModifyConsent() async throws {
         do{
             let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
@@ -47,7 +58,7 @@ class IntegrationTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
-    
+
     func testGetConsent() async throws {
         do{
             let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
@@ -59,7 +70,7 @@ class IntegrationTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
-    
+
     func testApplyConsent() async throws {
         do{
             var ok = false
@@ -76,5 +87,5 @@ class IntegrationTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
-    
+
 }
