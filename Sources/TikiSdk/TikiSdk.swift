@@ -4,7 +4,7 @@ import FlutterPluginRegistrant
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
     
-    var tikiSdkFlutterChannel: TikiSdkFlutterChannel = TikiSdkFlutterChannel()
+    var tikiPlatformChannel: TikiPlatformChannel = TikiPlatformChannel()
     public var address: String? = nil
     
     /// Initializes the TIKI SDK.
@@ -16,23 +16,28 @@ public class TikiSdk{
     ///
     /// - Throws: *TikiSdkError*
     public init(origin: String, apiId: String, address: String? = nil) async throws{
-        self.tikiSdkFlutterChannel.channel = await withCheckedContinuation{(continuation: CheckedContinuation<FlutterMethodChannel, Never>) in
+        self.tikiPlatformChannel.channel = await withCheckedContinuation{(continuation: CheckedContinuation<FlutterMethodChannel, Never>) in
             DispatchQueue.main.async {
                 let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
                 flutterEngine.run()
                 GeneratedPluginRegistrant.register(with: flutterEngine);
-                let channel = FlutterMethodChannel.init(name: TikiSdkFlutterChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-                channel.setMethodCallHandler(self.tikiSdkFlutterChannel.handle)
+                let channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+                channel.setMethodCallHandler(self.tikiPlatformChannel.handle)
                 continuation.resume(returning: channel)
             }
         }
         let rspBuild: RspBuild = try await withCheckedThrowingContinuation{ continuation in
             let buildRequest = ReqBuild(apiId: apiId, origin: origin, address: address)
-            self.tikiSdkFlutterChannel.invokeMethod(
-                method: MethodEnum.BUILD,
-                request: buildRequest,
-                continuation: continuation
-            )
+            do{
+                try self.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.BUILD,
+                    request: buildRequest,
+                    continuation: continuation
+                )
+            }catch{
+                continuation.resume(throwing: error)
+            }
+            
         }
         self.address = rspBuild.address
     }
@@ -57,13 +62,17 @@ public class TikiSdk{
         origin: String? = nil
     ) async throws -> String {
         let rspOwnership: RspOwnership = try await withCheckedThrowingContinuation{ continuation in
+            do{
             let assignReq = ReqOwnershipAssign(
                     source: source, type: type, contains: contains, about: about, origin: origin)
-            self.tikiSdkFlutterChannel.invokeMethod(
+            try self.tikiPlatformChannel.invokeMethod(
                 method: MethodEnum.ASSIGN_OWNERSHIP,
                 request: assignReq,
                 continuation: continuation
             )
+            }catch{
+                continuation.resume(throwing: error)
+            }
         }
         return rspOwnership.ownership.transactionId
     }
@@ -80,13 +89,17 @@ public class TikiSdk{
         origin : String? = nil
     ) async throws -> TikiSdkOwnership{
         let rspOwnership : RspOwnership = try await withCheckedThrowingContinuation{ continuation in
+            do{
             let getReq = ReqOwnershipGet(
                     source: source, origin: origin)
-            self.tikiSdkFlutterChannel.invokeMethod(
+            try self.tikiPlatformChannel.invokeMethod(
                 method: MethodEnum.GET_OWNERSHIP,
                 request: getReq,
                 continuation: continuation
             )
+            }catch{
+                continuation.resume(throwing: error)
+            }
         }
         return rspOwnership.ownership
     }
@@ -116,16 +129,19 @@ public class TikiSdk{
         expiry: Date? = nil
     ) async throws -> TikiSdkConsent? {
         let rspConsent : RspConsentGet = try await withCheckedThrowingContinuation{ continuation in
-            let getReq = ReqConsentModify(ownershipId : ownershipId,
+                do{   let getReq = ReqConsentModify(ownershipId : ownershipId,
                                        destination : destination,
                                        about: about,
                                        reward: reward,
                                        expiry:  expiry)
-            self.tikiSdkFlutterChannel.invokeMethod(
+            try self.tikiPlatformChannel.invokeMethod(
                 method: MethodEnum.MODIFY_CONSENT,
                 request: getReq,
                 continuation: continuation
             )
+        }catch{
+                continuation.resume(throwing: error)
+        }
         }
         return rspConsent.consent
     }
@@ -147,13 +163,17 @@ public class TikiSdk{
         origin: String? = nil
     ) async throws -> TikiSdkConsent? {
         let rspConsent: RspConsentGet = try await withCheckedThrowingContinuation{ continuation in
-            let getReq = ReqConsentGet(
+            do{
+                let getReq = ReqConsentGet(
                     source: source, origin: origin)
-            self.tikiSdkFlutterChannel.invokeMethod(
-                method: MethodEnum.GET_CONSENT,
-                request: getReq,
-                continuation: continuation
-            )
+                try self.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.GET_CONSENT,
+                    request: getReq,
+                    continuation: continuation
+                )
+            }catch{
+                continuation.resume(throwing: error)
+            }
         }
         return rspConsent.consent
     }
@@ -179,11 +199,15 @@ public class TikiSdk{
         let rspConsentApply: RspConsentApply = try await withCheckedThrowingContinuation{ continuation in
             let getReq = ReqConsentApply(
                 source: source, destination: destination, origin: origin)
-            self.tikiSdkFlutterChannel.invokeMethod(
-                method: MethodEnum.APPLY_CONSENT,
-                request: getReq,
-                continuation: continuation
-            )
+            do{
+                try self.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.APPLY_CONSENT,
+                    request: getReq,
+                    continuation: continuation
+                )
+            }catch{
+                continuation.resume(throwing: error)
+            }
         }
         if(rspConsentApply.success){
             request();

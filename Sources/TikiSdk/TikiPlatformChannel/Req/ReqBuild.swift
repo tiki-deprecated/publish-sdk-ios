@@ -9,7 +9,7 @@ import Foundation
 ///
 /// It requires an *apiId]* and an *origin]*. If no *address* is provided the SDK
 /// will create a new one
-struct ReqBuild: Req {
+struct ReqBuild: Encodable {
     let apiId : String, origin : String
     let address : String?
 }
