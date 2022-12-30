@@ -7,7 +7,6 @@
 /// the Platform Channel.
 ///
 /// Returns the *ownership* or Null if not found.
-struct RspOwnership: Rsp {
-    let requestId: String
+struct RspOwnership : Decodable {
     let ownership : TikiSdkOwnership
 }

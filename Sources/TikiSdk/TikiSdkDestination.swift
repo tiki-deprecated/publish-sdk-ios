@@ -6,16 +6,16 @@ public class TikiSdkDestination:Codable {
     /// An optional list of application specific uses cases
     /// applicable to the given destination. Prefix with NOT
     /// to invert. _i.e. NOT ads
-    public var uses: Array<String> = []
+    public let uses: Array<String>
     
     /// A list of paths, preferably URL without the scheme or
     /// reverse FQDN. Keep list short and use wildcard (*)
     /// matching. Prefix with NOT to invert.
     /// _i.e. NOT mytiki.com/*
-    public var paths: Array<String> = []
+    public let paths: Array<String>
     
     /// Builds a destination with [paths] and [uses]. Default to all uses.
-    init(paths : Array<String>, uses : Array<String> = ["*"] ){
+    init(paths : Array<String> = [], uses : Array<String> = ["*"] ){
         self.uses = uses
         self.paths = paths
     }
@@ -30,33 +30,5 @@ public class TikiSdkDestination:Codable {
     /// Should be used for denying all consents given before.
     public static func none() -> TikiSdkDestination{
         return TikiSdkDestination(paths: [], uses: [])
-    }
-    
-    /// Builds *TikiSdkDestination* from *jsonString*
-    ///
-    /// - Parameters
-    ///     - jsonString: valid json representation of *TikiSdkDestination*
-    ///
-    /// - Returns: *TikiSdkDestination*
-    public static func fromJson(jsonString : String) -> TikiSdkDestination{
-        let decoder = JSONDecoder()
-        do {
-            let tikiSdkFlutterDestination = try decoder.decode(TikiSdkDestination.self, from:  Data(jsonString.utf8))
-            return tikiSdkFlutterDestination
-        } catch {
-            objc_exception_rethrow()
-        }
-    }
-    
-    /// Converts this to a JSON String
-    ///
-    /// - Returns:valid json representation of *TikiSdkDestination*
-    public func toJson() -> String{
-        let encoder = JSONEncoder()
-        do {
-            return String(data: try encoder.encode(self), encoding: String.Encoding.utf8)!
-        } catch {
-            objc_exception_rethrow()
-        }
     }
 }

@@ -7,7 +7,6 @@
 /// the Platform Channel.
 ///
 /// It returns the *consent*. Null if no consent was given.
-struct RspConsentGet : Rsp {
-    let requestId: String
+struct RspConsentGet : Decodable {
     let consent : TikiSdkConsent
 }

@@ -7,8 +7,7 @@
 ///
 /// It returns if the consent was applied in the *success* field.
 /// For failed requests, a *reason* should be provided.
-struct RspConsentApply: Rsp {
-    let requestId: String
+struct RspConsentApply : Decodable {
     let success: Bool
     let reason: String?
 }
