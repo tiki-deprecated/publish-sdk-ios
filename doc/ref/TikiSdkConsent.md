@@ -4,13 +4,8 @@ excerpt: A Consent Object. Representative of the NFT created on-chain. Requires 
 category: 6392ca22e73ff0002e0a9952
 slug: tiki-sdk-ios-tiki-sdk-consent
 hidden: false
-order: 3
+order: 5
 ---
-
-## Constructors
-
-##### TikiSdkConsent(ownershipId: String, destination: [TikiSdkDestination](tiki-sdk-ios-tiki-sdk-destination), about: String, reward: String, transactionId: String, expiry: Int})  
-Builds a TikiSdkConsent for the data identified by `ownershipId`.
 
 ## Properties
 
@@ -22,11 +17,11 @@ _read / write_
 The destination describing the allowed/disallowed paths and use cases for the consent.  
 _read / write_
 
-##### reward &#8596; String
+##### reward &#8596; String?
 An optional description of the reward owed to user in exchange for consent.
 _read / write_
 
-##### about &#8596; String
+##### about &#8596; String?
 An optional description to provide additional context to the transaction. Most typically as human-readable text.  
 _read / write_
 
@@ -34,6 +29,6 @@ _read / write_
 The transaction id for `this`  
 _read / write_
 
-##### expiry &#8596; Int
-The date (seconds since epoch) the consent is valid until. Do not set (`nil`) for perpetual consent.
+##### expiry &#8596; Int?
+The date (milliseconds since epoch) the consent is valid until. Do not set (`nil`) for perpetual consent.
 _read / write_

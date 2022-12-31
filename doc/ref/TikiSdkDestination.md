@@ -4,7 +4,7 @@ excerpt: Defines destinations and use cases (optional) allowed or disallowed. Se
 category: 6392ca22e73ff0002e0a9952
 slug: tiki-sdk-ios-tiki-sdk-destination
 hidden: false
-order: 2
+order: 3
 ---
 
 ## Constructors
@@ -33,8 +33,3 @@ _i.e. NOT ads_
 A list of paths, preferably URLs (without the scheme) or reverse FQDN. 
 Keep list short and use wildcard matching. Prefix with NOT to invert.  
 _i.e. NOT mytiki.com/.
-
-## Methods
-
-##### toJson() &#8594; String
-Serialize the destination as a human-readable JSON string.
