@@ -11,10 +11,11 @@ import TikiSdk
 struct ConsentModifyView: View {
     
     let tikiSdk: TikiSdk
-    let ownership: TikiSdkOwnership
+    let ownershipId: String
+    
+    @Binding var tikiSdkConsent: TikiSdkConsent?
     @Binding var isShowingGiveConsent: Bool
     
-    @State var tikiSdkConsent: TikiSdkConsent? = nil
     @State var paths: String = ""
     @State var uses: String = ""
     @State var about: String = ""
@@ -39,7 +40,7 @@ struct ConsentModifyView: View {
                 let destination = TikiSdkDestination(paths: paths.split(separator: ",").map { String($0) }, uses: uses.split(separator: ",").map { String($0) })
                 Task{
                     do{
-                        tikiSdkConsent = try await tikiSdk.modifyConsent(ownershipId: ownership.transactionId, destination: destination, about: about, reward: reward, expiry: expiry)
+                        tikiSdkConsent = try await tikiSdk.modifyConsent(ownershipId: ownershipId, destination: destination, about: about, reward: reward, expiry: expiry)
                         isShowingGiveConsent = false
                     }catch{
                         print(error)
@@ -47,22 +48,12 @@ struct ConsentModifyView: View {
                 }
             }
         }.onAppear{
-            if(!isConsentFetch){
-                Task{
-                    do{
-                    tikiSdkConsent = try await tikiSdk.getConsent(source: ownership.source)
-                    if(tikiSdkConsent != nil){
-                        paths = tikiSdkConsent!.destination.paths.joined(separator: ",")
-                        uses = tikiSdkConsent!.destination.uses.joined(separator: ",")
-                        about = tikiSdkConsent!.about != nil ? tikiSdkConsent!.about! : ""
-                        reward = tikiSdkConsent!.reward != nil ? tikiSdkConsent!.reward! : ""
-                        expiry = tikiSdkConsent!.expiry != nil ? Date(timeIntervalSince1970: TimeInterval(tikiSdkConsent!.expiry! / 1000)) : Calendar.current.date(byAdding: DateComponents(year: 10), to: Date())!
-                    }
-                    }catch{
-                        print(error)
-                    }
-                }
-                isConsentFetch.toggle()
+            if(tikiSdkConsent != nil){
+                paths = tikiSdkConsent!.destination.paths.joined(separator: ",")
+                uses = tikiSdkConsent!.destination.uses.joined(separator: ",")
+                about = tikiSdkConsent!.about != nil ? tikiSdkConsent!.about! : ""
+                reward = tikiSdkConsent!.reward != nil ? tikiSdkConsent!.reward! : ""
+                expiry = tikiSdkConsent!.expiry != nil ? Date(timeIntervalSince1970: TimeInterval(tikiSdkConsent!.expiry! / 1000)) : Calendar.current.date(byAdding: DateComponents(year: 10), to: Date())!
             }
         }
     }

@@ -13,13 +13,13 @@ struct OwnershipDetailView: View {
     let tikiSdk: TikiSdk
     let ownership: TikiSdkOwnership
     
-    @State var consent: TikiSdkConsent? = nil
+    @State var consent: TikiSdkConsent?
     @State var isShowingGiveConsent: Bool = false
     @State var isConsentFetch: Bool = false
     
     var body: some View {
-        VStack{
-            Text("Ownership")
+        Text("Ownership")
+        List{
             HStack{
                 Text("Transaction Id")
                 Text(ownership.transactionId)
@@ -44,23 +44,17 @@ struct OwnershipDetailView: View {
                 Text("About")
                 Text(ownership.about ?? "")
             }
-            if(isConsentFetch){
-                Text("Consent")
-                Text(consent?.transactionId ?? "no consent")
-                Button("Modify Consent") {
-                    isShowingGiveConsent.toggle()
-                }.sheet(isPresented: $isShowingGiveConsent) {
-                    ConsentModifyView(tikiSdk: tikiSdk, ownership: ownership, isShowingGiveConsent: $isShowingGiveConsent)
+            if(consent != nil){
+                NavigationLink(destination: ConsentDetailView(tikiSdk: tikiSdk, tikiSdkConsent: $consent)) {
+                    Text("Consent")
+                    Text(consent?.transactionId ?? "no consent")
                 }
             }else{
-                ProgressView()
-            }
-        }.onAppear{
-            if(!isConsentFetch){
-                Task{
-                    consent = try await tikiSdk.getConsent(source: ownership.source)
+                Button("Give Consent") {
+                    isShowingGiveConsent.toggle()
+                }.sheet(isPresented: $isShowingGiveConsent) {
+                    ConsentModifyView(tikiSdk: tikiSdk, ownershipId: ownership.transactionId, tikiSdkConsent: $consent, isShowingGiveConsent: $isShowingGiveConsent)
                 }
-                isConsentFetch.toggle()
             }
         }
     }

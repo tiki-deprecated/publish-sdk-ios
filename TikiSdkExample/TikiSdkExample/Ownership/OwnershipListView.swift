@@ -19,26 +19,26 @@ struct OwnershipListView: View {
     var body: some View {
         VStack{
             Text("Ownerships")
-                List {
-                    ForEach(0..<ownershipArray.count, id: \.self) { index in
-                        let ownership = ownershipArray[index]
-                        NavigationLink(destination: OwnershipDetailView(tikiSdk: tikiSdk, ownership: ownership)) {
-                            Text(ownership.transactionId)
-                        }
+            List {
+                ForEach(0..<ownershipArray.count, id: \.self) { index in
+                    let ownership = ownershipArray[index]
+                    NavigationLink(destination: OwnershipDetailView(tikiSdk: tikiSdk, ownership: ownership)) {
+                        Text(ownership.transactionId)
                     }
-                    Button("Get Ownership") {
-                            isShowingGetOwnership.toggle()
-                            }
-                            .sheet(isPresented: $isShowingGetOwnership) {
-                                OwnershipGetView(tikiSdk: tikiSdk, ownershipArray: $ownershipArray, isShowingGetOwnership: $isShowingGetOwnership)
-                            }
-                    Button("Add Ownership") {
-                            isShowingAddOwnership.toggle()
-                            }
-                            .sheet(isPresented: $isShowingAddOwnership) {
-                                OwnershipAssignView(tikiSdk: tikiSdk, ownershipArray: $ownershipArray, isShowingAddOwnership: $isShowingAddOwnership)
-                            }
                 }
+            }
+            Button("Get Ownership") {
+                    isShowingGetOwnership.toggle()
+                    }
+                    .sheet(isPresented: $isShowingGetOwnership) {
+                        OwnershipGetView(tikiSdk: tikiSdk, ownershipArray: $ownershipArray, isShowingGetOwnership: $isShowingGetOwnership)
+                    }
+            Button("Add Ownership") {
+                    isShowingAddOwnership.toggle()
+                    }
+                    .sheet(isPresented: $isShowingAddOwnership) {
+                        OwnershipAssignView(tikiSdk: tikiSdk, ownershipArray: $ownershipArray, isShowingAddOwnership: $isShowingAddOwnership)
+                    }
         }
     }
     
