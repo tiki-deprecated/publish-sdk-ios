@@ -3,7 +3,7 @@ import Foundation
 /// The Ownership NFT.
 ///
 /// The registry of ownership to a given data point, pool, or stream.
-public class TikiSdkOwnership : Codable{
+public struct TikiSdkOwnership : Codable{
     
     /// The identification of the source.
     public var source : String
@@ -18,7 +18,7 @@ public class TikiSdkOwnership : Codable{
     public var transactionId : String
 
      /// The description about the data.
-    public var about : String
+    public var about : String?
 
      /// The kinds of data this contains.
     public var contains : [String]
