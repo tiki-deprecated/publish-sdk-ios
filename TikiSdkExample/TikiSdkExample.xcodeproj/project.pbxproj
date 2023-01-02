@@ -8,17 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		8C1F5BD7295FC369001AA520 /* TikiSdkExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */; };
-		8C1F5BD9295FC369001AA520 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BD8295FC369001AA520 /* ContentView.swift */; };
-		8C1F5BDB295FC36B001AA520 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C1F5BDA295FC36B001AA520 /* Assets.xcassets */; };
-		8C1F5BDE295FC36B001AA520 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C1F5BDD295FC36B001AA520 /* Preview Assets.xcassets */; };
+		8C1F5BE8295FC55A001AA520 /* TikiSdkExampleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BE7295FC55A001AA520 /* TikiSdkExampleService.swift */; };
+		8C1F5BEA29605B2A001AA520 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BE929605B2A001AA520 /* AddressView.swift */; };
+		8C49E8A529623CD20068338E /* OwnershipAssignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E89D29623CD20068338E /* OwnershipAssignView.swift */; };
+		8C49E8A629623CD20068338E /* OwnershipGetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E89E29623CD20068338E /* OwnershipGetView.swift */; };
+		8C49E8A729623CD20068338E /* OwnershipListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E89F29623CD20068338E /* OwnershipListView.swift */; };
+		8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A029623CD20068338E /* OwnershipDetailView.swift */; };
+		8C49E8A929623CD20068338E /* ConsentModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A229623CD20068338E /* ConsentModifyView.swift */; };
+		8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A329623CD20068338E /* ConsentDetailView.swift */; };
+		8C49E8AB29623CD20068338E /* ConsentApplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A429623CD20068338E /* ConsentApplyView.swift */; };
+		8C49E8BB296273070068338E /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C49E8BA296273070068338E /* TikiSdk */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikiSdkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleApp.swift; sourceTree = "<group>"; };
-		8C1F5BD8295FC369001AA520 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8C1F5BDA295FC36B001AA520 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8C1F5BDD295FC36B001AA520 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8C1F5BE7295FC55A001AA520 /* TikiSdkExampleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleService.swift; sourceTree = "<group>"; };
+		8C1F5BE929605B2A001AA520 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
+		8C49E89D29623CD20068338E /* OwnershipAssignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipAssignView.swift; sourceTree = "<group>"; };
+		8C49E89E29623CD20068338E /* OwnershipGetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipGetView.swift; sourceTree = "<group>"; };
+		8C49E89F29623CD20068338E /* OwnershipListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipListView.swift; sourceTree = "<group>"; };
+		8C49E8A029623CD20068338E /* OwnershipDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipDetailView.swift; sourceTree = "<group>"; };
+		8C49E8A229623CD20068338E /* ConsentModifyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentModifyView.swift; sourceTree = "<group>"; };
+		8C49E8A329623CD20068338E /* ConsentDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentDetailView.swift; sourceTree = "<group>"; };
+		8C49E8A429623CD20068338E /* ConsentApplyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentApplyView.swift; sourceTree = "<group>"; };
+		8C49E8B62962725E0068338E /* tiki-sdk-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "tiki-sdk-ios"; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C49E8BB296273070068338E /* TikiSdk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,8 +50,10 @@
 		8C1F5BCA295FC369001AA520 = {
 			isa = PBXGroup;
 			children = (
+				8C49E8B52962725E0068338E /* Packages */,
 				8C1F5BD5295FC369001AA520 /* TikiSdkExample */,
 				8C1F5BD4295FC369001AA520 /* Products */,
+				8C49E8B9296273070068338E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,20 +68,49 @@
 		8C1F5BD5295FC369001AA520 /* TikiSdkExample */ = {
 			isa = PBXGroup;
 			children = (
+				8C49E8A129623CD20068338E /* Consent */,
+				8C49E89C29623CD20068338E /* Ownership */,
 				8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */,
-				8C1F5BD8295FC369001AA520 /* ContentView.swift */,
-				8C1F5BDA295FC36B001AA520 /* Assets.xcassets */,
-				8C1F5BDC295FC36B001AA520 /* Preview Content */,
+				8C1F5BE929605B2A001AA520 /* AddressView.swift */,
+				8C1F5BE7295FC55A001AA520 /* TikiSdkExampleService.swift */,
 			);
 			path = TikiSdkExample;
 			sourceTree = "<group>";
 		};
-		8C1F5BDC295FC36B001AA520 /* Preview Content */ = {
+		8C49E89C29623CD20068338E /* Ownership */ = {
 			isa = PBXGroup;
 			children = (
-				8C1F5BDD295FC36B001AA520 /* Preview Assets.xcassets */,
+				8C49E89D29623CD20068338E /* OwnershipAssignView.swift */,
+				8C49E89E29623CD20068338E /* OwnershipGetView.swift */,
+				8C49E89F29623CD20068338E /* OwnershipListView.swift */,
+				8C49E8A029623CD20068338E /* OwnershipDetailView.swift */,
 			);
-			path = "Preview Content";
+			path = Ownership;
+			sourceTree = "<group>";
+		};
+		8C49E8A129623CD20068338E /* Consent */ = {
+			isa = PBXGroup;
+			children = (
+				8C49E8A229623CD20068338E /* ConsentModifyView.swift */,
+				8C49E8A329623CD20068338E /* ConsentDetailView.swift */,
+				8C49E8A429623CD20068338E /* ConsentApplyView.swift */,
+			);
+			path = Consent;
+			sourceTree = "<group>";
+		};
+		8C49E8B52962725E0068338E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				8C49E8B62962725E0068338E /* tiki-sdk-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		8C49E8B9296273070068338E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -81,8 +127,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				8C49E8B82962726D0068338E /* PBXTargetDependency */,
 			);
 			name = TikiSdkExample;
+			packageProductDependencies = (
+				8C49E8BA296273070068338E /* TikiSdk */,
+			);
 			productName = TikiSdkExample;
 			productReference = 8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +161,8 @@
 				Base,
 			);
 			mainGroup = 8C1F5BCA295FC369001AA520;
+			packageReferences = (
+			);
 			productRefGroup = 8C1F5BD4295FC369001AA520 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,8 +177,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C1F5BDE295FC36B001AA520 /* Preview Assets.xcassets in Resources */,
-				8C1F5BDB295FC36B001AA520 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,12 +187,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C1F5BD9295FC369001AA520 /* ContentView.swift in Sources */,
+				8C1F5BEA29605B2A001AA520 /* AddressView.swift in Sources */,
 				8C1F5BD7295FC369001AA520 /* TikiSdkExampleApp.swift in Sources */,
+				8C49E8A629623CD20068338E /* OwnershipGetView.swift in Sources */,
+				8C1F5BE8295FC55A001AA520 /* TikiSdkExampleService.swift in Sources */,
+				8C49E8A729623CD20068338E /* OwnershipListView.swift in Sources */,
+				8C49E8A529623CD20068338E /* OwnershipAssignView.swift in Sources */,
+				8C49E8AB29623CD20068338E /* ConsentApplyView.swift in Sources */,
+				8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */,
+				8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */,
+				8C49E8A929623CD20068338E /* ConsentModifyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8C49E8B82962726D0068338E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 8C49E8B72962726D0068338E /* TikiSdk */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8C1F5BDF295FC36B001AA520 /* Debug */ = {
@@ -268,7 +333,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"TikiSdkExample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8B528SGCJW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -297,7 +362,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"TikiSdkExample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8B528SGCJW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -341,6 +406,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8C49E8B72962726D0068338E /* TikiSdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TikiSdk;
+		};
+		8C49E8BA296273070068338E /* TikiSdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TikiSdk;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8C1F5BCB295FC369001AA520 /* Project object */;
 }

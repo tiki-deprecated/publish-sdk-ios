@@ -8,19 +8,12 @@
 import SwiftUI
 import TikiSdk
 
-struct ConsentView: View {
+struct ConsentApplyView: View {
     
     let tikiSdk: TikiSdk
     let ownershipId: String
     
     @State var tikiSdkConsent: TikiSdkConsent? = nil
-    
-    init(_ ownershipId: String, _ tikiSdk: TikiSdk) {
-        self.tikiSdk = tikiSdk
-        self.ownershipId = ownershipId
-    }
-    
-    @State private var tkiSdkConsent: TikiSdkConsent? = nil
     
     var body: some View {
         VStack{
@@ -55,14 +48,14 @@ struct ConsentView: View {
                     Text(tikiSdkConsent?.reward ?? "no value")
                 }
             }
-            NavigationView{
-                List {
-                    ConsentModifyView(tikiSdkConsent)
-                    NavigationLink(destination: ContentView()) {
-                        Text("Modify consent")
-                    }
-                }
-            }
+//            NavigationView{
+//                List {
+//                    ConsentModifyView(tikiSdkConsent)
+//                    NavigationLink(destination: ContentView()) {
+//                        Text("Modify consent")
+//                    }
+//                }
+//            }
         }
     }
     
