@@ -46,8 +46,8 @@ public class TikiSdk{
         }
         self.address = rspBuild.address
     }
-
-
+    
+    
     /// Assign ownership to a given *source*.
     ///
     /// - Parameters:
@@ -68,20 +68,20 @@ public class TikiSdk{
     ) async throws -> String {
         let rspOwnership: RspOwnership = try await withCheckedThrowingContinuation{ continuation in
             do{
-            let assignReq = ReqOwnershipAssign(
+                let assignReq = ReqOwnershipAssign(
                     source: source, type: type, contains: contains, about: about, origin: origin)
-            try self.tikiPlatformChannel.invokeMethod(
-                method: MethodEnum.ASSIGN_OWNERSHIP,
-                request: assignReq,
-                continuation: continuation
-            )
+                try self.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.ASSIGN_OWNERSHIP,
+                    request: assignReq,
+                    continuation: continuation
+                )
             }catch{
                 continuation.resume(throwing: error)
             }
         }
-        return rspOwnership.ownership.transactionId
+        return rspOwnership.ownership!.transactionId
     }
-
+    
     /// Gets the ownership for a *source*.
     ///
     /// - Parameters:
@@ -92,23 +92,23 @@ public class TikiSdk{
     public func getOwnership(
         source : String,
         origin : String? = nil
-    ) async throws -> TikiSdkOwnership{
+    ) async throws -> TikiSdkOwnership? {
         let rspOwnership : RspOwnership = try await withCheckedThrowingContinuation{ continuation in
             do{
-            let getReq = ReqOwnershipGet(
+                let getReq = ReqOwnershipGet(
                     source: source, origin: origin)
-            try self.tikiPlatformChannel.invokeMethod(
-                method: MethodEnum.GET_OWNERSHIP,
-                request: getReq,
-                continuation: continuation
-            )
+                try self.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.GET_OWNERSHIP,
+                    request: getReq,
+                    continuation: continuation
+                )
             }catch{
                 continuation.resume(throwing: error)
             }
         }
         return rspOwnership.ownership
     }
-
+    
     /// Modify consent for an ownership identified by *ownershipId*.
     ///
     /// The Ownership must be granted before modifying consent. Consent is applied
@@ -132,25 +132,25 @@ public class TikiSdk{
         about: String? = nil,
         reward: String? = nil,
         expiry: Date? = nil
-    ) async throws -> TikiSdkConsent? {
+    ) async throws -> TikiSdkConsent {
         let rspConsent : RspConsentGet = try await withCheckedThrowingContinuation{ continuation in
-                do{   let getReq = ReqConsentModify(ownershipId : ownershipId,
-                                       destination : destination,
-                                       about: about,
-                                       reward: reward,
-                                       expiry:  expiry)
-            try self.tikiPlatformChannel.invokeMethod(
-                method: MethodEnum.MODIFY_CONSENT,
-                request: getReq,
-                continuation: continuation
-            )
-        }catch{
+            do{   let getReq = ReqConsentModify(ownershipId : ownershipId,
+                                                destination : destination,
+                                                about: about,
+                                                reward: reward,
+                                                expiry:  expiry)
+                try self.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.MODIFY_CONSENT,
+                    request: getReq,
+                    continuation: continuation
+                )
+            }catch{
                 continuation.resume(throwing: error)
+            }
         }
-        }
-        return rspConsent.consent
+        return rspConsent.consent!
     }
-
+    
     /// Gets latest consent given for a *source* and *origin*.
     ///
     /// It does not validate if the consent is expired or if it can be applied to

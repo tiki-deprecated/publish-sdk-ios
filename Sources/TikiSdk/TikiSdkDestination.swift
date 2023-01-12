@@ -6,7 +6,7 @@
 import Foundation
 
 /// The destination to which the data is consented to be used.
-public class TikiSdkDestination:Codable {
+public struct TikiSdkDestination:Codable {
     
     /// An optional list of application specific uses cases
     /// applicable to the given destination. Prefix with NOT
@@ -20,7 +20,7 @@ public class TikiSdkDestination:Codable {
     public let paths: Array<String>
     
     /// Builds a destination with [paths] and [uses]. Default to all uses.
-    init(paths : Array<String> = [], uses : Array<String> = ["*"] ){
+    public init(paths : Array<String> = [], uses : Array<String> = ["*"] ){
         self.uses = uses
         self.paths = paths
     }

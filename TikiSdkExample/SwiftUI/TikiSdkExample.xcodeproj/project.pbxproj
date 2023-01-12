@@ -1,0 +1,450 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8C1F5BD7295FC369001AA520 /* TikiSdkExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */; };
+		8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BE929605B2A001AA520 /* WalletView.swift */; };
+		8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A029623CD20068338E /* OwnershipDetailView.swift */; };
+		8C49E8A929623CD20068338E /* ConsentModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A229623CD20068338E /* ConsentModifyView.swift */; };
+		8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A329623CD20068338E /* ConsentDetailView.swift */; };
+		8C49E8BB296273070068338E /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C49E8BA296273070068338E /* TikiSdk */; };
+		8C6635BE297008C700713D22 /* StreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6635BD297008C700713D22 /* StreamListView.swift */; };
+		8C8D08342970AE7B00451869 /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C8D08332970AE7B00451869 /* TikiSdk */; };
+		8CCDBBF6296E2D3C00C278D4 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDBBF5296E2D3C00C278D4 /* Stream.swift */; };
+		8CCDBBF8296E2DA900C278D4 /* StreamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDBBF7296E2DA900C278D4 /* StreamDetailView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikiSdkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleApp.swift; sourceTree = "<group>"; };
+		8C1F5BE929605B2A001AA520 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
+		8C49E8A029623CD20068338E /* OwnershipDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipDetailView.swift; sourceTree = "<group>"; };
+		8C49E8A229623CD20068338E /* ConsentModifyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentModifyView.swift; sourceTree = "<group>"; };
+		8C49E8A329623CD20068338E /* ConsentDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentDetailView.swift; sourceTree = "<group>"; };
+		8C49E8B62962725E0068338E /* tiki-sdk-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "tiki-sdk-ios"; path = ..; sourceTree = "<group>"; };
+		8C6635BD297008C700713D22 /* StreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamListView.swift; sourceTree = "<group>"; };
+		8CCDBBF5296E2D3C00C278D4 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
+		8CCDBBF7296E2DA900C278D4 /* StreamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamDetailView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8C1F5BD0295FC369001AA520 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C8D08342970AE7B00451869 /* TikiSdk in Frameworks */,
+				8C49E8BB296273070068338E /* TikiSdk in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8C1F5BCA295FC369001AA520 = {
+			isa = PBXGroup;
+			children = (
+				8C49E8B52962725E0068338E /* Packages */,
+				8C1F5BD5295FC369001AA520 /* TikiSdkExample */,
+				8C1F5BD4295FC369001AA520 /* Products */,
+				8C49E8B9296273070068338E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8C1F5BD4295FC369001AA520 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8C1F5BD5295FC369001AA520 /* TikiSdkExample */ = {
+			isa = PBXGroup;
+			children = (
+				8C8D08372970AEF800451869 /* Wallet */,
+				8CCDBBF4296E2D1A00C278D4 /* Stream */,
+				8C49E8A129623CD20068338E /* Consent */,
+				8C49E89C29623CD20068338E /* Ownership */,
+				8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */,
+			);
+			path = TikiSdkExample;
+			sourceTree = "<group>";
+		};
+		8C49E89C29623CD20068338E /* Ownership */ = {
+			isa = PBXGroup;
+			children = (
+				8C49E8A029623CD20068338E /* OwnershipDetailView.swift */,
+			);
+			path = Ownership;
+			sourceTree = "<group>";
+		};
+		8C49E8A129623CD20068338E /* Consent */ = {
+			isa = PBXGroup;
+			children = (
+				8C49E8A229623CD20068338E /* ConsentModifyView.swift */,
+				8C49E8A329623CD20068338E /* ConsentDetailView.swift */,
+			);
+			path = Consent;
+			sourceTree = "<group>";
+		};
+		8C49E8B52962725E0068338E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				8C49E8B62962725E0068338E /* tiki-sdk-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		8C49E8B9296273070068338E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C8D08372970AEF800451869 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				8C1F5BE929605B2A001AA520 /* WalletView.swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		8CCDBBF4296E2D1A00C278D4 /* Stream */ = {
+			isa = PBXGroup;
+			children = (
+				8CCDBBF5296E2D3C00C278D4 /* Stream.swift */,
+				8CCDBBF7296E2DA900C278D4 /* StreamDetailView.swift */,
+				8C6635BD297008C700713D22 /* StreamListView.swift */,
+			);
+			path = Stream;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8C1F5BD2295FC369001AA520 /* TikiSdkExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C1F5BE1295FC36B001AA520 /* Build configuration list for PBXNativeTarget "TikiSdkExample" */;
+			buildPhases = (
+				8C1F5BCF295FC369001AA520 /* Sources */,
+				8C1F5BD0295FC369001AA520 /* Frameworks */,
+				8C1F5BD1295FC369001AA520 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C8D08362970AEBA00451869 /* PBXTargetDependency */,
+			);
+			name = TikiSdkExample;
+			packageProductDependencies = (
+				8C49E8BA296273070068338E /* TikiSdk */,
+				8C8D08332970AE7B00451869 /* TikiSdk */,
+			);
+			productName = TikiSdkExample;
+			productReference = 8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8C1F5BCB295FC369001AA520 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					8C1F5BD2295FC369001AA520 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 8C1F5BCE295FC369001AA520 /* Build configuration list for PBXProject "TikiSdkExample" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8C1F5BCA295FC369001AA520;
+			packageReferences = (
+				8C8D08322970AE7B00451869 /* XCRemoteSwiftPackageReference "tiki-sdk-ios" */,
+			);
+			productRefGroup = 8C1F5BD4295FC369001AA520 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8C1F5BD2295FC369001AA520 /* TikiSdkExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8C1F5BD1295FC369001AA520 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8C1F5BCF295FC369001AA520 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CCDBBF6296E2D3C00C278D4 /* Stream.swift in Sources */,
+				8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */,
+				8C1F5BD7295FC369001AA520 /* TikiSdkExampleApp.swift in Sources */,
+				8C6635BE297008C700713D22 /* StreamListView.swift in Sources */,
+				8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */,
+				8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */,
+				8CCDBBF8296E2DA900C278D4 /* StreamDetailView.swift in Sources */,
+				8C49E8A929623CD20068338E /* ConsentModifyView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8C8D08362970AEBA00451869 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 8C8D08352970AEBA00451869 /* TikiSdk */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8C1F5BDF295FC36B001AA520 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8C1F5BE0295FC36B001AA520 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8C1F5BE2295FC36B001AA520 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 8B528SGCJW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mytiki.TikiSdkExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8C1F5BE3295FC36B001AA520 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 8B528SGCJW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mytiki.TikiSdkExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8C1F5BCE295FC369001AA520 /* Build configuration list for PBXProject "TikiSdkExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C1F5BDF295FC36B001AA520 /* Debug */,
+				8C1F5BE0295FC36B001AA520 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C1F5BE1295FC36B001AA520 /* Build configuration list for PBXNativeTarget "TikiSdkExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C1F5BE2295FC36B001AA520 /* Debug */,
+				8C1F5BE3295FC36B001AA520 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8C8D08322970AE7B00451869 /* XCRemoteSwiftPackageReference "tiki-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tiki/tiki-sdk-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8C49E8BA296273070068338E /* TikiSdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TikiSdk;
+		};
+		8C8D08332970AE7B00451869 /* TikiSdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C8D08322970AE7B00451869 /* XCRemoteSwiftPackageReference "tiki-sdk-ios" */;
+			productName = TikiSdk;
+		};
+		8C8D08352970AEBA00451869 /* TikiSdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TikiSdk;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8C1F5BCB295FC369001AA520 /* Project object */;
+}

@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Optionally the Consent can describe *about* its usage, a *reward* that will
 /// be given in exchange and an *expiry* date and time for the consent.
-public class TikiSdkConsent : Codable{
+public struct TikiSdkConsent : Codable{
     /// Transaction ID corresponding to the ownership mint for the data source.
     public var ownershipId: String
 

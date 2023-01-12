@@ -8,5 +8,5 @@
 ///
 /// It returns the *consent*. Null if no consent was given.
 struct RspConsentGet : Decodable {
-    let consent : TikiSdkConsent
+    let consent : TikiSdkConsent?
 }
