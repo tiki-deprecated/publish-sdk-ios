@@ -31,7 +31,7 @@ struct ConsentDetailView: View {
                 }
                 HStack{
                     Text("Uses: ")
-                    Text(tikiSdkConsent!.destination.paths.joined(separator: ","))
+                    Text(tikiSdkConsent!.destination.uses.joined(separator: ","))
                 }
                 HStack{
                     Text("About")
@@ -45,7 +45,7 @@ struct ConsentDetailView: View {
             Button("Modify Consent") {
                 isShowingGiveConsent.toggle()
             }.sheet(isPresented: $isShowingGiveConsent) {
-                ConsentModifyView(tikiSdk: tikiSdk, ownershipId: tikiSdkConsent!.ownershipId, tikiSdkConsent: $tikiSdkConsent, isShowingGiveConsent: $isShowingGiveConsent)
+                ConsentModifyView(tikiSdk: tikiSdk, consentNft: $tikiSdkConsent, isShowing: $isShowingGiveConsent)
             }
         }
     }

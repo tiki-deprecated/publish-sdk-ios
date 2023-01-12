@@ -97,7 +97,7 @@ struct StreamDetailView: View {
                 let ownership: TikiSdkOwnership? = try await tikiSdk.getOwnership(source: stream.source)
                 if(ownership != nil){
                     let destination = isConsentGiven ? TikiSdkDestination.none() : TikiSdkDestination(paths: ["postman-echo.com/post"], uses: ["streamData"])
-                    let _: TikiSdkConsent = try await tikiSdk.modifyConsent(ownershipId: ownership!.transactionId, destination: destination, about: "Consent given to echo data in remote server")
+                    let _: TikiSdkConsent = try await tikiSdk.modifyConsent(ownershipId: ownership!.transactionId, destination: destination, about: "Consent given to echo data in remote server", reward: "Test the SDK", expiry: Calendar.current.date(byAdding: DateComponents(year: 10), to: Date())!)
                 }
             }catch{
                 print(error)
