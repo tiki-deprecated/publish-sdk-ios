@@ -16,38 +16,38 @@ struct ConsentDetailView: View {
     @State var isShowingGiveConsent: Bool = false
     
     var body: some View {
-        Text("Consent for")
-        Text(tikiSdkConsent!.ownershipId)
-        List{
-            HStack{
-                Text("TransactionId")
-                Text(tikiSdkConsent!.transactionId)
+        VStack(spacing: 0){
+            Text("Consent for")
+            Text(tikiSdkConsent!.ownershipId.prefix(16) + "...")
+            List{
+                HStack{
+                    Text("TransactionId")
+                    Text(tikiSdkConsent!.transactionId.prefix(16) + "...")
+                }
+                Text("Destination")
+                HStack{
+                    Text("Paths: ")
+                    Text(tikiSdkConsent!.destination.paths.joined(separator: ","))
+                }
+                HStack{
+                    Text("Uses: ")
+                    Text(tikiSdkConsent!.destination.paths.joined(separator: ","))
+                }
+                HStack{
+                    Text("About")
+                    Text(tikiSdkConsent!.about ?? "")
+                }
+                HStack{
+                    Text("Reward")
+                    Text(tikiSdkConsent!.reward ?? "")
+                }
             }
-            Text("Destination")
-            HStack{
-                Text("Paths: ")
-                Text(tikiSdkConsent!.destination.paths.joined(separator: ","))
+            Button("Modify Consent") {
+                isShowingGiveConsent.toggle()
+            }.sheet(isPresented: $isShowingGiveConsent) {
+                ConsentModifyView(tikiSdk: tikiSdk, ownershipId: tikiSdkConsent!.ownershipId, tikiSdkConsent: $tikiSdkConsent, isShowingGiveConsent: $isShowingGiveConsent)
             }
-            HStack{
-                Text("Uses: ")
-                Text(tikiSdkConsent!.destination.paths.joined(separator: ","))
-            }
-            HStack{
-                Text("About")
-                Text(tikiSdkConsent!.about ?? "no value")
-            }
-            HStack{
-                Text("Reward")
-                Text(tikiSdkConsent!.reward ?? "no value")
-            }
-        }
-        Button("Modify Consent") {
-            isShowingGiveConsent.toggle()
-        }.sheet(isPresented: $isShowingGiveConsent) {
-            ConsentModifyView(tikiSdk: tikiSdk, ownershipId: tikiSdkConsent!.ownershipId, tikiSdkConsent: $tikiSdkConsent, isShowingGiveConsent: $isShowingGiveConsent)
         }
     }
-    
-
 }
 

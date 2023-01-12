@@ -6,15 +6,14 @@
 //
 
 import SwiftUI
+import TikiSdk
 
 @main
 struct TikiSdkExampleApp: App {
-    
-    let tikiSdkService: TikiSdkExampleService = TikiSdkExampleService()
-    
+
     var body: some Scene {
         WindowGroup {
-            AddressView(tikiSdkService)
+            WalletView()
         }
     }
 }
