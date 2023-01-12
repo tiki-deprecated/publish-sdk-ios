@@ -52,9 +52,11 @@ struct StreamDetailView: View {
     func sendDataToServer(){
         Task{
             let url = URL(string: "https://postman-echo.com/post")!
+            let body: String = stream.data
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.httpBody = Data(stream.data.utf8)
+            request.httpBody = Data(body.utf8)
+            request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
             try await tikiSdk.applyConsent(source: stream.source, destination: TikiSdkDestination(paths: ["postman-echo.com/post"], uses: ["streamData"]), request: {
                 isConsentGiven = true
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -83,7 +85,7 @@ struct StreamDetailView: View {
                 task.resume()
             }, onBlocked: { reason in
                 isConsentGiven = false
-                log.append("🔴 Blocked: \(reason)")
+                log.append("🔴 Blocked: no consent")
                 return
             })
         }

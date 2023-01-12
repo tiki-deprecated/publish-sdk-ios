@@ -46,7 +46,7 @@ struct ConsentModifyView: View {
                     expiry = tikiSdkConsent!.expiry != nil ? Date(timeIntervalSince1970: TimeInterval(tikiSdkConsent!.expiry! / 1000)) : Calendar.current.date(byAdding: DateComponents(year: 10), to: Date())!
                 }
             }
-            Button("Modify Consent") {
+            Button("Save") {
                 let destination = TikiSdkDestination(paths: paths.split(separator: ",").map { String($0) }, uses: uses.split(separator: ",").map { String($0) })
                 Task{
                     do{
@@ -56,6 +56,10 @@ struct ConsentModifyView: View {
                         print(error)
                     }
                 }
+            }
+            Spacer().frame(height: 30)
+            Button("Cancel") {
+                isShowingGiveConsent = false
             }
         }
     }
