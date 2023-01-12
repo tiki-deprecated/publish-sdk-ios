@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "TikiSdk",
+        "repositoryURL": "https://github.com/tiki/tiki-sdk-ios.git",
+        "state": {
+          "branch": null,
+          "revision": "97833d9eea936f4b9324383d0cf707727f93532a",
+          "version": "0.0.12"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

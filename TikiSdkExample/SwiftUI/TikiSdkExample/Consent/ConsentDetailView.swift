@@ -1,9 +1,7 @@
-//
-//  AddressView.swift
-//  TikiSdkExample
-//
-//  Created by Ricardo on 31/12/22.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import SwiftUI
 import TikiSdk

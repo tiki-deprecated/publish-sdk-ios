@@ -1,14 +1,10 @@
-//
-//  StreamView.swift
-//  TikiSdkExample
-//
-//  Created by Ricardo on 10/01/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import SwiftUI
 import TikiSdk
-
-
 
 struct StreamDetailView: View {
     

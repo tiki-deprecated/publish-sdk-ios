@@ -1,9 +1,7 @@
-//
-//  TikiSdkExampleApp.swift
-//  TikiSdkExample
-//
-//  Created by Ricardo on 30/12/22.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import SwiftUI
 import TikiSdk
