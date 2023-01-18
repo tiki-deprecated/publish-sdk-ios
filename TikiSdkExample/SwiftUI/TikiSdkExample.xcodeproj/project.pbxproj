@@ -10,16 +10,13 @@
 		8C0C12F92975B8780025D257 /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C0C12F82975B8780025D257 /* TikiSdk */; };
 		8C1F5BD7295FC369001AA520 /* TikiSdkExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */; };
 		8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BE929605B2A001AA520 /* WalletView.swift */; };
-		8C43EA912977FC7900D52716 /* StreamCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA902977FC7800D52716 /* StreamCreateView.swift */; };
+		8C43EA912977FC7900D52716 /* StreamEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA902977FC7800D52716 /* StreamEditView.swift */; };
 		8C43EA95297804A300D52716 /* TikiSdkExampleAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA94297804A300D52716 /* TikiSdkExampleAppModel.swift */; };
-		8C43EA9929786F1D00D52716 /* RequestLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9829786F1D00D52716 /* RequestLog.swift */; };
-		8C43EA9B29787BB900D52716 /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9A29787BB900D52716 /* BodyView.swift */; };
+		8C43EA9F2978974E00D52716 /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9C2978974E00D52716 /* BodyView.swift */; };
+		8C43EAA12978974E00D52716 /* RequestLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9E2978974E00D52716 /* RequestLog.swift */; };
 		8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A029623CD20068338E /* OwnershipDetailView.swift */; };
-		8C49E8A929623CD20068338E /* ConsentModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A229623CD20068338E /* ConsentModifyView.swift */; };
 		8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A329623CD20068338E /* ConsentDetailView.swift */; };
-		8C6635BE297008C700713D22 /* StreamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6635BD297008C700713D22 /* StreamListView.swift */; };
 		8CCDBBF6296E2D3C00C278D4 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDBBF5296E2D3C00C278D4 /* Stream.swift */; };
-		8CCDBBF8296E2DA900C278D4 /* StreamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDBBF7296E2DA900C278D4 /* StreamDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,16 +24,13 @@
 		8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikiSdkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleApp.swift; sourceTree = "<group>"; };
 		8C1F5BE929605B2A001AA520 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
-		8C43EA902977FC7800D52716 /* StreamCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamCreateView.swift; sourceTree = "<group>"; };
+		8C43EA902977FC7800D52716 /* StreamEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamEditView.swift; sourceTree = "<group>"; };
 		8C43EA94297804A300D52716 /* TikiSdkExampleAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleAppModel.swift; sourceTree = "<group>"; };
-		8C43EA9829786F1D00D52716 /* RequestLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLog.swift; sourceTree = "<group>"; };
-		8C43EA9A29787BB900D52716 /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
+		8C43EA9C2978974E00D52716 /* BodyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
+		8C43EA9E2978974E00D52716 /* RequestLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestLog.swift; sourceTree = "<group>"; };
 		8C49E8A029623CD20068338E /* OwnershipDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipDetailView.swift; sourceTree = "<group>"; };
-		8C49E8A229623CD20068338E /* ConsentModifyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentModifyView.swift; sourceTree = "<group>"; };
 		8C49E8A329623CD20068338E /* ConsentDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentDetailView.swift; sourceTree = "<group>"; };
-		8C6635BD297008C700713D22 /* StreamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamListView.swift; sourceTree = "<group>"; };
 		8CCDBBF5296E2D3C00C278D4 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
-		8CCDBBF7296E2DA900C278D4 /* StreamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +72,6 @@
 				8C49E89C29623CD20068338E /* Ownership */,
 				8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */,
 				8C43EA94297804A300D52716 /* TikiSdkExampleAppModel.swift */,
-				8C43EA9829786F1D00D52716 /* RequestLog.swift */,
-				8C43EA9A29787BB900D52716 /* BodyView.swift */,
 			);
 			path = TikiSdkExample;
 			sourceTree = "<group>";
@@ -95,7 +87,6 @@
 		8C49E8A129623CD20068338E /* Consent */ = {
 			isa = PBXGroup;
 			children = (
-				8C49E8A229623CD20068338E /* ConsentModifyView.swift */,
 				8C49E8A329623CD20068338E /* ConsentDetailView.swift */,
 			);
 			path = Consent;
@@ -127,10 +118,10 @@
 		8CCDBBF4296E2D1A00C278D4 /* Stream */ = {
 			isa = PBXGroup;
 			children = (
+				8C43EA9C2978974E00D52716 /* BodyView.swift */,
+				8C43EA9E2978974E00D52716 /* RequestLog.swift */,
 				8CCDBBF5296E2D3C00C278D4 /* Stream.swift */,
-				8C43EA902977FC7800D52716 /* StreamCreateView.swift */,
-				8CCDBBF7296E2DA900C278D4 /* StreamDetailView.swift */,
-				8C6635BD297008C700713D22 /* StreamListView.swift */,
+				8C43EA902977FC7800D52716 /* StreamEditView.swift */,
 			);
 			path = Stream;
 			sourceTree = "<group>";
@@ -208,18 +199,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C43EA912977FC7900D52716 /* StreamCreateView.swift in Sources */,
+				8C43EA912977FC7900D52716 /* StreamEditView.swift in Sources */,
 				8CCDBBF6296E2D3C00C278D4 /* Stream.swift in Sources */,
-				8C43EA9B29787BB900D52716 /* BodyView.swift in Sources */,
+				8C43EA9F2978974E00D52716 /* BodyView.swift in Sources */,
 				8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */,
+				8C43EAA12978974E00D52716 /* RequestLog.swift in Sources */,
 				8C1F5BD7295FC369001AA520 /* TikiSdkExampleApp.swift in Sources */,
-				8C6635BE297008C700713D22 /* StreamListView.swift in Sources */,
 				8C43EA95297804A300D52716 /* TikiSdkExampleAppModel.swift in Sources */,
 				8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */,
 				8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */,
-				8C43EA9929786F1D00D52716 /* RequestLog.swift in Sources */,
-				8CCDBBF8296E2DA900C278D4 /* StreamDetailView.swift in Sources */,
-				8C49E8A929623CD20068338E /* ConsentModifyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

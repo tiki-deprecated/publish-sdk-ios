@@ -54,7 +54,7 @@ struct TikiSdkExampleApp: App {
                         }
                     }
                     Section(header: Text("Outbound Request(s)")) {
-                        NavigationLink(destination: StreamCreateView()) {
+                        NavigationLink(destination: StreamEditView()) {
                             VStack{
                                 Text("Destination")
                                 Text(appModel.stream.httpMethod + " " + appModel.stream.url)

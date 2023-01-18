@@ -20,9 +20,7 @@ class TikiSdkExampleAppModel: ObservableObject{
     var tikiSdk: TikiSdk? {
         get{
             if(!wallets.isEmpty){
-                let sdk = wallets[selectedWalletAddress]
-                let w = wallets
-                return sdk
+                return wallets[selectedWalletAddress]
             }
             return nil
         }
