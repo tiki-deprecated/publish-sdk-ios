@@ -8,15 +8,13 @@ import TikiSdk
 
 struct ConsentDetailView: View {
     
-    let tikiSdk: TikiSdk
-    
-    @Binding var tikiSdkConsent: TikiSdkConsent?
-    @State var isShowingGiveConsent: Bool = false
+    @EnvironmentObject var appModel: TikiSdkExampleAppModel
     
     var body: some View {
+        let tikiSdkConsent = appModel.consent
         VStack(spacing: 0){
             Text("Consent for")
-            Text(tikiSdkConsent!.ownershipId.prefix(16) + "...")
+            Text(appModel.consent!.ownershipId.prefix(16) + "...")
             List{
                 HStack{
                     Text("TransactionId")
@@ -39,11 +37,6 @@ struct ConsentDetailView: View {
                     Text("Reward")
                     Text(tikiSdkConsent!.reward ?? "")
                 }
-            }
-            Button("Modify Consent") {
-                isShowingGiveConsent.toggle()
-            }.sheet(isPresented: $isShowingGiveConsent) {
-                ConsentModifyView(tikiSdk: tikiSdk, consentNft: $tikiSdkConsent, isShowing: $isShowingGiveConsent)
             }
         }
     }

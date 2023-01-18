@@ -3,59 +3,39 @@ import TikiSdk
 
 struct OwnershipDetailView: View {
     
-    let tikiSdk: TikiSdk
-    let ownership: TikiSdkOwnership?
-    
-    @State var consent: TikiSdkConsent?
-    @State var isShowingGiveConsent: Bool = false
-    @State var isConsentFetch: Bool = false
+    @EnvironmentObject var appModel: TikiSdkExampleAppModel
     
     var body: some View {
+        let ownership = appModel.ownershipList[appModel.selectedOwnershipIndex]
         VStack{
             Text("Ownership")
             List{
                 HStack{
                     Text("Transaction Id")
-                    Text(ownership!.transactionId.prefix(16) + "...")
+                    Text(ownership.transactionId.prefix(16) + "...")
                 }
                 HStack{
                     Text("Source")
-                    Text(ownership!.source)
+                    Text(ownership.source)
                 }
                 HStack{
                     Text("Origin")
-                    Text(ownership!.origin)
+                    Text(ownership.origin)
                 }
                 HStack{
                     Text("Type")
-                    Text(ownership!.type.rawValue)
+                    Text(ownership.type.rawValue)
                 }
                 HStack{
                     Text("Contains")
-                    Text(ownership!.contains.joined(separator: ","))
+                    Text(ownership.contains.joined(separator: ","))
                 }
                 HStack{
                     Text("About")
-                    Text(ownership!.about ?? "")
-                }
-                if(consent != nil){
-                    NavigationLink(destination: ConsentDetailView(tikiSdk: tikiSdk, tikiSdkConsent: $consent)) {
-                        Text("Consent")
-                        Text(consent!.transactionId.prefix(16) + "...")
-                    }
-                }else{
-                    Text("No Consent")
+                    Text(ownership.about ?? "")
                 }
             }
-        }.onAppear(perform: {
-            Task{
-                do{
-                    consent = try await tikiSdk.getConsent(source: ownership!.source)
-                }catch{
-                    print(error.localizedDescription,error)
-                }
-            }
-        })
+        }
     }
 }
 
