@@ -37,10 +37,6 @@ struct WalletView: View {
             isLoading = true
             Task {
                 do{
-                    let source: String = UUID().uuidString
-                    appModel.stream = Stream(source: source)
-                    
-                    
                     let origin = "com.mytiki.tiki_sdk_example"
                     let apiId = "2b8de004-cbe0-4bd5-bda6-b266d54f5c90"
                     let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
@@ -48,14 +44,16 @@ struct WalletView: View {
                     appModel.wallets[tikiSdk.address!] = tikiSdk
                     appModel.selectedWalletAddress = tikiSdk.address!
                     
-                    let _ = try await appModel.tikiSdk!.assignOwnership(source: source, type: TikiSdkDataTypeEnum.stream, contains: ["generic data"], about: "Data stream created with TIKI SDK Sample App")
-                    let ownership = try await appModel.tikiSdk?.getOwnership(source: source)
+                    let _ = try await appModel.tikiSdk!.assignOwnership(source: appModel.stream.source, type: TikiSdkDataTypeEnum.stream, contains: ["generic data"], about: "Data stream created with TIKI SDK Sample App")
+                    let ownership = try await appModel.tikiSdk?.getOwnership(source: appModel.stream.source)
                     appModel.ownershipDictionary[tikiSdk.address!] = ownership!
                         
-                    let destination = TikiSdkDestination(paths: ["postman-echo.com/post"], uses: ["POST"])
-                    let consent: TikiSdkConsent = try await tikiSdk.modifyConsent(ownershipId: ownership!.transactionId, destination: destination, about: "" , reward: "", expiry: Calendar.current.date(byAdding: DateComponents(year: 10), to: Date())!)
+                    let path: String = URL(string:appModel.stream.url)!.host!
+                    let use: String = appModel.stream.httpMethod
+                    let destination = TikiSdkDestination(paths: [path], uses: [use])
+                    let consent: TikiSdkConsent = try await appModel.tikiSdk!.modifyConsent(ownershipId: appModel.ownership!.transactionId, destination: destination, about: "Consent given to echo data in remote server", reward: "Test the SDK", expiry: Calendar.current.date(byAdding: DateComponents(year: 10), to: Date())!)
                     appModel.consentDictionary[ownership!.transactionId] = consent
-                    
+                    appModel.isConsentGiven = true
                     isLoading = false
                 }catch{
                     print(error.localizedDescription, error)

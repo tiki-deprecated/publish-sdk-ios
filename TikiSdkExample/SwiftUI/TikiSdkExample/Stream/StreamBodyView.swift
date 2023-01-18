@@ -6,7 +6,7 @@
 import SwiftUI
 import TikiSdk
 
-struct BodyView: View {
+struct StreamBodyView: View {
     
     @EnvironmentObject var appModel: TikiSdkExampleAppModel
     
