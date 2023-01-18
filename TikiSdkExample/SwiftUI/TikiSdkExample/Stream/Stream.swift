@@ -9,6 +9,6 @@ struct Stream{
     let source: String
     var body: String = "{\"message\" : \"Hello Tiki!\"}"
     var httpMethod: String = "POST"
-    var interval: Int = 15
+    var interval: Int = 1
     var url: String = "https://postman-echo.com/post"
 }

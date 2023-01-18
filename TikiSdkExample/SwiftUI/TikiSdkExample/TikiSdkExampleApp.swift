@@ -10,7 +10,7 @@ import TikiSdk
 struct TikiSdkExampleApp: App {
     
     @StateObject var appModel: TikiSdkExampleAppModel = TikiSdkExampleAppModel()
-    @State var log: [StreamRequestLog] = []
+    @State var log: [StreamLog] = []
     @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some Scene {
@@ -34,7 +34,7 @@ struct TikiSdkExampleApp: App {
                             let ownership = appModel.ownership
                             Section {
                                 VStack(alignment: .leading){
-                                NavigationLink(destination: OwnershipDetailView()) {
+                                NavigationLink(destination: OwnershipView()) {
                                     Text("Ownership NFT").foregroundColor(.blue)
                                         .multilineTextAlignment(.leading)
                                         .listRowSeparator(.hidden)
@@ -45,7 +45,7 @@ struct TikiSdkExampleApp: App {
                                 let consent = appModel.consent
                                 VStack(alignment: .leading){
                                     Section {
-                                    NavigationLink(destination: ConsentDetailView()) {
+                                    NavigationLink(destination: ConsentView()) {
                                         Text("Consent NFT").foregroundColor(.blue).multilineTextAlignment(.leading)
                                             .listRowSeparator(.hidden)
                                     }
@@ -99,7 +99,7 @@ struct TikiSdkExampleApp: App {
     
     func sendDataToServer(){
         if(appModel.tikiSdk == nil){
-            log.append(StreamRequestLog(icon: "🔴", message: "ERROR: Create a Wallet"))
+            log.append(StreamLog(icon: "🔴", message: "ERROR: Create a Wallet"))
         }else{
             Task{
                 let url = URL(string: appModel.stream.url)!
@@ -118,32 +118,32 @@ struct TikiSdkExampleApp: App {
                             let response = response as? HTTPURLResponse,
                             error == nil
                         else {
-                            log.append(StreamRequestLog(icon: "🔴", message: "ERROR: \(error?.localizedDescription ?? URLError(.badServerResponse).localizedDescription)"))
+                            log.append(StreamLog(icon: "🔴", message: "ERROR: \(error?.localizedDescription ?? URLError(.badServerResponse).localizedDescription)"))
                             return
                         }
                         
                         guard (200 ... 299) ~= response.statusCode else {
-                            log.append(StreamRequestLog(icon: "🔴", message:"\(response.statusCode): \(HTTPURLResponse.localizedString(forStatusCode: response.statusCode))"))
+                            log.append(StreamLog(icon: "🔴", message:"\(response.statusCode): \(HTTPURLResponse.localizedString(forStatusCode: response.statusCode))"))
                             return
                         }
                         do{
                             let jsonData = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                             guard let jsonDictionary : Dictionary<String, AnyObject> = jsonData["json"] as? Dictionary else{
-                                log.append(StreamRequestLog(icon: "🔴", message: "Error: Malformed JSON repsonse"))
+                                log.append(StreamLog(icon: "🔴", message: "Error: Malformed JSON repsonse"))
                                 return
                             }
-                            log.append(StreamRequestLog(icon:"🟢", message:"\(response.statusCode): \(jsonDictionary)"))
+                            log.append(StreamLog(icon:"🟢", message:"\(response.statusCode): \(jsonDictionary)"))
                             DispatchQueue.main.async {
                                 appModel.isConsentGiven = true
                             }
                         }catch{
-                            log.append(StreamRequestLog(icon: "🔴", message: "Error: \(error.localizedDescription)"))
+                            log.append(StreamLog(icon: "🔴", message: "Error: \(error.localizedDescription)"))
                             return
                         }
                     }
                     task.resume()
                 }, onBlocked: { reason in
-                    log.append(StreamRequestLog(icon: "🔴", message: "Blocked: consent required"))
+                    log.append(StreamLog(icon: "🔴", message: "Blocked: consent required"))
                     DispatchQueue.main.async {
                         appModel.isConsentGiven = false
                     }

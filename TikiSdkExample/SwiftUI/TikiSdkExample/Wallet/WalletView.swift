@@ -9,6 +9,7 @@ import TikiSdk
 struct WalletView: View {
     
     @EnvironmentObject var appModel: TikiSdkExampleAppModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State private var isLoading = false
     
@@ -21,9 +22,9 @@ struct WalletView: View {
                 ForEach(0..<appModel.walletList.count, id: \.self) { index in
                     let tikiSdk : TikiSdk = appModel.wallets[appModel.walletList[index]]!
                     let addr: String = tikiSdk.address!.prefix(16) + "..."
-                    Button(addr + "..."){
+                    Button((appModel.selectedWalletAddress == tikiSdk.address ? "✔️" : "") + addr + "..."){
                         switchTo(addr: tikiSdk.address!)
-                    }
+                    }.foregroundColor(.gray)
                 }
                 Button("+ new wallet") {
                     createWallet()
@@ -55,6 +56,7 @@ struct WalletView: View {
                     appModel.consentDictionary[ownership!.transactionId] = consent
                     appModel.isConsentGiven = true
                     isLoading = false
+                    self.presentationMode.wrappedValue.dismiss()
                 }catch{
                     print(error.localizedDescription, error)
                 }
@@ -64,6 +66,7 @@ struct WalletView: View {
 
     func switchTo(addr: String){
         appModel.selectedWalletAddress = addr
+        self.presentationMode.wrappedValue.dismiss()
     }
 }
 

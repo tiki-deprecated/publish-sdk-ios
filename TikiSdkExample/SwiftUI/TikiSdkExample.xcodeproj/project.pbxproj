@@ -13,9 +13,9 @@
 		8C43EA912977FC7900D52716 /* StreamEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA902977FC7800D52716 /* StreamEditView.swift */; };
 		8C43EA95297804A300D52716 /* TikiSdkExampleAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA94297804A300D52716 /* TikiSdkExampleAppModel.swift */; };
 		8C43EA9F2978974E00D52716 /* StreamBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9C2978974E00D52716 /* StreamBodyView.swift */; };
-		8C43EAA12978974E00D52716 /* StreamRequestLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9E2978974E00D52716 /* StreamRequestLog.swift */; };
-		8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A029623CD20068338E /* OwnershipDetailView.swift */; };
-		8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A329623CD20068338E /* ConsentDetailView.swift */; };
+		8C43EAA12978974E00D52716 /* StreamLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9E2978974E00D52716 /* StreamLog.swift */; };
+		8C49E8A829623CD20068338E /* OwnershipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A029623CD20068338E /* OwnershipView.swift */; };
+		8C49E8AA29623CD20068338E /* ConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A329623CD20068338E /* ConsentView.swift */; };
 		8CCDBBF6296E2D3C00C278D4 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDBBF5296E2D3C00C278D4 /* Stream.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,9 +27,9 @@
 		8C43EA902977FC7800D52716 /* StreamEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamEditView.swift; sourceTree = "<group>"; };
 		8C43EA94297804A300D52716 /* TikiSdkExampleAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleAppModel.swift; sourceTree = "<group>"; };
 		8C43EA9C2978974E00D52716 /* StreamBodyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamBodyView.swift; sourceTree = "<group>"; };
-		8C43EA9E2978974E00D52716 /* StreamRequestLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamRequestLog.swift; sourceTree = "<group>"; };
-		8C49E8A029623CD20068338E /* OwnershipDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipDetailView.swift; sourceTree = "<group>"; };
-		8C49E8A329623CD20068338E /* ConsentDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentDetailView.swift; sourceTree = "<group>"; };
+		8C43EA9E2978974E00D52716 /* StreamLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLog.swift; sourceTree = "<group>"; };
+		8C49E8A029623CD20068338E /* OwnershipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipView.swift; sourceTree = "<group>"; };
+		8C49E8A329623CD20068338E /* ConsentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentView.swift; sourceTree = "<group>"; };
 		8CCDBBF5296E2D3C00C278D4 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,7 +79,7 @@
 		8C49E89C29623CD20068338E /* Ownership */ = {
 			isa = PBXGroup;
 			children = (
-				8C49E8A029623CD20068338E /* OwnershipDetailView.swift */,
+				8C49E8A029623CD20068338E /* OwnershipView.swift */,
 			);
 			path = Ownership;
 			sourceTree = "<group>";
@@ -87,7 +87,7 @@
 		8C49E8A129623CD20068338E /* Consent */ = {
 			isa = PBXGroup;
 			children = (
-				8C49E8A329623CD20068338E /* ConsentDetailView.swift */,
+				8C49E8A329623CD20068338E /* ConsentView.swift */,
 			);
 			path = Consent;
 			sourceTree = "<group>";
@@ -119,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				8C43EA9C2978974E00D52716 /* StreamBodyView.swift */,
-				8C43EA9E2978974E00D52716 /* StreamRequestLog.swift */,
+				8C43EA9E2978974E00D52716 /* StreamLog.swift */,
 				8CCDBBF5296E2D3C00C278D4 /* Stream.swift */,
 				8C43EA902977FC7800D52716 /* StreamEditView.swift */,
 			);
@@ -203,11 +203,11 @@
 				8CCDBBF6296E2D3C00C278D4 /* Stream.swift in Sources */,
 				8C43EA9F2978974E00D52716 /* StreamBodyView.swift in Sources */,
 				8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */,
-				8C43EAA12978974E00D52716 /* StreamRequestLog.swift in Sources */,
+				8C43EAA12978974E00D52716 /* StreamLog.swift in Sources */,
 				8C1F5BD7295FC369001AA520 /* TikiSdkExampleApp.swift in Sources */,
 				8C43EA95297804A300D52716 /* TikiSdkExampleAppModel.swift in Sources */,
-				8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */,
-				8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */,
+				8C49E8AA29623CD20068338E /* ConsentView.swift in Sources */,
+				8C49E8A829623CD20068338E /* OwnershipView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

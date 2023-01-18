@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct StreamRequestLog{
+struct StreamLog{
     var icon: String
     var message: String
     var _timestamp: Date = Date()
