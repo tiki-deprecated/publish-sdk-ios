@@ -84,8 +84,10 @@ struct TikiSdkExampleApp: App {
                 }.onAppear{
                     let seconds = appModel.stream.interval
                     timer = Timer.publish(every: Double(seconds), on: .main, in: .common).autoconnect()
-                }
-            }.onReceive(timer) { _ in
+                }.offset(x: 0, y: -30).edgesIgnoringSafeArea(.bottom)
+            }.navigationBarTitle("")
+             .navigationBarHidden(true)
+             .onReceive(timer) { _ in
                 sendDataToServer()
             }.environmentObject(appModel)
         }
