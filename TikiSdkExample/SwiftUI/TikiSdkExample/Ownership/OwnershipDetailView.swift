@@ -6,7 +6,7 @@ struct OwnershipDetailView: View {
     @EnvironmentObject var appModel: TikiSdkExampleAppModel
     
     var body: some View {
-        let ownership = appModel.ownershipList[appModel.selectedOwnershipIndex]
+        let ownership = appModel.ownership!
         VStack{
             Text("Ownership")
             List{

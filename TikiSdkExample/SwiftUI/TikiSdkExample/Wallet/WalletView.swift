@@ -19,10 +19,10 @@ struct WalletView: View {
                 .multilineTextAlignment(.leading)
             List {
                 ForEach(0..<appModel.walletList.count, id: \.self) { index in
-                    let tikiSdk = appModel.walletList[index]
+                    let tikiSdk : TikiSdk = appModel.wallets[appModel.walletList[index]]!
                     let addr: String = tikiSdk.address!.prefix(16) + "..."
-                    Button( addr + "..."){
-                        print(addr)
+                    Button(addr + "..."){
+                        switchTo(addr: tikiSdk.address!)
                     }
                 }
                 Button("+ new wallet") {
@@ -37,22 +37,21 @@ struct WalletView: View {
             isLoading = true
             Task {
                 do{
+                    let source: String = UUID().uuidString
+                    appModel.stream = Stream(source: source)
+                    
+                    
                     let origin = "com.mytiki.tiki_sdk_example"
                     let apiId = "2b8de004-cbe0-4bd5-bda6-b266d54f5c90"
                     let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
-                    let source: String = UUID().uuidString
-                    appModel.stream = Stream(source: source)
-        
-                    appModel.walletList.append(tikiSdk)
-                    if(appModel.selectedWalletIndex != 0){
-                        appModel.selectedWalletIndex += 1
-                    }
+                    appModel.walletList.append(tikiSdk.address!)
+                    appModel.wallets[tikiSdk.address!] = tikiSdk
+                    appModel.selectedWalletAddress = tikiSdk.address!
                     
                     let _ = try await appModel.tikiSdk!.assignOwnership(source: source, type: TikiSdkDataTypeEnum.stream, contains: ["generic data"], about: "Data stream created with TIKI SDK Sample App")
                     let ownership = try await appModel.tikiSdk?.getOwnership(source: source)
-                    appModel.ownershipDictionary[tikiSdk.address!] = [ownership!]
+                    appModel.ownershipDictionary[tikiSdk.address!] = ownership!
                         
-                    
                     let destination = TikiSdkDestination(paths: ["postman-echo.com/post"], uses: ["POST"])
                     let consent: TikiSdkConsent = try await tikiSdk.modifyConsent(ownershipId: ownership!.transactionId, destination: destination, about: "" , reward: "", expiry: Calendar.current.date(byAdding: DateComponents(year: 10), to: Date())!)
                     appModel.consentDictionary[ownership!.transactionId] = consent
@@ -65,5 +64,8 @@ struct WalletView: View {
         }
     }
 
+    func switchTo(addr: String){
+        appModel.selectedWalletAddress = addr
+    }
 }
 

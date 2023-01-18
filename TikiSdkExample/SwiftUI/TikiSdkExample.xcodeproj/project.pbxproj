@@ -12,6 +12,8 @@
 		8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BE929605B2A001AA520 /* WalletView.swift */; };
 		8C43EA912977FC7900D52716 /* StreamCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA902977FC7800D52716 /* StreamCreateView.swift */; };
 		8C43EA95297804A300D52716 /* TikiSdkExampleAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA94297804A300D52716 /* TikiSdkExampleAppModel.swift */; };
+		8C43EA9929786F1D00D52716 /* RequestLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9829786F1D00D52716 /* RequestLog.swift */; };
+		8C43EA9B29787BB900D52716 /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9A29787BB900D52716 /* BodyView.swift */; };
 		8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A029623CD20068338E /* OwnershipDetailView.swift */; };
 		8C49E8A929623CD20068338E /* ConsentModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A229623CD20068338E /* ConsentModifyView.swift */; };
 		8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A329623CD20068338E /* ConsentDetailView.swift */; };
@@ -27,6 +29,8 @@
 		8C1F5BE929605B2A001AA520 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
 		8C43EA902977FC7800D52716 /* StreamCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamCreateView.swift; sourceTree = "<group>"; };
 		8C43EA94297804A300D52716 /* TikiSdkExampleAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleAppModel.swift; sourceTree = "<group>"; };
+		8C43EA9829786F1D00D52716 /* RequestLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLog.swift; sourceTree = "<group>"; };
+		8C43EA9A29787BB900D52716 /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
 		8C49E8A029623CD20068338E /* OwnershipDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipDetailView.swift; sourceTree = "<group>"; };
 		8C49E8A229623CD20068338E /* ConsentModifyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentModifyView.swift; sourceTree = "<group>"; };
 		8C49E8A329623CD20068338E /* ConsentDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentDetailView.swift; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 				8C49E89C29623CD20068338E /* Ownership */,
 				8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */,
 				8C43EA94297804A300D52716 /* TikiSdkExampleAppModel.swift */,
+				8C43EA9829786F1D00D52716 /* RequestLog.swift */,
+				8C43EA9A29787BB900D52716 /* BodyView.swift */,
 			);
 			path = TikiSdkExample;
 			sourceTree = "<group>";
@@ -204,12 +210,14 @@
 			files = (
 				8C43EA912977FC7900D52716 /* StreamCreateView.swift in Sources */,
 				8CCDBBF6296E2D3C00C278D4 /* Stream.swift in Sources */,
+				8C43EA9B29787BB900D52716 /* BodyView.swift in Sources */,
 				8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */,
 				8C1F5BD7295FC369001AA520 /* TikiSdkExampleApp.swift in Sources */,
 				8C6635BE297008C700713D22 /* StreamListView.swift in Sources */,
 				8C43EA95297804A300D52716 /* TikiSdkExampleAppModel.swift in Sources */,
 				8C49E8AA29623CD20068338E /* ConsentDetailView.swift in Sources */,
 				8C49E8A829623CD20068338E /* OwnershipDetailView.swift in Sources */,
+				8C43EA9929786F1D00D52716 /* RequestLog.swift in Sources */,
 				8CCDBBF8296E2DA900C278D4 /* StreamDetailView.swift in Sources */,
 				8C49E8A929623CD20068338E /* ConsentModifyView.swift in Sources */,
 			);

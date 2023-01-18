@@ -8,38 +8,30 @@ import TikiSdk
 
 class TikiSdkExampleAppModel: ObservableObject{
     
-    @Published var walletList: [TikiSdk] = []
-    @Published var ownershipDictionary: [String: [TikiSdkOwnership]] = [:]
+    @Published var wallets: [String:TikiSdk] = [:]
+    @Published var walletList: [String] = []
+    @Published var ownershipDictionary: [String: TikiSdkOwnership] = [:]
     @Published var consentDictionary: [String: TikiSdkConsent] = [:]
     @Published var stream: Stream = Stream(source: UUID().uuidString)
     
-    @Published var selectedWalletIndex = 0
-    @Published var selectedOwnershipIndex = 0
-    @Published var selectedStreamIndex = 0
+    @Published var selectedWalletAddress : String = ""
     @Published var isConsentGiven = false
     
     var tikiSdk: TikiSdk? {
         get{
-            if(!walletList.isEmpty){
-                return walletList[selectedWalletIndex]
+            if(!wallets.isEmpty){
+                let sdk = wallets[selectedWalletAddress]
+                let w = wallets
+                return sdk
             }
             return nil
         }
     }
     
-    var ownershipList: [TikiSdkOwnership] {
-        get{
-            if(tikiSdk != nil && ownershipDictionary[tikiSdk!.address!] != nil){
-                return ownershipDictionary[tikiSdk!.address!]!
-            }
-            return []
-        }
-    }
-    
     var ownership: TikiSdkOwnership? {
         get {
-            if(!ownershipList.isEmpty){
-                return ownershipList[selectedOwnershipIndex]
+            if(!ownershipDictionary.isEmpty){
+                return ownershipDictionary[tikiSdk!.address!]
             }
             return nil
         }
@@ -48,7 +40,7 @@ class TikiSdkExampleAppModel: ObservableObject{
     var consent: TikiSdkConsent? {
         get {
             if(!consentDictionary.isEmpty){
-                return consentDictionary[ownershipList[selectedOwnershipIndex].transactionId]
+                return consentDictionary[ownership!.transactionId]
             }
             return nil
         }

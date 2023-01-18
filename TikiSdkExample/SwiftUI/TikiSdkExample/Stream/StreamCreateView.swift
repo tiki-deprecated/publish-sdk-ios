@@ -9,14 +9,12 @@ import TikiSdk
 struct StreamCreateView: View {
     
     @EnvironmentObject var appModel: TikiSdkExampleAppModel
-
-    @State private var httpMethod: String = "POST"
-    @State private var interval: String = "Every 1 second"
-    @State private var url: String = "https://postman-echo.com/post"
     
     let httpMethods = ["POST", "GET"]
     let intervals = ["Every 1 second", "Every 15 seconds", "Every 30 seconds", "Every 60 seconds"]
     let intervalInts = [1,15,30,60]
+    
+    @State private var interval: String = "Every 1 second"
     
     var body: some View {
         VStack(alignment: .leading){
@@ -24,8 +22,8 @@ struct StreamCreateView: View {
                 .font(.largeTitle).padding()
                 .multilineTextAlignment(.leading)
             List {
-                TextField("URL", text: $url)
-                Picker("HTTP Method", selection: $httpMethod) {
+                TextField("URL", text: $appModel.stream.url)
+                Picker("HTTP Method", selection: $appModel.stream.httpMethod) {
                    ForEach(httpMethods, id: \.self) {
                        Text($0)
                    }
@@ -34,13 +32,12 @@ struct StreamCreateView: View {
                    ForEach(intervals, id: \.self) {
                        Text($0)
                    }
-                }
+                }.onAppear{
+                    interval = intervals[intervalInts.firstIndex(of: appModel.stream.interval)!]
+                }.onChange(of: interval, perform: { newInterval in
+                    appModel.stream.interval = intervalInts[intervals.firstIndex(of: newInterval)!]
+                })
             }.offset(x: 0, y: -30).edgesIgnoringSafeArea(.bottom)
-        }.background(Color(.systemGray6)).onDisappear{
-            appModel.stream.httpMethod = httpMethod
-            appModel.stream.interval = intervalInts[intervals.firstIndex(of: interval)!]
-            appModel.stream.url = url
-            print(appModel)
-        }
+        }.background(Color(.systemGray6))
     }
 }
