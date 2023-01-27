@@ -27,16 +27,16 @@ let package = Package(
                           ]),
         
         .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/App.xcframework.zip",
-                      checksum: "a1d26151616ebb99ed49ff7aaab6e49f7935b5efe75a5aecdef8eae60f2359fb"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/App_debug.xcframework.zip",
+                      checksum: "307c616cf92e3980e408c86352d78b516792eee703d9b3b909f2c8aa4158e9ed"),
                           
         .binaryTarget(name: "flutter_secure_storage",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/flutter_secure_storage.xcframework.zip",
                       checksum: "ac4bd2c04c95ecb44d49bf6aee544b6c8da9db8f6981161956f730eccb19c618"),
         
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/Flutter.xcframework.zip",
-                      checksum: "2afb6743c715f1b50068df048857f39fa8fea04455a5b85603e751d9e4bbf556"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/Flutter_Debug.xcframework.zip",
+                      checksum: "8d068d6394e4338470db4d1bb875292ee5880da2b77cf78720ab6fef32a5faa7"),
         
         .binaryTarget(name: "FlutterPluginRegistrant",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/FlutterPluginRegistrant.xcframework.zip",
