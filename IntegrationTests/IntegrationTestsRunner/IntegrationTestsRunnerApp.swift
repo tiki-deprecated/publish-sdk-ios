@@ -11,7 +11,7 @@ import SwiftUI
 struct IntegrationTestsRunnerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            
         }
     }
 }

@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8C616602294BC9B20032A058 /* IntegrationTestsRunnerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C616601294BC9B20032A058 /* IntegrationTestsRunnerApp.swift */; };
-		8C616604294BC9B20032A058 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C616603294BC9B20032A058 /* ContentView.swift */; };
 		8C616606294BC9B50032A058 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C616605294BC9B50032A058 /* Assets.xcassets */; };
 		8C616613294BC9B50032A058 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C616612294BC9B50032A058 /* IntegrationTests.swift */; };
-		8C61662A294BCA030032A058 /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C616629294BCA030032A058 /* TikiSdk */; };
+		8CF5B3E42983CAB800554FFD /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8CF5B3E32983CAB800554FFD /* TikiSdk */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,9 +26,7 @@
 /* Begin PBXFileReference section */
 		8C6165FF294BC9B20032A058 /* IntegrationTestsRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntegrationTestsRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C616601294BC9B20032A058 /* IntegrationTestsRunnerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestsRunnerApp.swift; sourceTree = "<group>"; };
-		8C616603294BC9B20032A058 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8C616605294BC9B50032A058 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8C616608294BC9B50032A058 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8C61660E294BC9B50032A058 /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C616612294BC9B50032A058 /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
 		8C66BBFC294BCDAE0005326F /* tiki-sdk-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "tiki-sdk-ios"; path = ..; sourceTree = "<group>"; };
@@ -40,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C61662A294BCA030032A058 /* TikiSdk in Frameworks */,
+				8CF5B3E42983CAB800554FFD /* TikiSdk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,19 +55,9 @@
 			isa = PBXGroup;
 			children = (
 				8C616601294BC9B20032A058 /* IntegrationTestsRunnerApp.swift */,
-				8C616603294BC9B20032A058 /* ContentView.swift */,
 				8C616605294BC9B50032A058 /* Assets.xcassets */,
-				8C616607294BC9B50032A058 /* Preview Content */,
 			);
 			path = IntegrationTestsRunner;
-			sourceTree = "<group>";
-		};
-		8C616607294BC9B50032A058 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				8C616608294BC9B50032A058 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		8C616611294BC9B50032A058 /* IntegrationTests */ = {
@@ -134,7 +121,7 @@
 			);
 			name = IntegrationTestsRunner;
 			packageProductDependencies = (
-				8C616629294BCA030032A058 /* TikiSdk */,
+				8CF5B3E32983CAB800554FFD /* TikiSdk */,
 			);
 			productName = IntegrationTestsRunner;
 			productReference = 8C6165FF294BC9B20032A058 /* IntegrationTestsRunner.app */;
@@ -241,7 +228,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C616604294BC9B20032A058 /* ContentView.swift in Sources */,
 				8C616602294BC9B20032A058 /* IntegrationTestsRunnerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,7 +500,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8C616629294BCA030032A058 /* TikiSdk */ = {
+		8CF5B3E32983CAB800554FFD /* TikiSdk */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TikiSdk;
 		};

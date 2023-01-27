@@ -16,7 +16,7 @@
 		8C49E8A829623CD20068338E /* OwnershipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A029623CD20068338E /* OwnershipView.swift */; };
 		8C49E8AA29623CD20068338E /* ConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A329623CD20068338E /* ConsentView.swift */; };
 		8CCDBBF6296E2D3C00C278D4 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDBBF5296E2D3C00C278D4 /* Stream.swift */; };
-		8CF5B3E22983C54600554FFD /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8CF5B3E12983C54600554FFD /* TikiSdk */; };
+		8CE7C4962984568800D62420 /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8CE7C4952984568800D62420 /* TikiSdk */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CF5B3E22983C54600554FFD /* TikiSdk in Frameworks */,
+				8CE7C4962984568800D62420 /* TikiSdk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +133,7 @@
 			);
 			name = TikiSdkExample;
 			packageProductDependencies = (
-				8CF5B3E12983C54600554FFD /* TikiSdk */,
+				8CE7C4952984568800D62420 /* TikiSdk */,
 			);
 			productName = TikiSdkExample;
 			productReference = 8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */;
@@ -164,7 +164,7 @@
 			);
 			mainGroup = 8C1F5BCA295FC369001AA520;
 			packageReferences = (
-				8CF5B3E02983C54600554FFD /* XCRemoteSwiftPackageReference "tiki-sdk-ios" */,
+				8CE7C4942984568800D62420 /* XCRemoteSwiftPackageReference "tiki-sdk-ios" */,
 			);
 			productRefGroup = 8C1F5BD4295FC369001AA520 /* Products */;
 			projectDirPath = "";
@@ -240,6 +240,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -301,6 +302,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -314,6 +316,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -335,8 +338,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -364,8 +367,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -403,7 +406,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8CF5B3E02983C54600554FFD /* XCRemoteSwiftPackageReference "tiki-sdk-ios" */ = {
+		8CE7C4942984568800D62420 /* XCRemoteSwiftPackageReference "tiki-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tiki/tiki-sdk-ios.git";
 			requirement = {
@@ -414,9 +417,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8CF5B3E12983C54600554FFD /* TikiSdk */ = {
+		8CE7C4952984568800D62420 /* TikiSdk */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8CF5B3E02983C54600554FFD /* XCRemoteSwiftPackageReference "tiki-sdk-ios" */;
+			package = 8CE7C4942984568800D62420 /* XCRemoteSwiftPackageReference "tiki-sdk-ios" */;
 			productName = TikiSdk;
 		};
 /* End XCSwiftPackageProductDependency section */
