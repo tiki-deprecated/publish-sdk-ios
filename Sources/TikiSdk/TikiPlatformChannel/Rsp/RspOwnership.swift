@@ -8,5 +8,5 @@
 ///
 /// Returns the *ownership* or Null if not found.
 struct RspOwnership : Decodable {
-    let ownership : TikiSdkOwnership
+    let ownership : TikiSdkOwnership?
 }

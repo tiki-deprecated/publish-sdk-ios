@@ -9,51 +9,80 @@ order: 1
 
 ## Constructors
 
-##### TikiSdk (apiId: String, origin: String, onBuild: ((success: Bool, response: String?) &#8594; Void)? = nil)
+##### TikiSdk (...)
 
-## Methods
+**async function**  
+_must be called from async function or [Task](https://developer.apple.com/documentation/swift/task)_
 
-##### assignOwnership(source: String, type: String, completion: ((success: Bool, response: String?) &#8594; Void)? = nil, contains: Array&lt;String>? = nil, about: String? = nil, origin: String? = nil)
-Data ownership can be assigned to any data point, pool, or stream, creating an immutable, on-chain record.  
+Named Parameters:
 
-Parameters:
-- **source &#8594; String**  
-An identifier in your system corresponding to the raw data.  
-_i.e. a user_id_
+- **apiId &#8594; String**
+  A unique identifier for your account. Create, revoke, and cycle Ids (not a secret but try and treat it with care) at [console.mytiki.com](https://console.mytiki.com).
 
 
-- **type &#8594; String**  
-One of `"point"`, `"pool"`, or `"stream"`
+- **origin &#8594; String**  
+  Included in the on-chain transaction to denote the application of origination (can be overridden in individual requests). It should follow a reversed FQDN syntax. i.e. com.mycompany.myproduct
 
 
-- **completion &#8594; ((success: Bool, response: String?) &#8594; Void)?**
-A callback function to execute on completion. Input (**String**) is the unique transaction id (use to recall the transaction record at any time)
-
-
-- **contains &#8594; Array&lt;String>**  
-A list of metadata tags describing the represented data
-
-
-- **origin &#8594; String?**  
-An optional override of the default origin set during initialization
-
-
-- **about &#8594; String?**  
-An optional description to provide additional context to the transaction. Most typically as human-readable text.
+- **address &#8594; String? = nil**  
+  Set the user address (primarily for restoring the state on launch). If not set, a new key pair and address will be generated for the user.
 
 Example:
 
 ```
-let completion = { (success: Bool, response: String) -> print(response) };
-tiki.assignOwnership("12345", "point", completion, ["email_address"]);
+val tiki = try await TikiSdk().init(apiId: "YOUR_API_ID", origin: "com.mycompany.myproduct")
+```
+
+## Methods
+
+##### assignOwnership(...) &#8594; String
+Data ownership can be assigned to any data point, pool, or stream, creating an immutable, on-chain record.  
+
+**async function**  
+_must be called from async function or [Task](https://developer.apple.com/documentation/swift/task)_
+
+Named Parameters:
+- **source &#8594; String**  
+  An identifier in your system corresponding to the raw data.  
+  _i.e. a user_id_
+
+
+- **type &#8594; [TikiSdkDataTypeEnum](tiki-sdk-ios-tiki-sdk-data-type-enum)**  
+  One of `"data_point"`, `"data_pool"`, or `"data_stream"`
+
+
+- **contains &#8594; Array&lt;String>**  
+  A list of metadata tags describing the represented data
+
+
+- **origin &#8594; String? = nil**  
+  An optional override of the default origin set during initialization
+
+
+- **about &#8594; String? = nil**  
+  An optional description to provide additional context to the transaction. Most typically as
+  human-readable text.
+
+Returns:
+
+- **String**  
+  The unique transaction id (use to recall the transaction record at any time)
+
+Example:
+
+```
+let oid = try await tiki.assignOwnership(source: "12345", type: TikiSdkDataTypeEnum.point, contains: ["email_address"])
 ```
 
 &nbsp;
 
-##### modifyConsent(ownershipId: String, destination: [TikiSdkDestination](tiki-sdk-ios-tiki-sdk-destination), callback: completion: ((success: Bool, response: String?) &#8594; Void)? = nil, about: String? = nil, reward: String? = nil) 
+##### modifyConsent(...) &#8594; [TikiSdkConsent](tiki-sdk-ios-tiki-sdk-consent)
 Consent is given (or revoked) for data ownership records. Consent defines "who" the data owner has given utilization rights.
 
-Parameters:
+**async function**  
+_must be called from async function or [Task](https://developer.apple.com/documentation/swift/task)_
+
+Named Parameters:
 - **ownershipId &#8594; String**  
 The transaction id for the ownership grant
 
@@ -62,54 +91,95 @@ The transaction id for the ownership grant
 A collection of paths and application use cases that consent has been granted (or revoked) for.
 
 
-- **completion &#8594; ((success: Bool, response: String?) &#8594; Void)?**
-A callback function executed on completion. Input (**String**) is the modified consent.
-
-
-- **about &#8594; String?**  
+- **about &#8594; String? = nil**  
 An optional description to provide additional context to the transaction. Most typically as human-readable text.
 
 
-- **reward &#8594; String?**  
+- **reward &#8594; String? = nil**  
 An optional definition of a reward promised to the user in exchange for consent.
 
 
+- **expiry &#8594; Date ? = nil**  
+  The date upon which the consent is no longer valid. If not set, consent is perpetual.
+
+Returns:
+
+- **[TikiSdkConsent](tiki-sdk-ios-tiki-sdk-consent)**  
+  the modified `TikiSdkConsent`
+
 Example:
 ```
-let completion = { (success: Bool, response: String) -> print(response) };
-tiki.modifyConsent(oid, TikiSdkDestination(["*"], ["*"]), completion);
+let consent = try await tiki.modifyConsent(ownershipId: oid, destination: TikiSdkDestination.all())
 ```
 
 &nbsp;
 
-##### getConsent(source: String, completion: ((success: Bool, response: String?) &#8594; Void)? = nil, origin: String? = nil)  
+##### getOwnership(source: String, origin: String? = nil) &#8594; [TikiSdkOwnership](tiki-sdk-ios-tiki-sdk-ownership)?
+
+Get the `TikiSdkOwnership` for a `source` and `origin`. If `origin` is unset, the default set during construction is used.
+
+**suspend function**  
+_must be called from within a coroutine_
+
+Named Parameters:
+
+- **source &#8594; String**  
+  An identifier in your system corresponding to the raw data.  
+  _i.e. a user_id_
+
+- **origin &#8594; String? = nil**  
+  An optional override of the default origin set during initialization
+
+Returns:
+
+- **[TikiSdkOwnership](tiki-sdk-ios-tiki-sdk-ownership)?**  
+  the assigned `TikiSdkOwnership`
+
+Example:
+
+```
+val ownership = try await tiki.getOwnership(source: "12345")
+```
+
+&nbsp;
+
+##### getConsent(source: String, origin: String? = nil)  &#8594; [TikiSdkConsent](tiki-sdk-ios-tiki-sdk-consent)?
 Get the latest `TikiSdkConsent` for a `source` and `origin`. If `origin` is unset, the default set during construction is used.
 
-Parameters:
+**async function**  
+_must be called from async function or [Task](https://developer.apple.com/documentation/swift/task)_
+
+
+Named Parameters:
 - **source &#8594; String**  
   An identifier in your system corresponding to the raw data.  
   _i.e. a user_id_
 
 
-- **completion &#8594; ((success: Bool, response: String?) &#8594; Void)?**
-  A callback function executed on completion. Input (**String**) is the returned consent.
-
-
-- **origin &#8594; String?**  
+- **origin &#8594; String? = nil**  
 An optional override of the default origin set during initialization
+
+
+Returns:
+
+- **[TikiSdkConsent](tiki-sdk-ios-tiki-sdk-consent)**  
+  the modified `TikiSdkConsent`
 
 Example:
 ```
-let completion = { (success: Bool, response: String) -> print(response) };
-tiki.getConsent("12345", completion);
+let consent = try await tiki.getConsent(source: "12345")
 ```
 
 &nbsp;
 
-##### applyConsent(source: String, destination: [TikiSdkDestination](tiki-sdk-ios-tiki-sdk-destination), request: (String?) &#8594; Void, onBlocked: (String?) &#8594; Void) 
+##### applyConsent(...) 
 Apply consent to a data transaction. If consent is granted for the `source` and `destination` and has not expired, the request is executed.
 
-Parameters:
+**async function**  
+_must be called from async function or [Task](https://developer.apple.com/documentation/swift/task)_
+
+
+Named Parameters:
 - **source &#8594; String**  
 An identifier in your system corresponding to the raw data.  
 _i.e. a user_id_
@@ -119,17 +189,20 @@ _i.e. a user_id_
 The destination(s) and use case(s) for the request.
 
 
-- **request &#8594; ((String?) &#8594; Void)**  
+- **request &#8594; (() &#8594; Void)**  
 The function to execute if consent granted
 
 
-- **onBlocked &#8594; ((String?) &#8594; Void)**  
+- **onBlocked &#8594; ((String) &#8594; Void)? = nil**  
 The function to execute if consent is denied.
 
 
+- **origin &#8594; String? = nil**  
+  An optional override of the default origin set during initialization
+
 Example:
 ```
-applyConsent("12345", TikiSdkDestination(["*"], ["*"]),
-             {(_) -> print("Consent Approved. Send data to backend.")},
-             {(_) -> print("Consent Denied.")});
+try await applyConsent(source: "12345", destination: TikiSdkDestination.all(), request: {
+  print("Consent Approved. Send data to backend.")
+});
 ```
