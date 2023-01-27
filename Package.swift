@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "TikiSdk",
     platforms: [
-            .iOS(.v14)
+            .iOS(.v13)
     ],
     products: [
         .library(
@@ -26,32 +26,32 @@ let package = Package(
                            "sqlite3",
                           ]),
         
-            .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.25/App_debug.xcframework.zip",
-                      checksum: "4eaa54ba2140b15e51dc59b2789ffcfdf57caed0b58afcfb31c8a317b1574d55"),
+        .binaryTarget(name: "App",
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/App.xcframework.zip",
+                      checksum: "a1d26151616ebb99ed49ff7aaab6e49f7935b5efe75a5aecdef8eae60f2359fb"),
                           
         .binaryTarget(name: "flutter_secure_storage",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.25/flutter_secure_storage.xcframework.zip",
-                      checksum: "c14e5207e3e767c86900ab1426a45116ecd2518009b6029d1c7ec0da4405c4ae"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/flutter_secure_storage.xcframework.zip",
+                      checksum: "ac4bd2c04c95ecb44d49bf6aee544b6c8da9db8f6981161956f730eccb19c618"),
         
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.25/Flutter.xcframework.zip",
-                      checksum: "a80650456a503e25cdd67cd19243da22aa0176e83defcc15e4891b8b0e82a849"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/Flutter.xcframework.zip",
+                      checksum: "2afb6743c715f1b50068df048857f39fa8fea04455a5b85603e751d9e4bbf556"),
         
         .binaryTarget(name: "FlutterPluginRegistrant",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.25/FlutterPluginRegistrant.xcframework.zip",
-                      checksum: "e74a9779bcd74315320a2dc135f95280aa2ff6d798bc1f9483638ad16e272588"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/FlutterPluginRegistrant.xcframework.zip",
+                      checksum: "2c17128dffd7feea9fd14af513b3f0ccfb2ff413e1217fed04415a6ae50bd71b"),
         
         .binaryTarget(name: "path_provider_ios",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.25/path_provider_ios.xcframework.zip",
-                      checksum: "812e7066aa6dc0f135e1fa4049a5e64cc8258cf8d8afecfe703b9b6392d24656"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/path_provider_ios.xcframework.zip",
+                      checksum: "c472020b0443409c2df9a331dc9010dc5c36629168eb0e96764ff6d5601a02f1"),
         
         .binaryTarget(name: "sqlite3_flutter_libs",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.25/sqlite3_flutter_libs.xcframework.zip",
-                    checksum: "04cf3e6d00d8e6385bd21c96e09ef5c45000e9968b4cf488e91bde2715f3d7d7"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/sqlite3_flutter_libs.xcframework.zip",
+                    checksum: "b86286e9a109f10a1080cd37be3fba59cd6b4907860c155d1a436f9a120dd86b"),
         
         .binaryTarget(name: "sqlite3",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.25/sqlite3.xcframework.zip",
-                      checksum: "521870f1320f096c91b7aa1dcb09e3d04e6bc0f785dcbc8c889e48965fffa257"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/sqlite3.xcframework.zip",
+                      checksum: "665c00039aa520e6c5022aae24e45aa05e36e588860f54c056c758e239adecb2"),
         ]
 )

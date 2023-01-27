@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "TikiSdk",
-        "repositoryURL": "https://github.com/tiki/tiki-sdk-ios.git",
-        "state": {
-          "branch": null,
-          "revision": "97833d9eea936f4b9324383d0cf707727f93532a",
-          "version": "0.0.12"
-        }
+  "pins" : [
+    {
+      "identity" : "tiki-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tiki/tiki-sdk-ios.git",
+      "state" : {
+        "revision" : "778c44ebe0b53881db86df266505183770ea0a7d",
+        "version" : "0.0.13"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }
