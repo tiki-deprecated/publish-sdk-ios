@@ -1,3 +1,14 @@
+## 0.0.13
+
+* update TIKI SDK Flutter to 0.0.25
+* example app
+
+## 0.0.12
+
+* update TIKI SDK Flutter to 0.0.24
+* Move JSON conversion to flutter channel 
+* Integration tests
+
 ## 0.0.11
 
 * update TIKI SDK Flutter to 0.0.23
