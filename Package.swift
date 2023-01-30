@@ -27,21 +27,20 @@ let package = Package(
                           ]),
         
         .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/App.xcframework.zip",
-                      checksum: "a1d26151616ebb99ed49ff7aaab6e49f7935b5efe75a5aecdef8eae60f2359fb"),
-                          
-        .binaryTarget(name: "flutter_secure_storage",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/flutter_secure_storage.xcframework.zip",
-                      checksum: "ac4bd2c04c95ecb44d49bf6aee544b6c8da9db8f6981161956f730eccb19c618"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/App_debug.xcframework.zip",
+                      checksum: "307c616cf92e3980e408c86352d78b516792eee703d9b3b909f2c8aa4158e9ed"),
         
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/Flutter.xcframework.zip",
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/Flutter_debug.xcframework.zip",
                       checksum: "2afb6743c715f1b50068df048857f39fa8fea04455a5b85603e751d9e4bbf556"),
-        
+                          
         .binaryTarget(name: "FlutterPluginRegistrant",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/FlutterPluginRegistrant.xcframework.zip",
                       checksum: "2c17128dffd7feea9fd14af513b3f0ccfb2ff413e1217fed04415a6ae50bd71b"),
         
+        .binaryTarget(name: "flutter_secure_storage",
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/flutter_secure_storage.xcframework.zip",
+                      checksum: "ac4bd2c04c95ecb44d49bf6aee544b6c8da9db8f6981161956f730eccb19c618"),
         .binaryTarget(name: "path_provider_ios",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/path_provider_ios.xcframework.zip",
                       checksum: "c472020b0443409c2df9a331dc9010dc5c36629168eb0e96764ff6d5601a02f1"),
