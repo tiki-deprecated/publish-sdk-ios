@@ -8,3 +8,4 @@ DerivedData/
 .swiftpm/xcode/xcshareddata
 Frameworks/*.xcframework
 .idea
+Package.swift.bak
