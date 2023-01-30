@@ -37,14 +37,18 @@ jobs:
     steps:
       - name: Change to release versions of the frameworks
         run: |
-          sed -i '.bak' 's/_debug//' Package.swift
+          cp Package.swift Package.swift.bak
+          sed -i 's/_debug//' Package.swift
           export TIKI_SDK_FLUTTER_VERSION=$(grep -oE "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
           export APP_RELEASE_CHECKSUM=$(curl -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App.checksum.txt")
           export APP_DEBUG_CHECKSUM=$(curl -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App_debug.checksum.txt")
           export FLUTTER_RELEASE_CHECKSUM=$(curl -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter.checksum.txt")
           export FLUTTER_DEBUG_CHECKSUM=$(curl -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter_debug.checksum.txt")
-          sed -i '' "s/$APP_DEBUG_CHECKSUM/$APP_RELEASE_CHECKSUM/" Package.swift
-          sed -i '' "s/$FLUTTER_DEBUG_CHECKSUM/$FLUTTER_RELEASE_CHECKSUM/" Package.swift
+          sed -i "s/$APP_DEBUG_CHECKSUM/$APP_RELEASE_CHECKSUM/" Package.swift
+          sed -i "s/$FLUTTER_DEBUG_CHECKSUM/$FLUTTER_RELEASE_CHECKSUM/" Package.swift
+          cat Package.swift
+          git add Package.swift
+          git commit -m "Change Package.swift to release versions of the frameworks"
     
       - name: Create a new version tag
         id: version
