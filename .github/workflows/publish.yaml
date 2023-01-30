@@ -10,8 +10,8 @@ on:
 jobs:
   publish:
     runs-on: macos-latest
-    environment:
-      name: Production
+#    environment:
+#      name: Production
     permissions:
       contents: write
     steps:
