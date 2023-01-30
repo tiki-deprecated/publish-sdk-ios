@@ -32,7 +32,7 @@ let package = Package(
         
         .binaryTarget(name: "Flutter",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/Flutter_debug.xcframework.zip",
-                      checksum: "2afb6743c715f1b50068df048857f39fa8fea04455a5b85603e751d9e4bbf556"),
+                      checksum: "8d068d6394e4338470db4d1bb875292ee5880da2b77cf78720ab6fef32a5faa7"),
                           
         .binaryTarget(name: "FlutterPluginRegistrant",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/0.0.26/FlutterPluginRegistrant.xcframework.zip",
