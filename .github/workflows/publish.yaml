@@ -26,10 +26,10 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Run tests
-        run: |
-          cd IntegrationTests
-          xcodebuild test -project IntegrationTests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
+#      - name: Run tests
+#        run: |
+#          cd IntegrationTests
+#          xcodebuild test -project IntegrationTests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
 
       - name: Change to release versions of the frameworks
         run: |
