@@ -10,10 +10,6 @@ on:
 jobs:
   test:
     runs-on: macos-latest
-    environment:
-      name: Production
-    permissions:
-      contents: write
     steps:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
