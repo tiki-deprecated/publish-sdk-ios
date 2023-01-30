@@ -35,6 +35,11 @@ jobs:
     runs-on: ubuntu-latest
 #    needs: [ test ]
     steps:
+      - name: Checkout TIKI SDK iOS
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
       - name: Change to release versions of the frameworks
         run: |
           cp Package.swift Package.swift.bak
