@@ -1,9 +1,11 @@
-name: Publish
+name: Release
 
 on:
-  push:
-    tags:
-    - '*.*.*'
+  pull_request:
+    branches:
+      - test-main
+    types:
+      - closed
 
 jobs:
   publish:
@@ -13,9 +15,12 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout TIKI SDK Android
+      - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
-    
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          
       - name: Setup XCode
         uses: maxim-lobanov/setup-xcode@v1
         with:
@@ -26,22 +31,54 @@ jobs:
           cd IntegrationTests
           xcodebuild test -project IntegrationTests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
 
-      - name: Release
+      - name: Change to release versions of the frameworks
+        run: |
+          sed -i '.bak' 's/_debug//' Package.swift
+          export TIKI_SDK_FLUTTER_VERSION=$(grep -oE "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
+          export APP_RELEASE_CHECKSUM=$(curl -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App.checksum.txt")
+          export APP_DEBUG_CHECKSUM=$(curl -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App_debug.checksum.txt")
+          export FLUTTER_RELEASE_CHECKSUM=$(curl -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter.checksum.txt")
+          export FLUTTER_DEBUG_CHECKSUM=$(curl -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter_debug.checksum.txt")
+          sed -i '' "s/$APP_DEBUG_CHECKSUM/$APP_RELEASE_CHECKSUM/" Package.swift
+          sed -i '' "s/$FLUTTER_DEBUG_CHECKSUM/$FLUTTER_RELEASE_CHECKSUM/" Package.swift
+    
+      - name: Create a new version tag
+        id: version
+        uses: codacy/git-version@2.4.0
+        with:
+          release-branch: "test-main"
+          dev-branch: "test-develop"
+        
+      - name: Recover Package.swift backup
+        run: |
+          rm Package.swift
+          mv Pakacge.swift.bak Package.swift
+          
+      - name: Commit develop version and merge into develop
+        run: |
+          git commit -a -m "${{ steps.version.outputs.version }} develop version"
+          git checkout test-develop
+          git merge test-main
+          git push origin test-develop
+      
+      - name: Create a Release
         uses: ncipollo/release-action@v1
-
-  docs:
-    runs-on: ubuntu-latest
-    needs: [ publish ]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2.1.1
-
-      - name: Guide
-        uses: readmeio/rdme@8.3.0
         with:
-          rdme: docs doc/guide --key=${{ secrets.README_API_KEY }}
+          tag: ${{steps.version.outputs.version }}
 
-      - name: Ref
-        uses: readmeio/rdme@8.3.0
-        with:
-          rdme: docs doc/ref --key=${{ secrets.README_API_KEY }}
+#  docs:
+#    runs-on: ubuntu-latest
+#    needs: [ publish ]
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2.1.1
+#
+#      - name: Guide
+#        uses: readmeio/rdme@8.3.0
+#        with:
+#          rdme: docs doc/guide --key=${{ secrets.README_API_KEY }}
+#
+#      - name: Ref
+#        uses: readmeio/rdme@8.3.0
+#        with:
+#          rdme: docs doc/ref --key=${{ secrets.README_API_KEY }}
