@@ -1,3 +1,7 @@
+## 1.0.0
+
+* public release
+
 ## 0.0.15
 
 * release build
