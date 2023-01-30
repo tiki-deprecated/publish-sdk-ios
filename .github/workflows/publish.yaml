@@ -44,7 +44,7 @@ jobs:
         run: |
           cp Package.swift Package.swift.bak
           sed -i 's/_debug//' Package.swift
-          export TIKI_SDK_FLUTTER_VERSION=$(grep -oE "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
+          export TIKI_SDK_FLUTTER_VERSION=$(grep -oiP "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
           echo "TIKI_SDK_FLUTTER_VERSION:$TIKI_SDK_FLUTTER_VERSION"
           export APP_RELEASE_CHECKSUM=$(curl -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App.checksum.txt")
           echo "APP_RELEASE_CHECKSUM:$APP_RELEASE_CHECKSUM"
