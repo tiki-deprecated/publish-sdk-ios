@@ -38,10 +38,10 @@ jobs:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
           fetch-depth: 0
       - name: Change to frameworks release versions
         run: |
+          git checkout test-main
           sed -i 's/_debug//' Package.swift
           export TIKI_SDK_FLUTTER_VERSION=$(grep -oiP "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
           echo "TIKI_SDK_FLUTTER_VERSION:$TIKI_SDK_FLUTTER_VERSION"
@@ -76,8 +76,8 @@ jobs:
 
       - name: Change back to frameworks develop version
         run: |
-          sed -i 's/App\.xcframeworks/App_debug\.xcframeworks/' Package.swift
-          sed -i 's/Flutter\.xcframeworks/Flutter_debug\.xcframeworks/' Package.swift
+          sed -i 's/App\.xcframework/App_debug\.xcframework/' Package.swift
+          sed -i 's/Flutter\.xcframework/Flutter_debug\.xcframework/' Package.swift
           export TIKI_SDK_FLUTTER_VERSION=$(grep -oiP "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
           echo "TIKI_SDK_FLUTTER_VERSION:$TIKI_SDK_FLUTTER_VERSION"
           export APP_RELEASE_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App.checksum.txt")
