@@ -16,6 +16,7 @@
 		8C43EAA12978974E00D52716 /* StreamLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9E2978974E00D52716 /* StreamLog.swift */; };
 		8C49E8A829623CD20068338E /* OwnershipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A029623CD20068338E /* OwnershipView.swift */; };
 		8C49E8AA29623CD20068338E /* ConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A329623CD20068338E /* ConsentView.swift */; };
+		8C6ED7E72987E44E009C4B3F /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6ED7E62987E44E009C4B3F /* TikiSdk */; };
 		8CCDBBF6296E2D3C00C278D4 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCDBBF5296E2D3C00C278D4 /* Stream.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		8C43EA9E2978974E00D52716 /* StreamLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLog.swift; sourceTree = "<group>"; };
 		8C49E8A029623CD20068338E /* OwnershipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipView.swift; sourceTree = "<group>"; };
 		8C49E8A329623CD20068338E /* ConsentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentView.swift; sourceTree = "<group>"; };
+		8C6ED7E52987E35A009C4B3F /* tiki-sdk-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "tiki-sdk-ios"; path = ../..; sourceTree = "<group>"; };
 		8CCDBBF5296E2D3C00C278D4 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -38,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DFA5D86298490850031F860 /* TikiSdk in Frameworks */,
+				8C6ED7E72987E44E009C4B3F /* TikiSdk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +58,7 @@
 		8C1F5BCA295FC369001AA520 = {
 			isa = PBXGroup;
 			children = (
-				5DFA5D83298490440031F860 /* Packages */,
+				8C6ED7E42987E35A009C4B3F /* Packages */,
 				8C1F5BD5295FC369001AA520 /* TikiSdkExample */,
 				8C1F5BD4295FC369001AA520 /* Products */,
 				8C49E8B9296273070068338E /* Frameworks */,
@@ -107,6 +109,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8C6ED7E42987E35A009C4B3F /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				8C6ED7E52987E35A009C4B3F /* tiki-sdk-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		8C8D08372970AEF800451869 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,7 +153,7 @@
 			);
 			name = TikiSdkExample;
 			packageProductDependencies = (
-				5DFA5D85298490850031F860 /* TikiSdk */,
+				8C6ED7E62987E44E009C4B3F /* TikiSdk */,
 			);
 			productName = TikiSdkExample;
 			productReference = 8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */;
@@ -415,7 +425,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5DFA5D85298490850031F860 /* TikiSdk */ = {
+		8C6ED7E62987E44E009C4B3F /* TikiSdk */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TikiSdk;
 		};

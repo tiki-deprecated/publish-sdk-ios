@@ -1,3 +1,11 @@
+## 0.0.15
+
+* release build
+
+## 0.0.14
+
+* fix dependencies
+
 ## 0.0.13
 
 * update TIKI SDK Flutter to 0.0.25
