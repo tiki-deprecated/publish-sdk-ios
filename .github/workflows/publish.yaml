@@ -63,24 +63,24 @@ jobs:
           git add Package.swift
           git commit -m "Change Package.swift to release versions of the frameworks"
     
-#      - name: Create a new version tag
-#        id: version
-#        uses: codacy/git-version@2.4.0
-#        with:
-#          release-branch: "test-main"
-#          dev-branch: "test-develop"
-#
-#      - name: Recover Package.swift backup
-#        run: |
-#          rm Package.swift
-#          mv Pakacge.swift.bak Package.swift
-#
-#      - name: Commit develop version and merge into develop
-#        run: |
-#          git commit -a -m "${{ steps.version.outputs.version }} develop version"
-#          git checkout test-develop
-#          git merge test-main
-#          git push origin test-develop
+      - name: Create a new version tag
+        id: version
+        uses: codacy/git-version@2.4.0
+        with:
+          release-branch: "test-main"
+          dev-branch: "test-develop"
+
+      - name: Recover Package.swift backup
+        run: |
+          rm Package.swift
+          mv Pakacge.swift.bak Package.swift
+
+      - name: Commit develop version and merge into develop
+        run: |
+          git commit -a -m "${{ steps.version.outputs.version }} develop version"
+          git checkout test-develop
+          git merge test-main
+          git push origin test-develop
 #
 #      - name: Create a Release
 #        uses: ncipollo/release-action@v1
