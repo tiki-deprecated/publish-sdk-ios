@@ -89,7 +89,7 @@ jobs:
           export FLUTTER_DEBUG_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter_debug.checksum.txt")
           echo "FLUTTER_DEBUG_CHECKSUM:$FLUTTER_DEBUG_CHECKSUM"
           sed -i "s/$APP_RELEASE_CHECKSUM/$APP_DEBUG_CHECKSUM/" Package.swift
-          sed -i "s/FLUTTER_RELEASE_CHECKSUM$/$FLUTTER_DEBUG_CHECKSUM/" Package.swift
+          sed -i "s/$FLUTTER_RELEASE_CHECKSUM$/$FLUTTER_DEBUG_CHECKSUM/" Package.swift
           echo "============= Package.swift ============="
           cat Package.swift
           git config --global user.name 'GH Release action'
