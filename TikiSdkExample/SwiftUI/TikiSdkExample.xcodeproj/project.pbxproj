@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5DFA5D86298490850031F860 /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 5DFA5D85298490850031F860 /* TikiSdk */; };
 		8C1F5BD7295FC369001AA520 /* TikiSdkExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */; };
 		8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BE929605B2A001AA520 /* WalletView.swift */; };
 		8C43EA912977FC7900D52716 /* StreamEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA902977FC7800D52716 /* StreamEditView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5DFA5D84298490440031F860 /* tiki-sdk-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "tiki-sdk-ios"; path = ../..; sourceTree = "<group>"; };
 		8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikiSdkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C1F5BD6295FC369001AA520 /* TikiSdkExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleApp.swift; sourceTree = "<group>"; };
 		8C1F5BE929605B2A001AA520 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
@@ -45,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5DFA5D83298490440031F860 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				5DFA5D84298490440031F860 /* tiki-sdk-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		8C1F5BCA295FC369001AA520 = {
 			isa = PBXGroup;
 			children = (
