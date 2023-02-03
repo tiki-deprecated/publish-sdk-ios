@@ -8,10 +8,10 @@ import TikiSdk
 
 struct ConsentView: View {
     
-    @EnvironmentObject var appModel: TikiSdkExampleAppModel
+    
+    let consent: TikiSdkConsent
     
     var body: some View {
-        let consent = appModel.consent!
         List{
             Section{
                 Text("Consent").fontWeight(.heavy)
