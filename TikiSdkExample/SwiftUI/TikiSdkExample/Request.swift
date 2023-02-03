@@ -1,11 +1,13 @@
-/*
- * Copyright (c) TIKI Inc.
- * MIT license. See LICENSE file in root directory.
- */
+//
+//  Request.swift
+//  TikiSdkExample
+//
+//  Created by Ricardo on 03/02/23.
+//
 
 import Foundation
 
-struct StreamLog{
+struct Request{
     var icon: String
     var message: String
     var _timestamp: Date = Date()

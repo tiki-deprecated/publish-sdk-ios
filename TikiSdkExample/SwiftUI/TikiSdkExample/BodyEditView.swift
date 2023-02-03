@@ -6,14 +6,14 @@
 import SwiftUI
 import TikiSdk
 
-struct StreamBodyView: View {
+struct BodyEditView: View {
     
-    @EnvironmentObject var appModel: TikiSdkExampleAppModel
+    @Binding var bodyData: String
     
     var body: some View {
         VStack{
             Text("Body")
-            TextEditor(text: $appModel.stream.body)
+            TextEditor(text: $bodyData)
                        .frame(height: 600, alignment: .leading)
                        .cornerRadius(10, antialiased: true)
                        .foregroundColor(.black)

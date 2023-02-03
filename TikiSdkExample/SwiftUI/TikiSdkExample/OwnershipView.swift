@@ -8,10 +8,9 @@ import TikiSdk
 
 struct OwnershipView: View {
     
-    @EnvironmentObject var appModel: TikiSdkExampleAppModel
+    var ownership: TikiSdkOwnership
     
     var body: some View {
-        let ownership = appModel.ownership!
         List{
             Section{
                 Text("Ownership").fontWeight(.heavy)
