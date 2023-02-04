@@ -73,12 +73,6 @@ jobs:
           git config --global user.email 'gh-release-action@mytiki'
           git add Package.swift
           git commit -a -m "${{ steps.version.outputs.version }} develop version"
-
-      - name: Commit tag into develop
-        run: |
-          git checkout test-feat
-          git merge test-main
-          git push origin test-feat
           
   #     - name: Create a Release
   #       uses: ncipollo/release-action@v1
