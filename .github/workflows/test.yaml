@@ -4,10 +4,16 @@ on:
   pull_request:
     branches:
       - test-main
-      
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   test:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     runs-on: macos-latest
+    environment: test
     steps:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3

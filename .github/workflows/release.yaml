@@ -7,11 +7,15 @@ on:
     types:
       - closed
 
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment: production
     steps:
-
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
         with:
