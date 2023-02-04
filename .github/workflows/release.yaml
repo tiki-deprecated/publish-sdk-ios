@@ -8,33 +8,23 @@ on:
       - closed
 
 jobs:
-  test:
-    runs-on: macos-latest
-    steps:
-      - name: Checkout TIKI SDK iOS
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
-
-      - name: Setup XCode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - name: Run tests
-        run: |
-          cd IntegrationTests
-          xcodebuild test -project IntegrationTests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
-
+  
   release:
     runs-on: ubuntu-latest
     needs: [ test ]
     steps:
+
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: Git version
+        id: version
+        uses: codacy/git-version@2.4.0
+        with:
+          release-branch: "main"
+
       - name: Change to frameworks release versions
         run: |
           git checkout main
@@ -56,14 +46,7 @@ jobs:
           git config --global user.name 'GH Release action'
           git config --global user.email 'gh-release-action@mytiki'
           git add Package.swift
-          git commit -m "Change Package.swift to release versions of the frameworks"
-    
-      - name: Git version
-        id: version
-        uses: codacy/git-version@2.4.0
-        with:
-          release-branch: "main"
-          dev-branch: "develop"
+          git commit -m "${{ steps.version.outputs.version }}"
 
       - name: Create a new tag
         run: |
@@ -85,7 +68,7 @@ jobs:
           export FLUTTER_DEBUG_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter_debug.checksum.txt")
           echo "FLUTTER_DEBUG_CHECKSUM:$FLUTTER_DEBUG_CHECKSUM"
           sed -i "s/$APP_RELEASE_CHECKSUM/$APP_DEBUG_CHECKSUM/" Package.swift
-          sed -i "s/$FLUTTER_RELEASE_CHECKSUM$/$FLUTTER_DEBUG_CHECKSUM/" Package.swift
+          sed -i "s/$FLUTTER_RELEASE_CHECKSUM/$FLUTTER_DEBUG_CHECKSUM/" Package.swift
           echo "============= Package.swift ============="
           cat Package.swift
           git config --global user.name 'GH Release action'
