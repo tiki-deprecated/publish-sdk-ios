@@ -1,12 +1,10 @@
-name: Release
+name: Test
 
 on:
   pull_request:
     branches:
       - test-main
-    types:
-      - open
-
+      
 jobs:
   test:
     runs-on: macos-latest
