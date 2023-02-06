@@ -28,6 +28,6 @@ public struct TikiSdkConsent : Codable{
     /// The transaction id of this registry.
     public var transactionId: String
     
-    /// The Consent expiration in miliseconds since Epoch. *nil* for no expiration.
-    public var expiry: Int?
+    /// The Consent expiration. *nil* for no expiration.
+    public var expiry: Date?
 }

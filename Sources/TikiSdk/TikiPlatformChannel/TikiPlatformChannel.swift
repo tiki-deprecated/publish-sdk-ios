@@ -58,7 +58,9 @@ public class TikiPlatformChannel {
                    continuation.resume(throwing: err!)
                }
                do{
-                   let rsp: T = try JSONDecoder().decode(T.self, from: Data(jsonString!.utf8))
+                   let decoder = JSONDecoder()
+                   decoder.dateDecodingStrategy = .millisecondsSince1970
+                   let rsp: T = try decoder.decode(T.self, from: Data(jsonString!.utf8))
                    continuation.resume(returning: rsp)
                }catch{
                    continuation.resume(throwing: error)
