@@ -64,8 +64,8 @@ jobs:
         run: |
           sed -i 's/App\.xcframework/App_debug\.xcframework/' Package.swift
           sed -i 's/Flutter\.xcframework/Flutter_debug\.xcframework/' Package.swift
-          sed -i "s/${{ steps.frameworks_versions.APP_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.APP_DEBUG_CHECKSUM }}/" Package.swift
-          sed -i "s/${{ steps.frameworks_versions.FLUTTER_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.FLUTTER_DEBUG_CHECKSUM }}/" Package.swift
+          sed -i "s/${{ steps.frameworks_versions.outputs.APP_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.outputs.APP_DEBUG_CHECKSUM }}/" Package.swift
+          sed -i "s/${{ steps.frameworks_versions.outputs.FLUTTER_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.outputs.FLUTTER_DEBUG_CHECKSUM }}/" Package.swift
           echo "============= Package.swift ============="
           cat Package.swift
           git config --global user.name 'GH Release action'
