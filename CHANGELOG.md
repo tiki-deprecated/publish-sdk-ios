@@ -1,3 +1,6 @@
+## 1.0.1
+
+* new release workflow
 ## 1.0.0
 
 * public release
