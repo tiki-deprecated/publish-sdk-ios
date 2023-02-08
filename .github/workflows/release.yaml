@@ -4,8 +4,8 @@ on:
   pull_request:
     branches:
       - test-main
-    types:
-      - closed
+    # types:
+    #   - closed
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -48,8 +48,8 @@ jobs:
       - name: Update Package.swift to release version
         run: |
           sed -i 's/_debug//' Package.swift
-          sed -i "s/${{ steps.frameworks_versions.APP_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.APP_RELEASE_CHECKSUM }}/" Package.swift
-          sed -i "s/${{ steps.frameworks_versions.FLUTTER_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.FLUTTER_RELEASE_CHECKSUM }}/" Package.swift
+          sed -i "s/${{ steps.frameworks_versions.outputs.APP_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.APP_RELEASE_CHECKSUM }}/" Package.swift
+          sed -i "s/${{ steps.frameworks_versions.outputs.FLUTTER_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.FLUTTER_RELEASE_CHECKSUM }}/" Package.swift
           echo "============= Package.swift ============="
           cat Package.swift
           git config --global user.name 'GH Release action'
