@@ -71,7 +71,9 @@ class IntegrationTests: XCTestCase {
             let date = Calendar.current.date(byAdding: .year, value: 1, to: Date())
             let consent = try await tikiSdk.modifyConsent(ownershipId: ownershipId, destination: TikiSdkDestination.all(), about: "about", reward: "some reward", expiry: date)
             XCTAssert(consent.ownershipId == ownershipId)
-            XCTAssert(round(consent.expiry!.timeIntervalSince1970) == round(date!.timeIntervalSince1970))
+            let d1 = floor(consent.expiry!.timeIntervalSince1970)
+            let d2 = floor(date!.timeIntervalSince1970)
+            XCTAssert(d1 == d2 )
         }catch{
             XCTFail(error.localizedDescription)
         }
