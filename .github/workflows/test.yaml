@@ -12,7 +12,6 @@ concurrency:
 jobs:
   test:
     runs-on: macos-latest
-    environment: test
     steps:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
