@@ -45,8 +45,12 @@ jobs:
           echo "{FLUTTER_DEBUG_CHECKSUM}={$FLUTTER_DEBUG_CHECKSUM}" >> $GITHUB_OUTPUT
           echo "FLUTTER_DEBUG_CHECKSUM:$FLUTTER_DEBUG_CHECKSUM"
           
-      # - name: Update Package.swift to release version
-      #   run: |
+      - name: echo output variables
+        run: |
+          echo "s/${{ steps.frameworks_versions.outputs.APP_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.APP_RELEASE_CHECKSUM }}/" Package.swift
+          echo "s/${{ steps.frameworks_versions.outputs.FLUTTER_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.FLUTTER_RELEASE_CHECKSUM }}/" Package.swift
+      
+
       #     sed -i 's/_debug//' Package.swift
       #     sed -i "s/${{ steps.frameworks_versions.outputs.APP_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.APP_RELEASE_CHECKSUM }}/" Package.swift
       #     sed -i "s/${{ steps.frameworks_versions.outputs.FLUTTER_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.FLUTTER_RELEASE_CHECKSUM }}/" Package.swift
