@@ -3,7 +3,7 @@ name: Release
 on:
   pull_request:
     branches:
-      - main
+      - test-main
     types:
       - closed
 
@@ -13,90 +13,88 @@ concurrency:
 
 jobs:
   release:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     runs-on: ubuntu-latest
-    environment: production
     if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     steps:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
+      - name: Run tests
+        uses: ./.github/workflows/test.yaml
       - name: Git version
         id: version
         uses: codacy/git-version@2.4.0
         with:
-          release-branch: "main"
-
-      - name: Change to frameworks release versions
+          release-branch: "test-main"
+      - name: Get Frameworks versions
+        id: frameworks_versions
         run: |
-          git checkout main
-          sed -i 's/_debug//' Package.swift
+          git checkout test-main
           export TIKI_SDK_FLUTTER_VERSION=$(grep -oiP "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
+          echo "{TIKI_SDK_FLUTTER_VERSION}={$TIKI_SDK_FLUTTER_VERSION}" >> $GITHUB_OUTPUT
           echo "TIKI_SDK_FLUTTER_VERSION:$TIKI_SDK_FLUTTER_VERSION"
           export APP_RELEASE_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App.checksum.txt")
+          echo "{APP_RELEASE_CHECKSUM}={$APP_RELEASE_CHECKSUM}" >> $GITHUB_OUTPUT
           echo "APP_RELEASE_CHECKSUM:$APP_RELEASE_CHECKSUM"
           export APP_DEBUG_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App_debug.checksum.txt")
+          echo "{APP_DEBUG_CHECKSUM}={$APP_DEBUG_CHECKSUM}" >> $GITHUB_OUTPUT
           echo "APP_DEBUG_CHECKSUM:$APP_DEBUG_CHECKSUM"
           export FLUTTER_RELEASE_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter.checksum.txt")
+          echo "{FLUTTER_RELEASE_CHECKSUM}={$FLUTTER_RELEASE_CHECKSUM}" >> $GITHUB_OUTPUT
           echo "FLUTTER_RELEASE_CHECKSUM:$FLUTTER_RELEASE_CHECKSUM"
           export FLUTTER_DEBUG_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter_debug.checksum.txt")
+          echo "{FLUTTER_DEBUG_CHECKSUM}={$FLUTTER_DEBUG_CHECKSUM}" >> $GITHUB_OUTPUT
           echo "FLUTTER_DEBUG_CHECKSUM:$FLUTTER_DEBUG_CHECKSUM"
-          sed -i "s/$APP_DEBUG_CHECKSUM/$APP_RELEASE_CHECKSUM/" Package.swift
-          sed -i "s/$FLUTTER_DEBUG_CHECKSUM/$FLUTTER_RELEASE_CHECKSUM/" Package.swift
+          
+      - name: Update Package.swift to release version
+        run: |
+          sed -i 's/_debug//' Package.swift
+          sed -i "s/${{ steps.frameworks_versions.APP_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.APP_RELEASE_CHECKSUM }}/" Package.swift
+          sed -i "s/${{ steps.frameworks_versions.FLUTTER_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.FLUTTER_RELEASE_CHECKSUM }}/" Package.swift
           echo "============= Package.swift ============="
           cat Package.swift
           git config --global user.name 'GH Release action'
           git config --global user.email 'gh-release-action@mytiki'
           git add Package.swift
           git commit -m "${{ steps.version.outputs.version }}"
-
       - name: Create a new tag
         run: |
           git tag ${{ steps.version.outputs.version }}
           git push origin ${{ steps.version.outputs.version }}
-
       - name: Change back to frameworks develop version
         run: |
           sed -i 's/App\.xcframework/App_debug\.xcframework/' Package.swift
           sed -i 's/Flutter\.xcframework/Flutter_debug\.xcframework/' Package.swift
-          export TIKI_SDK_FLUTTER_VERSION=$(grep -oiP "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
-          echo "TIKI_SDK_FLUTTER_VERSION:$TIKI_SDK_FLUTTER_VERSION"
-          export APP_RELEASE_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App.checksum.txt")
-          echo "APP_RELEASE_CHECKSUM:$APP_RELEASE_CHECKSUM"
-          export APP_DEBUG_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App_debug.checksum.txt")
-          echo "APP_DEBUG_CHECKSUM:$APP_DEBUG_CHECKSUM"
-          export FLUTTER_RELEASE_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter.checksum.txt")
-          echo "FLUTTER_RELEASE_CHECKSUM:$FLUTTER_RELEASE_CHECKSUM"
-          export FLUTTER_DEBUG_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter_debug.checksum.txt")
-          echo "FLUTTER_DEBUG_CHECKSUM:$FLUTTER_DEBUG_CHECKSUM"
-          sed -i "s/$APP_RELEASE_CHECKSUM/$APP_DEBUG_CHECKSUM/" Package.swift
-          sed -i "s/$FLUTTER_RELEASE_CHECKSUM/$FLUTTER_DEBUG_CHECKSUM/" Package.swift
+          sed -i "s/${{ steps.frameworks_versions.APP_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.APP_DEBUG_CHECKSUM }}/" Package.swift
+          sed -i "s/${{ steps.frameworks_versions.FLUTTER_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.FLUTTER_DEBUG_CHECKSUM }}/" Package.swift
           echo "============= Package.swift ============="
           cat Package.swift
           git config --global user.name 'GH Release action'
           git config --global user.email 'gh-release-action@mytiki'
           git add Package.swift
-          git commit -a -m "${{ steps.version.outputs.version }} develop version"
+          git commit -a -m "${{ steps.version.outputs.version }} develop"
+          git push origin test-main
           
-      - name: Create a Release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{steps.version.outputs.version }}
+  #     - name: Create a Release
+  #       uses: ncipollo/release-action@v1
+  #       with:
+  #         tag: ${{steps.version.outputs.version }}
 
-  docs:
-    runs-on: ubuntu-latest
-    needs: [ release ]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2.1.1
+  # docs:
+  #   runs-on: ubuntu-latest
+  #   needs: [ release ]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2.1.1
 
-      - name: Guide
-        uses: readmeio/rdme@8.3.0
-        with:
-          rdme: docs doc/guide --key=${{ secrets.README_API_KEY }}
+  #     - name: Guide
+  #       uses: readmeio/rdme@8.3.0
+  #       with:
+  #         rdme: docs doc/guide --key=${{ secrets.README_API_KEY }}
 
-      - name: Ref
-        uses: readmeio/rdme@8.3.0
-        with:
-          rdme: docs doc/ref --key=${{ secrets.README_API_KEY }}
+  #     - name: Ref
+  #       uses: readmeio/rdme@8.3.0
+  #       with:
+  #         rdme: docs doc/ref --key=${{ secrets.README_API_KEY }}
