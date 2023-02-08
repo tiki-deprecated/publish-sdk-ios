@@ -25,16 +25,22 @@ struct DestinationEditView: View {
                 .font(.largeTitle).padding()
                 .multilineTextAlignment(.leading)
             List {
-                TextField("URL", text: $url)
-                Picker("HTTP Method", selection: $httpMethod) {
-                   ForEach(httpMethods, id: \.self) {
-                       Text($0)
-                   }
+                Section{
+                    TextField("URL", text: $url)
                 }
-                Picker("Interval", selection: $intervalStr) {
-                   ForEach(intervals, id: \.self) {
-                       Text($0)
-                   }
+                Section{
+                    Picker("HTTP Method", selection: $httpMethod) {
+                        ForEach(httpMethods, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                }
+                Section{
+                    Picker("Interval", selection: $intervalStr) {
+                        ForEach(intervals, id: \.self) {
+                            Text($0)
+                        }
+                    }
                 }.onAppear{
                     intervalStr = intervals[intervalInts.firstIndex(of: interval)!]
                 }.onChange(of: intervalStr, perform: { newInterval in

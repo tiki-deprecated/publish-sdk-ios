@@ -14,18 +14,20 @@ struct ConsentView: View {
     var body: some View {
         List{
             Section{
-                Text("Consent").fontWeight(.heavy)
-                    .font(.largeTitle).padding()
-                    .multilineTextAlignment(.leading).frame(maxWidth: .infinity)
+                Text("Consent")
+                    .font(.largeTitle).bold()
+                    .multilineTextAlignment(.leading)
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading).listRowInsets(EdgeInsets())
             }
             .listRowInsets(EdgeInsets())
             .background(Color(.systemGroupedBackground))
             Section {
                 VStack(alignment: .leading){
-                    Text("Hash").foregroundColor(.blue)
+                    Text("Hash").font(.system(size: 14)).foregroundColor(.blue)
                         .multilineTextAlignment(.leading)
-                        .listRowSeparator(.hidden)
-                    Text(consent.transactionId)
+                        .listRowSeparator(.hidden).padding(.bottom)
+                    Text(consent.transactionId).font(.system(size: 14))
                 }
             }
             Section {
@@ -34,31 +36,31 @@ struct ConsentView: View {
                         .multilineTextAlignment(.leading)
                         .listRowSeparator(.hidden)
                 }
-                Text("Paths: " + consent.destination.paths.joined(separator: ", "))
-                Text("Uses: " + consent.destination.uses.joined(separator: ", "))
+                Text("Paths: " + consent.destination.paths.joined(separator: ", ")).font(.system(size: 14))
+                Text("Uses: " + consent.destination.uses.joined(separator: ", ")).font(.system(size: 14))
             }
             Section {
                 VStack(alignment: .leading){
-                    Text("About").foregroundColor(.blue)
+                    Text("About").foregroundColor(.blue).font(.system(size: 14))
                         .multilineTextAlignment(.leading)
-                        .listRowSeparator(.hidden)
-                    Text(consent.about ?? "")
+                        .listRowSeparator(.hidden).padding(.bottom)
+                    Text(consent.about ?? "").font(.system(size: 14))
                 }
             }
             Section {
                 VStack(alignment: .leading){
-                    Text("Reward").foregroundColor(.blue)
+                    Text("Reward").foregroundColor(.blue).font(.system(size: 14))
                         .multilineTextAlignment(.leading)
-                        .listRowSeparator(.hidden)
-                    Text(consent.reward ?? "")
+                        .listRowSeparator(.hidden).padding(.bottom)
+                    Text(consent.reward ?? "").font(.system(size: 14))
                 }
             }
             Section {
                 VStack(alignment: .leading){
-                    Text("Expiry").foregroundColor(.blue)
+                    Text("Expiry").foregroundColor(.blue).font(.system(size: 14))
                         .multilineTextAlignment(.leading)
-                        .listRowSeparator(.hidden)
-                    Text(consent.expiry == nil ? "Never" :  getExpiryString(consent))
+                        .listRowSeparator(.hidden).padding(.bottom)
+                    Text(consent.expiry == nil ? "Never" :  getExpiryString(consent)).font(.system(size: 14))
                 }
             }
         }.offset(x: 0, y: -30).edgesIgnoringSafeArea(.bottom)

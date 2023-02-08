@@ -30,11 +30,11 @@ struct WalletView: View {
                     let addr: String = wallets[index].prefix(16) + "..."
                     Button((wallets[index] == tikiSdk!.address ? "✔️" : "") + addr + "..."){
                         switchTo(addr: wallets[index])
-                    }.foregroundColor(.gray)
+                    }.foregroundColor(.gray).font(.system(size: 14))
                 }
                 Button("+ new wallet") {
                     createWallet()
-                }.disabled(isLoading)
+                }.disabled(isLoading).font(.system(size: 14))
             }.offset(x: 0, y: -30).edgesIgnoringSafeArea(.bottom)
         }.background(Color(.systemGray6))
     }
