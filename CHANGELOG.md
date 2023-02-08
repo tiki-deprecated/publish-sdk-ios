@@ -1,4 +1,10 @@
-## Current
+## 1.0.2
+
+* update release workflow
+* fix Date bug in TikiSdkDestination
+* update example app UI
+
+## 1.0.1
 
 * new release workflow - release/* branch PRs
 * new test workflow - all PRs
