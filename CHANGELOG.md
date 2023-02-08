@@ -1,3 +1,7 @@
+## Current
+
+* new release workflow - release/* branch PRs
+* new test workflow - all PRs
 ## 1.0.0
 
 * public release
