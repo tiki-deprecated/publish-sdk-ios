@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SPIManifest",
+        "repositoryURL": "https://github.com/SwiftPackageIndex/SPIManifest.git",
+        "state": {
+          "branch": null,
+          "revision": "268fab2006be5c11411994bc76f429d9971a840a",
+          "version": "0.15.0"
+        }
+      },
+      {
+        "package": "Yams",
+        "repositoryURL": "https://github.com/jpsim/Yams.git",
+        "state": {
+          "branch": null,
+          "revision": "4889c132978bc6ad3e80f680011ec3dd4fead90c",
+          "version": "5.0.4"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

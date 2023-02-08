@@ -55,3 +55,7 @@ let package = Package(
                       checksum: "78366f2a23a504be0b97e54eddda4a768fff0e5cf23798a4c2f2110f89ff3541"),
         ]
 )
+
+package.dependencies.append(
+    .package(url: "https://github.com/SwiftPackageIndex/SPIManifest.git", from: "0.12.0")
+)

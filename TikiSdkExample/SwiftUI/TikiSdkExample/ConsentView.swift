@@ -68,8 +68,7 @@ struct ConsentView: View {
     func getExpiryString(_ consent: TikiSdkConsent) -> String{
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
-        let date = Date(timeIntervalSince1970: TimeInterval(consent.expiry!/1000))
-        return formatter.string(from: date)
+        return formatter.string(from: consent.expiry!)
     }
 }
 

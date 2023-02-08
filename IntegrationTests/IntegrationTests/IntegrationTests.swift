@@ -63,6 +63,21 @@ class IntegrationTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
+    
+    func testConsentExpiration() async throws {
+        do{
+            let tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
+            let ownershipId = try await tikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
+            let date = Calendar.current.date(byAdding: .year, value: 1, to: Date())
+            let consent = try await tikiSdk.modifyConsent(ownershipId: ownershipId, destination: TikiSdkDestination.all(), about: "about", reward: "some reward", expiry: date)
+            XCTAssert(consent.ownershipId == ownershipId)
+            let d1 = floor(consent.expiry!.timeIntervalSince1970)
+            let d2 = floor(date!.timeIntervalSince1970)
+            XCTAssert(d1 == d2 )
+        }catch{
+            XCTFail(error.localizedDescription)
+        }
+    }
 
     func testGetConsent() async throws {
         do{
