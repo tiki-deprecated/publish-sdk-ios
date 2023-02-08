@@ -34,67 +34,81 @@ struct TikiSdkExampleApp: App {
                 NavigationView{
                     List{
                         Section{
-                            Text("Try it out").fontWeight(.heavy)
-                                .font(.largeTitle).padding()
-                                .multilineTextAlignment(.leading).frame(maxWidth: .infinity)
+                            Text("Try it Out")
+                                .font(.largeTitle).bold()
+                                .multilineTextAlignment(.leading)
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .leading).listRowInsets(EdgeInsets()).padding(.bottom)
                         }
                         .listRowInsets(EdgeInsets())
                         .background(Color(.systemGroupedBackground))
-                        Section(header: Text("Wallet")) {
+                        Section(header: Text("Wallet").foregroundColor(.black).bold().font(.system(size: 19)).listRowInsets(EdgeInsets()).padding(.bottom)) {
                             NavigationLink(destination: WalletView(wallets: $wallets, tikiSdk: $tikiSdk, ownership: $ownership, bodyData: $bodyData)) {
-                                Text(tikiSdk!.address!)
+                                Text(tikiSdk!.address!.prefix(16) + "...")
                             }
-                        }
+                        }.textCase(nil)
                         if(ownership != nil){
                             Section {
                                 VStack(alignment: .leading){
                                     NavigationLink(destination: OwnershipView(ownership: ownership!)) {
-                                        Text("Ownership NFT").foregroundColor(.blue)
+                                        Text("Ownership NFT")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.blue)
                                             .multilineTextAlignment(.leading)
-                                            .listRowSeparator(.hidden)
+                                            .listRowSeparator(.hidden).padding(.bottom)
                                     }
-                                    Text(ownership!.transactionId.prefix(16) + "...")}
+                                    Text(ownership!.transactionId.prefix(16) + "...").font(.system(size: 14))}
                             }}
                         Section {
                             VStack(alignment: .leading){
                                 if(consent != nil){
                                     NavigationLink(destination: ConsentView(consent: consent!)) {
-                                        Text("Consent NFT").foregroundColor(.blue).multilineTextAlignment(.leading)
-                                            .listRowSeparator(.hidden)
+                                        Text("Consent NFT")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.blue)
+                                            .multilineTextAlignment(.leading)
+                                            .listRowSeparator(.hidden).padding(.bottom)
                                     }
                                 }
-                                Text(consent != nil ? consent!.transactionId.prefix(16) + "..." : "No consent")
-                                Toggle("Toggle consent", isOn: $toggleState)
+                                Text(consent != nil ? consent!.transactionId.prefix(16) + "..." : "No consent").font(.system(size: 14))
+                                Divider()
+                                Toggle("Toggle consent", isOn: $toggleState).font(.system(size: 14))
                                     .onChange(of: toggleState) { toggleState in
                                         toggleConsent()
                                     }
                                 
                             }
                         }
-                        Section(header: Text("Outbound Request(s)")) {
+                        Section(header: Text("Outbound Request(s)").foregroundColor(.black).bold().font(.system(size: 19)).listRowInsets(EdgeInsets()).padding(.bottom)) {
                             VStack(
                                 alignment: .leading){NavigationLink(destination: DestinationEditView(url: $url, httpMethod: $httpMethod, interval: $interval)) {
-                                    Text("Destination").foregroundColor(.blue).multilineTextAlignment(.leading)
-                                        .listRowSeparator(.hidden)
+                                    Text("Destination")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.blue).multilineTextAlignment(.leading)
+                                        .listRowSeparator(.hidden).padding(.bottom)
                                 }
-                                    Text(httpMethod + " " + url)}
+                                    Text(httpMethod + " " + url).font(.system(size: 14))}
                             
-                        }
+                        }.textCase(nil)
                         Section {
                             VStack(alignment: .leading){NavigationLink(destination: BodyEditView(bodyData: $bodyData)) {
                                 Text("Body (JSON)")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.blue).padding(.bottom)
                             }
-                                Text(bodyData)}
+                                Text(bodyData).font(.system(size: 14))}
                         }
                         Section {
                             Text("Requests")
+                                .font(.system(size: 14))
+                                .foregroundColor(.blue).padding(.bottom)
                             ForEach(0..<requests.count, id: \.self) { index in
                                 let reqLog = requests[requests.count-index-1]
                                 HStack{
-                                    Text(reqLog.icon)
-                                    Text(reqLog.message.prefix(32) + "...")
+                                    Text(reqLog.icon).font(.system(size: 14))
+                                    Text(reqLog.message.prefix(28) + "...").font(.system(size: 14))
                                     Spacer()
-                                    Text(reqLog.timestamp).font(.system(size: 10))
+                                    Text(reqLog.timestamp).foregroundColor(.gray).font(.system(size: 14))
                                 }
                             }
                         }

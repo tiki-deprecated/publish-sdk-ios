@@ -13,50 +13,52 @@ struct OwnershipView: View {
     var body: some View {
         List{
             Section{
-                Text("Ownership").fontWeight(.heavy)
-                    .font(.largeTitle).padding()
-                    .multilineTextAlignment(.leading).frame(maxWidth: .infinity)
+                Text("Ownership")
+                    .font(.largeTitle).bold()
+                    .multilineTextAlignment(.leading)
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading).listRowInsets(EdgeInsets())
             }
             .listRowInsets(EdgeInsets())
             .background(Color(.systemGroupedBackground))
             Section {
                 VStack(alignment: .leading){
-                    Text("Hash").foregroundColor(.blue)
+                    Text("Hash").font(.system(size: 14)).foregroundColor(.blue)
                         .multilineTextAlignment(.leading)
-                        .listRowSeparator(.hidden)
+                        .listRowSeparator(.hidden).padding(.bottom)
                     Text(ownership.transactionId)
                 }
             }
             Section {
                 VStack(alignment: .leading){
-                    Text("Source").foregroundColor(.blue)
+                    Text("Source").foregroundColor(.blue).font(.system(size: 14))
                         .multilineTextAlignment(.leading)
-                        .listRowSeparator(.hidden)
-                    Text(ownership.source)
+                        .listRowSeparator(.hidden).padding(.bottom)
+                    Text(ownership.source).font(.system(size: 14))
                 }
             }
             Section {
                 VStack(alignment: .leading){
                     Text("Origin").foregroundColor(.blue)
                         .multilineTextAlignment(.leading)
-                        .listRowSeparator(.hidden)
-                    Text(ownership.origin)
+                        .listRowSeparator(.hidden).font(.system(size: 14)).padding(.bottom)
+                    Text(ownership.origin).font(.system(size: 14))
                 }
             }
             Section {
                 VStack(alignment: .leading){
                     Text("Contains").foregroundColor(.blue)
                         .multilineTextAlignment(.leading)
-                        .listRowSeparator(.hidden)
-                    Text(ownership.contains.joined(separator: ", "))
+                        .listRowSeparator(.hidden).font(.system(size: 14)).padding(.bottom)
+                    Text(ownership.contains.joined(separator: ", ")).font(.system(size: 14))
                 }
             }
             Section {
                 VStack(alignment: .leading){
                     Text("About").foregroundColor(.blue)
                         .multilineTextAlignment(.leading)
-                        .listRowSeparator(.hidden)
-                    Text(ownership.about ?? "")
+                        .listRowSeparator(.hidden).font(.system(size: 14)).padding(.bottom)
+                    Text(ownership.about ?? "").font(.system(size: 14))
                 }
             }
         }.background(Color(.systemGray6))
