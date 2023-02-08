@@ -1,9 +1,9 @@
 name: Test
 
-on:
-  pull_request:
-    branches:
-      - test-main
+# on:
+#   pull_request:
+#     branches:
+#       - test-main
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}

@@ -20,11 +20,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Git version
-        id: version
-        uses: codacy/git-version@2.4.0
-        with:
-          release-branch: "test-main"
+      # - name: Git version
+      #   id: version
+      #   uses: codacy/git-version@2.4.0
+      #   with:
+      #     release-branch: "test-main"
       - name: Get Frameworks versions
         id: frameworks_versions
         run: |
@@ -45,34 +45,34 @@ jobs:
           echo "{FLUTTER_DEBUG_CHECKSUM}={$FLUTTER_DEBUG_CHECKSUM}" >> $GITHUB_OUTPUT
           echo "FLUTTER_DEBUG_CHECKSUM:$FLUTTER_DEBUG_CHECKSUM"
           
-      - name: Update Package.swift to release version
-        run: |
-          sed -i 's/_debug//' Package.swift
-          sed -i "s/${{ steps.frameworks_versions.outputs.APP_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.APP_RELEASE_CHECKSUM }}/" Package.swift
-          sed -i "s/${{ steps.frameworks_versions.outputs.FLUTTER_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.FLUTTER_RELEASE_CHECKSUM }}/" Package.swift
-          echo "============= Package.swift ============="
-          cat Package.swift
-          git config --global user.name 'GH Release action'
-          git config --global user.email 'gh-release-action@mytiki'
-          git add Package.swift
-          git commit -m "${{ steps.version.outputs.version }}"
-      - name: Create a new tag
-        run: |
-          git tag ${{ steps.version.outputs.version }}
-          git push origin ${{ steps.version.outputs.version }}
-      - name: Change back to frameworks develop version
-        run: |
-          sed -i 's/App\.xcframework/App_debug\.xcframework/' Package.swift
-          sed -i 's/Flutter\.xcframework/Flutter_debug\.xcframework/' Package.swift
-          sed -i "s/${{ steps.frameworks_versions.APP_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.APP_DEBUG_CHECKSUM }}/" Package.swift
-          sed -i "s/${{ steps.frameworks_versions.FLUTTER_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.FLUTTER_DEBUG_CHECKSUM }}/" Package.swift
-          echo "============= Package.swift ============="
-          cat Package.swift
-          git config --global user.name 'GH Release action'
-          git config --global user.email 'gh-release-action@mytiki'
-          git add Package.swift
-          git commit -a -m "${{ steps.version.outputs.version }} develop"
-          git push origin test-main
+      # - name: Update Package.swift to release version
+      #   run: |
+      #     sed -i 's/_debug//' Package.swift
+      #     sed -i "s/${{ steps.frameworks_versions.outputs.APP_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.APP_RELEASE_CHECKSUM }}/" Package.swift
+      #     sed -i "s/${{ steps.frameworks_versions.outputs.FLUTTER_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.FLUTTER_RELEASE_CHECKSUM }}/" Package.swift
+      #     echo "============= Package.swift ============="
+      #     cat Package.swift
+      #     git config --global user.name 'GH Release action'
+      #     git config --global user.email 'gh-release-action@mytiki'
+      #     git add Package.swift
+      #     git commit -m "${{ steps.version.outputs.version }}"
+      # - name: Create a new tag
+      #   run: |
+      #     git tag ${{ steps.version.outputs.version }}
+      #     git push origin ${{ steps.version.outputs.version }}
+      # - name: Change back to frameworks develop version
+      #   run: |
+      #     sed -i 's/App\.xcframework/App_debug\.xcframework/' Package.swift
+      #     sed -i 's/Flutter\.xcframework/Flutter_debug\.xcframework/' Package.swift
+      #     sed -i "s/${{ steps.frameworks_versions.APP_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.APP_DEBUG_CHECKSUM }}/" Package.swift
+      #     sed -i "s/${{ steps.frameworks_versions.FLUTTER_RELEASE_CHECKSUM }}/${{ steps.frameworks_versions.FLUTTER_DEBUG_CHECKSUM }}/" Package.swift
+      #     echo "============= Package.swift ============="
+      #     cat Package.swift
+      #     git config --global user.name 'GH Release action'
+      #     git config --global user.email 'gh-release-action@mytiki'
+      #     git add Package.swift
+      #     git commit -a -m "${{ steps.version.outputs.version }} develop"
+      #     git push origin test-main
           
   #     - name: Create a Release
   #       uses: ncipollo/release-action@v1
