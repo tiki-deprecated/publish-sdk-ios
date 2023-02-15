@@ -27,12 +27,12 @@ let package = Package(
                           ]),
         
         .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/App_debug.xcframework.zip",
-                      checksum: "ee552e1ee0b1a4d2f4b18dd49cbe2a997d1c041312f1de890350819342e22060"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/App.xcframework.zip",
+                      checksum: "28d131408bbfeac69176beed9c60012737c4cfdd046759024dc5106e6d697973"),
         
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/Flutter_debug.xcframework.zip",
-                      checksum: "a90cd153d9cdd03edb5b941217409260269fa9ce070753f27248994fc77b9e66"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/Flutter.xcframework.zip",
+                      checksum: "7eea274fcee13724703e229d9fd8a8c1742ddcbcfe90b9f4ade8bece78b2e07c"),
                           
         .binaryTarget(name: "FlutterPluginRegistrant",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/FlutterPluginRegistrant.xcframework.zip",
