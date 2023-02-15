@@ -16,11 +16,11 @@ public class TikiSdk{
     ///
     /// - Parameters:
     ///     - origin: The default *origin* for all transactions.
-    ///     - apiId: The *apiId* for connecting to TIKI cloud.
+    ///     - publishingId: The *publishingId* for connecting to TIKI cloud.
     ///     - address: The *address* of the user node in TIKI blockchain. If null a new address will be created.
     ///
     /// - Throws: *TikiSdkError*
-    public init(origin: String, apiId: String, address: String? = nil) async throws{
+    public init(origin: String, publishingId: String, address: String? = nil) async throws{
         self.tikiPlatformChannel.channel = await withCheckedContinuation{(continuation: CheckedContinuation<FlutterMethodChannel, Never>) in
             DispatchQueue.main.async {
                 let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
@@ -32,7 +32,7 @@ public class TikiSdk{
             }
         }
         let rspBuild: RspBuild = try await withCheckedThrowingContinuation{ continuation in
-            let buildRequest = ReqBuild(apiId: apiId, origin: origin, address: address)
+            let buildRequest = ReqBuild(publishingId: publishingId, origin: origin, address: address)
             do{
                 try self.tikiPlatformChannel.invokeMethod(
                     method: MethodEnum.BUILD,
