@@ -10,19 +10,21 @@ import TikiSdk
 struct TikiSdkExampleApp: App {
     
     let origin = "com.mytiki.tiki_sdk_example"
-    let apiId = "2b8de004-cbe0-4bd5-bda6-b266d54f5c90"
+    let publishingId = "e12f5b7b-6b48-4503-8b39-28e4995b5f88"
     
     @State var tikiSdk: TikiSdk? = nil
     @State var wallets: [String] = []
     @State var bodyData: String = "{\"message\" : \"Hello Tiki!\"}"
     @State var httpMethod: String = "POST"
     @State var url: String = "https://postman-echo.com/post"
-    @State var interval: Int = 15
+    @State var interval: Int = 1
     @State var ownership: TikiSdkOwnership? = nil
     @State var consent: TikiSdkConsent? = nil
     @State var requests: [Request] = []
     @State var toggleState: Bool = false
     @State var timer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
+    @State var showSheet = false
+    @State var sheetMsg = ""
     
     var body: some Scene {
         WindowGroup {
@@ -37,14 +39,13 @@ struct TikiSdkExampleApp: App {
                             Text("Try it Out")
                                 .font(.largeTitle).bold()
                                 .multilineTextAlignment(.leading)
-                                .padding()
                                 .frame(maxWidth: .infinity, alignment: .leading).listRowInsets(EdgeInsets()).padding(.bottom)
-                        }
+                        }.padding(.top)
                         .listRowInsets(EdgeInsets())
                         .background(Color(.systemGroupedBackground))
                         Section(header: Text("Wallet").foregroundColor(.black).bold().font(.system(size: 19)).listRowInsets(EdgeInsets()).padding(.bottom)) {
                             NavigationLink(destination: WalletView(wallets: $wallets, tikiSdk: $tikiSdk, ownership: $ownership, bodyData: $bodyData)) {
-                                Text(tikiSdk!.address!.prefix(16) + "...")
+                                Text(tikiSdk!.address!.prefix(28) + "...").font(.system(size:16))
                             }
                         }.textCase(nil)
                         if(ownership != nil){
@@ -53,63 +54,84 @@ struct TikiSdkExampleApp: App {
                                     NavigationLink(destination: OwnershipView(ownership: ownership!)) {
                                         Text("Ownership NFT")
                                             .font(.system(size: 14))
+                                            .fontWeight(.medium)
                                             .foregroundColor(.blue)
                                             .multilineTextAlignment(.leading)
-                                            .listRowSeparator(.hidden).padding(.bottom)
-                                    }
-                                    Text(ownership!.transactionId.prefix(16) + "...").font(.system(size: 14))}
+                                            .listRowSeparator(.hidden)
+                                    }.padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                                    Text(ownership!.transactionId.prefix(32) + "...").font(.system(size: 14))
+                                    .fontWeight(.medium)}.padding([.top,.bottom],5)
                             }}
                         Section {
                             VStack(alignment: .leading){
-                                if(consent != nil){
-                                    NavigationLink(destination: ConsentView(consent: consent!)) {
-                                        Text("Consent NFT")
-                                            .font(.system(size: 14))
-                                            .foregroundColor(.blue)
-                                            .multilineTextAlignment(.leading)
-                                            .listRowSeparator(.hidden).padding(.bottom)
-                                    }
-                                }
+                                NavigationLink(destination: ConsentView(consent: consent)) {
+                                    Text("Consent NFT")
+                                        .font(.system(size: 14))
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.blue)
+                                        .multilineTextAlignment(.leading)
+                                        .listRowSeparator(.hidden)
+                                }.padding([.top, .bottom],5)
+                                .disabled(consent == nil)
                                 Text(consent != nil ? consent!.transactionId.prefix(16) + "..." : "No consent").font(.system(size: 14))
+                                    .fontWeight(.medium)
+                                    .padding(.bottom, 10)
                                 Divider()
                                 Toggle("Toggle consent", isOn: $toggleState).font(.system(size: 14))
                                     .onChange(of: toggleState) { toggleState in
                                         toggleConsent()
-                                    }
-                                
+                                    }.padding([.top,.bottom], 5)
                             }
                         }
                         Section(header: Text("Outbound Request(s)").foregroundColor(.black).bold().font(.system(size: 19)).listRowInsets(EdgeInsets()).padding(.bottom)) {
-                            VStack(
-                                alignment: .leading){NavigationLink(destination: DestinationEditView(url: $url, httpMethod: $httpMethod, interval: $interval)) {
+                            VStack(alignment: .leading){
+                                NavigationLink(destination: DestinationEditView(url: $url, httpMethod: $httpMethod, interval: $interval)) {
                                     Text("Destination")
                                         .font(.system(size: 14))
-                                        .foregroundColor(.blue).multilineTextAlignment(.leading)
-                                        .listRowSeparator(.hidden).padding(.bottom)
-                                }
-                                    Text(httpMethod + " " + url).font(.system(size: 14))}
-                            
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.blue)
+                                        .multilineTextAlignment(.leading)
+                                        .listRowSeparator(.hidden)
+                                }.padding(EdgeInsets(top: 5, leading: 0, bottom: 10, trailing: 0))
+                                Text(httpMethod + " " + url).font(.system(size: 14))
+                                    .fontWeight(.medium)
+                                    .padding(.bottom, 10)
+                            }
                         }.textCase(nil)
                         Section {
                             VStack(alignment: .leading){NavigationLink(destination: BodyEditView(bodyData: $bodyData)) {
                                 Text("Body (JSON)")
                                     .font(.system(size: 14))
-                                    .foregroundColor(.blue).padding(.bottom)
-                            }
-                                Text(bodyData).font(.system(size: 14))}
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.blue)
+                                    .multilineTextAlignment(.leading)
+                                    .listRowSeparator(.hidden)
+                            }.padding(EdgeInsets(top: 5, leading: 0, bottom: 10, trailing: 0))
+                            Text(bodyData).font(.system(size: 14))
+                                .fontWeight(.medium).padding(.bottom, 10)}
                         }
                         Section {
                             Text("Requests")
                                 .font(.system(size: 14))
-                                .foregroundColor(.blue).padding(.bottom)
+                                .fontWeight(.medium)
+                                .foregroundColor(.blue)
+                                .multilineTextAlignment(.leading)
+                                .listRowSeparator(.hidden)
                             ForEach(0..<requests.count, id: \.self) { index in
                                 let reqLog = requests[requests.count-index-1]
                                 HStack{
-                                    Text(reqLog.icon).font(.system(size: 14))
-                                    Text(reqLog.message.prefix(28) + "...").font(.system(size: 14))
+                                    Text(reqLog.icon).font(.system(size: 14)).fontWeight(.medium)
+                                    Text(reqLog.message.replacingOccurrences(of: "[\r\\n]+", with: "", options: .regularExpression, range: Range(uncheckedBounds: (lower: reqLog.message.startIndex, upper: reqLog.message.endIndex)))).font(.system(size: 14)).fontWeight(.medium).lineLimit(1).truncationMode(.tail)
                                     Spacer()
-                                    Text(reqLog.timestamp).foregroundColor(.gray).font(.system(size: 14))
+                                    Text(reqLog.timestamp).foregroundColor(.gray).font(.system(size: 12)).fontWeight(.medium)
+                                }.listRowSeparator(.hidden)
+                                .onTapGesture {
+                                    showSheet = true
+                                    sheetMsg = requests[requests.count-index-1].message
                                 }
+                                .sheet(isPresented: $showSheet, content: {
+                                    Text(sheetMsg).padding()
+                                })
                             }
                         }
                     }.onAppear{
@@ -147,7 +169,7 @@ struct TikiSdkExampleApp: App {
     func initTikiSdk() {
         Task{
             do{
-                self.tikiSdk = try await TikiSdk(origin: origin, apiId: apiId)
+                self.tikiSdk = try await TikiSdk(origin: origin, publishingId: publishingId)
                 self.wallets = [tikiSdk!.address!]
                 let source = Data(bodyData.utf8).base64EncodedString()
                 let _ = try await tikiSdk!.assignOwnership(source: source, type: TikiSdkDataTypeEnum.stream, contains: ["generic data"], about: "Data stream created with TIKI SDK Sample App")

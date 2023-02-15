@@ -21,38 +21,38 @@ let package = Package(
                            "flutter_secure_storage",
                            "Flutter",
                            "FlutterPluginRegistrant",
-                           "path_provider_ios",
+                           "path_provider_foundation",
                            "sqlite3_flutter_libs",
                            "sqlite3",
                           ]),
         
         .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.0.0/App_debug.xcframework.zip",
-                      checksum: "f0a105d79f2f4dd490c329f38ed7aae5e58f7767323ab15a44d03c1d81788b8c"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/App_debug.xcframework.zip",
+                      checksum: "ee552e1ee0b1a4d2f4b18dd49cbe2a997d1c041312f1de890350819342e22060"),
         
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.0.0/Flutter_debug.xcframework.zip",
-                      checksum: "3b0b17653ee07b073ea262b55d0af3c897242a8182ae62607d2bd5bd831e523e"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/Flutter_debug.xcframework.zip",
+                      checksum: "a90cd153d9cdd03edb5b941217409260269fa9ce070753f27248994fc77b9e66"),
                           
         .binaryTarget(name: "FlutterPluginRegistrant",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.0.0/FlutterPluginRegistrant.xcframework.zip",
-                      checksum: "345c6f2aa453eab735f6387ee93c9fb5abc00f31c68cb1da93cb5c7e70ffbc5e"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/FlutterPluginRegistrant.xcframework.zip",
+                      checksum: "e92c4827c477b9b9df6d53fb1a30f836cc78437e4103ca30f5b37172d8f61d50"),
         
         .binaryTarget(name: "flutter_secure_storage",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.0.0/flutter_secure_storage.xcframework.zip",
-                      checksum: "a21cf4d03d13d8141d949e3e1509d86197421517a4866bd64a99f9f87574e70c"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/flutter_secure_storage.xcframework.zip",
+                      checksum: "728bbae8675839d096dd73030a7780c4c841c935dbdfa1f1ed3db2d60d57b707"),
         
-        .binaryTarget(name: "path_provider_ios",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.0.0/path_provider_ios.xcframework.zip",
-                      checksum: "c3f4b8e291ea8d18033d8f4b9fb866dbed964b85be8bb2bb474fb67d9fb00b3a"),
+        .binaryTarget(name: "path_provider_foundation",
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/path_provider_foundation.xcframework.zip",
+                      checksum: "699952953f76bf574655183e3350315506a8ec1cb3ae3ca331ce328cd7792262"),
         
         .binaryTarget(name: "sqlite3_flutter_libs",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.0.0/sqlite3_flutter_libs.xcframework.zip",
-                    checksum: "7cd061d47fa918199c8b625a26e32bc2764cb3caee5fe335b189e7bdf40e41b3"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/sqlite3_flutter_libs.xcframework.zip",
+                    checksum: "ba3c327058ead10c3017e9a8e089ad86ac9d870e7949f63ef05257402771ff1b"),
         
         .binaryTarget(name: "sqlite3",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.0.0/sqlite3.xcframework.zip",
-                      checksum: "78366f2a23a504be0b97e54eddda4a768fff0e5cf23798a4c2f2110f89ff3541"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.2/sqlite3.xcframework.zip",
+                      checksum: "d3255815f1d7c6e83172ab8b0daa082a6b696e66ad803b1654264784c6315855"),
         ]
 )
 
