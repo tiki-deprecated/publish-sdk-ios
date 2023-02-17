@@ -31,6 +31,5 @@ jobs:
 
       - name: Next release
         run: |
-          export next=$(awk 'NR==1{sub(/^## /, ""); print}' Changelog.md
-)
+          export next=$(awk 'NR==1{sub(/^## /, ""); print}' Changelog.md)
           echo "Next release: ${{next}}""
