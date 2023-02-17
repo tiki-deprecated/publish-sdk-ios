@@ -17,7 +17,7 @@ struct TikiSdkExampleApp: App {
     @State var bodyData: String = "{\"message\" : \"Hello Tiki!\"}"
     @State var httpMethod: String = "POST"
     @State var url: String = "https://postman-echo.com/post"
-    @State var interval: Int = 1
+    @State var interval: Int = 15
     @State var ownership: TikiSdkOwnership? = nil
     @State var consent: TikiSdkConsent? = nil
     @State var requests: [Request] = []
