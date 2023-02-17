@@ -28,3 +28,8 @@ jobs:
         run: |
           cd IntegrationTests
           xcodebuild test -project IntegrationTests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14'
+
+      - name: Next release
+        run: |
+          export next=$(awk 'NR==1{sub(/^## /, ""); print}' Changelog.md)
+          echo "Next release: $next"
