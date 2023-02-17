@@ -26,6 +26,7 @@ jobs:
           git checkout main
           export NEXT_VERSION=$(awk 'NR==1{sub(/^## /, ""); print}' CHANGELOG.md)
           echo "{NEXT_VERSION}={$NEXT_VERSION}" >> $GITHUB_OUTPUT
+          echo "NEXT_VERSION:$NEXT_VERSION"
           export TIKI_SDK_FLUTTER_VERSION=$(grep -oiP "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
           echo "{TIKI_SDK_FLUTTER_VERSION}={$TIKI_SDK_FLUTTER_VERSION}" >> $GITHUB_OUTPUT
           echo "TIKI_SDK_FLUTTER_VERSION:$TIKI_SDK_FLUTTER_VERSION"
