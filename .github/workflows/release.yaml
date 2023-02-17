@@ -51,7 +51,6 @@ jobs:
           git config --global user.name 'GH Release action'
           git config --global user.email 'gh-release-action@mytiki'
           git add Package.swift
-          git commit -m "Release ${{ steps.frameworks_versions.outputs.NEXT_VERSION }}"
           git tag ${{ steps.frameworks_versions.outputs.NEXT_VERSION }}
           git push origin ${{ steps.frameworks_versions.outputs.NEXT_VERSION }}
       - name: Create a Release
