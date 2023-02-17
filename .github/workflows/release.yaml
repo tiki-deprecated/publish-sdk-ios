@@ -20,15 +20,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Git version
-        id: version
-        uses: codacy/git-version@2.4.0
-        with:
-          release-branch: "main"
       - name: Get Frameworks versions
         id: frameworks_versions
         run: |
           git checkout main
+          export NEXT_VERSION=$(awk 'NR==1{sub(/^## /, ""); print}' Changelog.md)
+          echo "{NEXT_VERSION}={$NEXT_VERSION}" >> $GITHUB_OUTPUT
           export TIKI_SDK_FLUTTER_VERSION=$(grep -oiP "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
           echo "{TIKI_SDK_FLUTTER_VERSION}={$TIKI_SDK_FLUTTER_VERSION}" >> $GITHUB_OUTPUT
           echo "TIKI_SDK_FLUTTER_VERSION:$TIKI_SDK_FLUTTER_VERSION"
@@ -54,15 +51,13 @@ jobs:
           git config --global user.name 'GH Release action'
           git config --global user.email 'gh-release-action@mytiki'
           git add Package.swift
-          git commit -m "${{ steps.version.outputs.version }}"
-      - name: Create a new tag
-        run: |
-          git tag ${{ steps.version.outputs.version }}
-          git push origin ${{ steps.version.outputs.version }}
+          git commit -m "Release ${{ steps.frameworks_versions.outputs.NEXT_VERSION }}"
+          git tag ${{ steps.frameworks_versions.outputs.NEXT_VERSION }}
+          git push origin ${{ steps.frameworks_versions.outputs.NEXT_VERSION }}
       - name: Create a Release
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{steps.version.outputs.version }}
+          tag: ${{ steps.frameworks_versions.outputs.NEXT_VERSION }}
 
   docs:
     runs-on: ubuntu-latest
