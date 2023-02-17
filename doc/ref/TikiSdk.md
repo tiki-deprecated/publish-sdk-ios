@@ -16,7 +16,7 @@ _must be called from async function or [Task](https://developer.apple.com/docume
 
 Named Parameters:
 
-- **apiId &#8594; String**
+- **publishingId &#8594; String**
   A unique identifier for your account. Create, revoke, and cycle Ids (not a secret but try and treat it with care) at [console.mytiki.com](https://console.mytiki.com).
 
 
@@ -30,7 +30,7 @@ Named Parameters:
 Example:
 
 ```
-val tiki = try await TikiSdk().init(apiId: "YOUR_API_ID", origin: "com.mycompany.myproduct")
+val tiki = try await TikiSdk().init(publishingId: "YOUR_API_ID", origin: "com.mycompany.myproduct")
 ```
 
 ## Methods

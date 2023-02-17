@@ -17,7 +17,7 @@ public class TikiSdk{
     /// - Parameters:
     ///     - origin: The default *origin* for all transactions.
     ///     - publishingId: The *publishingId* for connecting to TIKI cloud.
-    ///     - address: The *address* of the user node in TIKI blockchain. If null a new address will be created.
+    ///     - address: The *address* of the user node in TIKI blockchain. If nil a new address will be created.
     ///
     /// - Throws: *TikiSdkError*
     public init(origin: String, publishingId: String, address: String? = nil) async throws{

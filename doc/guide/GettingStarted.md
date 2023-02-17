@@ -16,12 +16,17 @@ next:
 
 ### Installation
 
-Add the Swift Package repository. If you're unfamiliar, checkout Apple's [instructions](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app).
+TIKI SDK iOS comes in two versions - Development and Release - [due to the way Swift Package Manager works with binary libraries](https://blog.mytiki.com/p/distributing-ios-libraries-as-swift).
+
+The Development version is intended for use during the development process, when you're running your app in a simulator or on a physical device attached to Xcode. This version is available in the latest stable version on the [main](https://github.com/tiki/tiki-sdk-ios) branch.
+
+On the other hand, the Release version is designed for distribution and should be used when compiling your app for the App Store or ad hoc distribution. This version can be found in the [latest release](https://github.com/tiki/tiki-sdk-ios/releases). 
+
+After choosgin your version, add the Swift Package repository. If you're unfamiliar, checkout Apple's [instructions](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app).
 
 ```
 https://github.com/tiki/tiki-sdk-ios
 ```
-
 
 ### Usage
 
@@ -33,13 +38,11 @@ _Note: async —must be called from an async function or [Task](https://develope
 
 Configuration parameters:
 
-- **apiId &#8594; String**   
-  A unique identifier for your account. Create, revoke, and cycle Ids _(not a secret but try and treat it with care)_ at https://mytiki.com.
-
-
 - **origin &#8594; String**  
   Included in the on-chain transaction to denote the application of origination (can be overridden in individual requests). It should follow a reversed FQDN syntax. _i.e. com.mycompany.myproduct_
-
+  
+- **publishingId &#8594; String**   
+  A unique identifier for your account. Create, revoke, and cycle Ids _(not a secret but try and treat it with care)_ at https://mytiki.com.
 
 - **address &#8594; String? = nil**  
   Set the user address (primarily for restoring the state on launch). If not set, a new key pair and address will be generated for the user.
@@ -49,7 +52,10 @@ Example:
 
 ```
 Task {
-  let tiki = try await TikiSdk(apiId: "565b3268-cdc0-4e5c-94c8-5d8f53d4577c", origin: "com.mycompany.myproduct")
+  let tiki = try await TikiSdk(
+    origin: "com.mycompany.myproduct",
+    publishingId: "565b3268-cdc0-4e5c-94c8-5d8f53d4577c"
+    )
 }
 ```
 
@@ -87,7 +93,10 @@ Example:
 ```
 Task {
   ...
-  let oid = try await tiki.assignOwnership(source: "12345", type: TikiSdkDataTypeEnum.point, contains: ["email_address"])
+  let oid = try await tiki.assignOwnership(
+    source: "12345", 
+    type: TikiSdkDataTypeEnum.point, 
+    contains: ["email_address"])
 }
 ```
 
@@ -123,7 +132,9 @@ Example:
 ```
 Task {
   ...
-  let consent = try await tiki.modifyConsent(ownershipId: oid, destination: TikiSdkDestination(["*"], ["*"]));
+  let consent = try await tiki.modifyConsent(
+    ownershipId: oid, 
+    destination: TikiSdkDestination(["*"], ["*"]));
 }
 ```
 
