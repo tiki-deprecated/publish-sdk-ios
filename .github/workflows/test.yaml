@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
         
       - name: Setup XCode
         uses: maxim-lobanov/setup-xcode@v1
@@ -26,3 +28,13 @@ jobs:
         run: |
           cd IntegrationTests
           xcodebuild test -project IntegrationTests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14'
+      
+      - name: Git version
+        id: version
+        uses: codacy/git-version@2.4.0
+        with:
+          release-branch: "main"
+
+      - name: Next release
+        run: |
+          echo "Next release: ${{steps.version.outputs.version }}""
