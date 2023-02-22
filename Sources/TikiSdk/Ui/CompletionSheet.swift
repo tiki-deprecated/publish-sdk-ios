@@ -5,7 +5,7 @@
 import SwiftUI
 
 /// A dismissible bottom sheet that will be shown after the TIKI flow is complete.
-struct CompletionSheet: View {
+public struct CompletionSheet: View {
     
     /// The color that will be used in "your".
     let accentColor: Color
@@ -104,7 +104,7 @@ struct CompletionSheet: View {
         )
     }
     
-    var body: some View {
+    public var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
     

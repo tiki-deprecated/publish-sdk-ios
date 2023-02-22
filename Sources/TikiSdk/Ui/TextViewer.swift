@@ -1,14 +1,11 @@
-//
-//  SwiftUIView.swift
-//  
-//
-//  Created by Ricardo on 22/02/23.
-//
-
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import SwiftUI
 
 
-struct TextViewer: View {
+public struct TextViewer: View {
     /// The color that will be used in the color Button.
     let accentColor: Color
 
@@ -50,7 +47,7 @@ struct TextViewer: View {
         self.font = font
     }
     
-    var body: some View {
+    public var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }

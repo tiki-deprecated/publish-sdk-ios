@@ -5,7 +5,7 @@
 import Foundation
 
 /// An item that describes what can be done with the user data.
-struct OfferItem{
+public struct OfferItem{
     /// Description of the data usage.
     let description: String
 

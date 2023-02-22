@@ -13,11 +13,11 @@ import SwiftUI
 ///  - allow: will show the *CompletionSheet.awesome*. If *requireTerms* is
 ///  true, it will show the *TextViewer* with *termsText* for the user accept the
 ///  terms before the *CompletionSheet.awesome* screen is shown.
-struct OfferSheet: View {
+public struct OfferSheet: View {
     
     let offer: Offer
     
-    var body: some View {
+    public var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }

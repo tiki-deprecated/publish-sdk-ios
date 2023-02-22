@@ -5,7 +5,7 @@
 import SwiftUI
 
 /// The button used in Tiki SDK UIs.
-struct Button: View {
+public struct Button: View {
     
     /// The text of the button.
     let text: String
@@ -58,7 +58,7 @@ struct Button: View {
         self.font = font
     }
     
-    var body: some View {
+    public var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }

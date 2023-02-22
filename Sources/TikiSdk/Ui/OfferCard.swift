@@ -5,11 +5,11 @@
 import SwiftUI
 
 /// The card that represents an *Offer*.
-struct OfferCard: View {
+public struct OfferCard: View {
     
     let offer: Offer
     
-    var body: some View {
+    public var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
