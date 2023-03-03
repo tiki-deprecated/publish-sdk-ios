@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
         
       - name: Setup XCode
         uses: maxim-lobanov/setup-xcode@v1
@@ -24,7 +26,6 @@ jobs:
 
       - name: Run tests
         run: |
-          cat Package.swift
           cd IntegrationTests
           xcodebuild test -project IntegrationTests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14'
 
