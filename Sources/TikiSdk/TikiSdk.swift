@@ -12,7 +12,7 @@ typealias OfferHandler = (Offer) -> Void
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
     
-    public static var instance = TikiSdk()
+    public static var instance : TikiSdk = TikiSdk()
     
     public var address: String? = nil
     
@@ -22,7 +22,7 @@ public class TikiSdk{
     private var _isAcceptEndingDisabled = false
     private var _isDeclineEndingDisabled = false
     private var _offers = [String: Offer]()
-    private let _theme = Theme.init(light: true)
+    private let _theme = Theme()
     private var _dark: Theme?
     private var tikiPlatformChannel: TikiPlatformChannel = TikiPlatformChannel()
     
