@@ -9,11 +9,34 @@ import FlutterPluginRegistrant
 /// The definition of Flutter Platform Channels for TIKI SDK
 public class TikiPlatformChannel {
     
-    public var channel: FlutterMethodChannel? = nil
+    private var _channel: FlutterMethodChannel!
+    
+    public var channel: FlutterMethodChannel {
+        get {
+            if(_channel == nil){
+                initChannel()
+            }
+            return _channel!
+        }
+    }
     
     static let channelId = "tiki_sdk_flutter"
     var callbacks: Dictionary<String, ((_ jsonString : String?, _ error : Error?) -> Void)> = [:]
    
+    init() {
+        initChannel();
+    }
+    
+    private func initChannel(){
+        DispatchQueue.main.sync {
+            let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
+            flutterEngine.run()
+            GeneratedPluginRegistrant.register(with: flutterEngine);
+            self._channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+            self.channel.setMethodCallHandler(self.handle)
+        }
+    }
+    
     /// Handles the method calls from Flutter.
     ///
     /// When calling TIKI SDK Flutter from native code, one should pass a requestId
@@ -66,7 +89,7 @@ public class TikiPlatformChannel {
                    continuation.resume(throwing: error)
                }
            }
-           channel!.invokeMethod(
+           channel.invokeMethod(
             method.rawValue, arguments: [
                     "requestId" : requestId,
                     "request" : jsonRequest

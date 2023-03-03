@@ -13,13 +13,9 @@ typealias OfferHandler = (Offer) -> Void
 public class TikiSdk{
     
     public static var instance : TikiSdk = TikiSdk()
-    public static var address : String{
-        get throws{
-            let addr = instance._address
-            if(addr == nil){
-                throw TikiSdkError(message: "Initialize TikiSdk calling TikiSdk.initTikiSdk()", stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
-            }
-            return addr!
+    public static var address : String?{
+        get {
+            return instance._address
         }
     }
     
@@ -57,46 +53,46 @@ public class TikiSdk{
         }
     }
     
-    func getActiveTheme(_ colorScheme: ColorScheme ) -> Theme {
+    public func getActiveTheme(_ colorScheme: ColorScheme ) -> Theme {
         return colorScheme == .dark && _dark != nil ? _dark! : _theme
     }
     
-    func license(offer: Offer, accepted: Bool) async throws{
+    public func license(offer: Offer, accepted: Bool) async throws{
         // TODO
     }
     
-    func `guard`(ptr: String, uses: [String], onSuccess: @escaping () -> Void, onDenied: @escaping () -> Void) async throws -> Bool {
+    public func `guard`(ptr: String, uses: [String], onSuccess: @escaping () -> Void, onDenied: @escaping () -> Void) async throws -> Bool {
         return true
     }
     
-    func present(in context: UIViewController) async throws {
+    public func present(in context: UIViewController) async throws {
        // TODO
     }
 
     /// Shows the pre built Settings UI
-    static func settings(_ context: UIViewController) {
+    public static func settings(_ context: UIViewController) {
         // TODO
     }
 
     /// Starts the TikiSdk configuration.
-    static func config() -> TikiSdk {
+    public static func config() -> TikiSdk {
         return instance
     }
 
     /// Adds a new [Offer] for the user;
-    func addOffer(_ offer: Offer) -> TikiSdk {
+    public func addOffer(_ offer: Offer) -> TikiSdk {
         _offers[offer.id] = offer
         return TikiSdk.instance
     }
 
     /// Disables the ending screen for accepted [Offer]
-    func disableAcceptEnding(_ disable: Bool) -> TikiSdk {
+    public func disableAcceptEnding(_ disable: Bool) -> TikiSdk {
         _isAcceptEndingDisabled = disable
         return self
     }
 
     /// Disables the ending screen for decline [Offer]
-    func disableDeclineEnding(_ disable: Bool) -> TikiSdk {
+    public func disableDeclineEnding(_ disable: Bool) -> TikiSdk {
         _isDeclineEndingDisabled = disable
         return self
     }
@@ -107,7 +103,7 @@ public class TikiSdk{
     /// of the licensing offer. This happens after accepting the terms, not just
     /// on selecting "I'm In." The License Record is passed as a parameter to the
     /// callback function.
-    func setOnAccept(_ onAccept: ((Offer) -> Void)?) -> TikiSdk {
+    public func setOnAccept(_ onAccept: ((Offer) -> Void)?) -> TikiSdk {
         _onAccept = onAccept
         return self
     }
@@ -116,7 +112,7 @@ public class TikiSdk{
     ///
     /// The onDecline() event is triggered when the user declines the licensing offer.
     /// This happens on dismissal of the flow or when "Back Off" is selected.
-    func setOnDecline(_ onDecline: ((Offer) -> Void)?) -> TikiSdk {
+    public func setOnDecline(_ onDecline: ((Offer) -> Void)?) -> TikiSdk {
         _onDecline = onDecline
         return self
     }
@@ -126,7 +122,7 @@ public class TikiSdk{
     /// The onSettings() event is triggered when the user selects "settings" in the
     /// ending screen. If a callback function is not registered, the SDK defaults to
     /// calling the TikiSdk.settings() method.
-    func setOnSettings(_ onSettings: ((Offer) -> Void)?) -> TikiSdk {
+    public func setOnSettings(_ onSettings: ((Offer) -> Void)?) -> TikiSdk {
         _onSettings = onSettings
         return self
     }
@@ -140,16 +136,6 @@ public class TikiSdk{
     ///
     /// - Throws: *TikiSdkError*
     public func initTikiSdk(publishingId: String, address: String? = nil, origin: String? = nil) async throws{
-        self.tikiPlatformChannel.channel = await withCheckedContinuation{(continuation: CheckedContinuation<FlutterMethodChannel, Never>) in
-            DispatchQueue.main.async {
-                let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
-                flutterEngine.run()
-                GeneratedPluginRegistrant.register(with: flutterEngine);
-                let channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-                channel.setMethodCallHandler(self.tikiPlatformChannel.handle)
-                continuation.resume(returning: channel)
-            }
-        }
         let rspBuild: RspBuild = try await withCheckedThrowingContinuation{ continuation in
             let buildRequest = ReqBuild(publishingId: publishingId, origin: origin ?? Bundle.main.bundleIdentifier!, address: address)
             do{
@@ -177,7 +163,7 @@ public class TikiSdk{
     ///
     /// - Returns:A base64 url-safe no-padding representation of the ownership transaction id.
     /// - Throws: *TikiSdkError*
-    public func assignOwnership(
+    public static func assignOwnership(
         source: String,
         type: TikiSdkDataTypeEnum,
         contains: Array<String>,
@@ -188,7 +174,7 @@ public class TikiSdk{
             do{
                 let assignReq = ReqOwnershipAssign(
                     source: source, type: type, contains: contains, about: about, origin: origin)
-                try self.tikiPlatformChannel.invokeMethod(
+                try instance.tikiPlatformChannel.invokeMethod(
                     method: MethodEnum.ASSIGN_OWNERSHIP,
                     request: assignReq,
                     continuation: continuation
@@ -207,7 +193,7 @@ public class TikiSdk{
     ///    - origin: Optional override for default origin.
     /// - Returns: *TikiSdkOwnership*
     /// - Throws: *TikiSdkError*
-    public func getOwnership(
+    public static func getOwnership(
         source : String,
         origin : String? = nil
     ) async throws -> TikiSdkOwnership? {
@@ -215,7 +201,7 @@ public class TikiSdk{
             do{
                 let getReq = ReqOwnershipGet(
                     source: source, origin: origin)
-                try self.tikiPlatformChannel.invokeMethod(
+                try instance.tikiPlatformChannel.invokeMethod(
                     method: MethodEnum.GET_OWNERSHIP,
                     request: getReq,
                     continuation: continuation
@@ -244,7 +230,7 @@ public class TikiSdk{
     ///
     /// - Returns: The created *TikiSdkConsent*.
     /// - Throws: *TikiSdkError*
-    public func modifyConsent(
+    public static func modifyConsent(
         ownershipId: String,
         destination: TikiSdkDestination,
         about: String? = nil,
@@ -257,7 +243,7 @@ public class TikiSdk{
                                                 about: about,
                                                 reward: reward,
                                                 expiry:  expiry)
-                try self.tikiPlatformChannel.invokeMethod(
+                try instance.tikiPlatformChannel.invokeMethod(
                     method: MethodEnum.MODIFY_CONSENT,
                     request: getReq,
                     continuation: continuation
@@ -281,7 +267,7 @@ public class TikiSdk{
     ///
     /// - Returns: Latest *TikiSdkConsent* for *source* and *origin*.
     /// - Throws: *TikiSdkError*
-    public func getConsent(
+    public static func getConsent(
         source: String,
         origin: String? = nil
     ) async throws -> TikiSdkConsent? {
@@ -289,7 +275,7 @@ public class TikiSdk{
             do{
                 let getReq = ReqConsentGet(
                     source: source, origin: origin)
-                try self.tikiPlatformChannel.invokeMethod(
+                try instance.tikiPlatformChannel.invokeMethod(
                     method: MethodEnum.GET_CONSENT,
                     request: getReq,
                     continuation: continuation
@@ -312,7 +298,7 @@ public class TikiSdk{
     ///     - request: The function to run if the consent is given.
     ///     - onBlocked: The function to run if the consent is not given.
     ///     - origin: Optional override for default origin.
-    public func applyConsent(
+    public static func applyConsent(
         source: String,
         destination: TikiSdkDestination,
         request:  (() -> Void),
@@ -323,7 +309,7 @@ public class TikiSdk{
             let getReq = ReqConsentApply(
                 source: source, destination: destination, origin: origin)
             do{
-                try self.tikiPlatformChannel.invokeMethod(
+                try instance.tikiPlatformChannel.invokeMethod(
                     method: MethodEnum.APPLY_CONSENT,
                     request: getReq,
                     continuation: continuation
