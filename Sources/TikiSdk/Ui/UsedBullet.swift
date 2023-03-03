@@ -5,15 +5,10 @@
  */
 
 /// An item that describes what can be done with the user data.
-class UsedBullet {
+public struct UsedBullet {
   /// Description of the data usage.
   let text: String
   
   /// Whether it is used.
   let isUsed: Bool
-  
-  init(text: String, isUsed: Bool) {
-    self.text = text
-    self.isUsed = isUsed
-  }
 }

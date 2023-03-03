@@ -13,9 +13,17 @@ typealias OfferHandler = (Offer) -> Void
 public class TikiSdk{
     
     public static var instance : TikiSdk = TikiSdk()
+    public static var address : String{
+        get throws{
+            let addr = instance._address
+            if(addr == nil){
+                throw TikiSdkError(message: "Initialize TikiSdk calling TikiSdk.initTikiSdk()", stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
+            }
+            return addr!
+        }
+    }
     
-    public var address: String? = nil
-    
+    var _address: String? = nil
     private var _onAccept: OfferHandler?
     private var _onDecline: OfferHandler?
     private var _onSettings: OfferHandler?
@@ -27,6 +35,27 @@ public class TikiSdk{
     private var tikiPlatformChannel: TikiPlatformChannel = TikiPlatformChannel()
     
     private init() {}
+    
+    public var theme: Theme {
+        get{
+            _theme
+        }
+    }
+    
+    public var dark: Theme {
+        get{
+            if(_dark == nil){
+                _dark = Theme(dark: true)
+            }
+            return _dark!
+        }
+    }
+    
+    public var offer: Offer{
+        get{
+            Offer()
+        }
+    }
     
     func getActiveTheme(_ colorScheme: ColorScheme ) -> Theme {
         return colorScheme == .dark && _dark != nil ? _dark! : _theme
@@ -134,7 +163,7 @@ public class TikiSdk{
             }
             
         }
-        self.address = rspBuild.address
+        self._address = rspBuild.address
     }
 
     /// Assign ownership to a given *source*.
