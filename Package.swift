@@ -34,7 +34,7 @@ let package = Package(
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.3/Flutter_debug.xcframework.zip",
                       checksum: "7b6791f4e19bfa5974d827a34a38b4cfd62390c55132a7102b0c905bfb8e451b"),
                           
-        .binaryTarget(name: "FlutterPluginRegistrant",
+        .binaryTarget(name: "FlutterPluginRegistrant", 
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/1.1.3/FlutterPluginRegistrant.xcframework.zip",
                       checksum: "d3a4484526ac76d47917bec5a8dde67ddecc101564291468edd0eb9e04441b60"),
         
