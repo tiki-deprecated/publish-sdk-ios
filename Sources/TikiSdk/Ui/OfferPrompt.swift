@@ -5,7 +5,7 @@
 import SwiftUI
 
 /// The definition of the offer for data usage.
-public struct Offer{
+public struct OfferPrompt{
       /// A description of the data usage.
       ///
       /// It will occupy 3 lines maximum in the UI. An ellipsis will be added on overflow.
