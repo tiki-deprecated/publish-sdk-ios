@@ -8,33 +8,25 @@ import Foundation
 public class LicenseUsecase: Codable {
     
     private var customValue: String?
-    private var licenseUsecaseEnum: LicenseUsecaseEnum?
-    var value: String{
-        return licenseUsecaseEnum?.value ?? customValue!
-    }
-    /**
-     Creates a new instance of LicenseUsecase with a `LicenseUsecaseEnum` predefined value.
-     
-     - Parameter the license use case enumeration. Default value is nil.
-     */
-    init(_ licenseUsecase: LicenseUsecaseEnum? = nil){
-        licenseUsecaseEnum = licenseUsecase
+    private var usecaseEnum: LicenseUsecaseEnum?
+    
+    /// The Usecase String value
+    public var value: String{
+        return usecaseEnum?.rawValue ?? customValue!
     }
     
-    /**
-     Creates a new instance of LicenseUsecase with custom value.
-     
-     - Parameter customUsecase: the custom use case for the license.
-     */
-    convenience init(customUsecase: String) {
+    public init(_ usecase: String) {
         do {
-            let licenseUsecaseEnum = try LicenseUsecaseEnum.fromValue(value: customUsecase)
-            self.init(licenseUsecaseEnum)
+            self.usecaseEnum = try LicenseUsecaseEnum.fromValue(value: usecase)
         } catch {
-            self.init()
-            self.customValue = "custom:\(customUsecase)"
+            self.customValue = "custom:\(usecase)"
         }
     }
+    
+    public convenience init(_ usecase: LicenseUsecaseEnum){
+        self.init(usecase.rawValue)
+    }
+    
 
     static let attribution = LicenseUsecase(LicenseUsecaseEnum.attribution)
     static let retargeting = LicenseUsecase(LicenseUsecaseEnum.retargeting)

@@ -57,14 +57,6 @@ public class TikiSdk{
         return colorScheme == .dark && _dark != nil ? _dark! : _theme
     }
     
-    public func license(offer: Offer, accepted: Bool) async throws{
-        // TODO
-    }
-    
-    public func `guard`(ptr: String, uses: [String], onSuccess: @escaping () -> Void, onDenied: @escaping () -> Void) async throws -> Bool {
-        return true
-    }
-    
     public func present(in context: UIViewController) async throws {
        // TODO
     }

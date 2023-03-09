@@ -17,18 +17,16 @@ public class TitleTag: Codable {
         return titleTagEnum?.rawValue ?? customValue!
     }
     
-    public init(_ titleTag: TitleTagEnum? = nil){
-        titleTagEnum = titleTag
+    public init(_ titleTag: String) {
+        do {
+            self.titleTagEnum = try TitleTagEnum.fromValue(value: titleTag)
+        } catch {
+            self.customValue = "custom:\(titleTag)"
+        }
     }
     
-    public convenience init(customTag: String) {
-        do {
-            let titleTagEnum = try TitleTagEnum.fromValue(value: customTag)
-            self.init(titleTagEnum)
-        } catch {
-            self.init()
-            self.customValue = "custom:\(customTag)"
-        }
+    public convenience init(_ titleTag: TitleTagEnum){
+        self.init(titleTag.rawValue)
     }
     
     public static let emailAddress = TitleTag(TitleTagEnum.emailAddress)

@@ -25,7 +25,7 @@ public struct LicenseUse: Codable {
     /// - Parameters:
     ///   - usecases: Usecases explicitly define HOW an asset may be used.
     ///   - destinations: Destinations explicitly define WHERE an asset may be used.
-    init(usecases: [LicenseUsecase], destinations: [String]? = nil) {
+    public init(usecases: [LicenseUsecase], destinations: [String]? = nil) {
         self.usecases = usecases
         self.destinations = destinations
     }

@@ -69,6 +69,7 @@ public class TikiPlatformChannel {
                }
                do{
                    let decoder = JSONDecoder()
+                   print(jsonString)
                    decoder.dateDecodingStrategy = .millisecondsSince1970
                    let rsp: T = try decoder.decode(T.self, from: Data(jsonString!.utf8))
                    continuation.resume(returning: rsp)
