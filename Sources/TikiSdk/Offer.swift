@@ -14,8 +14,8 @@ public class Offer {
     private var _terms: String?
     private var _reward: UIImage?
     private var _usedBullet = [UsedBullet]()
-    private var _uses = [String]()
-    private var _tags = [String]()
+    private var _uses = [LicenseUse]()
+    private var _tags = [TitleTag]()
     private var _requiredPermissions = [String]()
     private var _expiry: Date?
     
@@ -55,12 +55,12 @@ public class Offer {
     }
     
     /// The Use cases for the license.
-    public var uses: [String] {
+    public var uses: [LicenseUse] {
         _uses
     }
     
     /// The tags that describes the represented data asset.
-    public var tags: [String] {
+    public var tags: [TitleTag] {
         _tags
     }
     
@@ -117,25 +117,25 @@ public class Offer {
     }
     
     /// Sets the [uses]
-    public func setUses(_ uses: [String]) -> Offer {
+    public func setUses(_ uses: [LicenseUse]) -> Offer {
         _uses = uses
         return self
     }
     
     /// Adds an item in the [uses] list.
-    public func addUse(_ use: String) -> Offer {
+    public func addUse(_ use: LicenseUse) -> Offer {
         _uses.append(use)
         return self
     }
     
     /// Sets the [tags]
-    public func setTags(_ tags: [String]) -> Offer {
+    public func setTags(_ tags: [TitleTag]) -> Offer {
         _tags = tags
         return self
     }
     
     /// Adds an item in the [tags
-    public func addTag(_ tag: String) -> Offer {
+    public func addTag(_ tag: TitleTag) -> Offer {
         _tags.append(tag)
         return self
     }

@@ -15,7 +15,7 @@ class IntegrationTests: XCTestCase {
     
     func testInitSdk() async throws {
         do{
-            try await TikiSdk.config().initTikiSdk(publishingId: publishingId)
+            try await TikiSdk.config().initialize(publishingId: publishingId)
             XCTAssert(TikiSdk.address != nil)
         }catch{
             XCTFail(error.localizedDescription)
@@ -47,8 +47,8 @@ class IntegrationTests: XCTestCase {
                     .setPtr("source")
                     .setDescription("testing")
                     .setTerms("path/terms.md")
-                    .addUse("tbd uses")
-                    .addTag("tbd tags")
+                    .addUse(LicenseUse(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)]))
+                    .addTag(TitleTag(TitleTagEnum.advertisingData))
                     .setExpiry(expiry: Date().addingTimeInterval(365 * 24 * 60 * 60))
                     .addReqPermission(permission: "camera")
                     .add()
@@ -60,8 +60,8 @@ class IntegrationTests: XCTestCase {
                     .setPtr("source")
                     .setDescription("testing2")
                     .setTerms("path/terms.md")
-                    .addUse("tbd uses")
-                    .addTag("tbd tags")
+                    .addUse(LicenseUse(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)]))
+                    .addTag(TitleTag(TitleTagEnum.advertisingData))
                     .setExpiry(expiry: Date().addingTimeInterval(365 * 24 * 60 * 60))
                     .addReqPermission(permission: "camera")
                     .add()
@@ -70,7 +70,7 @@ class IntegrationTests: XCTestCase {
                 .setOnSettings { offer in }
                 .disableAcceptEnding(false)
                 .disableDeclineEnding(true)
-                .initTikiSdk(publishingId: publishingId)
+                .initialize(publishingId: publishingId)
             XCTAssert(TikiSdk.address != nil)
         }catch{
             XCTFail(error.localizedDescription)
@@ -80,87 +80,11 @@ class IntegrationTests: XCTestCase {
     
     func testInitSdkWithAddress() async throws {
         do{
-            try await TikiSdk.config().initTikiSdk(publishingId: publishingId)
+            try await TikiSdk.config().initialize(publishingId: publishingId)
             let address = TikiSdk.address
-            try await TikiSdk.config().initTikiSdk(publishingId: publishingId, address: address)
+            try await TikiSdk.config().initialize(publishingId: publishingId, address: address)
             let address2 = TikiSdk.address
             XCTAssertEqual(address, address2)
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
-    }
-    
-    func testAssignOwnership() async throws {
-        do{
-            try await TikiSdk.config().initTikiSdk(publishingId: publishingId)
-            let ownershipId = try await TikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
-            XCTAssert(ownershipId.lengthOfBytes(using: .utf8) > 32)
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
-    }
-
-    func testGetOwnership() async throws {
-        do{
-            try await TikiSdk.config().initTikiSdk(publishingId: publishingId)
-            let ownershipId = try await TikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
-            let ownership = try await TikiSdk.getOwnership(source: "testAssign")
-            XCTAssert(ownershipId == ownership!.transactionId)
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
-    }
-
-    func testModifyConsent() async throws {
-        do{
-            try await TikiSdk.config().initTikiSdk(publishingId: publishingId)
-            let ownershipId = try await TikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
-            let consent = try await TikiSdk.modifyConsent(ownershipId: ownershipId, destination: TikiSdkDestination.all(), about: "about", reward: "some reward", expiry: nil)
-            XCTAssert(consent.ownershipId == ownershipId)
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
-    }
-    
-    func testConsentExpiration() async throws {
-        do{
-            try await TikiSdk.config().initTikiSdk(publishingId: publishingId)
-            let ownershipId = try await TikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
-            let date = Calendar.current.date(byAdding: .year, value: 1, to: Date())
-            let consent = try await TikiSdk.modifyConsent(ownershipId: ownershipId, destination: TikiSdkDestination.all(), about: "about", reward: "some reward", expiry: date)
-            XCTAssert(consent.ownershipId == ownershipId)
-            let d1 = floor(consent.expiry!.timeIntervalSince1970)
-            let d2 = floor(date!.timeIntervalSince1970)
-            XCTAssert(d1 == d2 )
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
-    }
-
-    func testGetConsent() async throws {
-        do{
-            try await TikiSdk.config().initTikiSdk(publishingId: publishingId)
-            let ownershipId = try await TikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
-            let consent = try await TikiSdk.modifyConsent(ownershipId: ownershipId, destination: TikiSdkDestination.all(), about: "about", reward: "some reward", expiry: nil)
-            let getConsent = try await TikiSdk.getConsent(source: "testAssign")
-            XCTAssert(consent.ownershipId == getConsent?.ownershipId)
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
-    }
-
-    func testApplyConsent() async throws {
-        do{
-            var ok = false
-            try await TikiSdk.config().initTikiSdk(publishingId: publishingId)
-            let ownershipId = try await TikiSdk.assignOwnership(source: "testAssign", type: TikiSdkDataTypeEnum.point, contains: ["test data"], about: "test case")
-            let _ = try await TikiSdk.modifyConsent(ownershipId: ownershipId, destination: TikiSdkDestination.all(), about: "about", reward: "some reward", expiry: nil)
-            try await TikiSdk.applyConsent(source: "testAssign", destination: TikiSdkDestination.all(), request: {
-                ok = true
-            }, onBlocked: { msg in
-                XCTFail(msg)
-            })
-            XCTAssert(ok)
         }catch{
             XCTFail(error.localizedDescription)
         }
