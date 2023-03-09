@@ -4,7 +4,7 @@
  */
 
 import Flutter
-import UIKit
+import SwiftUI
 
 /// An Offer for creating a License for a Title identified by [ptr].
 public class Offer {
@@ -12,7 +12,7 @@ public class Offer {
     private var _ptr: String?
     private var _description: String?
     private var _terms: String?
-    private var _reward: UIImage?
+    private var _reward: Image?
     private var _usedBullet = [UsedBullet]()
     private var _uses = [LicenseUse]()
     private var _tags = [TitleTag]()
@@ -30,7 +30,7 @@ public class Offer {
     /// An image that represents the reward.
     ///
     /// It should have 300x86 size and include assets for all screen depths.
-    public var reward: UIImage? {
+    public var reward: Image? {
         _reward
     }
     
@@ -81,7 +81,7 @@ public class Offer {
     }
     
     /// Sets the [reward]
-    public func setReward(_ reward: UIImage) -> Offer {
+    public func setReward(_ reward: Image) -> Offer {
         _reward = reward
         return self
     }

@@ -5,7 +5,7 @@
  */
 
 /// An item that describes what can be done with the user data.
-public struct UsedBullet {
+public struct UsedBullet: Hashable {
   /// Description of the data usage.
   let text: String
   

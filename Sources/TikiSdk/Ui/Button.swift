@@ -2,69 +2,87 @@
  * Copyright (c) TIKI Inc.
  * MIT license. See LICENSE file in root directory.
  */
+
 import SwiftUI
 
-/// The button used in Tiki SDK UIs.
-public struct Button: View {
+struct TikiSdkButton: View {
     
-    /// The text of the button.
+    @Environment(\.colorScheme) private var colorScheme
+    
+    /// The button's text label.
     let text: String
-
-    /// The callback function for button tap.
-    let callback: () -> Void
-
-    /// The font family of the button's text from pubspec. Default is `SpaceGrotesk`
-    let font: Font
-
+    
+    /// The function to be called on user tap.
+    let onTap: () -> Void
+    
     /// The button's background color.
-    let backgroundColor: Color
-
+    var backgroundColor: Color?
+    
     /// The button's border color.
-    let borderColor: Color
-
+    var borderColor: Color?
+    
     /// The button's text color.
-    let textColor: Color
+    var textColor: Color?
     
-    /// Initializes a colored button with white text.
+    /// The font family of the button's text from pubspec.
+    var fontFamily: String?
+    
+    /// The default constructor for outlined button.
     ///
-    /// - Parameters:
-    ///   - text: Text displayed in the button
-    ///   - callback: "On tap" callback
-    ///   - color: The color of the button
-    ///   - font: The font to be used. Default is `SpaceGrotesk` 20pt.
-    init(text: String, callback: @escaping () -> Void, color: Color, font: Font = Font.custom("SpaceGrotesk", size: 20)){
-        self.backgroundColor = color
-        self.borderColor = color
-        self.textColor = Color(white: 1.0)
+    /// [TikiSdk.theme] is used for default styling.
+    init(_ text: String, _ onTap: @escaping () -> Void,
+         textColor: Color? = nil,
+         borderColor: Color? = nil,
+         fontFamily: String? = nil) {
         self.text = text
-        self.callback = callback
-        self.font = font
-    }
-    
-    /// Initializes an outlined button.
-    ///
-    /// - Parameters:
-    ///   - text:  Text displayed in the button
-    ///   - callback: "On tap" callback
-    ///   - textColor: The color of the button's text
-    ///   - borderColor: The border color
-    ///   - font: The font to be used. Default is `SpaceGrotesk` 20pt.
-    init(text: String, callback: @escaping () -> Void, textColor: Color, borderColor: Color, font: Font = Font.custom("SpaceGrotesk", size: 20)){
-        self.backgroundColor = Color(white: 1.0)
-        self.borderColor = borderColor
+        self.onTap = onTap
         self.textColor = textColor
-        self.text = text
-        self.callback = callback
-        self.font = font
+        self.borderColor = borderColor
+        self.fontFamily = fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily
+        self.backgroundColor = Color.white
     }
     
-    public var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    /// The constructor for a solid color button.
+    ///
+    /// [TikiSdk.theme] is used for default styling.
+    init(solid text: String, _ onTap: @escaping () -> Void,
+         color: Color? = nil,
+         fontFamily: String? = nil) {
+        self.text = text
+        self.onTap = onTap
+        self.backgroundColor = color ?? TikiSdk.instance.getActiveTheme(colorScheme).accentColor
+        self.borderColor = color ?? TikiSdk.instance.getActiveTheme(colorScheme).accentColor
+        self.fontFamily = fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily
+    }
+    
+    var body: some View {
+        Button(action: onTap) {
+            if #available(iOS 14.0, *) {
+                Text(text)
+                    .fontWeight(.semibold)
+                    .font(.system(size: 20))
+                    .lineSpacing(1.2)
+                    .foregroundColor(textColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryTextColor)
+                    .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily,
+                                  size: 20, relativeTo: .headline)
+                    )
+            } else {
+                Text(text)
+                    .fontWeight(.semibold)
+                    .font(.system(size: 20))
+                    .lineSpacing(1.2)
+                    .foregroundColor(textColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryTextColor)
+            }
+        }
+        .padding(.all, 14)
+        .background(backgroundColor)
+        .border(borderColor ?? Color.black.opacity(0.26), width: 1)
+        .cornerRadius(10)
     }
 }
 
 struct Button_Previews: PreviewProvider {
     static var previews: some View {
-        Button(text: "Test Btn", callback: {print("ok")}, color: Color.blue)
+        TikiSdkButton("Test", {print("teste")})
     }
 }
