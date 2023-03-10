@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-struct TikiSdkButton: View {
+public struct TikiSdkButton: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -30,7 +30,7 @@ struct TikiSdkButton: View {
     /// The default constructor for outlined button.
     ///
     /// [TikiSdk.theme] is used for default styling.
-    init(_ text: String, _ onTap: @escaping () -> Void,
+    public init(_ text: String, _ onTap: @escaping () -> Void,
          textColor: Color,
          borderColor: Color,
          fontFamily: String? = nil) {
@@ -45,7 +45,7 @@ struct TikiSdkButton: View {
     /// The constructor for a solid color button.
     ///
     /// [TikiSdk.theme] is used for default styling.
-    init(_ text: String, _ onTap: @escaping () -> Void,
+    public init(_ text: String, _ onTap: @escaping () -> Void,
          color: Color,
          fontFamily: String? = nil) {
         self.text = text
@@ -56,7 +56,7 @@ struct TikiSdkButton: View {
         self.fontFamily = fontFamily
     }
     
-    var body: some View {
+    public var body: some View {
         
         VStack{
             Text(text)

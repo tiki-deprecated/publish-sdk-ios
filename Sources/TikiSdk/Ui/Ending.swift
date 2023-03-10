@@ -24,25 +24,46 @@ public struct Ending: View {
         self.title = title
         self.message = message
         self.footnote = footnote
-        self.primaryTextColor = primaryTextColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryTextColor
-        self.backgroundColor = backgroundColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryBackgroundColor
-        self.fontFamily = fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily
+        self.primaryTextColor = primaryTextColor
+        self.backgroundColor = backgroundColor
+        self.fontFamily = fontFamily
     }
     
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .leading, spacing: 36) {
             title.padding(.top, 28)
             Text(message)
-                .font(.custom(fontFamily ?? "", size: 32))
+                .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily, size: 32))
                 .fontWeight(.bold)
-                .foregroundColor(primaryTextColor)
+                .foregroundColor(primaryTextColor  ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryTextColor)
                 .lineSpacing(42)
                 .multilineTextAlignment(.center)
                 .padding(.top, 36)
             footnote
         }
         .padding()
-        .background(backgroundColor)
+        .background(backgroundColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryBackgroundColor)
         .cornerRadius(40)
+    }
+}
+
+struct YourChoince: View{
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View{
+        HStack{
+            Text("YOUR ").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20)).foregroundColor(TikiSdk.instance.getActiveTheme(colorScheme).getAccentColor)
+            Text("CHOICE").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20))
+        }.frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 15)
+    }
+}
+
+struct Whoops: View{
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View{
+        HStack{
+            Text("WHOOOPS").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20)).foregroundColor(Color(red:0.78, green: 0.18, blue: 0))
+        }.frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 15)
     }
 }
