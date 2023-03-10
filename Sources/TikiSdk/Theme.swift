@@ -8,20 +8,16 @@ import SwiftUI
 
 /// Controls the UI theming for TikiSdk.
 public class Theme {
-    public var primaryTextColor = Color(hex: 0x001C0000)
-    public var primaryBackgroundColor = Color(hex: 0x001C1C1E)
-    public var secondaryBackgroundColor = Color(hex: 0x00F6F6F6)
-    public var accentColor = Color(hex: 0x0000B272)
-    public var fontFamily = "";
+    public var primaryTextColor = Color(red: 0, green: 0, blue: 0)
+    public var primaryBackgroundColor = Color(red: 1, green: 1, blue: 1)
+    public var secondaryBackgroundColor = Color(red: 0.96, green:0.96, blue:0.96)
+    public var accentColor = Color(red: 0, green: 0.7, blue: 0.44)
+    public var fontFamily = "SpaceGrotesk-Regular";
     
     /// Builds the dark version of the theme.
     public convenience init(dark: Bool = true) {
         self.init()
-        self.primaryTextColor = Color(hex: 0x00F6F6F6)
-        self.primaryBackgroundColor = Color(hex: 0x001C1C1E)
-        self.secondaryBackgroundColor = Color(hex: 0x00F6F6F6).opacity(0.38)
-        self.accentColor = Color(hex: 0x0000B272)
-        self.fontFamily = "SpaceGrotesk"
+        self.fontFamily = "SpaceGrotesk-Regular"
     }
     
     /// Primary text color. Used in the default text items.
@@ -74,17 +70,6 @@ public class Theme {
     
     public func and() -> TikiSdk {
         TikiSdk.instance
-    }
-}
-
-public extension Color {
-    init(hex: UInt32) {
-        let components = (
-            R: CGFloat((hex >> 16) & 0xff) / 255,
-            G: CGFloat((hex >> 08) & 0xff) / 255,
-            B: CGFloat((hex >> 00) & 0xff) / 255
-        )
-        self.init(red: components.R, green: components.G, blue: components.B)
     }
 }
 

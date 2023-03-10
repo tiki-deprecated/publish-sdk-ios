@@ -6,9 +6,15 @@
 
 /// An item that describes what can be done with the user data.
 public struct UsedBullet: Hashable {
+    
+  public init(text: String, isUsed: Bool) {
+    self.text = text
+    self.isUsed = isUsed
+  }
+    
   /// Description of the data usage.
-  let text: String
+  public let text: String
   
   /// Whether it is used.
-  let isUsed: Bool
+  public let isUsed: Bool
 }

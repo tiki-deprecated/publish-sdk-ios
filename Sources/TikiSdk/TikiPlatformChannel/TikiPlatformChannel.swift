@@ -15,12 +15,14 @@ public class TikiPlatformChannel {
     var callbacks: Dictionary<String, ((_ jsonString : String?, _ error : Error?) -> Void)> = [:]
    
     init() {
-        DispatchQueue.main.sync {
-            let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
-            flutterEngine.run()
-            GeneratedPluginRegistrant.register(with: flutterEngine);
-            self.channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-            self.channel!.setMethodCallHandler(self.handle)
+        Task{
+            DispatchQueue.main.sync {
+                let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
+                flutterEngine.run()
+                GeneratedPluginRegistrant.register(with: flutterEngine);
+                self.channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+                self.channel!.setMethodCallHandler(self.handle)
+            }
         }
     }
     

@@ -57,8 +57,8 @@ public class TikiSdk{
         return colorScheme == .dark && _dark != nil ? _dark! : _theme
     }
     
-    public func present(in context: UIViewController) async throws {
-       // TODO
+    static public func present() -> OfferPrompt {
+        return OfferPrompt(offers: instance._offers)
     }
 
     /// Shows the pre built Settings UI
