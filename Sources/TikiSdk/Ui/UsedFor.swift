@@ -25,15 +25,11 @@ struct UsedFor: View {
             ForEach(bullets, id: \.self) { item in
                 HStack(alignment: .center) {
                     if item.isUsed {
-                        Image(systemName: "checkmark.circle.fill")
-                            .resizable()
+                        Image("checkIcon")
                             .frame(width: 12, height: 12)
-                            .foregroundColor(.green)
                     } else {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
+                        Image("xIcon")
                             .frame(width: 12, height: 12)
-                            .foregroundColor(.red)
                     }
                     Text(item.text)
                         .foregroundColor(secondaryTextColor ?? TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryTextColor)

@@ -31,14 +31,14 @@ struct TikiSdkButton: View {
     ///
     /// [TikiSdk.theme] is used for default styling.
     init(_ text: String, _ onTap: @escaping () -> Void,
-         textColor: Color? = nil,
-         borderColor: Color? = nil,
+         textColor: Color,
+         borderColor: Color,
          fontFamily: String? = nil) {
         self.text = text
         self.onTap = onTap
         self.textColor = textColor
         self.borderColor = borderColor
-        self.fontFamily = fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily
+        self.fontFamily = fontFamily
         self.backgroundColor = Color.white
     }
     
@@ -46,17 +46,18 @@ struct TikiSdkButton: View {
     ///
     /// [TikiSdk.theme] is used for default styling.
     init(_ text: String, _ onTap: @escaping () -> Void,
-         color: Color? = nil,
+         color: Color,
          fontFamily: String? = nil) {
         self.text = text
         self.onTap = onTap
         self.textColor = Color.white
-        self.backgroundColor = color ?? TikiSdk.instance.getActiveTheme(colorScheme).accentColor
-        self.borderColor = color ?? TikiSdk.instance.getActiveTheme(colorScheme).accentColor
-        self.fontFamily = fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily
+        self.backgroundColor = color
+        self.borderColor = color
+        self.fontFamily = fontFamily
     }
     
     var body: some View {
+        
         VStack{
             Text(text)
                 .fontWeight(.semibold)
@@ -74,5 +75,8 @@ struct TikiSdkButton: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(borderColor!, lineWidth: 1)
                 )
+        .onTapGesture() {
+            onTap()
+        }
     }
 }

@@ -5,29 +5,23 @@ struct LearnMoreButton: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var iconColor: Color?
-    var textColor: Color?
-    var backgroundColor: Color?
-    var fontFamily: String?
-    var fontPackage: String?
+    var onTap: (() -> Void)?
     
-    init(iconColor: Color? = nil, textColor: Color? = nil, backgroundColor: Color? = nil, fontFamily: String? = nil, fontPackage: String? = nil) {
-        self.iconColor = iconColor ?? TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryTextColor
-        self.textColor = textColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryTextColor
-        self.backgroundColor = backgroundColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryBackgroundColor
-        self.fontFamily = fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily
+    init(iconColor: Color? = nil, onTap: (() -> Void)? = nil) {
+        self.onTap = onTap
+        self.iconColor = iconColor
     }
     
     var body: some View {
         Button(action: {
-            // handle button tap
+            onTap?()
         }) {
-            Image(systemName: "questionmark.circle.fill")
+            Image("questionIcon")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundColor(iconColor)
+                .foregroundColor(iconColor ?? TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryTextColor)
                 .frame(width: 24, height: 24)
         }
         .buttonStyle(PlainButtonStyle())
-        .background(backgroundColor)
     }
 }

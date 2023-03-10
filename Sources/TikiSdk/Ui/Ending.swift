@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Ending: View {
+public struct Ending: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -20,7 +20,7 @@ struct Ending: View {
     /// Ending Builder
     ///
     /// `TikiSdk.theme` is used for default styling.
-    init(title: Text, message: String, footnote: Text, primaryTextColor: Color? = nil, backgroundColor: Color? = nil, fontFamily: String? = nil) {
+    public init(title: Text, message: String, footnote: Text, primaryTextColor: Color? = nil, backgroundColor: Color? = nil, fontFamily: String? = nil) {
         self.title = title
         self.message = message
         self.footnote = footnote

@@ -53,12 +53,30 @@ public class TikiSdk{
         }
     }
     
+    public var offers: [String:Offer]{
+        get{
+            _offers
+        }
+    }
+
+    public var isDeclineEndingDisabled: Bool{
+        get{
+            _isDeclineEndingDisabled
+        }
+    }
+    
+    public var isAcceptEndingDisabled: Bool{
+        get{
+            _isAcceptEndingDisabled
+        }
+    }
+    
     public func getActiveTheme(_ colorScheme: ColorScheme ) -> Theme {
         return colorScheme == .dark && _dark != nil ? _dark! : _theme
     }
     
-    static public func present() -> OfferPrompt {
-        return OfferPrompt(offers: instance._offers)
+    static public func present() -> Void {
+        // TODO
     }
 
     /// Shows the pre built Settings UI
@@ -70,7 +88,7 @@ public class TikiSdk{
     public static func config() -> TikiSdk {
         return instance
     }
-
+    
     /// Adds a new [Offer] for the user;
     public func addOffer(_ offer: Offer) -> TikiSdk {
         _offers[offer.id] = offer

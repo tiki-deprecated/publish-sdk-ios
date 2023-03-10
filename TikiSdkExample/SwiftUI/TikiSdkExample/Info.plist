@@ -5,6 +5,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>SpaceGrotesk.ttf</string>
+		<string>TikiSdkIcons</string>
 	</array>
 </dict>
 </plist>

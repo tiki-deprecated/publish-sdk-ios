@@ -11,23 +11,23 @@ struct OfferCard: View {
     
     init(_ offer: Offer, textColor: Color? = nil, backgroundColor: Color? = nil, fontFamily: String? = nil) {
         self.offer = offer
-        self.textColor = textColor ?? TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryTextColor
-        self.backgroundColor = backgroundColor ?? TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryBackgroundColor
-        self.fontFamily = fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily
+        self.textColor = textColor
+        self.backgroundColor = backgroundColor
+        self.fontFamily = fontFamily
     }
     
     var body: some View {
         VStack(alignment: .center) {
             offer!.reward
             Text(offer?.description ?? "")
-                .font(fontFamily != nil ? .custom(fontFamily!, size: 16) : .system(size: 16))
+                .font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 16))
                 .fontWeight(.bold)
-                .foregroundColor(textColor)
+                .foregroundColor(textColor  ?? TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryTextColor)
                 .lineLimit(3)
         }
         .padding([.top, .horizontal], 20)
         .padding(.bottom, 35)
-        .background(backgroundColor)
+        .background(backgroundColor  ?? TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryBackgroundColor)
         .cornerRadius(10)
         .shadow(color: Color(red:0,green:0, blue:0).opacity(0.05), radius: 0, x:4, y:4)
     }
