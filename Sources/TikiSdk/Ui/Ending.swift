@@ -5,13 +5,13 @@ public struct Ending: View {
     @Environment(\.colorScheme) private var colorScheme
     
     /// A `Text` title to be shown in the top of the bottom sheet.
-    let title: Text
+    let title: AnyView
     
     /// The center message of the ending screen.
     let message: String
     
     /// The sub text shown below the message.
-    let footnote: Text
+    let footnote: AnyView
     
     var primaryTextColor: Color?
     var backgroundColor: Color?
@@ -20,7 +20,7 @@ public struct Ending: View {
     /// Ending Builder
     ///
     /// `TikiSdk.theme` is used for default styling.
-    public init(title: Text, message: String, footnote: Text, primaryTextColor: Color? = nil, backgroundColor: Color? = nil, fontFamily: String? = nil) {
+    public init(title: AnyView, message: String, footnote: AnyView, primaryTextColor: Color? = nil, backgroundColor: Color? = nil, fontFamily: String? = nil) {
         self.title = title
         self.message = message
         self.footnote = footnote

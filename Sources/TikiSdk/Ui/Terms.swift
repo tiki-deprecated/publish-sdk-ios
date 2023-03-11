@@ -5,14 +5,14 @@ public struct Terms : View{
     @Environment(\.colorScheme) var colorScheme
     var offer: Offer?
     var onDismiss: (() -> Void)
-    var onAccept: ((Offer?) -> Void)
+    var onAccept: (() -> Void)
     
     public var body: some View {
         VStack(spacing:0){
             NavigationHeader(title: "Terms and Conditions", onBackPressed: {
                 onDismiss()
             })
-            ScrollView(.vertical) {Text(offer?.terms ?? "")}.frame(maxWidth: .infinity, maxHeight: .infinity)
+            ScrollView(.vertical) {Text(offer?.terms ?? TikiSdk.instance.defaultTerms)}.frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 30)
                 .padding(.top, 25)
                 .padding(.bottom, 0)
@@ -22,7 +22,7 @@ public struct Terms : View{
                 .edgesIgnoringSafeArea(.horizontal)
                 .padding(.bottom, 20)
                 .padding(.horizontal, 30)
-            TikiSdkButton("I Agree", {onAccept(offer)}, color: TikiSdk.instance.getActiveTheme(colorScheme).getAccentColor).padding(16)
+            TikiSdkButton("I Agree", {onAccept()}, color: TikiSdk.instance.getActiveTheme(colorScheme).getAccentColor).padding(16)
         }.navigationBarBackButtonHidden(true)
     }
 }

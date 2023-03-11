@@ -11,7 +11,7 @@ public class Offer {
     private var _id: String?
     private var _ptr: String?
     private var _description: String?
-    private var _terms: LocalizedStringKey?
+    private var _terms: String?
     private var _reward: Image?
     private var _usedBullet = [UsedBullet]()
     private var _uses = [LicenseUse]()
@@ -50,7 +50,7 @@ public class Offer {
     }
     
     /// The legal terms of the offer.
-    public var terms: LocalizedStringKey? {
+    public var terms: String? {
         _terms
     }
     
@@ -111,7 +111,7 @@ public class Offer {
     }
     
     /// Sets the [terms]
-    public func setTerms(_ terms: LocalizedStringKey) -> Offer {
+    public func setTerms(_ terms: String) -> Offer {
         _terms = terms
         return self
     }

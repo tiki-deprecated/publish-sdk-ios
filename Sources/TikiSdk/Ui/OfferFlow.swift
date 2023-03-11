@@ -6,122 +6,77 @@ public struct OfferFlow: View{
     @State var sheet: Sheets = Sheets.prompt
     @State var activeOffer: Offer? = nil
     
+    @State var dragOffsetY: CGFloat = 0
+    
     public init() {}
     
     public var body: some View{
-        NavigationView{
-            VStack{
-                NavigationLink(destination: Terms(offer: TikiSdk.instance.offers.values.first, onDismiss: {
-                    sheet = Sheets.prompt
-                    route = Routes.none
-                }, onAccept: { offer in
-                    if(offer == nil){
-                        sheet = Sheets.none
-                        route = Routes.none
-                    }else if(offer!.requiredPermissions.isEmpty){
-                        sheet = Sheets.endingAccepted
-                        route = Routes.none
-                    }else{
-                        sheet = Sheets.endingError
-                        route = Routes.none
-                        activeOffer = offer
-                    }
-                }), isActive: Binding(
-                    get: {route == Routes.terms},
-                    set: {let _ = $0}
-                )){
-                    EmptyView()
-                }
-                NavigationLink(destination: LearnMore(onDismiss: {
-                    if(sheet != Sheets.prompt){
-                        sheet = Sheets.prompt
-                        route = Routes.none
-                    }
-                }), isActive: Binding(
-                    get: {route == Routes.learnMore},
-                    set: {let _ = $0}
-                )){
-                    EmptyView()
-                }
-                NavigationLink(destination: Settings(
-                    onAccept: {offer in
-                        route = Routes.terms
-                        sheet = Sheets.none
-                    },
-                    onDecline: {offer in
-                        sheet = TikiSdk.instance.isDeclineEndingDisabled ? Sheets.none : Sheets.endingDeclined
-                    },
-                    onLearnMore: {
-                        route = Routes.learnMore
-                    },
-                    onDismiss: {
-                        route = Routes.none
-                        sheet = Sheets.none
-                    }), isActive: Binding(
-                        get: {route == Routes.settings},
-                        set: {let _ = $0}
-                    )){
-                        EmptyView()
-                    }
-            }.sheet(isPresented: Binding(
-                get: {sheet == Sheets.prompt},
-                set: {let _ = $0}
-            ), onDismiss: {
-                if(sheet == Sheets.prompt){
-                    sheet = Sheets.none
-                }
-            }) {
-                OfferPrompt(offers: TikiSdk.instance.offers,
-                            onAccept: {offer in
-                    route = Routes.terms
-                    sheet = Sheets.none
-                },
-                            onDecline: {offer in
-                    sheet = TikiSdk.instance.isDeclineEndingDisabled ? Sheets.none : Sheets.endingDeclined
-                },
-                            onLearnMore: {
+        ZStack{
+            BottomSheet(isShowing: isShowingBinding(Sheets.prompt), offset: $dragOffsetY, content: Sheets.prompt.view(
+                onLearnMore: {
+                    print("learnmore")
                     route = Routes.learnMore
-                    sheet = Sheets.none
+                },
+                onAccept: { offer in
+                    print("accept")
+                    activeOffer = offer
+                    route = Routes.terms
+                },
+                onDecline: { offer in
+                    print("decline")
+                    sheet = TikiSdk.instance.isAcceptEndingDisabled ? Sheets.none : Sheets.endingDeclined
                 })
-            }
-            .sheet(isPresented: Binding(
-                get: {sheet == Sheets.endingAccepted},
+            ).zIndex(sheet == Sheets.prompt && route == Routes.none ? 1 : 0)
+            BottomSheet(isShowing: isShowingBinding(Sheets.endingAccepted), offset: $dragOffsetY, content: Sheets.endingAccepted.view()).zIndex(sheet == Sheets.endingAccepted && route == Routes.none ? 1 : 0)
+            BottomSheet(isShowing: isShowingBinding(Sheets.endingDeclined), offset: $dragOffsetY, content: Sheets.endingDeclined.view()).zIndex(sheet == Sheets.endingDeclined && route == Routes.none ? 1 : 0)
+            BottomSheet(isShowing: isShowingBinding(Sheets.endingError), offset: $dragOffsetY, content: Sheets.endingError.view(requiredPermissions: activeOffer?.requiredPermissions)).zIndex(sheet == Sheets.endingError && route == Routes.none ? 1 : 0)
+            NavigationRoute(isShowing: Binding(
+                get: {route == Routes.terms},
                 set: {let _ = $0}
-            ), onDismiss: {
-                sheet = Sheets.none
-                
-            }) {
-                Ending(
-                    title: Text("Your Choice"),
-                    message: "Awesome! You’re in",
-                    footnote: Text("We’re on it, stay tuned.\nChange your mind anytime in settings.")
-                )
-            }
-            .sheet(isPresented: Binding(
-                get: {sheet == Sheets.endingDeclined},
+            ), content: Routes.terms.view(offer: activeOffer, onAccept: {
+                route = Routes.none
+                if(activeOffer != nil){
+                    if(activeOffer!.requiredPermissions.isEmpty){
+                        sheet = TikiSdk.instance.isAcceptEndingDisabled ?
+                        Sheets.none :
+                        Sheets.endingAccepted
+                    }else{
+                        // TODO create License
+                        activeOffer = nil
+                        route = Routes.none
+                        sheet = Sheets.endingError
+                    }
+                }}, onDismiss: {
+                    route = Routes.none
+                }))
+            NavigationRoute(isShowing: Binding(
+                get: {route == Routes.learnMore},
                 set: {let _ = $0}
-            ), onDismiss: {
-                sheet = Sheets.none
-                
-            }) {
-                Ending(
-                    title: Text("Your Choice"),
-                    message: "Backing Off",
-                    footnote: Text("Your data is valuable.\nOpt-in anytime in settings.")
-                )
+            ), content: Routes.learnMore.view(onDismiss: {
+                route = Routes.none
+            }))
+        }.gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global)
+            .onChanged { value in
+                if(route == Routes.none){
+                    dragOffsetY = value.translation.height > 0 ? value.translation.height : 0
+                }
             }
-            .sheet(isPresented: Binding(
-                get: {sheet == Sheets.endingError},
-                set: {let _ = $0}
-            ), onDismiss: {
-                sheet = Sheets.prompt
-            }) {
-                Ending(
-                    title: Text("Whoops"),
-                    message: "Permission Required",
-                    footnote: Text("Offer declined.\no proceed, allow \(activeOffer!.requiredPermissions.joined(separator: ", ")).")
-                )
+            .onEnded{ value in
+                if(route == Routes.none){
+                    if(dragOffsetY > 50) {
+                        sheet = Sheets.none
+                    }
+                    dragOffsetY = 0
+                }
             }
-        }
+        )
+    }
+    
+    func isShowingBinding(_ sheet: Sheets) -> Binding<Bool>{
+        return Binding<Bool>(get: {
+            self.sheet == sheet
+        }, set: { show in
+            self.sheet = show ? Sheets.prompt : Sheets.none
+        })
     }
 }

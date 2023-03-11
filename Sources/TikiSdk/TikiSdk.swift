@@ -28,9 +28,16 @@ public class TikiSdk{
     private var _offers = [String: Offer]()
     private let _theme = Theme()
     private var _dark: Theme?
+    private var _defaultTerms: String = "default terms"
     private var tikiPlatformChannel: TikiPlatformChannel = TikiPlatformChannel()
     
     private init() {}
+
+    public var defaultTerms: String {
+        get{
+            _defaultTerms
+        }
+    }
     
     public var theme: Theme {
         get{
@@ -117,6 +124,11 @@ public class TikiSdk{
         _onAccept = onAccept
         return self
     }
+    
+    public func setDefaultTerms(_ terms: String) -> TikiSdk{
+        _defaultTerms = terms
+        return self
+    }
 
     /// Sets the callback function for a declined offer
     ///
@@ -179,7 +191,7 @@ public class TikiSdk{
             do{
                 let licenseReq = ReqLicense(
                     ptr: offer.ptr,
-                    terms: offer.terms?.stringValue(),
+                    terms: offer.terms,
                     licenseDescription: offer.description,
                     uses: offer.uses,
                     tags: offer.tags,
@@ -382,30 +394,5 @@ public class TikiSdk{
             }
         }
         return rspLicense.license
-    }
-}
-
-extension LocalizedStringKey {
-    var stringKey: String? {
-        Mirror(reflecting: self).children.first(where: { $0.label == "key" })?.value as? String
-    }
-}
-
-extension String {
-    static func localizedString(for key: String,
-                                locale: Locale = .current) -> String {
-        
-        let language = locale.languageCode
-        let path = Bundle.main.path(forResource: language, ofType: "lproj")!
-        let bundle = Bundle(path: path)!
-        let localizedString = NSLocalizedString(key, bundle: bundle, comment: "")
-        
-        return localizedString
-    }
-}
-
-extension LocalizedStringKey {
-    func stringValue(locale: Locale = .current) -> String {
-        return .localizedString(for: self.stringKey!, locale: locale)
     }
 }

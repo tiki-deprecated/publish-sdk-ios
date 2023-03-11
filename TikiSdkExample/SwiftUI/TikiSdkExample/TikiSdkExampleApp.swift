@@ -25,7 +25,7 @@ struct TikiSdkExampleApp: App {
                 .addUse(LicenseUse(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)]))
                 .addTag(TitleTag(TitleTagEnum.advertisingData))
                 .setExpiry(expiry: Date().addingTimeInterval(365 * 24 * 60 * 60))
-                .addReqPermission(permission: "camera")
+                //.addReqPermission(permission: "camera")
                 .add()
                 .setOnAccept { offer in print("accepted")}
                 .setOnDecline { offer in print("decline")}
