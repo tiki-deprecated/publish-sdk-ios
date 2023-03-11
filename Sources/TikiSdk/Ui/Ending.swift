@@ -30,7 +30,7 @@ public struct Ending: View {
     }
     
     public var body: some View {
-        VStack(alignment: .leading, spacing: 36) {
+        VStack{
             title.padding(.top, 28)
             Text(message)
                 .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily, size: 32))
@@ -41,9 +41,10 @@ public struct Ending: View {
                 .padding(.top, 36)
             footnote
         }
+        .frame(maxWidth: .infinity)
         .padding()
         .background(backgroundColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryBackgroundColor)
-        .cornerRadius(40)
+        .cornerRadius(40, corners: [.topRight,.topLeft])
     }
 }
 

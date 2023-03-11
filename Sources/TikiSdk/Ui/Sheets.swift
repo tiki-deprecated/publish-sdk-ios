@@ -26,9 +26,7 @@ public enum Sheets{
         case .endingAccepted :
             return AnyView(
                 Ending(
-                    title: AnyView(HStack{
-                        Text("Your Choice")
-                    }),
+                    title: AnyView(YourChoince()),
                     message: "Awesome! You’re in",
                     footnote: AnyView(VStack{
                         Text("We’re on it, stay tuned.\nChange your mind anytime in settings.")
@@ -37,7 +35,7 @@ public enum Sheets{
         case .endingDeclined :
             return AnyView(
                 Ending(
-                    title: AnyView(HStack{Text("Your Choice")}),
+                    title: AnyView(YourChoince()),
                     message: "Backing Off",
                     footnote: AnyView(VStack{Text("Your data is valuable.\nOpt-in anytime in settings.")})
                 )
@@ -45,7 +43,7 @@ public enum Sheets{
         case .endingError :
             return AnyView(
                 Ending(
-                    title: AnyView(HStack{Text("Whoops")}),
+                    title: AnyView(Whoops()),
                     message: "Permission Required",
                     footnote: AnyView(HStack{Text("Offer declined.")})
                 )
