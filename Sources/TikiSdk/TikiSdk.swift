@@ -6,8 +6,9 @@
 import Flutter
 import FlutterPluginRegistrant
 import SwiftUI
+import UIKit
 
-typealias OfferHandler = (Offer) -> Void
+typealias OfferHandler = (Offer?, LicenseRecord?)  -> Void
 
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
@@ -22,7 +23,7 @@ public class TikiSdk{
     var _address: String? = nil
     private var _onAccept: OfferHandler?
     private var _onDecline: OfferHandler?
-    private var _onSettings: OfferHandler?
+    private var _onSettings: (() -> Void)?
     private var _isAcceptEndingDisabled = false
     private var _isDeclineEndingDisabled = false
     private var _offers = [String: Offer]()
@@ -32,12 +33,6 @@ public class TikiSdk{
     private var tikiPlatformChannel: TikiPlatformChannel = TikiPlatformChannel()
     
     private init() {}
-
-    public var defaultTerms: String {
-        get{
-            _defaultTerms
-        }
-    }
     
     public var theme: Theme {
         get{
@@ -82,8 +77,14 @@ public class TikiSdk{
         return colorScheme == .dark && _dark != nil ? _dark! : _theme
     }
     
-    static public func present() -> Void {
-        // TODO
+    static public func present() {
+        let viewController = UIApplication.shared.windows.first?.rootViewController
+        let vc = UIHostingController(rootView: OfferFlow(dismissAction: {
+            viewController!.dismiss( animated: true, completion: nil )}))
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .coverVertical
+        vc.view.layer.backgroundColor = UIColor.clear.cgColor
+        viewController!.present(vc, animated: true, completion: nil)
     }
 
     /// Shows the pre built Settings UI
@@ -120,13 +121,8 @@ public class TikiSdk{
     /// of the licensing offer. This happens after accepting the terms, not just
     /// on selecting "I'm In." The License Record is passed as a parameter to the
     /// callback function.
-    public func setOnAccept(_ onAccept: ((Offer) -> Void)?) -> TikiSdk {
+    public func onAccept(_ onAccept: ((Offer?, LicenseRecord?) -> Void)?) -> TikiSdk {
         _onAccept = onAccept
-        return self
-    }
-    
-    public func setDefaultTerms(_ terms: String) -> TikiSdk{
-        _defaultTerms = terms
         return self
     }
 
@@ -134,7 +130,7 @@ public class TikiSdk{
     ///
     /// The onDecline() event is triggered when the user declines the licensing offer.
     /// This happens on dismissal of the flow or when "Back Off" is selected.
-    public func setOnDecline(_ onDecline: ((Offer) -> Void)?) -> TikiSdk {
+    public func onDecline(_ onDecline: ((Offer?, LicenseRecord?) -> Void)?) -> TikiSdk {
         _onDecline = onDecline
         return self
     }
@@ -144,7 +140,7 @@ public class TikiSdk{
     /// The onSettings() event is triggered when the user selects "settings" in the
     /// ending screen. If a callback function is not registered, the SDK defaults to
     /// calling the TikiSdk.settings() method.
-    public func setOnSettings(_ onSettings: ((Offer) -> Void)?) -> TikiSdk {
+    public func onSettings(_ onSettings: (() -> Void)?) -> TikiSdk {
         _onSettings = onSettings
         return self
     }
@@ -396,3 +392,4 @@ public class TikiSdk{
         return rspLicense.license
     }
 }
+

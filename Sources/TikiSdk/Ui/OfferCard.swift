@@ -18,11 +18,11 @@ struct OfferCard: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            offer!.reward
+            offer!.reward?.padding(.bottom, 10)
             Text(offer?.description ?? "")
                 .font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 16))
                 .fontWeight(.bold)
-                .foregroundColor(textColor  ?? TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryTextColor)
+                .foregroundColor(textColor  ?? TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryTextColor)
                 .lineLimit(3)
         }
         .padding([.top, .horizontal], 20)

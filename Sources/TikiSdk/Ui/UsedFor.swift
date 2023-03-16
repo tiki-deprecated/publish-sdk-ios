@@ -21,7 +21,7 @@ struct UsedFor: View {
             Text("HOW YOUR DATA WILL BE USED")
                 .foregroundColor(primaryTextColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryTextColor)
                 .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily, size: 16))
-                .fontWeight(.bold)
+                .fontWeight(.bold).padding(.bottom, 5)
             ForEach(bullets, id: \.self) { item in
                 HStack(alignment: .center) {
                     if item.isUsed {
@@ -34,7 +34,7 @@ struct UsedFor: View {
                     Text(item.text)
                         .foregroundColor(secondaryTextColor ?? TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryTextColor)
                         .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily, size: 16))
-                        .fontWeight(.bold)
+                        .fontWeight(.bold).padding(.bottom, 5)
                 }
             }
         }

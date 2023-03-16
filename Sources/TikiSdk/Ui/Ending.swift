@@ -30,21 +30,17 @@ public struct Ending: View {
     }
     
     public var body: some View {
-        VStack{
+        VStack(alignment: .center, spacing: 0){
             title.padding(.top, 28)
             Text(message)
-                .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily, size: 32))
-                .fontWeight(.bold)
+                .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily, size: 36))
+                .fontWeight(.medium)
                 .foregroundColor(primaryTextColor  ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryTextColor)
-                .lineSpacing(42)
-                .multilineTextAlignment(.center)
-                .padding(.top, 36)
-            footnote
+                .padding(.vertical, 34)
+            footnote.padding(.bottom, 50)
         }
         .frame(maxWidth: .infinity)
-        .padding()
         .background(backgroundColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryBackgroundColor)
-        .cornerRadius(40, corners: [.topRight,.topLeft])
     }
 }
 
@@ -52,10 +48,10 @@ struct YourChoince: View{
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View{
-        HStack{
-            Text("YOUR ").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20)).foregroundColor(TikiSdk.instance.getActiveTheme(colorScheme).getAccentColor)
-            Text("CHOICE").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20))
-        }.frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 15)
+        HStack(spacing: 0){
+            Text("YOUR ").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20)).bold().foregroundColor(TikiSdk.instance.getActiveTheme(colorScheme).getAccentColor)
+            Text("CHOICE").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20)).bold()
+        }.frame(maxWidth: .infinity, alignment: .center).padding(.leading, 15)
     }
 }
 
@@ -63,8 +59,8 @@ struct Whoops: View{
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View{
-        HStack{
-            Text("WHOOOPS").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20)).foregroundColor(Color(red:0.78, green: 0.18, blue: 0))
-        }.frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 15)
+        HStack(spacing: 0){
+            Text("WHOOPS").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20)).bold().foregroundColor(Color(red:0.78, green: 0.18, blue: 0))
+        }.frame(maxWidth: .infinity, alignment: .center).padding(.leading, 15)
     }
 }

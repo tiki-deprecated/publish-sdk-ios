@@ -6,29 +6,32 @@ struct BottomSheet: View {
     
     @Binding var isShowing: Bool
     @Binding var offset: CGFloat
+    var dismiss: (() -> Void)
     var content: AnyView
     
+    
     var body: some View {
-        ZStack(alignment: .bottom) {
-            if (isShowing) {
+        if (isShowing) {
+            ZStack{
                 Color.black
                     .opacity(0.3)
                     .ignoresSafeArea()
                     .onTapGesture {
                         isShowing.toggle()
+                        dismiss()
                     }
                 content
-                    //.padding(.bottom, 42)
                     .transition(.move(edge: .bottom))
                     .background(
-                       TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryBackgroundColor
+                        TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryBackgroundColor
                     )
                     .cornerRadius(40, corners: [.topLeft, .topRight])
                     .offset(x: 0, y: offset)
+                    .background(Color(.clear))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                    .ignoresSafeArea()
+                    .animation(.easeInOut, value: isShowing)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .ignoresSafeArea()
-        .animation(.easeInOut, value: isShowing)
     }
 }

@@ -8,11 +8,11 @@ public struct OfferPrompt: View {
     var title: AnyView = AnyView(TradeYourData())
     var backgroundColor: Color? = nil
     var accentColor: Color? = nil
-    var onAccept: ((Offer) -> Void)? = nil
-    var onDecline: ((Offer) -> Void)? = nil
+    var onAccept: ((Offer?, LicenseRecord?) -> Void)? = nil
+    var onDecline: ((Offer?, LicenseRecord?) -> Void)? = nil
     var onLearnMore: (()->Void)? = nil
     
-    public init(offers: [String:Offer]? = nil, title: AnyView? = nil, primaryBackgroundColor: Color? = nil, secondaryTextColor: Color? = nil, fontFamily: String? = nil, accentColor: Color? = nil, onAccept: ((Offer) -> Void)? = nil, onDecline: ((Offer) -> Void)? = nil, onLearnMore: @escaping (()->Void)) {
+    public init(offers: [String:Offer]? = nil, title: AnyView? = nil, primaryBackgroundColor: Color? = nil, secondaryTextColor: Color? = nil, fontFamily: String? = nil, accentColor: Color? = nil, onAccept: ((Offer?, LicenseRecord?) -> Void)? = nil, onDecline: ((Offer?, LicenseRecord?) -> Void)? = nil, onLearnMore: @escaping (()->Void)) {
         self.offers = offers ?? TikiSdk.instance.offers
         self.title = title != nil ? title! : AnyView(TradeYourData())
         self.backgroundColor = primaryBackgroundColor
@@ -51,11 +51,11 @@ public struct OfferPrompt: View {
     }
 
     private func _decline(offer: Offer) {
-        onDecline?(offer)
+        onDecline?(offer, nil)
     }
 
     private func _accept(offer: Offer) {
-        onAccept?(offer)
+        onAccept?(offer, nil)
     }
 }
 
@@ -63,11 +63,13 @@ struct TradeYourData: View{
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View{
+        
         HStack{
-            Text("TRADE").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20))
-            Text(" YOUR ").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20)).foregroundColor(TikiSdk.instance.getActiveTheme(colorScheme).getAccentColor)
-            Text("DATA").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 20))
+            Text("TRADE").font(.custom("SpaceGrotesk-Bold", size: 20))
+            Text("YOUR").font(.custom("SpaceGrotesk-Bold", size: 20)).foregroundColor(TikiSdk.instance.getActiveTheme(colorScheme).getAccentColor)
+            Text("DATA").font(.custom("SpaceGrotesk-Bold", size: 20))
         }.frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 15)
+        
     }
 }
 

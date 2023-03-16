@@ -13,16 +13,11 @@ public struct LearnMore : View{
             NavigationHeader(title: "Learn More", onBackPressed: {
                 onDismiss()
             })
-            ScrollView(.vertical) {Text(learnMoreText)}.frame(maxWidth: .infinity, maxHeight: .infinity)
+             ScrollView(.vertical) {Text(learnMoreText).font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size:16))}
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 30)
                 .padding(.top, 25)
                 .padding(.bottom, 0)
-            Rectangle()
-                .fill(TikiSdk.instance.getActiveTheme(colorScheme).accentColor)
-                .frame(height: 1)
-                .edgesIgnoringSafeArea(.horizontal)
-                .padding(.bottom, 20)
-                .padding(.horizontal, 30)
         }.navigationBarBackButtonHidden(true)
     }
 }

@@ -68,7 +68,7 @@ public struct TikiSdkButton: View {
                 )
         }
         .frame(maxWidth: .infinity)
-        .padding(.all, 14)
+        .padding(.all, 16)
         .background(backgroundColor)
         .cornerRadius(10)
         .overlay(
