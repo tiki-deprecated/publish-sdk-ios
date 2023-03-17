@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SpaceGrotesk-Regular.ttf</string>
+		<string>SpaceGrotesk-Bold.ttf</string>
+		<string>SpaceGrotesk-SemiBold.ttf</string>
+		<string>SpaceGrotesk-Medium.ttf</string>
+		<string>SpaceGrotesk.Light.ttf</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Test app</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Test app</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Test app</string>
+</dict>
+</plist>

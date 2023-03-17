@@ -1,38 +1,75 @@
-/*
- * Copyright (c) TIKI Inc.
- * MIT license. See LICENSE file in root directory.
- */
 import SwiftUI
 
-/// The definition of the offer for data usage.
-public struct OfferPrompt{
-      /// A description of the data usage.
-      ///
-      /// It will occupy 3 lines maximum in the UI. An ellipsis will be added on overflow.
-      /// Accepts basic markdown styles: underline, bold and italic.
-    let description: String
+public struct OfferPrompt: View {
 
-      /// A image description of the data usage.
-      ///
-      /// Use a 320x100px image.
-    let image: Image
-
-      /// The list of items that describes what can be done with the user data.
-      ///
-      /// Maximum 3 items.
-    let items: [OfferItem]
+    @Environment(\.colorScheme) private var colorScheme
     
-    /// The definition of the offer for data usage.
-    /// - Parameters:
-    ///   - description: A description of the data usage.
-    ///   - image: A image description of the data usage.
-    ///   - items: The list of items that describes what can be done with the user data. Max 3 items
-    init(description: String, image: Image, items: [OfferItem]) throws{
-        self.description = description
-        self.image = image
-        self.items = items
-        if(items.count > 3){
-            throw TikiSdkError(message: "Offer should have maximum 3 OfferItems. \(items.count) provided", stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
+    var offers: [String:Offer]?
+    var title: AnyView = AnyView(TradeYourData())
+    var backgroundColor: Color? = nil
+    var accentColor: Color? = nil
+    var onAccept: ((Offer?, LicenseRecord?) -> Void)? = nil
+    var onDecline: ((Offer?, LicenseRecord?) -> Void)? = nil
+    var onLearnMore: (()->Void)? = nil
+    
+    public init(offers: [String:Offer]? = nil, title: AnyView? = nil, primaryBackgroundColor: Color? = nil, secondaryTextColor: Color? = nil, fontFamily: String? = nil, accentColor: Color? = nil, onAccept: ((Offer?, LicenseRecord?) -> Void)? = nil, onDecline: ((Offer?, LicenseRecord?) -> Void)? = nil, onLearnMore: @escaping (()->Void)) {
+        self.offers = offers ?? TikiSdk.instance.offers
+        self.title = title != nil ? title! : AnyView(TradeYourData())
+        self.backgroundColor = primaryBackgroundColor
+        self.accentColor = accentColor
+        self.onAccept = onAccept
+        self.onDecline = onDecline
+        self.onLearnMore = onLearnMore
+    }
+
+    public var body: some View {
+        if(offers?.values.first != nil){
+            VStack(alignment: .center, spacing: 0) {
+                ZStack {
+                    title
+                    HStack{
+                        Spacer()
+                        LearnMoreButton(onTap: self.onLearnMore)
+                    }.padding(.trailing, 15)
+                }.padding(.vertical, 32)
+                OfferCard(offers!.values.first!)
+                UsedFor(bullets: offers!.values.first!.usedBullet)
+                HStack {
+                    TikiSdkButton("Back Off",
+                    {_decline(offer: offers!.values.first!)},
+                      textColor: TikiSdk.theme(colorScheme).primaryTextColor,
+                      borderColor: TikiSdk.theme(colorScheme).accentColor,
+                                  font: TikiSdk.theme(colorScheme).fontMedium
+                    ).frame(maxWidth: .infinity).padding(.trailing, 12)
+                    TikiSdkButton("I'm in", {_accept(offer: offers!.values.first!)}, color: TikiSdk.theme(colorScheme).accentColor,
+                                  font: TikiSdk.theme(colorScheme).fontMedium ).frame(maxWidth: .infinity).padding(.leading, 12)
+                }
+                .padding(.bottom, 50)
+            }
+            .padding(.horizontal, 15)
+            .background(backgroundColor ?? TikiSdk.theme(colorScheme).secondaryBackgroundColor)
         }
+    }
+
+    private func _decline(offer: Offer) {
+        onDecline?(offer, nil)
+    }
+
+    private func _accept(offer: Offer) {
+        onAccept?(offer, nil)
+    }
+}
+
+struct TradeYourData: View{
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View{
+        
+        HStack{
+            Text("TRADE").font(.custom("SpaceGrotesk-Bold", size: 20))
+            Text("YOUR").font(.custom("SpaceGrotesk-Bold", size: 20)).foregroundColor(TikiSdk.theme(colorScheme).accentColor)
+            Text("DATA").font(.custom("SpaceGrotesk-Bold", size: 20))
+        }.frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 15)
+        
     }
 }

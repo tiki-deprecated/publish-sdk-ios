@@ -13,14 +13,10 @@ public class TikiPlatformChannel {
     
     static let channelId = "tiki_sdk_flutter"
     var callbacks: Dictionary<String, ((_ jsonString : String?, _ error : Error?) -> Void)> = [:]
-   
+    
     init() {
-        DispatchQueue.main.sync {
-            let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
-            flutterEngine.run()
-            GeneratedPluginRegistrant.register(with: flutterEngine);
-            self.channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-            self.channel!.setMethodCallHandler(self.handle)
+        Task{
+            await initChannel()
         }
     }
     
@@ -36,53 +32,77 @@ public class TikiPlatformChannel {
         }
         let response: String = (call.arguments as? Dictionary<String, Any>)?["response"] as? String ?? ""
         switch (call.method) {
-            case "success" :
-                let callback = callbacks[requestId]!
-                callback(response, nil)
+        case "success" :
+            let callback = callbacks[requestId]!
+            callback(response, nil)
             break
-            case "error" :
-                do{
-                    let rspError = try JSONDecoder().decode(RspError.self, from:  Data(response.utf8))
-                    callbacks[requestId]?(nil, TikiSdkError(message: rspError.message, stackTrace: rspError.stackTrace))
-                }catch{
-                    callbacks[requestId]?(nil, TikiSdkError(message: error.localizedDescription, stackTrace: Thread.callStackSymbols.joined(separator: "\n")))
-                }
+        case "error" :
+            do{
+                let rspError = try JSONDecoder().decode(RspError.self, from:  Data(response.utf8))
+                callbacks[requestId]?(nil, TikiSdkError(message: rspError.message, stackTrace: rspError.stackTrace))
+            }catch{
+                callbacks[requestId]?(nil, TikiSdkError(message: error.localizedDescription, stackTrace: Thread.callStackSymbols.joined(separator: "\n")))
+            }
             break
-            default :
-                result(FlutterError(code: "404", message: "Not Found", details: call.arguments))
-                callbacks[requestId]?(nil, TikiSdkError(message: "Unimplemented method", stackTrace: Thread.callStackSymbols.joined(separator: "\n")))
+        default :
+            result(FlutterError(code: "404", message: "Not Found", details: call.arguments))
+            callbacks[requestId]?(nil, TikiSdkError(message: "Unimplemented method", stackTrace: Thread.callStackSymbols.joined(separator: "\n")))
         }
         callbacks.remove(at: callbacks.index(forKey: requestId)!)
     }
     
+    public func initChannel() async {
+        let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
+        await withCheckedContinuation{ continuation in
+            DispatchQueue.main.async {
+                flutterEngine.run()
+                GeneratedPluginRegistrant.register(with: flutterEngine);
+                self.channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+                self.channel!.setMethodCallHandler(self.handle)
+                continuation.resume()
+            }
+        }
+    }
+    
     public func invokeMethod<T: Decodable, R: Encodable>(
-           method: MethodEnum,
-           request: R,
-           continuation: CheckedContinuation<T, Error>
+        method: MethodEnum,
+        request: R,
+        continuation: CheckedContinuation<T, Error>
     ) throws -> Void {
-           let requestId = UUID().uuidString
-           let jsonData = try JSONEncoder().encode(request)
-           let jsonRequest = String(data: jsonData, encoding: String.Encoding.utf8)
-           callbacks[requestId] = { jsonString, err in
-               if(err != nil){
-                   continuation.resume(throwing: err!)
-               }
-               do{
-                   let decoder = JSONDecoder()
-                   decoder.dateDecodingStrategy = .millisecondsSince1970
-                   let rsp: T = try decoder.decode(T.self, from: Data(jsonString!.utf8))
-                   continuation.resume(returning: rsp)
-               }catch{
-                   continuation.resume(throwing: error)
-               }
-           }
-           channel!.invokeMethod(
-            method.rawValue, arguments: [
+        let requestId = UUID().uuidString
+        let jsonData = try JSONEncoder().encode(request)
+        let jsonRequest = String(data: jsonData, encoding: String.Encoding.utf8)
+        callbacks[requestId] = { jsonString, err in
+            if(err != nil){
+                continuation.resume(throwing: err!)
+            }
+            do{
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .millisecondsSince1970
+                let rsp: T = try decoder.decode(T.self, from: Data(jsonString!.utf8))
+                continuation.resume(returning: rsp)
+            }catch{
+                continuation.resume(throwing: error)
+            }
+        }
+        if(channel == nil){
+            Task{
+                await initChannel()
+                channel!.invokeMethod(
+                    method.rawValue, arguments: [
+                        "requestId" : requestId,
+                        "request" : jsonRequest
+                    ]
+                )
+            }
+        }else{
+            channel!.invokeMethod(
+                method.rawValue, arguments: [
                     "requestId" : requestId,
                     "request" : jsonRequest
                 ]
-           )
-       }
+            )
+        }
+    }
 }
-
-
+    

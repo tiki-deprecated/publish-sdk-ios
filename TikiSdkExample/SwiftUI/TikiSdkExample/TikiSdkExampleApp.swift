@@ -9,234 +9,47 @@ import TikiSdk
 @main
 struct TikiSdkExampleApp: App {
     
-    let origin = "com.mytiki.tiki_sdk_example"
-    let publishingId = "e12f5b7b-6b48-4503-8b39-28e4995b5f88"
+    @State var isShowingOfferPrompt = false
     
-    @State var tikiSdk: TikiSdk? = nil
-    @State var wallets: [String] = []
-    @State var bodyData: String = "{\"message\" : \"Hello Tiki!\"}"
-    @State var httpMethod: String = "POST"
-    @State var url: String = "https://postman-echo.com/post"
-    @State var interval: Int = 15
-    @State var ownership: TikiSdkOwnership? = nil
-    @State var consent: TikiSdkConsent? = nil
-    @State var requests: [Request] = []
-    @State var toggleState: Bool = false
-    @State var timer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
-    @State var showSheet = false
-    @State var sheetMsg = ""
+    init() {
+        Task{
+            let publishingId = "e12f5b7b-6b48-4503-8b39-28e4995b5f88"
+            try await TikiSdk.config()
+                .offer
+                    .id("test_offer")
+                    .ptr("test_offer")
+                    .reward("offerImage")
+                    .bullet(text: "Learn how our ads perform ", isUsed: true)
+                    .bullet(text: "Reach you on other platforms", isUsed: false)
+                    .bullet(text: "Sold to other companies", isUsed: false)
+                    .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
+                    .permission(PermissionType.contacts)
+                    .tag(TitleTag(TitleTagEnum.advertisingData))
+                    .description("Trade your IDFA (kind of like a serial # for your phone) for a discount.")
+                    .terms("**Lorem ipsum dolor sit amet**, consectetur adipiscing elit. Phasellus lobortis risus ac ultrices faucibus. Nullam vel pulvinar neque. Morbi ultrices maximus est, quis blandit urna vestibulum nec. Morbi et finibus nisi. Vestibulum dignissim rutrum mi sit amet sagittis. Aenean id ligula eget enim feugiat luctus vitae vitae orci. Maecenas aliquam semper nunc vel pellentesque. Ut cursus neque non est mattis consequat. Duis posuere odio et tellus aliquam, et tristique erat pharetra. Mauris sollicitudin lorem ligula. Ut lacinia, neque ac ornare gravida, libero turpis fermentum nibh, eget sodales diam magna sit amet lacus. Aliquam pretium suscipit mi eget luctus. Aliquam ut velit ut magna elementum sollicitudin in et magna. Ut a elementum tellus, eu cursus lacus. Pellentesque neque nisi, semper ac mi vel, fringilla semper nisl. Morbi at vulputate lectus, non ornare nulla.\nVestibulum convallis rutrum tellus sed vulputate. Suspendisse condimentum mauris quis odio aliquet, at posuere augue egestas. Nulla finibus nibh ac placerat pretium. Mauris volutpat urna sit amet vehicula fermentum. Praesent semper est diam, sit amet elementum orci luctus ac. Quisque condimentum ipsum in venenatis rutrum. Donec rutrum nisl id elit porttitor, vel scelerisque quam ultricies. Donec vulputate, mi at tempor hendrerit, risus tortor consequat neque, non laoreet orci ante tempor dolor. Curabitur placerat convallis risus, a facilisis diam mollis in.\nMauris in ex dolor. Nunc eu mollis mi. Integer ut nulla egestas, finibus tellus in, congue sem. Vestibulum sit amet velit cursus, consequat purus id, porttitor ligula. Aliquam pellentesque non augue quis tincidunt. Duis a pulvinar odio, non ultrices metus. Sed eu risus quam. Nam vehicula ligula id aliquet aliquet. Quisque faucibus odio pulvinar tellus tristique, eget tempus tellus accumsan. Nulla vehicula nunc quis dapibus lobortis. Sed urna magna, commodo vitae enim eget, scelerisque hendrerit mi. Pellentesque lobortis lectus vitae convallis facilisis.\nPhasellus lobortis purus sit amet sodales efficitur. Mauris sapien lorem, pretium id turpis eu, tristique maximus tellus. Donec porttitor, enim ut scelerisque dapibus, lectus tellus laoreet ante, a ornare dolor nisi sed risus. Vestibulum facilisis mollis urna in suscipit. Pellentesque sit amet lobortis nulla. Fusce semper rhoncus urna a gravida. In congue nec nisi eu hendrerit. Donec sed felis elementum lacus posuere porttitor eget quis dolor. Maecenas eu iaculis dolor. Nam venenatis tempor velit vel finibus. Phasellus purus nunc, condimentum sit amet porttitor nec, rhoncus et ante. Fusce tristique nibh quis sem varius ultricies. Maecenas egestas justo sed enim maximus consectetur.\nPhasellus malesuada magna a ex mollis varius. Quisque a vulputate metus. Cras in nibh lorem. Proin in enim efficitur, pellentesque elit sed, dictum turpis. Duis sagittis lectus eu magna imperdiet maximus. Nullam condimentum scelerisque arcu ac auctor. Phasellus malesuada erat quis gravida mollis.")
+                    .duration(365 * 24 * 60 * 60)
+                .add()
+                .onAccept { offer, license in print("accepted")}
+                .onDecline { offer, license in print("declined")}
+                .onSettings  { print("settings") }
+                .disableAcceptEnding(false)
+                .disableDeclineEnding(false)
+                .initialize(publishingId: publishingId)
+        }
+    }
     
     var body: some Scene {
         WindowGroup {
-            if(tikiSdk == nil){
-                ProgressView().onAppear{
-                    initTikiSdk()
+                Button(action: {
+                    TikiSdk.present()
+                }) {
+                    Text("Start").font(.custom("SpaceGrotesk-Regular", size:20))
                 }
-            }else{
-                NavigationView{
-                    List{
-                        Section{
-                            Text("Try it Out")
-                                .font(.largeTitle).bold()
-                                .multilineTextAlignment(.leading)
-                                .frame(maxWidth: .infinity, alignment: .leading).listRowInsets(EdgeInsets()).padding(.bottom)
-                        }.padding(.top)
-                        .listRowInsets(EdgeInsets())
-                        .background(Color(.systemGroupedBackground))
-                        Section(header: Text("Wallet").foregroundColor(.black).bold().font(.system(size: 19)).listRowInsets(EdgeInsets()).padding(.bottom)) {
-                            NavigationLink(destination: WalletView(wallets: $wallets, tikiSdk: $tikiSdk, ownership: $ownership, bodyData: $bodyData)) {
-                                Text(tikiSdk!.address!.prefix(28) + "...").font(.system(size:16))
-                            }
-                        }.textCase(nil)
-                        if(ownership != nil){
-                            Section {
-                                VStack(alignment: .leading){
-                                    NavigationLink(destination: OwnershipView(ownership: ownership!)) {
-                                        Text("Ownership NFT")
-                                            .font(.system(size: 14))
-                                            .fontWeight(.medium)
-                                            .foregroundColor(.blue)
-                                            .multilineTextAlignment(.leading)
-                                            .listRowSeparator(.hidden)
-                                    }.padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                                    Text(ownership!.transactionId.prefix(32) + "...").font(.system(size: 14))
-                                    .fontWeight(.medium)}.padding([.top,.bottom],5)
-                            }}
-                        Section {
-                            VStack(alignment: .leading){
-                                NavigationLink(destination: ConsentView(consent: consent)) {
-                                    Text("Consent NFT")
-                                        .font(.system(size: 14))
-                                        .fontWeight(.medium)
-                                        .foregroundColor(.blue)
-                                        .multilineTextAlignment(.leading)
-                                        .listRowSeparator(.hidden)
-                                }.padding([.top, .bottom],5)
-                                .disabled(consent == nil)
-                                Text(consent != nil ? consent!.transactionId.prefix(16) + "..." : "No consent").font(.system(size: 14))
-                                    .fontWeight(.medium)
-                                    .padding(.bottom, 10)
-                                Divider()
-                                Toggle("Toggle consent", isOn: $toggleState).font(.system(size: 14))
-                                    .onChange(of: toggleState) { toggleState in
-                                        toggleConsent()
-                                    }.padding([.top,.bottom], 5)
-                            }
-                        }
-                        Section(header: Text("Outbound Request(s)").foregroundColor(.black).bold().font(.system(size: 19)).listRowInsets(EdgeInsets()).padding(.bottom)) {
-                            VStack(alignment: .leading){
-                                NavigationLink(destination: DestinationEditView(url: $url, httpMethod: $httpMethod, interval: $interval)) {
-                                    Text("Destination")
-                                        .font(.system(size: 14))
-                                        .fontWeight(.medium)
-                                        .foregroundColor(.blue)
-                                        .multilineTextAlignment(.leading)
-                                        .listRowSeparator(.hidden)
-                                }.padding(EdgeInsets(top: 5, leading: 0, bottom: 10, trailing: 0))
-                                Text(httpMethod + " " + url).font(.system(size: 14))
-                                    .fontWeight(.medium)
-                                    .padding(.bottom, 10)
-                            }
-                        }.textCase(nil)
-                        Section {
-                            VStack(alignment: .leading){NavigationLink(destination: BodyEditView(bodyData: $bodyData)) {
-                                Text("Body (JSON)")
-                                    .font(.system(size: 14))
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.blue)
-                                    .multilineTextAlignment(.leading)
-                                    .listRowSeparator(.hidden)
-                            }.padding(EdgeInsets(top: 5, leading: 0, bottom: 10, trailing: 0))
-                            Text(bodyData).font(.system(size: 14))
-                                .fontWeight(.medium).padding(.bottom, 10)}
-                        }
-                        Section {
-                            Text("Requests")
-                                .font(.system(size: 14))
-                                .fontWeight(.medium)
-                                .foregroundColor(.blue)
-                                .multilineTextAlignment(.leading)
-                                .listRowSeparator(.hidden)
-                            ForEach(0..<requests.count, id: \.self) { index in
-                                let reqLog = requests[requests.count-index-1]
-                                HStack{
-                                    Text(reqLog.icon).font(.system(size: 14)).fontWeight(.medium)
-                                    Text(reqLog.message.replacingOccurrences(of: "[\r\\n]+", with: "", options: .regularExpression, range: Range(uncheckedBounds: (lower: reqLog.message.startIndex, upper: reqLog.message.endIndex)))).font(.system(size: 14)).fontWeight(.medium).lineLimit(1).truncationMode(.tail)
-                                    Spacer()
-                                    Text(reqLog.timestamp).foregroundColor(.gray).font(.system(size: 12)).fontWeight(.medium)
-                                }.listRowSeparator(.hidden)
-                                .onTapGesture {
-                                    showSheet = true
-                                    sheetMsg = requests[requests.count-index-1].message
-                                }
-                                .sheet(isPresented: $showSheet, content: {
-                                    Text(sheetMsg).padding()
-                                })
-                            }
-                        }
-                    }.onAppear{
-                        let seconds = interval
-                        timer = Timer.publish(every: Double(seconds), on: .main, in: .common).autoconnect()
-                        updateOwnership()
-                    }.offset(x: 0, y: -30).edgesIgnoringSafeArea(.bottom)
-                }.navigationBarTitle("")
-                    .navigationBarHidden(true)
-                    .onReceive(timer) { _ in
-                        sendDataToServer()
-                    }
-            }
-        }
-    }
-    
-    func updateOwnership(){
-        Task{
-            do{
-                let source = Data(bodyData.utf8).base64EncodedString()
-                if(self.ownership?.source != Data(bodyData.utf8).base64EncodedString()){
-                    var _ownership = try await tikiSdk!.getOwnership(source: source)
-                    if(_ownership == nil){
-                        let _ = try await tikiSdk!.assignOwnership(source: source, type: TikiSdkDataTypeEnum.stream, contains: ["generic data"], about: "Data stream created with TIKI SDK Sample App")
-                        _ownership = try await tikiSdk!.getOwnership(source: source)!
-                    }
-                    self.ownership = _ownership
-                }
-            }catch{
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func initTikiSdk() {
-        Task{
-            do{
-                self.tikiSdk = try await TikiSdk(origin: origin, publishingId: publishingId)
-                self.wallets = [tikiSdk!.address!]
-                let source = Data(bodyData.utf8).base64EncodedString()
-                let _ = try await tikiSdk!.assignOwnership(source: source, type: TikiSdkDataTypeEnum.stream, contains: ["generic data"], about: "Data stream created with TIKI SDK Sample App")
-                self.ownership = try await tikiSdk!.getOwnership(source: source)!
-            }catch{
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func sendDataToServer(){
-        if(tikiSdk == nil){
-            requests.append(Request(icon: "🔴", message: "ERROR: Create a Wallet"))
-        }else{
-            Task{
-                let reqUrl = URL(string: url)!
-                let path: String = reqUrl.host!
-                let destination = TikiSdkDestination(paths: [path], uses: [httpMethod])
-                var request = URLRequest(url: reqUrl)
-                let source = Data(bodyData.utf8).base64EncodedString()
-                request.httpMethod = httpMethod
-                request.httpBody = Data(bodyData.utf8)
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                try await tikiSdk!.applyConsent(source: source, destination: destination, request: {
-                    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                        guard
-                            let data = data,
-                            let response = response as? HTTPURLResponse,
-                            error == nil
-                        else {
-                            requests.append(Request(icon: "🔴", message: "ERROR: \(error?.localizedDescription ?? URLError(.badServerResponse).localizedDescription)"))
-                            return
-                        }
-                        
-                        guard (200 ... 299) ~= response.statusCode else {
-                            requests.append(Request(icon: "🔴", message:"\(response.statusCode): \(HTTPURLResponse.localizedString(forStatusCode: response.statusCode))"))
-                            return
-                        }
-                        requests.append(Request(icon:"🟢", message:"\(response.statusCode): \(String(decoding: data, as: UTF8.self))"))
-                        DispatchQueue.main.async {
-                            toggleState = true
-                        }
-                    }
-                    task.resume()
-                }, onBlocked: { reason in
-                    requests.append(Request(icon: "🔴", message: "Blocked: consent required"))
-                    DispatchQueue.main.async {
-                        toggleState = false
-                    }
-                    return
-                })
-            }}
-    }
-    
-    func toggleConsent(){
-        Task{
-            do{
-                let path: String = URL(string:url)!.host!
-                let use: String = httpMethod
-                let destination = toggleState ?
-                TikiSdkDestination.none() :
-                TikiSdkDestination(paths: [path], uses: [use])
-                consent = try await tikiSdk!.modifyConsent(ownershipId: ownership!.transactionId, destination: destination, about: "Consent given to echo data in remote server", reward: "Test the SDK", expiry: Calendar.current.date(byAdding: DateComponents(year: 10), to: Date())!)
-                toggleState.toggle()
-            }catch{
-                print(error)
-            }
+//                Button(action: {
+//                    TikiSdk.settings()
+//                }) {
+//                    Text("Settings").font(.custom("SpaceGrotesk-Regular", size:20))
+//                }
         }
     }
 }

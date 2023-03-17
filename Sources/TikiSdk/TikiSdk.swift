@@ -6,8 +6,9 @@
 import Flutter
 import FlutterPluginRegistrant
 import SwiftUI
+import UIKit
 
-typealias OfferHandler = (Offer) -> Void
+typealias OfferHandler = (Offer?, LicenseRecord?)  -> Void
 
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
@@ -22,12 +23,13 @@ public class TikiSdk{
     var _address: String? = nil
     private var _onAccept: OfferHandler?
     private var _onDecline: OfferHandler?
-    private var _onSettings: OfferHandler?
+    private var _onSettings: (() -> Void)?
     private var _isAcceptEndingDisabled = false
     private var _isDeclineEndingDisabled = false
     private var _offers = [String: Offer]()
     private let _theme = Theme()
     private var _dark: Theme?
+    private var _defaultTerms: String = "default terms"
     private var tikiPlatformChannel: TikiPlatformChannel = TikiPlatformChannel()
     
     private init() {}
@@ -53,32 +55,58 @@ public class TikiSdk{
         }
     }
     
+    public var offers: [String:Offer]{
+        get{
+            _offers
+        }
+    }
+
+    public var isDeclineEndingDisabled: Bool{
+        get{
+            _isDeclineEndingDisabled
+        }
+    }
+    
+    public var isAcceptEndingDisabled: Bool{
+        get{
+            _isAcceptEndingDisabled
+        }
+    }
+    
     public func getActiveTheme(_ colorScheme: ColorScheme ) -> Theme {
         return colorScheme == .dark && _dark != nil ? _dark! : _theme
     }
     
-    public func license(offer: Offer, accepted: Bool) async throws{
-        // TODO
+    static func theme(_ colorScheme: ColorScheme) -> Theme {
+        return colorScheme == .dark && instance._dark != nil ? instance._dark! : instance._theme
     }
     
-    public func `guard`(ptr: String, uses: [String], onSuccess: @escaping () -> Void, onDenied: @escaping () -> Void) async throws -> Bool {
-        return true
-    }
-    
-    public func present(in context: UIViewController) async throws {
-       // TODO
+    static public func present() {
+        let viewController = UIApplication.shared.windows.first?.rootViewController
+        let vc = UIHostingController(rootView: OfferFlow(dismissAction: {
+            viewController!.dismiss( animated: true, completion: nil )}))
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        vc.view.layer.backgroundColor = UIColor.black.withAlphaComponent(0.3).cgColor
+        viewController!.present(vc, animated: true, completion: nil)
     }
 
     /// Shows the pre built Settings UI
-    public static func settings(_ context: UIViewController) {
-        // TODO
+    public static func settings() {
+        let viewController = UIApplication.shared.windows.first?.rootViewController
+        let vc = UIHostingController(rootView: OfferFlow(dismissAction: {
+            viewController!.dismiss( animated: true, completion: nil )}))
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .flipHorizontal
+        vc.view.layer.backgroundColor = UIColor.black.cgColor // TODO add opacity
+        viewController!.present(vc, animated: true, completion: nil)
     }
 
     /// Starts the TikiSdk configuration.
     public static func config() -> TikiSdk {
         return instance
     }
-
+    
     /// Adds a new [Offer] for the user;
     public func addOffer(_ offer: Offer) -> TikiSdk {
         _offers[offer.id] = offer
@@ -103,7 +131,7 @@ public class TikiSdk{
     /// of the licensing offer. This happens after accepting the terms, not just
     /// on selecting "I'm In." The License Record is passed as a parameter to the
     /// callback function.
-    public func setOnAccept(_ onAccept: ((Offer) -> Void)?) -> TikiSdk {
+    public func onAccept(_ onAccept: ((Offer?, LicenseRecord?) -> Void)?) -> TikiSdk {
         _onAccept = onAccept
         return self
     }
@@ -112,7 +140,7 @@ public class TikiSdk{
     ///
     /// The onDecline() event is triggered when the user declines the licensing offer.
     /// This happens on dismissal of the flow or when "Back Off" is selected.
-    public func setOnDecline(_ onDecline: ((Offer) -> Void)?) -> TikiSdk {
+    public func onDecline(_ onDecline: ((Offer?, LicenseRecord?) -> Void)?) -> TikiSdk {
         _onDecline = onDecline
         return self
     }
@@ -122,7 +150,7 @@ public class TikiSdk{
     /// The onSettings() event is triggered when the user selects "settings" in the
     /// ending screen. If a callback function is not registered, the SDK defaults to
     /// calling the TikiSdk.settings() method.
-    public func setOnSettings(_ onSettings: ((Offer) -> Void)?) -> TikiSdk {
+    public func onSettings(_ onSettings: (() -> Void)?) -> TikiSdk {
         _onSettings = onSettings
         return self
     }
@@ -135,12 +163,12 @@ public class TikiSdk{
     ///     - address: The *address* of the user node in TIKI blockchain. If nil a new address will be created.
     ///
     /// - Throws: *TikiSdkError*
-    public func initTikiSdk(publishingId: String, address: String? = nil, origin: String? = nil) async throws{
+    public func initialize(publishingId: String, address: String? = nil, origin: String? = nil) async throws{
         let rspBuild: RspBuild = try await withCheckedThrowingContinuation{ continuation in
             let buildRequest = ReqBuild(publishingId: publishingId, origin: origin ?? Bundle.main.bundleIdentifier!, address: address)
             do{
                 try self.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.BUILD,
+                    method: MethodEnum.build,
                     request: buildRequest,
                     continuation: continuation
                 )
@@ -152,176 +180,226 @@ public class TikiSdk{
         self._address = rspBuild.address
     }
 
-    /// Assign ownership to a given *source*.
-    ///
-    /// - Parameters:
-    ///    - source: The identification of the data *source*.
-    ///    - type: The *type* of data source (point, pool or stream) identified by *TikiSdkDataTypeEnum*.
-    ///    - contains: The list of items the data *contains*.
-    ///    - about: A description about the data.
-    ///    - origin: Optional override for default origin.
-    ///
-    /// - Returns:A base64 url-safe no-padding representation of the ownership transaction id.
-    /// - Throws: *TikiSdkError*
-    public static func assignOwnership(
-        source: String,
-        type: TikiSdkDataTypeEnum,
-        contains: Array<String>,
-        about: String? = nil,
-        origin: String? = nil
-    ) async throws -> String {
-        let rspOwnership: RspOwnership = try await withCheckedThrowingContinuation{ continuation in
+    
+    /**
+     * Create a new LicenseRecord.
+     *
+     * If a TitleRecord for the Offer.ptr is not found, a new TitleRecord is created.
+     * If a TitleRecord is found, Offer.tags and Offer.description parameters are ignored.
+     *
+     * - Parameters:
+     *   - offer: The Offer object containing details of the offer.
+     *   - accepted: The date when the license was accepted.
+     * - Returns: The newly created LicenseRecord object.
+     */
+    public static func license(offer: Offer) async throws -> LicenseRecord {
+        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
             do{
-                let assignReq = ReqOwnershipAssign(
-                    source: source, type: type, contains: contains, about: about, origin: origin)
+                let licenseReq = ReqLicense(
+                    ptr: offer.ptr,
+                    terms: offer.terms,
+                    licenseDescription: offer.description,
+                    uses: offer.uses,
+                    tags: offer.tags,
+                    expiry: offer.expiry
+                )
                 try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.ASSIGN_OWNERSHIP,
-                    request: assignReq,
+                    method: MethodEnum.license,
+                    request: licenseReq,
                     continuation: continuation
                 )
             }catch{
                 continuation.resume(throwing: error)
             }
         }
-        return rspOwnership.ownership!.transactionId
+        return rspLicense.license!
     }
 
-    /// Gets the ownership for a *source*.
-    ///
-    /// - Parameters:
-    ///    - source: The identification of the data *source*.
-    ///    - origin: Optional override for default origin.
-    /// - Returns: *TikiSdkOwnership*
-    /// - Throws: *TikiSdkError*
-    public static func getOwnership(
-        source : String,
-        origin : String? = nil
-    ) async throws -> TikiSdkOwnership? {
-        let rspOwnership : RspOwnership = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let getReq = ReqOwnershipGet(
-                    source: source, origin: origin)
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.GET_OWNERSHIP,
-                    request: getReq,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspOwnership.ownership
-    }
-
-    /// Modify consent for an ownership identified by *ownershipId*.
-    ///
-    /// The Ownership must be granted before modifying consent. Consent is applied
-    /// on an explicit only basis. Meaning all requests will be denied by default
-    /// unless the destination is explicitly defined in *destination*.
-    /// A blank list of *TikiSdkDestination.uses* or *TikiSdkDestination.paths*
-    /// means revoked consent.
-    ///
-    /// - Parameters
-    ///     - ownershipId: The transaction id of the ownership registry.
-    ///     - destination: *TikiSdkDestination*.
-    ///     - about: A description about the data.
-    ///     - reward: An optional reward the user will receive for granting consent.
-    ///     - expiry: The consent expiration date.
-    ///
-    /// - Returns: The created *TikiSdkConsent*.
-    /// - Throws: *TikiSdkError*
-    public static func modifyConsent(
-        ownershipId: String,
-        destination: TikiSdkDestination,
-        about: String? = nil,
-        reward: String? = nil,
-        expiry: Date? = nil
-    ) async throws -> TikiSdkConsent {
-        let rspConsent : RspConsentGet = try await withCheckedThrowingContinuation{ continuation in
-            do{   let getReq = ReqConsentModify(ownershipId : ownershipId,
-                                                destination : destination,
-                                                about: about,
-                                                reward: reward,
-                                                expiry:  expiry)
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.MODIFY_CONSENT,
-                    request: getReq,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspConsent.consent!
-    }
-
-    /// Gets latest consent given for a *source* and *origin*.
-    ///
-    /// It does not validate if the consent is expired or if it can be applied to
-    /// a specific destination. For that, *applyConsent* should be used instead.
-    /// If no *origin* is specified, it uses the default origin.
-    ///
-    /// - Parameters
-    ///     - source: The identification of the data *source*.
-    ///     - origin: Optional override for default origin.
-    ///
-    /// - Returns: Latest *TikiSdkConsent* for *source* and *origin*.
-    /// - Throws: *TikiSdkError*
-    public static func getConsent(
-        source: String,
-        origin: String? = nil
-    ) async throws -> TikiSdkConsent? {
-        let rspConsent: RspConsentGet = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let getReq = ReqConsentGet(
-                    source: source, origin: origin)
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.GET_CONSENT,
-                    request: getReq,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspConsent.consent
-    }
-
-    /// Apply consent for a given *source* and *destination*.
-    ///
-    /// If consent exists for the destination and is not expired, *request* will be
-    /// executed. Else *onBlocked* is called.
-    ///
-    /// - Parameters
-    ///     - source: The identification of the data *source*.
-    ///     - destination: *TikiSdkDestination*.
-    ///     - request: The function to run if the consent is given.
-    ///     - onBlocked: The function to run if the consent is not given.
-    ///     - origin: Optional override for default origin.
-    public static func applyConsent(
-        source: String,
-        destination: TikiSdkDestination,
-        request:  (() -> Void),
-        onBlocked:  ((String) -> Void)? = nil,
-        origin: String? = nil
-    ) async throws -> Void {
-        let rspConsentApply: RspConsentApply = try await withCheckedThrowingContinuation{ continuation in
-            let getReq = ReqConsentApply(
-                source: source, destination: destination, origin: origin)
+    /**
+     * Guard against an invalid LicenseRecord for a List of usecases an destinations.
+     *
+     * Use this method to verify a non-expired, LicenseRecord for the ptr exists,
+     * and permits the listed usecases and destinations.
+     *
+     * This method can be used in two forms,
+     * 1) async as a traditional guard, returning a pass/fail boolean. Or
+     * 2) as a wrapper around function.
+     *
+     * For example: An http that you want to run IF permitted by a LicenseRecord.
+     *
+     * Option 1:
+     * ```
+     * let pass = await guard("ptr", [LicenseUsecase.attribution()]);
+     * if(pass) {
+     *     http.post(...);
+     * }
+     * ```
+     *
+     * Option 2:
+     * ```
+     * guard('ptr', [LicenseUsecase.attribution()], onPass: () => http.post(...));
+     * ```
+     *
+     * - Parameters:
+     *   - ptr: The Pointer Record for the asset. Used to located the latest relevant LicenseRecord.
+     *   - usecases: A List of usecases defining how the asset will be used.
+     *   - destinations: A List of destinations defining where the asset will be used. Often URLs.
+     *   - onPass: A Function to execute automatically upon successfully resolving the LicenseRecord
+     *     against the usecases and destinations.
+     *   - onFail: A Function to execute automatically upon failure to resolve the LicenseRecord.
+     *     Accepts a String parameter, holding an error message describing the reason for failure.
+     *   - origin: An optional override of the default origin specified in.
+     * - Returns: True if the user has access, false otherwise.
+     */
+    public static func `guard`(ptr: String, usecases: [LicenseUsecase], destinations: [String],
+               onPass: (() -> Void)? = nil, onFail: ((String) -> Void)? = nil, origin: String? = nil) async throws -> Bool {
+        let rspGuard: RspGuard = try await withCheckedThrowingContinuation{ continuation in
+            let guardReq = ReqGuard(ptr: ptr, uses: usecases, destinations: destinations, origin: origin)
             do{
                 try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.APPLY_CONSENT,
-                    request: getReq,
+                    method: MethodEnum.guard,
+                    request: guardReq,
                     continuation: continuation
                 )
             }catch{
                 continuation.resume(throwing: error)
             }
         }
-        if(rspConsentApply.success){
-            request();
+        if(rspGuard.success){
+            onPass?();
         }else{
-            onBlocked?(rspConsentApply.reason ?? "no consent")
+            onFail?(rspGuard.reason ?? "no consent")
         }
+        return rspGuard.success
+    }
+    
+    /**
+     Creates a new TitleRecord.
+     - Parameters:
+        - ptr: The Pointer Records identifies data stored in your system, similar to a foreign key. Learn more about selecting good pointer records at https://docs.mytiki.com/docs/selecting-a-pointer-record.
+        - origin: An optional override of the default origin specified in initTikiSdkAsync. Follow a reverse-DNS syntax, i.e. com.myco.myapp.
+        - tags: A list of metadata tags included in the TitleRecord describing the asset, for your use in record search and filtering. Learn more about adding tags at https://docs.mytiki.com/docs/adding-tags.
+        - description: A short, human-readable, description of the TitleRecord as a future reminder.
+     - Returns: The created TitleRecord.
+     */
+    public static func title(ptr: String, origin: String? = nil, tags: [TitleTag]? = [], description: String? = nil) async throws -> TitleRecord{
+        let rspTitle: RspTitle = try await withCheckedThrowingContinuation{ continuation in
+            do{
+                let reqTitle = ReqTitle(
+                    ptr: ptr,
+                    tags: tags ?? [],
+                    origin: origin
+                )
+                try instance.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.title,
+                    request: reqTitle,
+                    continuation: continuation
+                )
+            }catch{
+                continuation.resume(throwing: error)
+            }
+        }
+        return rspTitle.title!
+    }
+
+    /**
+     Returns the TitleRecord for an id or nil if the record is not found.
+     - Parameter id: The id of the TitleRecord to retrieve.
+     - Returns: The TitleRecord or nil if the record is not found.
+     */
+    public static func getTitle(id: String, origin: String? = nil) async throws -> TitleRecord?{
+        let rspTitle: RspTitle = try await withCheckedThrowingContinuation{ continuation in
+            do{
+                let reqTitle = ReqTitleGet(
+                    id: id,
+                    origin: origin
+                )
+                try instance.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.getTitle,
+                    request: reqTitle,
+                    continuation: continuation
+                )
+            }catch{
+                continuation.resume(throwing: error)
+            }
+        }
+        return rspTitle.title
+    }
+
+    /**
+     Returns the LicenseRecord for an id or nil if the license or corresponding title record is not found.
+     - Parameter id: The id of the LicenseRecord to retrieve.
+     - Returns: The LicenseRecord or nil if the license or corresponding title record is not found.
+     */
+    public static func getLicense(id: String, origin: String? = nil) async throws -> LicenseRecord? {
+        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
+            do{
+                let reqLicense = ReqTitleGet(
+                    id: id,
+                    origin: origin
+                )
+                try instance.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.getLicense,
+                    request: reqLicense,
+                    continuation: continuation
+                )
+            }catch{
+                continuation.resume(throwing: error)
+            }
+        }
+        return rspLicense.license
+    }
+
+    /**
+     Returns all LicenseRecords for a ptr.
+     - Parameters:
+        - ptr: The Pointer Records identifies data stored in your system, similar to a foreign key.
+        - origin: An optional origin. If nil, origin defaults to the package name.
+     - Returns: An array of all LicenseRecords for the given ptr.
+     */
+    public static func all(ptr: String, origin: String? = nil) async throws -> [LicenseRecord] {
+        let rspAll: RspLicenseList = try await withCheckedThrowingContinuation{ continuation in
+            do{
+                let reqAll = ReqLicenseAll(
+                    ptr: ptr,
+                    origin: origin
+                )
+                try instance.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.all,
+                    request: reqAll,
+                    continuation: continuation
+                )
+            }catch{
+                continuation.resume(throwing: error)
+            }
+        }
+        return rspAll.licenseList
+    }
+
+    /**
+     Returns the latest LicenseRecord for a ptr or nil if the title or license records are not found.
+     - Parameters:
+        - ptr: The Pointer Records identifies data stored in your system, similar to a foreign key.
+        - origin: An optional origin. If nil, origin defaults to the package name.
+     - Returns: The latest LicenseRecord or nil if the title or license records are not found.
+     */
+    public static func latest(ptr: String, origin: String? = nil) async throws -> LicenseRecord?{
+        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
+            do{
+                let reqLicense = ReqLicenseLatest(
+                    ptr: ptr,
+                    origin: origin
+                )
+                try instance.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.latest,
+                    request: reqLicense,
+                    continuation: continuation
+                )
+            }catch{
+                continuation.resume(throwing: error)
+            }
+        }
+        return rspLicense.license
     }
 }
+

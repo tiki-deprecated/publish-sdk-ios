@@ -8,67 +8,93 @@ import SwiftUI
 
 /// Controls the UI theming for TikiSdk.
 public class Theme {
-    public var primaryTextColor = Color(hex: 0x001C0000)
-    public var primaryBackgroundColor = Color(hex: 0x001C1C1E)
-    public var secondaryBackgroundColor = Color(hex: 0x00F6F6F6)
-    public var accentColor = Color(hex: 0x0000B272)
-    public var fontFamily = "";
+    var _primaryTextColor = Color(red: 0, green: 0, blue: 0)
+    var _primaryBackgroundColor = Color(red: 1, green: 1, blue: 1)
+    var _secondaryBackgroundColor = Color(red: 0.96, green:0.96, blue:0.96)
+    var _accentColor = Color(red: 0, green: 0.7, blue: 0.44)
+    var _fontFamily = "SpaceGrotesk"
+    
+    var font: Dictionary<String,String> {
+        get {[
+            "regular" : "\(_fontFamily)-Regular",
+            "bold" : "\(_fontFamily)-Bold",
+            "light" : "\(_fontFamily)-Light",
+            "medium" : "\(_fontFamily)-Medium",
+            "semiBold" : "\(_fontFamily)-SemiBold",
+        ]}
+    }
     
     /// Builds the dark version of the theme.
     public convenience init(dark: Bool = true) {
         self.init()
-        self.primaryTextColor = Color(hex: 0x00F6F6F6)
-        self.primaryBackgroundColor = Color(hex: 0x001C1C1E)
-        self.secondaryBackgroundColor = Color(hex: 0x00F6F6F6).opacity(0.38)
-        self.accentColor = Color(hex: 0x0000B272)
-        self.fontFamily = "SpaceGrotesk"
+        self._fontFamily = "SpaceGrotesk"
     }
     
     /// Primary text color. Used in the default text items.
-    public var getPrimaryTextColor: Color { primaryTextColor }
+    public var primaryTextColor: Color { _primaryTextColor }
     
     /// Secondary text color. Used in specific text items.
     ///
     /// Defaults to [primaryTextColor] with 60% alpha transparency.
-    public var getSecondaryTextColor: Color { primaryTextColor.opacity(0.6) }
+    public var secondaryTextColor: Color { _primaryTextColor.opacity(0.6) }
     
     /// Primary background color. The default color for backgrounds.
-    public var getPrimaryBackgroundColor: Color { primaryBackgroundColor }
+    public var primaryBackgroundColor: Color { _primaryBackgroundColor }
     
     /// Secondary background color.
-    public var getSecondaryBackgroundColor: Color { secondaryBackgroundColor }
+    public var secondaryBackgroundColor: Color { _secondaryBackgroundColor }
     
     /// Accent color. Used to decorate or highlight items.
-    public var getAccentColor: Color { accentColor }
+    public var accentColor: Color { _accentColor }
     
-    /// The default font family for all texts.
-    ///
-    /// This should be set in the assets section of pubspec.yaml.
-    public var getFontFamily: String { fontFamily }
-    
+    public var fontRegular: String {
+        get{
+            font["regular"]!
+        }
+    }
+    public var fontBold: String {
+        get{
+            font["bold"]!
+        }
+    }
+    public var fontLight: String {
+        get{
+            font["light"]!
+        }
+    }
+    public var fontMedium: String {
+        get{
+            font["medium"]!
+        }
+    }
+    public var fontSemiBold: String {
+        get {
+            font["semiBold"]!
+        }
+    }
     
     public func setPrimaryTextColor(_ primaryTextColor: Color) -> Self {
-        self.primaryTextColor = primaryTextColor
+        self._primaryTextColor = primaryTextColor
         return self
     }
     
     public func setPrimaryBackgroundColor(_ primaryBackgroundColor: Color) -> Self {
-        self.primaryBackgroundColor = primaryBackgroundColor
+        self._primaryBackgroundColor = primaryBackgroundColor
         return self
     }
     
     public func setSecondaryBackgroundColor(_ secondaryBackgroundColor: Color) -> Self {
-        self.secondaryBackgroundColor = secondaryBackgroundColor
+        self._secondaryBackgroundColor = secondaryBackgroundColor
         return self
     }
     
     public func setAccentColor(_ accentColor: Color) -> Self {
-        self.accentColor = accentColor
+        self._accentColor = accentColor
         return self
     }
     
     public func setFontFamily(_ fontFamily: String) -> Self {
-        self.fontFamily = fontFamily
+        self._fontFamily = fontFamily
         return self
     }
     
@@ -76,15 +102,3 @@ public class Theme {
         TikiSdk.instance
     }
 }
-
-public extension Color {
-    init(hex: UInt32) {
-        let components = (
-            R: CGFloat((hex >> 16) & 0xff) / 255,
-            G: CGFloat((hex >> 08) & 0xff) / 255,
-            B: CGFloat((hex >> 00) & 0xff) / 255
-        )
-        self.init(red: components.R, green: components.G, blue: components.B)
-    }
-}
-

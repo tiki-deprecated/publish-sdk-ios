@@ -3,6 +3,7 @@
  * MIT license. See LICENSE file in root directory.
  */
 
-struct RspError : Decodable {
-    let message, stackTrace : String
+struct RspGuard: Decodable{
+    let success: Bool
+    let reason: String?
 }

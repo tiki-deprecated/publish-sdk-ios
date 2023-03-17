@@ -7,26 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F5BE929605B2A001AA520 /* WalletView.swift */; };
-		8C43EA912977FC7900D52716 /* DestinationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA902977FC7800D52716 /* DestinationEditView.swift */; };
-		8C43EA9F2978974E00D52716 /* BodyEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C43EA9C2978974E00D52716 /* BodyEditView.swift */; };
-		8C49E8A829623CD20068338E /* OwnershipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A029623CD20068338E /* OwnershipView.swift */; };
-		8C49E8AA29623CD20068338E /* ConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49E8A329623CD20068338E /* ConsentView.swift */; };
+		8C24F90C29BA770500A030AF /* ExampleApp.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C24F90B29BA770500A030AF /* ExampleApp.xcassets */; };
 		8C6ED7E72987E44E009C4B3F /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6ED7E62987E44E009C4B3F /* TikiSdk */; };
+		8C70C7CC29BEEA5A0051CE48 /* SpaceGrotesk-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C70C7CB29BEEA5A0051CE48 /* SpaceGrotesk-Regular.ttf */; };
+		8C7113B629BABC3B00C29B87 /* SpaceGrotesk-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C24F92329BA9DED00A030AF /* SpaceGrotesk-Bold.ttf */; };
+		8C7113B729BABC3D00C29B87 /* SpaceGrotesk-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C24F92429BA9DED00A030AF /* SpaceGrotesk-Light.ttf */; };
+		8C7113B829BABC4000C29B87 /* SpaceGrotesk-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C24F92529BA9DED00A030AF /* SpaceGrotesk-Medium.ttf */; };
+		8C7113B929BABC4200C29B87 /* SpaceGrotesk-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C24F92629BA9DEE00A030AF /* SpaceGrotesk-SemiBold.ttf */; };
 		8CB058FD298D2CF600893F46 /* TikiSdkExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB058FC298D2CF600893F46 /* TikiSdkExampleApp.swift */; };
-		8CB058FF298D2DC000893F46 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB058FE298D2DC000893F46 /* Request.swift */; };
+		8CBC129D29C352DA00A451B2 /* terms.md in Resources */ = {isa = PBXBuildFile; fileRef = 8CBC129C29C352DA00A451B2 /* terms.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikiSdkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C1F5BE929605B2A001AA520 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
-		8C43EA902977FC7800D52716 /* DestinationEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationEditView.swift; sourceTree = "<group>"; };
-		8C43EA9C2978974E00D52716 /* BodyEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyEditView.swift; sourceTree = "<group>"; };
-		8C49E8A029623CD20068338E /* OwnershipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnershipView.swift; sourceTree = "<group>"; };
-		8C49E8A329623CD20068338E /* ConsentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentView.swift; sourceTree = "<group>"; };
+		8C24F90B29BA770500A030AF /* ExampleApp.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ExampleApp.xcassets; sourceTree = "<group>"; };
+		8C24F92229BA818100A030AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8C24F92329BA9DED00A030AF /* SpaceGrotesk-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Bold.ttf"; sourceTree = "<group>"; };
+		8C24F92429BA9DED00A030AF /* SpaceGrotesk-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Light.ttf"; sourceTree = "<group>"; };
+		8C24F92529BA9DED00A030AF /* SpaceGrotesk-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Medium.ttf"; sourceTree = "<group>"; };
+		8C24F92629BA9DEE00A030AF /* SpaceGrotesk-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-SemiBold.ttf"; sourceTree = "<group>"; };
 		8C6ED7E52987E35A009C4B3F /* tiki-sdk-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "tiki-sdk-ios"; path = ../..; sourceTree = "<group>"; };
+		8C70C7CB29BEEA5A0051CE48 /* SpaceGrotesk-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Regular.ttf"; sourceTree = "<group>"; };
 		8CB058FC298D2CF600893F46 /* TikiSdkExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleApp.swift; sourceTree = "<group>"; };
-		8CB058FE298D2DC000893F46 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		8CBC129C29C352DA00A451B2 /* terms.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = terms.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +47,8 @@
 		8C1F5BCA295FC369001AA520 = {
 			isa = PBXGroup;
 			children = (
+				8CBC129929C3525400A451B2 /* Resources */,
+				8C24F90B29BA770500A030AF /* ExampleApp.xcassets */,
 				8C6ED7E42987E35A009C4B3F /* Packages */,
 				8C1F5BD5295FC369001AA520 /* TikiSdkExample */,
 				8C1F5BD4295FC369001AA520 /* Products */,
@@ -62,13 +67,8 @@
 		8C1F5BD5295FC369001AA520 /* TikiSdkExample */ = {
 			isa = PBXGroup;
 			children = (
-				8C43EA902977FC7800D52716 /* DestinationEditView.swift */,
-				8C1F5BE929605B2A001AA520 /* WalletView.swift */,
-				8C43EA9C2978974E00D52716 /* BodyEditView.swift */,
-				8C49E8A329623CD20068338E /* ConsentView.swift */,
-				8C49E8A029623CD20068338E /* OwnershipView.swift */,
+				8C24F92229BA818100A030AF /* Info.plist */,
 				8CB058FC298D2CF600893F46 /* TikiSdkExampleApp.swift */,
-				8CB058FE298D2DC000893F46 /* Request.swift */,
 			);
 			path = TikiSdkExample;
 			sourceTree = "<group>";
@@ -86,6 +86,19 @@
 				8C6ED7E52987E35A009C4B3F /* tiki-sdk-ios */,
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		8CBC129929C3525400A451B2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8C70C7CB29BEEA5A0051CE48 /* SpaceGrotesk-Regular.ttf */,
+				8C24F92329BA9DED00A030AF /* SpaceGrotesk-Bold.ttf */,
+				8C24F92429BA9DED00A030AF /* SpaceGrotesk-Light.ttf */,
+				8C24F92529BA9DED00A030AF /* SpaceGrotesk-Medium.ttf */,
+				8C24F92629BA9DEE00A030AF /* SpaceGrotesk-SemiBold.ttf */,
+				8CBC129C29C352DA00A451B2 /* terms.md */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +164,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C24F90C29BA770500A030AF /* ExampleApp.xcassets in Resources */,
+				8C7113B829BABC4000C29B87 /* SpaceGrotesk-Medium.ttf in Resources */,
+				8C70C7CC29BEEA5A0051CE48 /* SpaceGrotesk-Regular.ttf in Resources */,
+				8C7113B729BABC3D00C29B87 /* SpaceGrotesk-Light.ttf in Resources */,
+				8C7113B629BABC3B00C29B87 /* SpaceGrotesk-Bold.ttf in Resources */,
+				8C7113B929BABC4200C29B87 /* SpaceGrotesk-SemiBold.ttf in Resources */,
+				8CBC129D29C352DA00A451B2 /* terms.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,13 +181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C43EA912977FC7900D52716 /* DestinationEditView.swift in Sources */,
-				8C43EA9F2978974E00D52716 /* BodyEditView.swift in Sources */,
 				8CB058FD298D2CF600893F46 /* TikiSdkExampleApp.swift in Sources */,
-				8CB058FF298D2DC000893F46 /* Request.swift in Sources */,
-				8C1F5BEA29605B2A001AA520 /* WalletView.swift in Sources */,
-				8C49E8AA29623CD20068338E /* ConsentView.swift in Sources */,
-				8C49E8A829623CD20068338E /* OwnershipView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +318,7 @@
 				DEVELOPMENT_TEAM = 8B528SGCJW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TikiSdkExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -316,6 +331,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytiki.TikiSdkExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -333,6 +351,7 @@
 				DEVELOPMENT_TEAM = 8B528SGCJW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TikiSdkExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -345,6 +364,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytiki.TikiSdkExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
