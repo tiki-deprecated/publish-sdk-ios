@@ -10,5 +10,11 @@
 		<string>SpaceGrotesk-Medium.ttf</string>
 		<string>SpaceGrotesk.Light.ttf</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Test app</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Test app</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Test app</string>
 </dict>
 </plist>

@@ -7,6 +7,7 @@ public struct OfferFlow: View{
     @State var route: Routes = Routes.none
     @State var sheet: Sheets = Sheets.none
     @State var activeOffer: Offer? = nil
+    @State var pendingPermissions: [PermissionType] = []
     
     @State var dragOffsetY: CGFloat = 0
     
@@ -38,12 +39,16 @@ public struct OfferFlow: View{
                         onAccept: { (offer, license) in
                             withAnimation(.easeOut){
                                 activeOffer = offer
+                                pendingPermissions =  activeOffer?.permissions.filter { !$0.isAuthorized() } ?? []
                                 route = Routes.terms
                             }
                         },
                         onDecline: { (offer, license) in
                             withAnimation(.easeOut){
                                 sheet = TikiSdk.instance.isDeclineEndingDisabled ? Sheets.none : Sheets.endingDeclined
+                            }
+                            if(TikiSdk.instance.isDeclineEndingDisabled){
+                                dismiss!()
                             }
                         })
                 )
@@ -66,12 +71,7 @@ public struct OfferFlow: View{
                 BottomSheet(
                     isShowing: isShowingBinding(Sheets.endingDeclined),
                     offset: $dragOffsetY,
-                    dismiss: {
-                        withAnimation(.easeOut){
-                            sheet = Sheets.none
-                        }
-                        dismiss?()
-                    },
+                    dismiss: dismissSheet,
                     content: Sheets.endingDeclined.view(colorScheme))
                 .transition(.bottomSheet)
             }
@@ -79,15 +79,30 @@ public struct OfferFlow: View{
                 BottomSheet(
                     isShowing: isShowingBinding(Sheets.endingError),
                     offset: $dragOffsetY,
-                    dismiss: {
-                        withAnimation(.easeOut){
-                            sheet = Sheets.none
-                        }
-                        dismiss?()
-                    },
+                    dismiss: dismissSheet,
                     content: Sheets.endingError.view(
-                        colorScheme, requiredPermissions: activeOffer?.permissions))
+                        colorScheme,
+                        pendingPermissions: pendingPermissions))
                 .transition(.bottomSheet)
+                .onAppear{
+                    if(!pendingPermissions.isEmpty){
+                        let pending = pendingPermissions[0]
+                        pending.requestAuth({ isAuthorized in
+                            if(isAuthorized){
+                                pendingPermissions.remove(at: 0)
+                                if(pendingPermissions.isEmpty){
+                                    if(TikiSdk.instance.isDeclineEndingDisabled){
+                                        dismiss!()
+                                    }else{
+                                        withAnimation(.easeOut){
+                                            sheet = Sheets.endingAccepted
+                                        }
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
             }
             if(route == Routes.terms){
                 NavigationRoute(
@@ -99,19 +114,16 @@ public struct OfferFlow: View{
                             route = Routes.none
                         }
                         if(activeOffer != nil){
-                            if(activeOffer!.permissions.isEmpty){
+                            if(pendingPermissions.isEmpty){
                                 withAnimation(.easeOut){
                                     sheet = TikiSdk.instance.isAcceptEndingDisabled ?
                                     Sheets.none :
                                     Sheets.endingAccepted
                                 }
-                                
                             }else{
-                                // TODO create License
                                 withAnimation(.easeOut){
                                     route = Routes.none
                                 }
-                                activeOffer = nil
                                 withAnimation(.easeOut){
                                     sheet = Sheets.endingError
                                 }
@@ -122,7 +134,7 @@ public struct OfferFlow: View{
                             }
                         }))
                 .zIndex(1)
-                .transition(.navigate)
+                .transition(.bottomSheet)
             }
             if(route == .learnMore){
                 NavigationRoute(
@@ -136,7 +148,7 @@ public struct OfferFlow: View{
                         }
                     }))
                 .zIndex(1)
-                .transition(.navigate)
+                .transition(.bottomSheet)
             }
         }.onAppear{
             if(sheet == Sheets.none){
@@ -168,6 +180,13 @@ public struct OfferFlow: View{
         }, set: { show in
             self.sheet = show ? Sheets.prompt : Sheets.none
         })
+    }
+
+    func dismissSheet(){
+        withAnimation(.easeOut){
+            sheet = Sheets.none
+        }
+        dismiss?()
     }
 }
 

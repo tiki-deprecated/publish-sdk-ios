@@ -13,8 +13,7 @@ public enum Sheets{
         onLearnMore: (() -> Void)? = nil,
         onAccept: ((Offer?, LicenseRecord?) -> Void)? = nil,
         onDecline: ((Offer?, LicenseRecord?) -> Void)? = nil,
-        requiredPermissions: [PermissionType]? = nil,
-        onPermissionsGranted: ((Offer) -> Void)? = nil) -> AnyView
+        pendingPermissions: [PermissionType] = []) -> AnyView
     {
         switch self {
         case .none :
@@ -84,7 +83,7 @@ public enum Sheets{
                                 Text("To proceed, allow ")
                                     .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                                     .foregroundColor(Color(.black).opacity(0.6))
-                                Text((requiredPermissions?[0].name())  ??  "permissions.").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
+                                Text(pendingPermissions.count == 1 ? "\(pendingPermissions.first!.name())." : "permissions.").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                                     .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                                     .foregroundColor(Color(.black).opacity(0.6))
                                     .underline()
