@@ -15,7 +15,9 @@ public class TikiPlatformChannel {
     var callbacks: Dictionary<String, ((_ jsonString : String?, _ error : Error?) -> Void)> = [:]
     
     init() {
-        initChannel();
+        Task{
+            await initChannel()
+        }
     }
     
     /// Handles the method calls from Flutter.
@@ -49,12 +51,17 @@ public class TikiPlatformChannel {
         callbacks.remove(at: callbacks.index(forKey: requestId)!)
     }
     
-    public func initChannel() {
+    public func initChannel() async {
         let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
-        flutterEngine.run()
-        GeneratedPluginRegistrant.register(with: flutterEngine);
-        self.channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-        self.channel!.setMethodCallHandler(self.handle)
+        await withCheckedContinuation{ continuation in
+            DispatchQueue.main.async {
+                flutterEngine.run()
+                GeneratedPluginRegistrant.register(with: flutterEngine);
+                self.channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+                self.channel!.setMethodCallHandler(self.handle)
+                continuation.resume()
+            }
+        }
     }
     
     public func invokeMethod<T: Decodable, R: Encodable>(
@@ -79,14 +86,23 @@ public class TikiPlatformChannel {
             }
         }
         if(channel == nil){
-            initChannel()
+            Task{
+                await initChannel()
+                channel!.invokeMethod(
+                    method.rawValue, arguments: [
+                        "requestId" : requestId,
+                        "request" : jsonRequest
+                    ]
+                )
+            }
+        }else{
+            channel!.invokeMethod(
+                method.rawValue, arguments: [
+                    "requestId" : requestId,
+                    "request" : jsonRequest
+                ]
+            )
         }
-        channel!.invokeMethod(
-            method.rawValue, arguments: [
-                "requestId" : requestId,
-                "request" : jsonRequest
-            ]
-        )
     }
 }
     
