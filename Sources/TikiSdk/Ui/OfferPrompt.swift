@@ -36,17 +36,18 @@ public struct OfferPrompt: View {
                 UsedFor(bullets: offers!.values.first!.usedBullet)
                 HStack {
                     TikiSdkButton("Back Off",
-                                  {_decline(offer: offers!.values.first!)},
-                                  textColor: TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryTextColor,
-                                  borderColor: TikiSdk.instance.getActiveTheme(colorScheme).accentColor
-                    ).frame(maxWidth: .infinity)
-                    TikiSdkButton("I'm in", {_accept(offer: offers!.values.first!)}, color: TikiSdk.instance.getActiveTheme(colorScheme).accentColor ).frame(maxWidth: .infinity)
+                    {_decline(offer: offers!.values.first!)},
+                      textColor: TikiSdk.theme(colorScheme).primaryTextColor,
+                      borderColor: TikiSdk.theme(colorScheme).accentColor,
+                                  font: TikiSdk.theme(colorScheme).fontMedium
+                    ).frame(maxWidth: .infinity).padding(.trailing, 12)
+                    TikiSdkButton("I'm in", {_accept(offer: offers!.values.first!)}, color: TikiSdk.theme(colorScheme).accentColor,
+                                  font: TikiSdk.theme(colorScheme).fontMedium ).frame(maxWidth: .infinity).padding(.leading, 12)
                 }
                 .padding(.bottom, 50)
             }
             .padding(.horizontal, 15)
-            .background(backgroundColor ?? TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryBackgroundColor)
-            .cornerRadius(40, corners: [.topLeft, .topRight])
+            .background(backgroundColor ?? TikiSdk.theme(colorScheme).secondaryBackgroundColor)
         }
     }
 
@@ -66,31 +67,9 @@ struct TradeYourData: View{
         
         HStack{
             Text("TRADE").font(.custom("SpaceGrotesk-Bold", size: 20))
-            Text("YOUR").font(.custom("SpaceGrotesk-Bold", size: 20)).foregroundColor(TikiSdk.instance.getActiveTheme(colorScheme).getAccentColor)
+            Text("YOUR").font(.custom("SpaceGrotesk-Bold", size: 20)).foregroundColor(TikiSdk.theme(colorScheme).accentColor)
             Text("DATA").font(.custom("SpaceGrotesk-Bold", size: 20))
         }.frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 15)
         
-    }
-}
-
-struct SizePreferenceKey: PreferenceKey {
-  static var defaultValue: CGSize = .zero
-  static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
-}
-
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape( RoundedCorner(radius: radius, corners: corners) )
-    }
-}
-
-struct RoundedCorner: Shape {
-
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        return Path(path.cgPath)
     }
 }

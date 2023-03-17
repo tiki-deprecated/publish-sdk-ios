@@ -77,19 +77,29 @@ public class TikiSdk{
         return colorScheme == .dark && _dark != nil ? _dark! : _theme
     }
     
+    static func theme(_ colorScheme: ColorScheme) -> Theme {
+        return colorScheme == .dark && instance._dark != nil ? instance._dark! : instance._theme
+    }
+    
     static public func present() {
         let viewController = UIApplication.shared.windows.first?.rootViewController
         let vc = UIHostingController(rootView: OfferFlow(dismissAction: {
             viewController!.dismiss( animated: true, completion: nil )}))
         vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .coverVertical
-        vc.view.layer.backgroundColor = UIColor.clear.cgColor
+        vc.modalTransitionStyle = .crossDissolve
+        vc.view.layer.backgroundColor = UIColor.black.withAlphaComponent(0.3).cgColor
         viewController!.present(vc, animated: true, completion: nil)
     }
 
     /// Shows the pre built Settings UI
-    public static func settings(_ context: UIViewController) {
-        // TODO
+    public static func settings() {
+        let viewController = UIApplication.shared.windows.first?.rootViewController
+        let vc = UIHostingController(rootView: OfferFlow(dismissAction: {
+            viewController!.dismiss( animated: true, completion: nil )}))
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .flipHorizontal
+        vc.view.layer.backgroundColor = UIColor.black.cgColor // TODO add opacity
+        viewController!.present(vc, animated: true, completion: nil)
     }
 
     /// Starts the TikiSdk configuration.

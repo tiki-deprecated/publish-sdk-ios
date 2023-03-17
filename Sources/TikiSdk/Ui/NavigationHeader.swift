@@ -12,7 +12,7 @@ public struct NavigationHeader: View{
             Image("backArrow").onTapGesture {
                 onBackPressed()
             }.padding(.leading, 15).padding(.trailing, 20)
-            Text(title).font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size:20)).fontWeight(.bold)
+            Text(title).font(.custom(TikiSdk.theme(colorScheme).fontBold, size:20))
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxWidth: .infinity)

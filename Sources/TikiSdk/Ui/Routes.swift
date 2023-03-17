@@ -19,7 +19,7 @@ public enum Routes{
             return AnyView(EmptyView())
         case .terms :
             return AnyView(
-                Terms(offer: offer, onDismiss: onDismiss!, onAccept: onAccept!))
+                Terms(offer: offer!, onDismiss: onDismiss!, onAccept: onAccept!))
         case .learnMore:
             return AnyView(
                 LearnMore(onDismiss: onDismiss!)

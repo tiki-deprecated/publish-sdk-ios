@@ -19,7 +19,7 @@ struct LearnMoreButton: View {
             Image("questionIcon")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundColor(iconColor ?? TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryTextColor)
+                .foregroundColor(iconColor ?? TikiSdk.theme(colorScheme).secondaryTextColor)
                 .frame(width: 24, height: 24)
         }
         .buttonStyle(PlainButtonStyle())

@@ -15,7 +15,7 @@ struct NavigationRoute: View {
                     .padding(safeAreaInsets)
                     .transition(.move(edge: .trailing))
                     .background(
-                       TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryBackgroundColor
+                       TikiSdk.theme(colorScheme).primaryBackgroundColor
                     )
                     .offset(x: isShowing ? 0 : 500, y: 0)
                     

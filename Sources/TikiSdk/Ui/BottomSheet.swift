@@ -11,27 +11,36 @@ struct BottomSheet: View {
     
     
     var body: some View {
-        if (isShowing) {
-            ZStack{
-                Color.black
-                    .opacity(0.3)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        isShowing.toggle()
-                        dismiss()
-                    }
-                content
-                    .transition(.move(edge: .bottom))
-                    .background(
-                        TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryBackgroundColor
-                    )
-                    .cornerRadius(40, corners: [.topLeft, .topRight])
-                    .offset(x: 0, y: offset)
-                    .background(Color(.clear))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                    .ignoresSafeArea()
-                    .animation(.easeInOut, value: isShowing)
-            }
+        ZStack{
+            Color.clear
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .contentShape(Rectangle())
+                .ignoresSafeArea()
+                .onTapGesture {
+                    dismiss()
+                }
+            content
+                .cornerRadius(40, corners: [.topLeft, .topRight])
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                .ignoresSafeArea()
+                .offset(y: offset)
         }
+    }
+}
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    }
+}
+
+struct RoundedCorner: Shape {
+
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
     }
 }

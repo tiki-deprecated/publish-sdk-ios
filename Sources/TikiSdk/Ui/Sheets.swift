@@ -9,6 +9,7 @@ public enum Sheets{
     
     func view(
         _ colorScheme: ColorScheme,
+        offer: Offer? = nil,
         onLearnMore: (() -> Void)? = nil,
         onAccept: ((Offer?, LicenseRecord?) -> Void)? = nil,
         onDecline: ((Offer?, LicenseRecord?) -> Void)? = nil,
@@ -27,33 +28,45 @@ public enum Sheets{
         case .endingAccepted :
             return AnyView(
                 Ending(
-                    title: AnyView(YourChoince()),
+                    title: AnyView(YourChoice()),
                     message: "Awesome! You’re in",
-                    footnote: AnyView(VStack{
-                        Text("We’re on it, stay tuned.\nChange your mind anytime in settings.")
+                    footnote: AnyView(VStack(spacing: 0){
+                        Text("We’re on it, stay tuned.").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:18))
+                            .fontWeight(.light)
+                            .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
+                            .padding(.bottom, 6)
+                        Text("Change your mind anytime in settings.").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:18))
+                            .fontWeight(.light)
+                            .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                     })
                 ))
         case .endingDeclined :
             return AnyView(
                 Ending(
-                    title: AnyView(YourChoince()),
+                    title: AnyView(YourChoice()),
                     message: "Backing Off",
                     footnote: AnyView(
-                        VStack{
+                        VStack(spacing: 0){
                             Text("Your data is valuable.")
-                                .font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 18))
-                            //.fontWeight(.light)
-                                .foregroundColor(Color(.black).opacity(0.6))
-                                .padding(.bottom, 1)
-                            HStack{
-                                Text("Opt-in anytime in")
-                                    .font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 18))
-                                    .foregroundColor(Color(.black).opacity(0.6))
+                                .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:18))
+                                .fontWeight(.light)
+                                .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
+                                .padding(.bottom, 6)
+                            HStack(spacing: 0){
+                                Text("Opt-in anytime in ")
+                                    .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:18))
+                                    .fontWeight(.light)
+                                    .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                                 Text("settings.")
+                                    .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:18))
+                                    .fontWeight(.light)
+                                    .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                                     .underline()
-                                    .font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 18)
-                                    ).fontWeight(.ultraLight)
-                                    .foregroundColor(Color(.black).opacity(0.6))
+                                    .fontWeight(.ultraLight)
+                                    .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
+                                    .onTapGesture {
+                                        TikiSdk.settings()
+                                    }
                             }
                         }
                     )))
@@ -63,16 +76,16 @@ public enum Sheets{
                     title: AnyView(Whoops()),
                     message: "Permission Required",
                     footnote: AnyView(
-                        VStack{
+                        VStack(spacing:0){
                             Text("Offer declined.")
-                                .font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 18))
+                                .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                                 .foregroundColor(Color(.black).opacity(0.6))
-                            HStack{
-                                Text("To proceed, allow")
-                                    .font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 18))
+                            HStack(spacing:0){
+                                Text("To proceed, allow ")
+                                    .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                                     .foregroundColor(Color(.black).opacity(0.6))
-                                Text("permissions.").font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 18))
-                                    .font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 18))
+                                Text((requiredPermissions?[0].name())  ??  "permissions.").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
+                                    .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                                     .foregroundColor(Color(.black).opacity(0.6))
                                     .underline()
                                     .onTapGesture {

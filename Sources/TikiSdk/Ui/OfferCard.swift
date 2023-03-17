@@ -17,17 +17,21 @@ struct OfferCard: View {
     }
     
     var body: some View {
-        VStack(alignment: .center) {
-            offer!.reward?.padding(.bottom, 10)
+        VStack(alignment: .center,spacing: 0) {
+            offer!.reward?
+                .padding(.top, 20)
+                .padding(.bottom, 12)
             Text(offer?.description ?? "")
-                .font(.custom(TikiSdk.instance.getActiveTheme(colorScheme).getFontFamily, size: 16))
-                .fontWeight(.bold)
-                .foregroundColor(textColor  ?? TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryTextColor)
+                .padding(.bottom, 32)
+                .font(
+                    .custom(
+                        TikiSdk.theme(colorScheme).fontBold,
+                        size: 16))
+                .foregroundColor(textColor  ?? TikiSdk.theme(colorScheme).secondaryTextColor)
                 .lineLimit(3)
         }
-        .padding([.top, .horizontal], 20)
-        .padding(.bottom, 35)
-        .background(backgroundColor  ?? TikiSdk.instance.getActiveTheme(colorScheme).getPrimaryBackgroundColor)
+        .padding(.horizontal, 20)
+        .background(backgroundColor  ?? TikiSdk.theme(colorScheme).primaryBackgroundColor)
         .cornerRadius(10)
         .shadow(color: Color(red:0,green:0, blue:0).opacity(0.05), radius: 0, x:4, y:4)
     }

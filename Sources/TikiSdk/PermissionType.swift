@@ -54,7 +54,7 @@ public enum PermissionType {
     case tracking
     
     
-    func name() -> String{
+    public func name() -> String{
         switch self{
             
         case .camera:
@@ -93,7 +93,7 @@ public enum PermissionType {
      - Parameter type: The type of permission to check.
      - Returns: The authorization status for the specified permission type.
      */
-    func authorizationStatus() -> Any {
+    public func authorizationStatus() -> Any {
         switch self {
         case .camera:
             return AVCaptureDevice.authorizationStatus(for: .video)

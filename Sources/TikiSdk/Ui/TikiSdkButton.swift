@@ -25,7 +25,7 @@ public struct TikiSdkButton: View {
     var textColor: Color?
     
     /// The font family of the button's text from pubspec.
-    var fontFamily: String?
+    var font: String?
     
     /// The default constructor for outlined button.
     ///
@@ -33,12 +33,12 @@ public struct TikiSdkButton: View {
     public init(_ text: String, _ onTap: @escaping () -> Void,
          textColor: Color,
          borderColor: Color,
-         fontFamily: String? = nil) {
+         font: String? = nil) {
         self.text = text
         self.onTap = onTap
         self.textColor = textColor
         self.borderColor = borderColor
-        self.fontFamily = fontFamily
+        self.font = font
         self.backgroundColor = Color.white
     }
     
@@ -47,28 +47,25 @@ public struct TikiSdkButton: View {
     /// [TikiSdk.theme] is used for default styling.
     public init(_ text: String, _ onTap: @escaping () -> Void,
          color: Color,
-         fontFamily: String? = nil) {
+         font: String? = nil) {
         self.text = text
         self.onTap = onTap
         self.textColor = Color.white
         self.backgroundColor = color
         self.borderColor = color
-        self.fontFamily = fontFamily
+        self.font = font
     }
     
     public var body: some View {
         
         VStack{
             Text(text)
-                .fontWeight(.semibold)
-                .font(fontFamily != nil ? .custom(fontFamily!, size: 20) : .system(size: 20))
+                .font(.custom(font ?? TikiSdk.theme(colorScheme).fontMedium, size: 20))
                 .lineSpacing(1.2)
-                .foregroundColor(textColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryTextColor)
-                .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily, size: 20)
-                )
+                .foregroundColor(textColor ?? TikiSdk.theme(colorScheme).primaryTextColor)
         }
         .frame(maxWidth: .infinity)
-        .padding(.all, 16)
+        .padding(.all, 14)
         .background(backgroundColor)
         .cornerRadius(10)
         .overlay(

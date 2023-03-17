@@ -17,30 +17,26 @@ struct UsedFor: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Text("HOW YOUR DATA WILL BE USED")
-                .foregroundColor(primaryTextColor ?? TikiSdk.instance.getActiveTheme(colorScheme).primaryTextColor)
-                .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily, size: 16))
-                .fontWeight(.bold).padding(.bottom, 5)
+                .foregroundColor(primaryTextColor ?? TikiSdk.theme(colorScheme).primaryTextColor)
+                .font(.custom(fontFamily ?? TikiSdk.theme(colorScheme).fontBold, size: 16)).padding(.bottom, 16)
             ForEach(bullets, id: \.self) { item in
-                HStack(alignment: .center) {
+                HStack {
                     if item.isUsed {
                         Image("checkIcon")
-                            .frame(width: 12, height: 12)
                     } else {
                         Image("xIcon")
-                            .frame(width: 12, height: 12)
                     }
                     Text(item.text)
-                        .foregroundColor(secondaryTextColor ?? TikiSdk.instance.getActiveTheme(colorScheme).getSecondaryTextColor)
-                        .font(.custom(fontFamily ?? TikiSdk.instance.getActiveTheme(colorScheme).fontFamily, size: 16))
-                        .fontWeight(.bold).padding(.bottom, 5)
-                }
+                        .foregroundColor(secondaryTextColor ?? TikiSdk.theme(colorScheme).secondaryTextColor)
+                        .font(.custom(fontFamily ?? TikiSdk.theme(colorScheme).fontBold, size: 16))
+                }.padding(.bottom, 16)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 15)
         .padding(.top, 24)
-        .padding(.bottom, 32)
+        .padding(.bottom, 16)
     }
 }
