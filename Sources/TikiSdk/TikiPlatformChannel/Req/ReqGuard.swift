@@ -7,7 +7,7 @@ import Foundation
 
 struct ReqGuard: Encodable {
     var ptr: String?
-    var uses = [LicenseUsecase]()
+    var usecases = [LicenseUsecase]()
     var destinations: [String]?
     var origin: String?
 }

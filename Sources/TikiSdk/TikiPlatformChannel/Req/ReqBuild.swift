@@ -10,6 +10,7 @@ import Foundation
 /// It requires an *publishingId]* and an *origin]*. If no *address* is provided the SDK
 /// will create a new one
 struct ReqBuild: Encodable {
-    let publishingId : String, origin : String
-    let address : String?
+    let publishingId : String
+    let id : String
+    let origin : String
 }

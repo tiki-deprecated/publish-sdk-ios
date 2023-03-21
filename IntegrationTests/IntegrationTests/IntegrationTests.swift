@@ -11,11 +11,12 @@ class IntegrationTests: XCTestCase {
 
     let origin = "com.mytiki.iostest"
     let publishingId = "e12f5b7b-6b48-4503-8b39-28e4995b5f88"
+    let id = UUID().uuidString
 
     
     func testInitSdk() async throws {
         do{
-            try await TikiSdk.config().initialize(publishingId: publishingId)
+            try await TikiSdk.config().initialize(publishingId: publishingId, id:id)
             XCTAssert(TikiSdk.address != nil)
         }catch{
             XCTFail(error.localizedDescription)
@@ -70,7 +71,7 @@ class IntegrationTests: XCTestCase {
                 .onSettings { }
                 .disableAcceptEnding(false)
                 .disableDeclineEnding(true)
-                .initialize(publishingId: publishingId)
+                .initialize(publishingId: publishingId, id:id)
             XCTAssert(TikiSdk.address != nil)
         }catch{
             XCTFail(error.localizedDescription)
@@ -80,9 +81,9 @@ class IntegrationTests: XCTestCase {
     
     func testInitSdkWithAddress() async throws {
         do{
-            try await TikiSdk.config().initialize(publishingId: publishingId)
+            try await TikiSdk.config().initialize(publishingId: publishingId, id:id)
             let address = TikiSdk.address
-            try await TikiSdk.config().initialize(publishingId: publishingId, address: address)
+            try await TikiSdk.config().initialize(publishingId: publishingId, id:id)
             let address2 = TikiSdk.address
             XCTAssertEqual(address, address2)
         }catch{
@@ -92,7 +93,7 @@ class IntegrationTests: XCTestCase {
     
     func testLicense() async throws{
         do{
-            try await TikiSdk.config().initialize(publishingId: publishingId)
+            try await TikiSdk.config().initialize(publishingId: publishingId, id:id)
             let offer = Offer()
                 .id("randomId")
                 .bullet(text: "test 1", isUsed: true)
@@ -114,27 +115,27 @@ class IntegrationTests: XCTestCase {
         }
     }
     
-//    func testGuard() async throws{
-//        do{
-//            try await TikiSdk.config().initialize(publishingId: publishingId)
-//            let offer = Offer()
-//                .id("randomId")
-//                .bullet(text: "test 1", isUsed: true)
-//                .bullet(text: "test 2", isUsed: false)
-//                .bullet(text: "test 3", isUsed: true)
-//                .ptr("source")
-//                .description("testing")
-//                .terms("path/terms.md")
-//                .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
-//                .tag(TitleTag(TitleTagEnum.advertisingData))
-//                .permission(PermissionType.camera)
-//            let license = try await TikiSdk.license(offer: offer)
-//            let guardResult = try await TikiSdk.guard(ptr: "source", usecases:[LicenseUsecase(LicenseUsecaseEnum.support)], destinations: [])
-//            XCTAssert(guardResult)
-//        }catch{
-//            print(error)
-//            XCTFail(error.localizedDescription)
-//        }
-//    }
+    func testGuard() async throws{
+        do{
+            try await TikiSdk.config().initialize(publishingId: publishingId, id:id)
+            let offer = Offer()
+                .id("randomId")
+                .bullet(text: "test 1", isUsed: true)
+                .bullet(text: "test 2", isUsed: false)
+                .bullet(text: "test 3", isUsed: true)
+                .ptr("source")
+                .description("testing")
+                .terms("path/terms.md")
+                .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
+                .tag(TitleTag(TitleTagEnum.advertisingData))
+                .permission(PermissionType.camera)
+            let license = try await TikiSdk.license(offer: offer)
+            let guardResult = try await TikiSdk.guard(ptr: "source", usecases:[LicenseUsecase(LicenseUsecaseEnum.support)], destinations: [])
+            XCTAssert(guardResult)
+        }catch{
+            print(error)
+            XCTFail(error.localizedDescription)
+        }
+    }
 
 }
