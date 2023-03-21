@@ -144,22 +144,23 @@ public struct OfferFlow: View{
         if(isPendingPermission()){
             goTo(.endingError)
         }else{
+            accept(activeOffer)
             goTo(.endingAccepted)
         }
     }
     
     func isPendingPermission() -> Bool{
         if(pendingPermissions == nil || pendingPermissions!.isEmpty){
-            return true
+            return false
         }else{
-            var isAuth = false
+            var isAuth = true
             let pending = pendingPermissions![0]
             pending.requestAuth{ isAuthorized in
                 if(isAuthorized){
                     pendingPermissions!.remove(at: 0)
                     isAuth = isPendingPermission()
                 }else{
-                    isAuth = false
+                    isAuth = true
                 }
             }
             return isAuth
@@ -172,6 +173,7 @@ public struct OfferFlow: View{
             do{
                 let license: LicenseRecord = try await TikiSdk.license(offer: offer)
                 onAccept?(offer, license)
+                print(license)
                 loading = false
                 goTo(.endingAccepted)
             }catch{
