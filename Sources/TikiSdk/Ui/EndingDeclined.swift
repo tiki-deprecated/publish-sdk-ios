@@ -28,7 +28,11 @@ struct EndingDeclined: View{
                             .fontWeight(.ultraLight)
                             .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                             .onTapGesture {
-                                TikiSdk.settings()
+                                do{
+                                    try TikiSdk.settings()
+                                }catch{
+                                    print(error)
+                                }
                             }
                     }
                 }

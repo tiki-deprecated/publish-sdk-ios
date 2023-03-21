@@ -5,6 +5,7 @@ public struct Settings: View {
     @Environment(\.colorScheme) private var colorScheme
     
     @State var accepted: Bool? = nil
+    @State var isLoading: Bool = false
     
     var offers: [String:Offer]?
     var title: AnyView = AnyView(TradeYourData())
@@ -59,7 +60,7 @@ public struct Settings: View {
                         .edgesIgnoringSafeArea(.horizontal)
                         .padding(.bottom, 30)
                         .padding(.horizontal, 15)
-                    if(accepted == nil){
+                    if(accepted == nil || isLoading){
                         ProgressView()
                     }else if(accepted!){
                         TikiSdkButton("Opt out",
@@ -91,11 +92,33 @@ public struct Settings: View {
         }
     }
     
-    private func _decline(offer: Offer) {
+    func _decline(offer: Offer) {
+        Task{
+            do{
+                isLoading = true
+                let _ = try await TikiSdk.revokeLicense(offer: TikiSdk.instance.offers.values.first!)
+                accepted = try await TikiSdk.guardOffer(TikiSdk.instance.offers.values.first!)
+                isLoading = false
+            }catch{
+                isLoading = false
+                print(error)
+            }
+        }
         onDecline?(offer, nil)
     }
     
-    private func _accept(offer: Offer) {
+    func _accept(offer: Offer) {
+        Task{
+            do{
+                isLoading = true
+                let _ = try await TikiSdk.license(offer: TikiSdk.instance.offers.values.first!)
+                accepted = try await TikiSdk.guardOffer(TikiSdk.instance.offers.values.first!)
+                isLoading = false
+            }catch{
+                isLoading = false
+                print(error)
+            }
+        }
         onAccept?(offer, nil)
     }
 }

@@ -79,13 +79,18 @@ public class TikiSdk{
         return colorScheme == .dark && instance._dark != nil ? instance._dark! : instance._theme
     }
     
-    public static func present() {
-        // todo check if it is initialized
-        // check if there are offers
+    public static func present() throws {
+        if(!isInitialized()){
+            throw TikiSdkError(message: "Please ensure that the TIKI SDK is properly initialized by calling initialize().", stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
+        }
+        if(instance.offers.isEmpty){
+            throw TikiSdkError(message: "To proceed, kindly utilize the TikiSdk.offer() method to include at least one offer.", stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
+        }
         let viewController = UIApplication.shared.windows.first?.rootViewController
         let vc = UIHostingController(
             rootView:OfferFlow(
                 activeOffer: TikiSdk.instance.offers.values.first!,
+                offers: TikiSdk.instance.offers,
                 onDismiss: {viewController!.dismiss( animated: true, completion: nil )},
                 onAccept: instance._onAccept,
                 onDecline: instance._onDecline)
@@ -97,8 +102,13 @@ public class TikiSdk{
     }
 
     /// Shows the pre built Settings UI
-    public static func settings() {
-        // todo check if it is initialized
+    public static func settings() throws {
+        if(!isInitialized()){
+            throw TikiSdkError(message: "Please ensure that the TIKI SDK is properly initialized by calling initialize().", stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
+        }
+        if(instance.offers.isEmpty){
+            throw TikiSdkError(message: "To proceed, kindly utilize the TikiSdk.offer() method to include at least one offer.", stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
+        }
         let viewController = UIApplication.shared.windows.first?.rootViewController
         let vc = UIHostingController(rootView: Settings(onDismiss: {
             viewController!.dismiss( animated: true, completion: nil )
