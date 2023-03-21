@@ -12,6 +12,7 @@ public struct OfferFlow: View{
     
     let offers: [String: Offer]
     
+    var onSettings: (() -> Void)
     var onDismiss: (() -> Void)
     var onAccept: ((Offer, LicenseRecord) -> Void)?
     var onDecline: ((Offer, LicenseRecord?) -> Void)?
@@ -39,14 +40,20 @@ public struct OfferFlow: View{
                 .transition(.bottomSheet).zIndex(2)
             }
             if(step == .endingAccepted){
-                EndingAccepted().asBottomSheet(
+                EndingAccepted(
+                    onSettings: onSettings,
+                    dismiss: dismissSheet
+                ).asBottomSheet(
                     isShowing: isShowingBinding(.endingAccepted),
                     offset: $dragOffsetY,
                     onDismiss: dismissSheet)
                 .transition(.bottomSheet)
             }
             if(step == .endingDeclined){
-                EndingDeclined().asBottomSheet(
+                EndingDeclined(
+                    onSettings: onSettings,
+                    dismiss: dismissSheet
+                ).asBottomSheet(
                     isShowing: isShowingBinding(.endingAccepted),
                     offset: $dragOffsetY,
                     onDismiss: dismissSheet

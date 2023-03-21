@@ -22,7 +22,7 @@ struct NavigationRoute: ViewModifier {
                 .padding(safeAreaInsets)
                 .transition(.move(edge: .trailing))
                 .background(
-                    TikiSdk.theme(colorScheme).primaryBackgroundColor
+                    TikiSdk.theme(colorScheme).secondaryBackgroundColor
                 )
                 .offset(x: isShowing ? 0 : UIScreen.main.bounds.size.width, y: 0)
             }

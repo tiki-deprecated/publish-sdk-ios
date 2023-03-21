@@ -3,6 +3,8 @@ import SwiftUI
 struct EndingAccepted: View{
     
     @Environment(\.colorScheme) private var colorScheme
+    var onSettings: (() -> Void)
+    var dismiss: (() -> Void)
     
     var body: some View {
         Ending(
@@ -13,9 +15,20 @@ struct EndingAccepted: View{
                     .fontWeight(.light)
                     .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                     .padding(.bottom, 6)
-                Text("Change your mind anytime in settings.").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:18))
-                    .fontWeight(.light)
-                    .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
+                HStack(spacing: 0){
+                    Text("Change your mind anytime in ").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:18))
+                        .fontWeight(.light)
+                        .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
+                    Text("settings.").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:18))
+                        .fontWeight(.light)
+                        .underline()
+                        .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
+                        .onTapGesture{
+                            dismiss()
+                            onSettings()
+                        }
+                }
+
             }))
     }
 }

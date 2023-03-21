@@ -105,11 +105,13 @@ public class Offer {
     }
     
     /// Sets the [terms]
-    public func terms(_ terms: String) -> Offer {
-        _terms = terms
+    public func terms(_ filename: String) throws -> Offer {
+        _terms = try String(
+            contentsOfFile: Bundle.main.path(forResource: filename, ofType: "md")!,
+            encoding: String.Encoding(rawValue: NSUTF8StringEncoding))
         return self
     }
-
+    
     /// Adds an item in the [uses] list.
     public func use(usecases: [LicenseUsecase], destinations: [String]? = []) -> Offer {
         _uses.append(LicenseUse(usecases: usecases, destinations: destinations))

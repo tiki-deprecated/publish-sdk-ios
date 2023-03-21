@@ -21,7 +21,9 @@ public class TikiSdk{
     private var _address: String? = nil
     private var _onAccept: ((Offer, LicenseRecord) -> Void)?
     private var _onDecline: ((Offer, LicenseRecord?)  -> Void)?
-    private var _onSettings: (() -> Void)?
+    private var _onSettings: (() -> Void) = {
+        try? TikiSdk.settings()
+    }
     private var _isAcceptEndingDisabled = false
     private var _isDeclineEndingDisabled = false
     private var _offers = [String: Offer]()
@@ -71,10 +73,6 @@ public class TikiSdk{
         }
     }
     
-    public func getActiveTheme(_ colorScheme: ColorScheme ) -> Theme {
-        return colorScheme == .dark && _dark != nil ? _dark! : _theme
-    }
-    
     static func theme(_ colorScheme: ColorScheme) -> Theme {
         return colorScheme == .dark && instance._dark != nil ? instance._dark! : instance._theme
     }
@@ -91,9 +89,11 @@ public class TikiSdk{
             rootView:OfferFlow(
                 activeOffer: TikiSdk.instance.offers.values.first!,
                 offers: TikiSdk.instance.offers,
+                onSettings: instance._onSettings,
                 onDismiss: {viewController!.dismiss( animated: true, completion: nil )},
                 onAccept: instance._onAccept,
-                onDecline: instance._onDecline)
+                onDecline: instance._onDecline
+                )
             )
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
@@ -167,7 +167,7 @@ public class TikiSdk{
     /// The onSettings() event is triggered when the user selects "settings" in the
     /// ending screen. If a callback function is not registered, the SDK defaults to
     /// calling the TikiSdk.settings() method.
-    public func onSettings(_ onSettings: (() -> Void)?) -> TikiSdk {
+    public func onSettings(_ onSettings: @escaping () -> Void) -> TikiSdk {
         _onSettings = onSettings
         return self
     }
@@ -180,21 +180,26 @@ public class TikiSdk{
     ///     - address: The *address* of the user node in TIKI blockchain. If nil a new address will be created.
     ///
     /// - Throws: *TikiSdkError*
-    public func initialize(publishingId: String, id: String, origin: String? = nil) async throws{
-        let rspBuild: RspBuild = try await withCheckedThrowingContinuation{ continuation in
-            let buildRequest = ReqBuild(publishingId: publishingId, id: id, origin: origin ?? Bundle.main.bundleIdentifier!)
-            do{
-                try self.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.build,
-                    request: buildRequest,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
+    public func initialize(publishingId: String, id: String, onComplete: (() -> Void)? = nil, origin: String? = nil) throws{
+        Task{
+            let rspBuild: RspBuild = try await withCheckedThrowingContinuation{ continuation in
+                let buildRequest = ReqBuild(publishingId: publishingId, id: id, origin: origin ?? Bundle.main.bundleIdentifier!)
+                do{
+                    try self.tikiPlatformChannel.invokeMethod(
+                        method: MethodEnum.build,
+                        request: buildRequest,
+                        continuation: continuation
+                    )
+                }catch{
+                    continuation.resume(throwing: error)
+                }
+                
             }
-            
+            self._address = rspBuild.address
+            DispatchQueue.main.async {
+                onComplete?()
+            }
         }
-        self._address = rspBuild.address
     }
 
     

@@ -3,6 +3,8 @@ import SwiftUI
 public struct Settings: View {
     
     @Environment(\.colorScheme) private var colorScheme
+
+    @Environment(\.safeAreaInsets) private var safeAreaInsets
     
     @State var accepted: Bool? = nil
     @State var isLoading: Bool = false
@@ -87,6 +89,7 @@ public struct Settings: View {
                         }
                     }
                 }
+                .padding(.horizontal, 15)
                 if(showError){
                     EndingError(
                         pendingPermissions: $pendingPermissions,
@@ -118,8 +121,9 @@ public struct Settings: View {
                         .transition(.navigate)
                 }
             }
-            .padding(.horizontal, 15)
+            .padding(safeAreaInsets)
             .background(backgroundColor ?? TikiSdk.theme(colorScheme).secondaryBackgroundColor)
+            .ignoresSafeArea()
             .onAppear{
                 Task{
                     pendingPermissions = TikiSdk.instance.offers.values.first!.permissions
