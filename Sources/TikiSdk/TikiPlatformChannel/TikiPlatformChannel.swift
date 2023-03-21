@@ -70,7 +70,9 @@ public class TikiPlatformChannel {
         continuation: CheckedContinuation<T, Error>
     ) throws -> Void {
         let requestId = UUID().uuidString
-        let jsonData = try JSONEncoder().encode(request)
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .millisecondsSince1970
+        let jsonData = try encoder.encode(request)
         let jsonRequest = String(data: jsonData, encoding: String.Encoding.utf8)
         callbacks[requestId] = { jsonString, err in
             if(err != nil){

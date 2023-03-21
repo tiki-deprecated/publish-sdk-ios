@@ -124,7 +124,8 @@ public class Offer {
     
     /// Sets the [expiry] based in the *timeInterval*
     public func duration(_ timeInterval: TimeInterval) -> Offer {
-        _expiry = Date().addingTimeInterval(timeInterval)
+        let now: Int = Int(Date().timeIntervalSince1970)
+        _expiry = Date(timeIntervalSince1970: Double(now)).addingTimeInterval(timeInterval)
         return self
     }
     
