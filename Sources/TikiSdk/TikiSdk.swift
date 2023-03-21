@@ -8,8 +8,6 @@ import FlutterPluginRegistrant
 import SwiftUI
 import UIKit
 
-typealias OfferHandler = (Offer?, LicenseRecord?)  -> Void
-
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
     
@@ -20,9 +18,9 @@ public class TikiSdk{
         }
     }
     
-    var _address: String? = nil
-    private var _onAccept: OfferHandler?
-    private var _onDecline: OfferHandler?
+    private var _address: String? = nil
+    private var _onAccept: ((Offer, LicenseRecord) -> Void)?
+    private var _onDecline: ((Offer, LicenseRecord?)  -> Void)?
     private var _onSettings: (() -> Void)?
     private var _isAcceptEndingDisabled = false
     private var _isDeclineEndingDisabled = false
@@ -81,10 +79,17 @@ public class TikiSdk{
         return colorScheme == .dark && instance._dark != nil ? instance._dark! : instance._theme
     }
     
-    static public func present() {
+    public static func present() {
+        // todo check if it is initialized
+        // check if there are offers
         let viewController = UIApplication.shared.windows.first?.rootViewController
-        let vc = UIHostingController(rootView: OfferFlow(dismissAction: {
-            viewController!.dismiss( animated: true, completion: nil )}))
+        let vc = UIHostingController(
+            rootView:OfferFlow(
+                activeOffer: TikiSdk.instance.offers.values.first!,
+                onDismiss: {viewController!.dismiss( animated: true, completion: nil )},
+                onAccept: instance._onAccept,
+                onDecline: instance._onDecline)
+            )
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
         vc.view.layer.backgroundColor = UIColor.black.withAlphaComponent(0.3).cgColor
@@ -93,12 +98,14 @@ public class TikiSdk{
 
     /// Shows the pre built Settings UI
     public static func settings() {
+        // todo check if it is initialized
         let viewController = UIApplication.shared.windows.first?.rootViewController
-        let vc = UIHostingController(rootView: OfferFlow(dismissAction: {
-            viewController!.dismiss( animated: true, completion: nil )}))
+        let vc = UIHostingController(rootView: Settings(onDismiss: {
+            viewController!.dismiss( animated: true, completion: nil )
+            
+        }))
         vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .flipHorizontal
-        vc.view.layer.backgroundColor = UIColor.black.cgColor // TODO add opacity
+        vc.modalTransitionStyle = .crossDissolve
         viewController!.present(vc, animated: true, completion: nil)
     }
 
@@ -131,7 +138,7 @@ public class TikiSdk{
     /// of the licensing offer. This happens after accepting the terms, not just
     /// on selecting "I'm In." The License Record is passed as a parameter to the
     /// callback function.
-    public func onAccept(_ onAccept: ((Offer?, LicenseRecord?) -> Void)?) -> TikiSdk {
+    public func onAccept(_ onAccept: ((Offer, LicenseRecord) -> Void)?) -> TikiSdk {
         _onAccept = onAccept
         return self
     }
@@ -140,7 +147,7 @@ public class TikiSdk{
     ///
     /// The onDecline() event is triggered when the user declines the licensing offer.
     /// This happens on dismissal of the flow or when "Back Off" is selected.
-    public func onDecline(_ onDecline: ((Offer?, LicenseRecord?) -> Void)?) -> TikiSdk {
+    public func onDecline(_ onDecline: ((Offer, LicenseRecord?) -> Void)?) -> TikiSdk {
         _onDecline = onDecline
         return self
     }
@@ -163,9 +170,9 @@ public class TikiSdk{
     ///     - address: The *address* of the user node in TIKI blockchain. If nil a new address will be created.
     ///
     /// - Throws: *TikiSdkError*
-    public func initialize(publishingId: String, address: String? = nil, origin: String? = nil) async throws{
+    public func initialize(publishingId: String, id: String, origin: String? = nil) async throws{
         let rspBuild: RspBuild = try await withCheckedThrowingContinuation{ continuation in
-            let buildRequest = ReqBuild(publishingId: publishingId, origin: origin ?? Bundle.main.bundleIdentifier!, address: address)
+            let buildRequest = ReqBuild(publishingId: publishingId, id: id, origin: origin ?? Bundle.main.bundleIdentifier!)
             do{
                 try self.tikiPlatformChannel.invokeMethod(
                     method: MethodEnum.build,
@@ -193,8 +200,10 @@ public class TikiSdk{
      * - Returns: The newly created LicenseRecord object.
      */
     public static func license(offer: Offer) async throws -> LicenseRecord {
+        
         let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
             do{
+                
                 let licenseReq = ReqLicense(
                     ptr: offer.ptr,
                     terms: offer.terms,
@@ -215,6 +224,33 @@ public class TikiSdk{
         return rspLicense.license!
     }
 
+    public static func revokeLicense(offer: Offer) async throws -> LicenseRecord? {
+        
+        let isLicensed = try await guardOffer(offer)
+        if(!isLicensed){
+            return nil
+        }
+        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
+            do{
+                let licenseReq = ReqLicense(
+                    ptr: offer.ptr,
+                    terms: offer.terms,
+                    licenseDescription: offer.description,
+                    uses: []
+                )
+                try instance.tikiPlatformChannel.invokeMethod(
+                    method: MethodEnum.license,
+                    request: licenseReq,
+                    continuation: continuation
+                )
+            }catch{
+                continuation.resume(throwing: error)
+            }
+        }
+        return rspLicense.license!
+    }
+
+    
     /**
      * Guard against an invalid LicenseRecord for a List of usecases an destinations.
      *
@@ -254,7 +290,7 @@ public class TikiSdk{
     public static func `guard`(ptr: String, usecases: [LicenseUsecase], destinations: [String],
                onPass: (() -> Void)? = nil, onFail: ((String) -> Void)? = nil, origin: String? = nil) async throws -> Bool {
         let rspGuard: RspGuard = try await withCheckedThrowingContinuation{ continuation in
-            let guardReq = ReqGuard(ptr: ptr, uses: usecases, destinations: destinations, origin: origin)
+            let guardReq = ReqGuard(ptr: ptr, usecases: usecases, destinations: destinations, origin: origin)
             do{
                 try instance.tikiPlatformChannel.invokeMethod(
                     method: MethodEnum.guard,
@@ -271,6 +307,34 @@ public class TikiSdk{
             onFail?(rspGuard.reason ?? "no consent")
         }
         return rspGuard.success
+    }
+    
+    
+    /**
+     * Guard against an invalid LicenseRecord for an Offer
+     *
+     * This is a wrapper to the guard method, passing an Offer.
+     *
+     * - Parameters:
+     *   - offer: The Offer to be checked for a LicenseRecord.
+     *   - onPass: A Function to execute automatically upon successfully resolving the LicenseRecord
+     *     against the usecases and destinations.
+     *   - onFail: A Function to execute automatically upon failure to resolve the LicenseRecord.
+     *     Accepts a String parameter, holding an error message describing the reason for failure.
+     *   - origin: An optional override of the default origin specified in.
+     * - Returns: True if the user has access, false otherwise.
+     */
+    public static func guardOffer(_ offer: Offer, onPass: (() -> Void)? = nil, onFail: ((String) -> Void)? = nil)async throws -> Bool {
+        let ptr : String = offer.ptr
+        var usecases: [LicenseUsecase] = []
+        var destinations: [String] = []
+        offer.uses.forEach{ licenseUse in
+            if(licenseUse.destinations != nil){
+                destinations.append(contentsOf: licenseUse.destinations!)
+            }
+            usecases.append(contentsOf: licenseUse.usecases)
+        }
+        return try await `guard`(ptr: ptr, usecases: usecases, destinations: destinations, onPass: onPass, onFail: onFail)
     }
     
     /**
@@ -400,6 +464,10 @@ public class TikiSdk{
             }
         }
         return rspLicense.license
+    }
+    
+    public static func isInitialized() -> Bool{
+        return address != nil
     }
 }
 

@@ -4,201 +4,195 @@ public struct OfferFlow: View{
     
     @Environment(\.colorScheme) private var colorScheme
     
-    @State var route: Routes = Routes.none
-    @State var sheet: Sheets = Sheets.none
-    @State var activeOffer: Offer? = nil
-    @State var pendingPermissions: [PermissionType] = []
-    
+    @State var activeOffer: Offer
+    @State var pendingPermissions: [PermissionType]? = nil
+    @State var step: OfferFlowStepEnum = .none
     @State var dragOffsetY: CGFloat = 0
+    @State var loading: Bool = false
     
-    var dismiss: (()->Void)? = nil
-    
-    public init(dismissAction: (()->Void)? = nil){
-        self.dismiss = dismissAction
-    }
+    var onDismiss: (() -> Void)
+    var onAccept: ((Offer, LicenseRecord) -> Void)?
+    var onDecline: ((Offer, LicenseRecord?) -> Void)?
     
     public var body: some View{
         ZStack{
-            if(sheet == Sheets.prompt){
-                BottomSheet(
-                    isShowing: isShowingBinding(Sheets.endingAccepted),
-                    offset: $dragOffsetY,
-                    dismiss: {
-                        withAnimation(.easeOut){
-                            sheet = Sheets.none
-                        }
-                        dismiss?()
+            if(step == .prompt){
+                OfferPrompt(
+                    currentOffer: $activeOffer,
+                    offers: TikiSdk.instance.offers,
+                    onAccept: { offer in
+                        activeOffer = offer
+                        pendingPermissions = offer.permissions
+                        goTo(.terms)
                     },
-                    content: Sheets.prompt.view(
-                        colorScheme,
-                        onLearnMore: {
-                            withAnimation(.easeOut){
-                                route = Routes.learnMore
-                            }
-                        },
-                        onAccept: { (offer, license) in
-                            withAnimation(.easeOut){
-                                activeOffer = offer
-                                pendingPermissions =  activeOffer?.permissions.filter { !$0.isAuthorized() } ?? []
-                                route = Routes.terms
-                            }
-                        },
-                        onDecline: { (offer, license) in
-                            withAnimation(.easeOut){
-                                sheet = TikiSdk.instance.isDeclineEndingDisabled ? Sheets.none : Sheets.endingDeclined
-                            }
-                            if(TikiSdk.instance.isDeclineEndingDisabled){
-                                dismiss!()
-                            }
-                        })
+                    onDecline: { offer in
+                        decline(offer)
+                        goTo(.endingDeclined)
+                    },
+                    onLearnMore: {goTo(.learnMore)}
+                ).asBottomSheet(
+                    isShowing: isShowingBinding(.prompt),
+                    offset: $dragOffsetY,
+                    onDismiss: dismissSheet)
+                .transition(.bottomSheet).zIndex(2)
+            }
+            if(step == .endingAccepted){
+                EndingAccepted().asBottomSheet(
+                    isShowing: isShowingBinding(.endingAccepted),
+                    offset: $dragOffsetY,
+                    onDismiss: dismissSheet)
+                .transition(.bottomSheet)
+            }
+            if(step == .endingDeclined){
+                EndingDeclined().asBottomSheet(
+                    isShowing: isShowingBinding(.endingAccepted),
+                    offset: $dragOffsetY,
+                    onDismiss: dismissSheet
                 )
                 .transition(.bottomSheet)
             }
-            if(sheet == Sheets.endingAccepted){
-                BottomSheet(
-                    isShowing: isShowingBinding(Sheets.endingAccepted),
+            if(step == .endingError){
+                EndingError( pendingPermissions: pendingPermissions?.count ?? 0 > 1 ?
+                             "permissions" : pendingPermissions?.first?.name() ?? ""
+                ).asBottomSheet(
+                    isShowing: isShowingBinding(.endingAccepted),
                     offset: $dragOffsetY,
-                    dismiss: {
-                        withAnimation(.easeOut){
-                            sheet = Sheets.none
-                        }
-                        dismiss?()
-                    },
-                    content: Sheets.endingAccepted.view(colorScheme))
+                    onDismiss: dismissSheet
+                )
                 .transition(.bottomSheet)
             }
-            if(sheet == Sheets.endingDeclined){
-                BottomSheet(
-                    isShowing: isShowingBinding(Sheets.endingDeclined),
-                    offset: $dragOffsetY,
-                    dismiss: dismissSheet,
-                    content: Sheets.endingDeclined.view(colorScheme))
-                .transition(.bottomSheet)
+            if(step == .terms){
+                Terms(onAccept: onAcceptTerms, terms: activeOffer.terms)
+                    .asNavigationRoute(
+                        isShowing: isShowingBinding(.terms),
+                        title: "Terms and conditions",
+                        onDismiss: {goTo(.prompt)}
+                    )
+                    .zIndex(1)
+                    .transition(.navigate)
             }
-            if(sheet == Sheets.endingError){
-                BottomSheet(
-                    isShowing: isShowingBinding(Sheets.endingError),
-                    offset: $dragOffsetY,
-                    dismiss: dismissSheet,
-                    content: Sheets.endingError.view(
-                        colorScheme,
-                        pendingPermissions: pendingPermissions))
-                .transition(.bottomSheet)
-                .onAppear{
-                    if(!pendingPermissions.isEmpty){
-                        let pending = pendingPermissions[0]
-                        pending.requestAuth({ isAuthorized in
-                            if(isAuthorized){
-                                pendingPermissions.remove(at: 0)
-                                if(pendingPermissions.isEmpty){
-                                    if(TikiSdk.instance.isDeclineEndingDisabled){
-                                        dismiss!()
-                                    }else{
-                                        withAnimation(.easeOut){
-                                            sheet = Sheets.endingAccepted
-                                        }
-                                    }
-                                }
-                            }
-                        })
-                    }
+            if(step == .learnMore){
+                LearnMore()
+                    .asNavigationRoute(
+                        isShowing: isShowingBinding(.learnMore),
+                        title: "LearnMore",
+                        onDismiss: { goTo(.prompt) }
+                    )
+                    .zIndex(1)
+                    .transition(.navigate)
+            }
+            if(loading){
+                ZStack{
+                    Color(.black)
+                        .opacity(0.2)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .contentShape(Rectangle())
+                        .ignoresSafeArea()
+                    ProgressView()
                 }
-            }
-            if(route == Routes.terms){
-                NavigationRoute(
-                    isShowing: Binding(
-                        get: {route == Routes.terms},
-                        set: {let _ = $0}),
-                    content: Routes.terms.view(offer: activeOffer, onAccept: {
-                        withAnimation(.easeOut){
-                            route = Routes.none
-                        }
-                        if(activeOffer != nil){
-                            if(pendingPermissions.isEmpty){
-                                withAnimation(.easeOut){
-                                    sheet = TikiSdk.instance.isAcceptEndingDisabled ?
-                                    Sheets.none :
-                                    Sheets.endingAccepted
-                                }
-                            }else{
-                                withAnimation(.easeOut){
-                                    route = Routes.none
-                                }
-                                withAnimation(.easeOut){
-                                    sheet = Sheets.endingError
-                                }
-                            }
-                        }}, onDismiss: {
-                            withAnimation(.easeOut){
-                                route = Routes.none
-                            }
-                        }))
-                .zIndex(1)
-                .transition(.bottomSheet)
-            }
-            if(route == .learnMore){
-                NavigationRoute(
-                    isShowing: Binding(
-                        get: {route == Routes.learnMore},
-                        set: {let _ = $0}
-                    ),
-                    content: Routes.learnMore.view(onDismiss: {
-                        withAnimation(.easeOut){
-                            route = Routes.none
-                        }
-                    }))
-                .zIndex(1)
-                .transition(.bottomSheet)
+                .zIndex(2)
+                .transition(.opacity)
             }
         }.onAppear{
-            if(sheet == Sheets.none){
+            if(step == .none){
                 withAnimation(.easeOut) {
-                    sheet = Sheets.prompt
+                    step = .prompt
                 }
             }
         }
         .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global)
             .onChanged { value in
-                if(route == Routes.none){
+                if(step != .terms && step != .learnMore){
                     dragOffsetY = value.translation.height > 0 ? value.translation.height : 0
                 }
             }
             .onEnded{ value in
-                if(route == Routes.none){
-                withAnimation(.easeOut) {
-                        sheet = Sheets.none
+                if(step != .terms && step != .learnMore){
+                    withAnimation(.easeOut) {
+                        step = .none
                     }
-                    dismiss?()
+                    onDismiss()
                 }
             }
         )
     }
     
-    func isShowingBinding(_ sheet: Sheets) -> Binding<Bool>{
+    func goTo(_ step: OfferFlowStepEnum){
+        withAnimation(.easeOut){
+            self.step = step
+        }
+    }
+    
+    func isShowingBinding(_ step: OfferFlowStepEnum) -> Binding<Bool>{
         return Binding<Bool>(get: {
-            self.sheet == sheet
-        }, set: { show in
-            self.sheet = show ? Sheets.prompt : Sheets.none
+            self.step == step
+        }, set: { isShowing in
+            withAnimation(.easeOut){
+                self.step = isShowing ? step : .none
+            }
         })
     }
-
+    
     func dismissSheet(){
         withAnimation(.easeOut){
-            sheet = Sheets.none
+            step = .none
         }
-        dismiss?()
+        onDismiss()
     }
-}
-
-extension AnyTransition {
-    static var navigate: AnyTransition {
-        AnyTransition.asymmetric(
-            insertion: .move(edge: .trailing),
-            removal: .move(edge: .trailing))}
     
+    func onAcceptTerms(){
+        if(isPendingPermission()){
+            goTo(.endingError)
+        }else{
+            goTo(.endingAccepted)
+        }
+    }
     
-    static var bottomSheet: AnyTransition {
-        AnyTransition.asymmetric(
-            insertion: .move(edge: .bottom),
-            removal: .move(edge: .bottom))}
+    func isPendingPermission() -> Bool{
+        if(pendingPermissions == nil || pendingPermissions!.isEmpty){
+            return true
+        }else{
+            var isAuth = false
+            let pending = pendingPermissions![0]
+            pending.requestAuth{ isAuthorized in
+                if(isAuthorized){
+                    pendingPermissions!.remove(at: 0)
+                    isAuth = isPendingPermission()
+                }else{
+                    isAuth = false
+                }
+            }
+            return isAuth
+        }
+    }
+    
+    func accept(_ offer: Offer){
+        Task{
+            loading = true
+            do{
+                let license: LicenseRecord = try await TikiSdk.license(offer: offer)
+                onAccept?(offer, license)
+                loading = false
+                goTo(.endingAccepted)
+            }catch{
+                print(error)
+                loading = false
+            }
+        }
+    }
+    
+    func decline(_ offer: Offer){
+        Task{
+            loading = true
+            do{
+                let license: LicenseRecord? = try await TikiSdk.revokeLicense(offer: offer)
+                onDecline?(offer, license)
+                goTo(.endingDeclined)
+            }catch{
+                print(error)
+                loading = false
+            }
+            loading = false
+        }
+    }
 }

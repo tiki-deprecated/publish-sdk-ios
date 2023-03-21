@@ -29,6 +29,7 @@ struct OfferCard: View {
                         size: 16))
                 .foregroundColor(textColor  ?? TikiSdk.theme(colorScheme).secondaryTextColor)
                 .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, 20)
         .background(backgroundColor  ?? TikiSdk.theme(colorScheme).primaryBackgroundColor)

@@ -50,8 +50,8 @@ public class Offer {
     }
     
     /// The legal terms of the offer.
-    public var terms: String? {
-        _terms
+    public var terms: String {
+        _terms!
     }
     
     /// The Use cases for the license.

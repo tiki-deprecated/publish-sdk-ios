@@ -1,23 +1,21 @@
 import SwiftUI
 
-struct BottomSheet: View {
+struct BottomSheet: ViewModifier {
 
     @Environment(\.colorScheme) var colorScheme
     
     @Binding var isShowing: Bool
     @Binding var offset: CGFloat
-    var dismiss: (() -> Void)
-    var content: AnyView
+    var onDismiss: (() -> Void)?
     
-    
-    var body: some View {
+    func body(content: Content) -> some View {
         ZStack{
             Color.clear
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .contentShape(Rectangle())
                 .ignoresSafeArea()
                 .onTapGesture {
-                    dismiss()
+                    onDismiss?()
                 }
             content
                 .cornerRadius(40, corners: [.topLeft, .topRight])
@@ -29,18 +27,10 @@ struct BottomSheet: View {
 }
 
 extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    func asBottomSheet(isShowing: Binding<Bool>, offset: Binding<CGFloat>, onDismiss: @escaping (() -> Void)) -> some View {
+        modifier(BottomSheet(isShowing: isShowing, offset: offset, onDismiss: onDismiss))
     }
 }
 
-struct RoundedCorner: Shape {
 
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
 
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        return Path(path.cgPath)
-    }
-}
