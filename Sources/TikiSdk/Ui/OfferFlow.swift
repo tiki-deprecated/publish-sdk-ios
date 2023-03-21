@@ -54,7 +54,12 @@ public struct OfferFlow: View{
                 .transition(.bottomSheet)
             }
             if(step == .endingError){
-                EndingError( pendingPermissions: getPendingPermissionsNames()
+                EndingError(
+                    pendingPermissions: $pendingPermissions,
+                    onAuthorized: {
+                        accept(activeOffer)
+                        goTo(.endingAccepted)
+                    }
                 ).asBottomSheet(
                     isShowing: isShowingBinding(.endingAccepted),
                     offset: $dragOffsetY,
@@ -154,12 +159,10 @@ public struct OfferFlow: View{
         if(pendingPermissions == nil || pendingPermissions!.isEmpty){
             return false
         }else{
-            var isPending = true
-            let pending = pendingPermissions![0]
-            pending.requestAuth{ isAuthorized in
-                if(isAuthorized){
-                    pendingPermissions!.remove(at: 0)
-                    isPending = isPendingPermission()
+            var isPending = false
+            pendingPermissions!.forEach{ permission in
+                if(!permission.isAuthorized()){
+                    isPending = true
                 }
             }
             return isPending
@@ -197,17 +200,4 @@ public struct OfferFlow: View{
         }
     }
     
-    func getPendingPermissionsNames() -> String{
-        if(pendingPermissions == nil || pendingPermissions!.isEmpty){
-            return "permissions"
-        }
-        if(pendingPermissions!.count == 1){
-            return pendingPermissions!.first!.name()
-        }
-        var nameList : [String] = []
-        pendingPermissions!.forEach{ perm in
-            nameList.append(perm.name())
-        }
-        return nameList.joined(separator: ", ")
-    }
 }

@@ -6,6 +6,10 @@ public struct Settings: View {
     
     @State var accepted: Bool? = nil
     @State var isLoading: Bool = false
+    @State var showError: Bool = false
+    @State var showLearnMore: Bool = false
+    @State var pendingPermissions: [PermissionType]? = nil
+    @State var offset: CGFloat = 0
     
     var offers: [String:Offer]?
     var title: AnyView = AnyView(TradeYourData())
@@ -27,61 +31,98 @@ public struct Settings: View {
     
     public var body: some View {
         if(offers?.values.first != nil){
-            HStack(alignment: .top, spacing:0){
-                VStack(alignment: .center, spacing: 0) {
-                    HStack(alignment: .center, spacing: 0){
-                        Image("backArrow").onTapGesture {
-                            onDismiss()
-                        }.padding(.trailing, 20)
-                        title
-                        Spacer()
-                        LearnMoreButton(onTap: { })
-                    }
-                    .padding(.top, 16)
-                    .padding(.bottom, 30)
-                    OfferCard(offers!.values.first!)
-                    UsedFor(bullets: offers!.values.first!.usedBullet)
-                    Text("TERMS & CONDITIONS")
-                        .font(.custom(TikiSdk.theme(colorScheme).fontBold, size:16))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 15)
-                        .padding(.bottom, 11)
-                    ScrollView(.vertical) {
-                        Text(LocalizedStringKey(stringLiteral: offers!.values.first!.terms))
-                            .padding(7)
-                        .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:12))}
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(.white))
-                    .padding(.horizontal, 15)
-                    .padding(.bottom, 0)
-                    Rectangle()
-                        .fill(TikiSdk.theme(colorScheme).accentColor)
-                        .frame(height: 1)
-                        .edgesIgnoringSafeArea(.horizontal)
+            ZStack{
+                HStack(alignment: .top, spacing:0){
+                    VStack(alignment: .center, spacing: 0) {
+                        HStack(alignment: .center, spacing: 0){
+                            Image("backArrow").onTapGesture {
+                                onDismiss()
+                            }.padding(.trailing, 20)
+                            title
+                            Spacer()
+                            LearnMoreButton(onTap: {
+                                withAnimation(.easeOut){
+                                    showLearnMore = true
+                                }
+                            })
+                        }
+                        .padding(.top, 16)
                         .padding(.bottom, 30)
+                        OfferCard(offers!.values.first!)
+                        UsedFor(bullets: offers!.values.first!.usedBullet)
+                        Text("TERMS & CONDITIONS")
+                            .font(.custom(TikiSdk.theme(colorScheme).fontBold, size:16))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 15)
+                            .padding(.bottom, 11)
+                        ScrollView(.vertical) {
+                            Text(LocalizedStringKey(stringLiteral: offers!.values.first!.terms))
+                                .padding(7)
+                            .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:12))}
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color(.white))
                         .padding(.horizontal, 15)
-                    if(accepted == nil || isLoading){
-                        ProgressView()
-                    }else if(accepted!){
-                        TikiSdkButton("Opt out",
-                                      {_decline(offer: offers!.values.first!)},
-                                      textColor: TikiSdk.theme(colorScheme).primaryTextColor,
-                                      borderColor: TikiSdk.theme(colorScheme).accentColor,
-                                      font: TikiSdk.theme(colorScheme).fontMedium
-                        ).frame(maxWidth: .infinity).padding(.bottom, 16)
-                    }else{
-                        TikiSdkButton("Opt in",
-                                      {_accept(offer: offers!.values.first!)},
-                                      color: TikiSdk.theme(colorScheme).accentColor,
-                                      font: TikiSdk.theme(colorScheme).fontMedium
-                        ).frame(maxWidth: .infinity).padding(.bottom,16)
+                        .padding(.bottom, 0)
+                        Rectangle()
+                            .fill(TikiSdk.theme(colorScheme).accentColor)
+                            .frame(height: 1)
+                            .edgesIgnoringSafeArea(.horizontal)
+                            .padding(.bottom, 30)
+                            .padding(.horizontal, 15)
+                        if(accepted == nil || isLoading){
+                            ProgressView()
+                        }else if(accepted!){
+                            TikiSdkButton("Opt out",
+                                          {_decline(offer: offers!.values.first!)},
+                                          textColor: TikiSdk.theme(colorScheme).primaryTextColor,
+                                          borderColor: TikiSdk.theme(colorScheme).accentColor,
+                                          font: TikiSdk.theme(colorScheme).fontMedium
+                            ).frame(maxWidth: .infinity).padding(.bottom, 16)
+                        }else{
+                            TikiSdkButton("Opt in",
+                                          {_accept(offer: offers!.values.first!)},
+                                          color: TikiSdk.theme(colorScheme).accentColor,
+                                          font: TikiSdk.theme(colorScheme).fontMedium
+                            ).frame(maxWidth: .infinity).padding(.bottom,16)
+                        }
                     }
+                }
+                if(showError){
+                    EndingError(
+                        pendingPermissions: $pendingPermissions,
+                        onAuthorized: {
+                            showError = false
+                            _accept(offer: TikiSdk.instance.offers.values.first!)
+                        }
+                    ).asBottomSheet(
+                        isShowing: $showError,
+                        offset: $offset,
+                        onDismiss: {
+                            showError = false
+                        }
+                    )
+                    .transition(.bottomSheet)
+                }
+                if(showLearnMore){
+                    LearnMore()
+                        .asNavigationRoute(
+                            isShowing: $showLearnMore,
+                            title: "LearnMore",
+                            onDismiss: {
+                                withAnimation(.easeOut){
+                                    showLearnMore = false
+                                }
+                            }
+                        )
+                        .zIndex(1)
+                        .transition(.navigate)
                 }
             }
             .padding(.horizontal, 15)
             .background(backgroundColor ?? TikiSdk.theme(colorScheme).secondaryBackgroundColor)
             .onAppear{
                 Task{
+                    pendingPermissions = TikiSdk.instance.offers.values.first!.permissions
                     do{
                         accepted = try await TikiSdk.guardOffer(TikiSdk.instance.offers.values.first!)
                     }catch{
@@ -108,17 +149,23 @@ public struct Settings: View {
     }
     
     func _accept(offer: Offer) {
-        Task{
-            do{
-                isLoading = true
-                let _ = try await TikiSdk.license(offer: TikiSdk.instance.offers.values.first!)
-                accepted = try await TikiSdk.guardOffer(TikiSdk.instance.offers.values.first!)
-                isLoading = false
-            }catch{
-                isLoading = false
-                print(error)
+        if(pendingPermissions != nil && !pendingPermissions!.isEmpty){
+            withAnimation(.easeOut){
+                showError = true
+            }
+        }else{
+            Task{
+                do{
+                    isLoading = true
+                    let _ = try await TikiSdk.license(offer: TikiSdk.instance.offers.values.first!)
+                    accepted = try await TikiSdk.guardOffer(TikiSdk.instance.offers.values.first!)
+                    isLoading = false
+                }catch{
+                    isLoading = false
+                    print(error)
+                }
+                onAccept?(offer, nil)
             }
         }
-        onAccept?(offer, nil)
     }
 }
