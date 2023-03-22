@@ -3,7 +3,8 @@ import SwiftUI
 struct EndingError: View{
     
     @Environment(\.colorScheme) private var colorScheme
-    var pendingPermissions: String
+    @Binding var pendingPermissions: [PermissionType]?
+    var onAuthorized: () -> Void
     
     var body: some View {
         Ending(
@@ -18,7 +19,7 @@ struct EndingError: View{
                         Text("To proceed, allow ")
                             .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                             .foregroundColor(Color(.black).opacity(0.6))
-                        Text("\(pendingPermissions).").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
+                        Text("\(getPendingPermissionsNames()).").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                             .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                             .foregroundColor(Color(.black).opacity(0.6))
                             .underline()
@@ -34,6 +35,33 @@ struct EndingError: View{
                     }
                 }
             )
-        )
+        ).onAppear{
+            requestPendingPermissions()
+        }
+    }
+    
+    
+    func getPendingPermissionsNames() -> String{
+        if(pendingPermissions!.count == 1){
+            return pendingPermissions!.first!.name()
+        }
+        var nameList : [String] = []
+        pendingPermissions!.forEach{ perm in
+            nameList.append(perm.name())
+        }
+        return nameList.joined(separator: ", ")
+    }
+    
+    func requestPendingPermissions(){
+        if(pendingPermissions!.isEmpty){
+            onAuthorized()
+            return
+        }
+        pendingPermissions![0].requestAuth{ isAuthorized in
+            if(isAuthorized){
+                pendingPermissions!.remove(at: 0)
+                requestPendingPermissions()
+            }
+        }
     }
 }
