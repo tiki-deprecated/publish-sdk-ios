@@ -5,7 +5,7 @@
  */
 
 /// An item that describes what can be done with the user data.
-public struct UsedBullet: Hashable {
+public struct Bullet: Hashable {
     
   public init(text: String, isUsed: Bool) {
     self.text = text

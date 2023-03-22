@@ -7,26 +7,27 @@ import Foundation
  */
 public class LicenseUsecase: Codable {
     
-    private var customValue: String?
-    private var usecaseEnum: LicenseUsecaseEnum?
+    private var _value: String
     
-    /// The Usecase String value
+    /// The  String value
     public var value: String{
-        return usecaseEnum?.rawValue ?? customValue!
+        return _value
     }
     
-    public init(_ usecase: String) {
+    public init(_ value: String){
         do {
-            self.usecaseEnum = try LicenseUsecaseEnum.fromValue(value: usecase)
-        } catch {
-            self.customValue = "custom:\(usecase)"
-        }
+           let licenseUsecaseEnum = try LicenseUsecaseEnum.fromValue(value: value)
+            _value = licenseUsecaseEnum.rawValue
+       } catch {
+           _value = "custom:\(value)"
+       }
     }
     
-    public convenience init(_ usecase: LicenseUsecaseEnum){
-        self.init(usecase.rawValue)
+    public init(_ licenseUsecaseEnum: LicenseUsecaseEnum){
+        _value = licenseUsecaseEnum.rawValue
     }
     
+    // TODO encode usecases as list of string
 
     static let attribution = LicenseUsecase(LicenseUsecaseEnum.attribution)
     static let retargeting = LicenseUsecase(LicenseUsecaseEnum.retargeting)

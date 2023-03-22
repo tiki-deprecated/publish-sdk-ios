@@ -9,25 +9,27 @@ import Foundation
 /// parameter.
 public class TitleTag: Codable {
     
-    private var customValue: String?
-    private var titleTagEnum: TitleTagEnum?
+    private var _value: String
     
     /// The TitleTag String value
     public var value: String{
-        return titleTagEnum?.rawValue ?? customValue!
+        return _value
     }
     
-    public init(_ titleTag: String) {
+    public init(_ value: String){
         do {
-            self.titleTagEnum = try TitleTagEnum.fromValue(value: titleTag)
-        } catch {
-            self.customValue = "custom:\(titleTag)"
-        }
+           let titleTagEnum = try TitleTagEnum.fromValue(value: value)
+            _value = titleTagEnum.rawValue
+       } catch {
+           _value = "custom:\(value)"
+       }
     }
     
-    public convenience init(_ titleTag: TitleTagEnum){
-        self.init(titleTag.rawValue)
+    public init(_ titleTagEnum: TitleTagEnum){
+        _value = titleTagEnum.rawValue
     }
+    
+    // TODO encode tag as list of string
     
     public static let emailAddress = TitleTag(TitleTagEnum.emailAddress)
     public static let phoneNumber = TitleTag(TitleTagEnum.phoneNumber)

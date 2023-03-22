@@ -3,6 +3,6 @@
  * MIT license. See LICENSE file in root directory.
  */
 
-struct RspBuild : Decodable {
+struct RspInit : Decodable {
     let address : String
 }

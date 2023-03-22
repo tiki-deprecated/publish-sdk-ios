@@ -29,4 +29,5 @@ public struct LicenseUse: Codable {
         self.usecases = usecases
         self.destinations = destinations
     }
+    
 }

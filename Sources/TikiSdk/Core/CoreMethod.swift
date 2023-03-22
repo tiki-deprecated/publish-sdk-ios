@@ -4,7 +4,7 @@
  */
 
 /// The type of data origin for an ownership registry.
-public enum MethodEnum: String, Codable{
+public enum CoreMethod: String, Codable{
     case build  = "build"
     case license = "license"
     case latest = "latest"

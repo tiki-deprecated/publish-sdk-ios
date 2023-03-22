@@ -28,7 +28,6 @@ struct EndingAccepted: View{
                             onSettings()
                         }
                 }
-
             }))
     }
 }

@@ -3,7 +3,6 @@
  * MIT license. See LICENSE file in root directory.
  */
 
-struct RspTitle: Decodable {
-    let title: TitleRecord?
-    let requestId: String?
+struct RspLicenseList: Decodable{
+    let licenseList: [LicenseRecord]
 }

@@ -9,6 +9,7 @@ import SwiftUI
 /// Controls the UI theming for TikiSdk.
 public class Theme {
     var _primaryTextColor = Color(red: 0, green: 0, blue: 0)
+    var _secondaryTextColor = Color(red: 0, green: 0, blue: 0).opacity(0.6)
     var _primaryBackgroundColor = Color(red: 1, green: 1, blue: 1)
     var _secondaryBackgroundColor = Color(red: 0.96, green:0.96, blue:0.96)
     var _accentColor = Color(red: 0, green: 0.7, blue: 0.44)
@@ -24,19 +25,13 @@ public class Theme {
         ]}
     }
     
-    /// Builds the dark version of the theme.
-    public convenience init(dark: Bool = true) {
-        self.init()
-        self._fontFamily = "SpaceGrotesk"
-    }
-    
     /// Primary text color. Used in the default text items.
     public var primaryTextColor: Color { _primaryTextColor }
     
     /// Secondary text color. Used in specific text items.
     ///
     /// Defaults to [primaryTextColor] with 60% alpha transparency.
-    public var secondaryTextColor: Color { _primaryTextColor.opacity(0.6) }
+    public var secondaryTextColor: Color { _secondaryTextColor }
     
     /// Primary background color. The default color for backgrounds.
     public var primaryBackgroundColor: Color { _primaryBackgroundColor }
@@ -73,27 +68,32 @@ public class Theme {
         }
     }
     
-    public func setPrimaryTextColor(_ primaryTextColor: Color) -> Self {
+    public func primaryTextColor(_ primaryTextColor: Color) -> Self {
         self._primaryTextColor = primaryTextColor
         return self
     }
     
-    public func setPrimaryBackgroundColor(_ primaryBackgroundColor: Color) -> Self {
+    public func secondaryTextColor(_ secondaryTextColor: Color) -> Self {
+        self._secondaryTextColor = secondaryTextColor
+        return self
+    }
+    
+    public func primaryBackgroundColor(_ primaryBackgroundColor: Color) -> Self {
         self._primaryBackgroundColor = primaryBackgroundColor
         return self
     }
     
-    public func setSecondaryBackgroundColor(_ secondaryBackgroundColor: Color) -> Self {
+    public func secondaryBackgroundColor(_ secondaryBackgroundColor: Color) -> Self {
         self._secondaryBackgroundColor = secondaryBackgroundColor
         return self
     }
     
-    public func setAccentColor(_ accentColor: Color) -> Self {
+    public func accentColor(_ accentColor: Color) -> Self {
         self._accentColor = accentColor
         return self
     }
     
-    public func setFontFamily(_ fontFamily: String) -> Self {
+    public func fontFamily(_ fontFamily: String) -> Self {
         self._fontFamily = fontFamily
         return self
     }

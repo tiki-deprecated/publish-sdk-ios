@@ -10,7 +10,7 @@ import MediaPlayer
 import AppTrackingTransparency
 import CoreBluetooth
 
-public enum PermissionType {
+public enum Permission {
     /// Permission to access the device's camera.
     case camera
     
@@ -56,35 +56,34 @@ public enum PermissionType {
     
     public func name() -> String{
         switch self{
-            
-        case .camera:
-            return "camera"
-        case .microphone:
-            return "microphone"
-        case .photoLibrary:
-            return "photo library"
-        case .locationInUse:
-            return "location (in use)"
-        case .locationAlways:
-            return "location (always)"
-        case .notifications:
-            return "notifications"
-        case .calendar:
-            return "calendar"
-        case .contacts:
-            return "contacts"
-        case .reminders:
-            return "reminders"
-        case .speechRecognition:
-            return "speech recognition"
-        case .health:
-            return "health"
-        case .mediaLibrary:
-            return "media library"
-        case .motion:
-            return "motion"
-        case .tracking:
-            return "tracking"
+            case .camera:
+                return "camera"
+            case .microphone:
+                return "microphone"
+            case .photoLibrary:
+                return "photo library"
+            case .locationInUse:
+                return "location (in use)"
+            case .locationAlways:
+                return "location (always)"
+            case .notifications:
+                return "notifications"
+            case .calendar:
+                return "calendar"
+            case .contacts:
+                return "contacts"
+            case .reminders:
+                return "reminders"
+            case .speechRecognition:
+                return "speech recognition"
+            case .health:
+                return "health"
+            case .mediaLibrary:
+                return "media library"
+            case .motion:
+                return "motion"
+            case .tracking:
+                return "tracking"
         }
     }
     

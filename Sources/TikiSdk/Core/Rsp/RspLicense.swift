@@ -5,5 +5,4 @@
 
 struct RspLicense: Decodable {
     let license: LicenseRecord?
-    let requestId: String?
 }
