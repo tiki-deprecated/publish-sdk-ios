@@ -3,7 +3,7 @@ import SwiftUI
 struct EndingError: View{
     
     @Environment(\.colorScheme) private var colorScheme
-    @Binding var pendingPermissions: [PermissionType]?
+    @Binding var pendingPermissions: [Permission]?
     var onAuthorized: () -> Void
     
     var body: some View {

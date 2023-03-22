@@ -21,14 +21,16 @@ public class TikiSdk{
     private var _address: String? = nil
     private var _onAccept: ((Offer, LicenseRecord) -> Void)?
     private var _onDecline: ((Offer, LicenseRecord?)  -> Void)?
-    private var _onSettings: (() -> Void)?
+    private var _onSettings: (() -> Void) = {
+        try? TikiSdk.settings()
+    }
     private var _isAcceptEndingDisabled = false
     private var _isDeclineEndingDisabled = false
     private var _offers = [String: Offer]()
     private let _theme = Theme()
     private var _dark: Theme?
     private var _defaultTerms: String = "default terms"
-    private var tikiPlatformChannel: TikiPlatformChannel = TikiPlatformChannel()
+    private var coreChannel: CoreChannel = CoreChannel()
     
     private init() {}
     
@@ -41,7 +43,7 @@ public class TikiSdk{
     public var dark: Theme {
         get{
             if(_dark == nil){
-                _dark = Theme(dark: true)
+                _dark = Theme()
             }
             return _dark!
         }
@@ -71,12 +73,8 @@ public class TikiSdk{
         }
     }
     
-    public func getActiveTheme(_ colorScheme: ColorScheme ) -> Theme {
-        return colorScheme == .dark && _dark != nil ? _dark! : _theme
-    }
-    
-    static func theme(_ colorScheme: ColorScheme) -> Theme {
-        return colorScheme == .dark && instance._dark != nil ? instance._dark! : instance._theme
+    static func theme(_ colorScheme: ColorScheme? = nil) -> Theme {
+        return colorScheme != nil && colorScheme == .dark && instance._dark != nil ? instance._dark! : instance._theme
     }
     
     public static func present() throws {
@@ -91,9 +89,11 @@ public class TikiSdk{
             rootView:OfferFlow(
                 activeOffer: TikiSdk.instance.offers.values.first!,
                 offers: TikiSdk.instance.offers,
+                onSettings: instance._onSettings,
                 onDismiss: {viewController!.dismiss( animated: true, completion: nil )},
                 onAccept: instance._onAccept,
-                onDecline: instance._onDecline)
+                onDecline: instance._onDecline
+                )
             )
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
@@ -110,7 +110,9 @@ public class TikiSdk{
             throw TikiSdkError(message: "To proceed, kindly utilize the TikiSdk.offer() method to include at least one offer.", stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
         }
         let viewController = UIApplication.shared.windows.first?.rootViewController
-        let vc = UIHostingController(rootView: Settings(onDismiss: {
+        let vc = UIHostingController(rootView: Settings(
+            offers: TikiSdk.instance.offers,
+            onDismiss: {
             viewController!.dismiss( animated: true, completion: nil )
             
         }))
@@ -127,6 +129,12 @@ public class TikiSdk{
     /// Adds a new [Offer] for the user;
     public func addOffer(_ offer: Offer) -> TikiSdk {
         _offers[offer.id] = offer
+        return TikiSdk.instance
+    }
+    
+    /// Remove offer
+    public func removeOffer(_ offerId: String) -> TikiSdk {
+        _offers.removeValue(forKey: offerId)
         return TikiSdk.instance
     }
 
@@ -167,7 +175,7 @@ public class TikiSdk{
     /// The onSettings() event is triggered when the user selects "settings" in the
     /// ending screen. If a callback function is not registered, the SDK defaults to
     /// calling the TikiSdk.settings() method.
-    public func onSettings(_ onSettings: (() -> Void)?) -> TikiSdk {
+    public func onSettings(_ onSettings: @escaping () -> Void) -> TikiSdk {
         _onSettings = onSettings
         return self
     }
@@ -180,21 +188,26 @@ public class TikiSdk{
     ///     - address: The *address* of the user node in TIKI blockchain. If nil a new address will be created.
     ///
     /// - Throws: *TikiSdkError*
-    public func initialize(publishingId: String, id: String, origin: String? = nil) async throws{
-        let rspBuild: RspBuild = try await withCheckedThrowingContinuation{ continuation in
-            let buildRequest = ReqBuild(publishingId: publishingId, id: id, origin: origin ?? Bundle.main.bundleIdentifier!)
-            do{
-                try self.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.build,
-                    request: buildRequest,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
+    public func initialize(publishingId: String, id: String, onComplete: (() -> Void)? = nil, origin: String? = nil) throws{
+        Task{
+            let rspBuild: RspInit = try await withCheckedThrowingContinuation{ continuation in
+                let buildRequest = ReqInit(publishingId: publishingId, id: id, origin: origin ?? Bundle.main.bundleIdentifier!)
+                do{
+                    try self.coreChannel.invokeMethod(
+                        method: CoreMethod.build,
+                        request: buildRequest,
+                        continuation: continuation
+                    )
+                }catch{
+                    continuation.resume(throwing: error)
+                }
+                
             }
-            
+            self._address = rspBuild.address
+            DispatchQueue.main.async {
+                onComplete?()
+            }
         }
-        self._address = rspBuild.address
     }
 
     
@@ -213,7 +226,6 @@ public class TikiSdk{
         
         let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
             do{
-                
                 let licenseReq = ReqLicense(
                     ptr: offer.ptr,
                     terms: offer.terms,
@@ -222,8 +234,8 @@ public class TikiSdk{
                     tags: offer.tags,
                     expiry: offer.expiry
                 )
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.license,
+                try instance.coreChannel.invokeMethod(
+                    method: CoreMethod.license,
                     request: licenseReq,
                     continuation: continuation
                 )
@@ -233,33 +245,6 @@ public class TikiSdk{
         }
         return rspLicense.license!
     }
-
-    public static func revokeLicense(offer: Offer) async throws -> LicenseRecord? {
-        
-        let isLicensed = try await guardOffer(offer)
-        if(!isLicensed){
-            return nil
-        }
-        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let licenseReq = ReqLicense(
-                    ptr: offer.ptr,
-                    terms: offer.terms,
-                    licenseDescription: offer.description,
-                    uses: []
-                )
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.license,
-                    request: licenseReq,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspLicense.license!
-    }
-
     
     /**
      * Guard against an invalid LicenseRecord for a List of usecases an destinations.
@@ -298,12 +283,12 @@ public class TikiSdk{
      * - Returns: True if the user has access, false otherwise.
      */
     public static func `guard`(ptr: String, usecases: [LicenseUsecase], destinations: [String],
-               onPass: (() -> Void)? = nil, onFail: ((String) -> Void)? = nil, origin: String? = nil) async throws -> Bool {
+               onPass: (() -> Void)? = nil, onFail: ((String?) -> Void)? = nil, origin: String? = nil) async throws -> Bool {
         let rspGuard: RspGuard = try await withCheckedThrowingContinuation{ continuation in
             let guardReq = ReqGuard(ptr: ptr, usecases: usecases, destinations: destinations, origin: origin)
             do{
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.guard,
+                try instance.coreChannel.invokeMethod(
+                    method: CoreMethod.guard,
                     request: guardReq,
                     continuation: continuation
                 )
@@ -314,37 +299,9 @@ public class TikiSdk{
         if(rspGuard.success){
             onPass?();
         }else{
-            onFail?(rspGuard.reason ?? "no consent")
+            onFail?(rspGuard.reason)
         }
         return rspGuard.success
-    }
-    
-    
-    /**
-     * Guard against an invalid LicenseRecord for an Offer
-     *
-     * This is a wrapper to the guard method, passing an Offer.
-     *
-     * - Parameters:
-     *   - offer: The Offer to be checked for a LicenseRecord.
-     *   - onPass: A Function to execute automatically upon successfully resolving the LicenseRecord
-     *     against the usecases and destinations.
-     *   - onFail: A Function to execute automatically upon failure to resolve the LicenseRecord.
-     *     Accepts a String parameter, holding an error message describing the reason for failure.
-     *   - origin: An optional override of the default origin specified in.
-     * - Returns: True if the user has access, false otherwise.
-     */
-    public static func guardOffer(_ offer: Offer, onPass: (() -> Void)? = nil, onFail: ((String) -> Void)? = nil)async throws -> Bool {
-        let ptr : String = offer.ptr
-        var usecases: [LicenseUsecase] = []
-        var destinations: [String] = []
-        offer.uses.forEach{ licenseUse in
-            if(licenseUse.destinations != nil){
-                destinations.append(contentsOf: licenseUse.destinations!)
-            }
-            usecases.append(contentsOf: licenseUse.usecases)
-        }
-        return try await `guard`(ptr: ptr, usecases: usecases, destinations: destinations, onPass: onPass, onFail: onFail)
     }
     
     /**
@@ -364,8 +321,8 @@ public class TikiSdk{
                     tags: tags ?? [],
                     origin: origin
                 )
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.title,
+                try instance.coreChannel.invokeMethod(
+                    method: CoreMethod.title,
                     request: reqTitle,
                     continuation: continuation
                 )
@@ -388,8 +345,8 @@ public class TikiSdk{
                     id: id,
                     origin: origin
                 )
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.getTitle,
+                try instance.coreChannel.invokeMethod(
+                    method: CoreMethod.getTitle,
                     request: reqTitle,
                     continuation: continuation
                 )
@@ -412,8 +369,8 @@ public class TikiSdk{
                     id: id,
                     origin: origin
                 )
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.getLicense,
+                try instance.coreChannel.invokeMethod(
+                    method: CoreMethod.getLicense,
                     request: reqLicense,
                     continuation: continuation
                 )
@@ -438,8 +395,8 @@ public class TikiSdk{
                     ptr: ptr,
                     origin: origin
                 )
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.all,
+                try instance.coreChannel.invokeMethod(
+                    method: CoreMethod.all,
                     request: reqAll,
                     continuation: continuation
                 )
@@ -464,8 +421,8 @@ public class TikiSdk{
                     ptr: ptr,
                     origin: origin
                 )
-                try instance.tikiPlatformChannel.invokeMethod(
-                    method: MethodEnum.latest,
+                try instance.coreChannel.invokeMethod(
+                    method: CoreMethod.latest,
                     request: reqLicense,
                     continuation: continuation
                 )

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum OfferFlowStepEnum{
+enum OfferFlowStep{
     case none,
          prompt,
          terms,

@@ -44,29 +44,3 @@ public struct Ending: View {
         .background(backgroundColor ?? TikiSdk.theme(colorScheme).primaryBackgroundColor)
     }
 }
-
-struct YourChoice: View{
-    @Environment(\.colorScheme) private var colorScheme
-    
-    var body: some View{
-        HStack(spacing: 0){
-            Text("YOUR ")
-                .font(.custom(TikiSdk.theme(colorScheme).fontBold, size:20))
-                .foregroundColor(TikiSdk.theme(colorScheme).accentColor)
-            Text("CHOICE")
-                .font(.custom(TikiSdk.theme(colorScheme).fontBold, size: 20))
-        }
-        .frame(maxWidth: .infinity, alignment: .center)
-    }
-}
-
-struct Whoops: View{
-    @Environment(\.colorScheme) private var colorScheme
-    
-    var body: some View{
-        HStack(spacing: 0){
-            Text("WHOOPS").font(.custom(TikiSdk.theme(colorScheme).fontBold, size: 20))
-                .foregroundColor(Color(red:0.78, green: 0.18, blue: 0))
-        }.frame(maxWidth: .infinity, alignment: .center)
-    }
-}

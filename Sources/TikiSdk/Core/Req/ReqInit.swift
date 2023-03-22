@@ -9,7 +9,7 @@ import Foundation
 ///
 /// It requires an *publishingId]* and an *origin]*. If no *address* is provided the SDK
 /// will create a new one
-struct ReqBuild: Encodable {
+struct ReqInit: Encodable {
     let publishingId : String
     let id : String
     let origin : String

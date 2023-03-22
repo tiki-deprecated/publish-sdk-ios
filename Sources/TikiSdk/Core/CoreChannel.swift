@@ -7,7 +7,7 @@ import Flutter
 import FlutterPluginRegistrant
 
 /// The definition of Flutter Platform Channels for TIKI SDK
-public class TikiPlatformChannel {
+public class CoreChannel {
     
     private var channel: FlutterMethodChannel?
     
@@ -57,7 +57,7 @@ public class TikiPlatformChannel {
             DispatchQueue.main.async {
                 flutterEngine.run()
                 GeneratedPluginRegistrant.register(with: flutterEngine);
-                self.channel = FlutterMethodChannel.init(name: TikiPlatformChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+                self.channel = FlutterMethodChannel.init(name: CoreChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
                 self.channel!.setMethodCallHandler(self.handle)
                 continuation.resume()
             }
@@ -65,7 +65,7 @@ public class TikiPlatformChannel {
     }
     
     public func invokeMethod<T: Decodable, R: Encodable>(
-        method: MethodEnum,
+        method: CoreMethod,
         request: R,
         continuation: CheckedContinuation<T, Error>
     ) throws -> Void {
@@ -87,17 +87,10 @@ public class TikiPlatformChannel {
                 continuation.resume(throwing: error)
             }
         }
-        if(channel == nil){
-            Task{
+        Task{
+            if(channel == nil){
                 await initChannel()
-                channel!.invokeMethod(
-                    method.rawValue, arguments: [
-                        "requestId" : requestId,
-                        "request" : jsonRequest
-                    ]
-                )
             }
-        }else{
             channel!.invokeMethod(
                 method.rawValue, arguments: [
                     "requestId" : requestId,

@@ -5,13 +5,14 @@ public struct OfferFlow: View{
     @Environment(\.colorScheme) private var colorScheme
     
     @State var activeOffer: Offer
-    @State var pendingPermissions: [PermissionType]? = nil
-    @State var step: OfferFlowStepEnum = .none
+    @State var pendingPermissions: [Permission]? = nil
+    @State var step: OfferFlowStep = .none
     @State var dragOffsetY: CGFloat = 0
     @State var loading: Bool = false
     
     let offers: [String: Offer]
     
+    var onSettings: (() -> Void)
     var onDismiss: (() -> Void)
     var onAccept: ((Offer, LicenseRecord) -> Void)?
     var onDecline: ((Offer, LicenseRecord?) -> Void)?
@@ -39,14 +40,20 @@ public struct OfferFlow: View{
                 .transition(.bottomSheet).zIndex(2)
             }
             if(step == .endingAccepted){
-                EndingAccepted().asBottomSheet(
+                EndingAccepted(
+                    onSettings: onSettings,
+                    dismiss: dismissSheet
+                ).asBottomSheet(
                     isShowing: isShowingBinding(.endingAccepted),
                     offset: $dragOffsetY,
                     onDismiss: dismissSheet)
                 .transition(.bottomSheet)
             }
             if(step == .endingDeclined){
-                EndingDeclined().asBottomSheet(
+                EndingDeclined(
+                    onSettings: onSettings,
+                    dismiss: dismissSheet
+                ).asBottomSheet(
                     isShowing: isShowingBinding(.endingAccepted),
                     offset: $dragOffsetY,
                     onDismiss: dismissSheet
@@ -68,7 +75,7 @@ public struct OfferFlow: View{
                 .transition(.bottomSheet)
             }
             if(step == .terms){
-                Terms(onAccept: onAcceptTerms, terms: activeOffer.terms)
+                Terms(onAccept: onAcceptTerms, terms: activeOffer.terms!)
                     .asNavigationRoute(
                         isShowing: isShowingBinding(.terms),
                         title: "Terms and conditions",
@@ -86,18 +93,6 @@ public struct OfferFlow: View{
                     )
                     .zIndex(1)
                     .transition(.navigate)
-            }
-            if(loading){
-                ZStack{
-                    Color(.black)
-                        .opacity(0.2)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .contentShape(Rectangle())
-                        .ignoresSafeArea()
-                    ProgressView()
-                }
-                .zIndex(2)
-                .transition(.opacity)
             }
         }.onAppear{
             if(step == .none){
@@ -123,19 +118,21 @@ public struct OfferFlow: View{
         )
     }
     
-    func goTo(_ step: OfferFlowStepEnum){
+    func goTo(_ step: OfferFlowStep){
         withAnimation(.easeOut){
             self.step = step
         }
     }
     
-    func isShowingBinding(_ step: OfferFlowStepEnum) -> Binding<Bool>{
-        return Binding<Bool>(get: {
-            self.step == step
-        }, set: { isShowing in
-            withAnimation(.easeOut){
-                self.step = isShowing ? step : .none
-            }
+    func isShowingBinding(_ step: OfferFlowStep) -> Binding<Bool>{
+        return Binding<Bool>(
+            get: {
+                self.step == step
+            },
+            set: { isShowing in
+                withAnimation(.easeOut){
+                    self.step = isShowing ? step : .none
+                }
         })
     }
     
@@ -188,14 +185,8 @@ public struct OfferFlow: View{
     func decline(_ offer: Offer){
         Task{
             loading = true
-            do{
-                let license: LicenseRecord? = try await TikiSdk.revokeLicense(offer: offer)
-                onDecline?(offer, license)
-                goTo(.endingDeclined)
-            }catch{
-                print(error)
-                loading = false
-            }
+            onDecline?(offer, nil)
+            goTo(.endingDeclined)
             loading = false
         }
     }

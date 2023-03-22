@@ -3,6 +3,8 @@ import SwiftUI
 struct EndingDeclined: View{
     
     @Environment(\.colorScheme) private var colorScheme
+    var onSettings: (() -> Void)
+    var dismiss: (() -> Void)
     
     var body: some View {
         Ending(
@@ -28,11 +30,8 @@ struct EndingDeclined: View{
                             .fontWeight(.ultraLight)
                             .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                             .onTapGesture {
-                                do{
-                                    try TikiSdk.settings()
-                                }catch{
-                                    print(error)
-                                }
+                                dismiss()
+                                onSettings()
                             }
                     }
                 }
