@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8C6165FE294BC9B20032A058"
-               BuildableName = "IntegrationTestsRunner.app"
-               BlueprintName = "IntegrationTestsRunner"
-               ReferencedContainer = "container:IntegrationTests.xcodeproj">
+               BuildableName = "TestsRunner.app"
+               BlueprintName = "TestsRunner"
+               ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,15 +33,26 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8C61660D294BC9B50032A058"
-               BuildableName = "IntegrationTests.xctest"
-               BlueprintName = "IntegrationTests"
-               ReferencedContainer = "container:IntegrationTests.xcodeproj">
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
+               ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
             <SkippedTests>
                <Test
                   Identifier = "TikiSdkHostAppTests">
                </Test>
             </SkippedTests>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8CBC12A529CB2FCB00A451B2"
+               BuildableName = "UnitTests.xctest"
+               BlueprintName = "UnitTests"
+               ReferencedContainer = "container:Tests.xcodeproj">
+            </BuildableReference>
          </TestableReference>
       </Testables>
    </TestAction>
@@ -60,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8C6165FE294BC9B20032A058"
-            BuildableName = "IntegrationTestsRunner.app"
-            BlueprintName = "IntegrationTestsRunner"
-            ReferencedContainer = "container:IntegrationTests.xcodeproj">
+            BuildableName = "TestsRunner.app"
+            BlueprintName = "TestsRunner"
+            ReferencedContainer = "container:Tests.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -77,9 +88,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8C6165FE294BC9B20032A058"
-            BuildableName = "IntegrationTestsRunner.app"
-            BlueprintName = "IntegrationTestsRunner"
-            ReferencedContainer = "container:IntegrationTests.xcodeproj">
+            BuildableName = "TestsRunner.app"
+            BlueprintName = "TestsRunner"
+            ReferencedContainer = "container:Tests.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

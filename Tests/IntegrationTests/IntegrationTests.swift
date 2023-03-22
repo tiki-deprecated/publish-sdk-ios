@@ -27,18 +27,18 @@ class IntegrationTests: XCTestCase {
         do{
             try await TikiSdk.config()
                 .theme
-                    .setPrimaryTextColor(.white)
-                    .setPrimaryBackgroundColor(.white)
-                    .setSecondaryBackgroundColor(.white)
-                    .setAccentColor(.white)
-                    .setFontFamily("test")
+                    .primaryTextColor(.white)
+                    .primaryBackgroundColor(.white)
+                    .secondaryBackgroundColor(.white)
+                    .accentColor(.white)
+                    .fontFamily("test")
                     .and()
                 .dark
-                    .setPrimaryTextColor(.white)
-                    .setPrimaryBackgroundColor(.white)
-                    .setSecondaryBackgroundColor(.white)
-                    .setAccentColor(.white)
-                    .setFontFamily("test")
+                    .primaryTextColor(.white)
+                    .primaryBackgroundColor(.white)
+                    .secondaryBackgroundColor(.white)
+                    .accentColor(.white)
+                    .fontFamily("test")
                     .and()
                 .offer
                     .id("randomId")
@@ -51,7 +51,7 @@ class IntegrationTests: XCTestCase {
                     .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
                     .tag(TitleTag(TitleTagEnum.advertisingData))
                     .duration(365 * 24 * 60 * 60)
-                    .permission(PermissionType.camera)
+                    .permission(Permission.camera)
                     .add()
                 .offer
                     .id("randomId2")
@@ -64,7 +64,7 @@ class IntegrationTests: XCTestCase {
                     .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
                     .tag(TitleTag(TitleTagEnum.advertisingData))
                     .duration(365 * 24 * 60 * 60)
-                    .permission(PermissionType.camera)
+                    .permission(Permission.camera)
                     .add()
                 .onAccept { _, __ in }
                 .onDecline { _, __ in }
@@ -94,7 +94,7 @@ class IntegrationTests: XCTestCase {
     func testLicense() async throws{
         do{
             try await TikiSdk.config().initialize(publishingId: publishingId, id:id)
-            let offer = Offer()
+            let offer = try Offer()
                 .id("randomId")
                 .bullet(text: "test 1", isUsed: true)
                 .bullet(text: "test 2", isUsed: false)
@@ -104,7 +104,7 @@ class IntegrationTests: XCTestCase {
                 .terms("path/terms.md")
                 .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
                 .tag(TitleTag(TitleTagEnum.advertisingData))
-                .permission(PermissionType.camera)
+                .permission(Permission.camera)
             let license = try await TikiSdk.license(offer: offer)
             XCTAssertEqual(license.description, "testing")
             XCTAssertEqual(license.uses[0].usecases[0].value, LicenseUsecase(LicenseUsecaseEnum.support).value)
@@ -118,7 +118,7 @@ class IntegrationTests: XCTestCase {
     func testGuard() async throws{
         do{
             try await TikiSdk.config().initialize(publishingId: publishingId, id:id)
-            let offer = Offer()
+            let offer = try Offer()
                 .id("randomId")
                 .bullet(text: "test 1", isUsed: true)
                 .bullet(text: "test 2", isUsed: false)
@@ -128,7 +128,7 @@ class IntegrationTests: XCTestCase {
                 .terms("path/terms.md")
                 .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
                 .tag(TitleTag(TitleTagEnum.advertisingData))
-                .permission(PermissionType.camera)
+                .permission(Permission.camera)
             let license = try await TikiSdk.license(offer: offer)
             let guardResult = try await TikiSdk.guard(ptr: "source", usecases:[LicenseUsecase(LicenseUsecaseEnum.support)], destinations: [])
             XCTAssert(guardResult)
