@@ -4,12 +4,12 @@ struct UsedFor: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
-    let bullets: [UsedBullet]
+    let bullets: [Bullet]
     var primaryTextColor: Color? = nil
     var secondaryTextColor: Color? = nil
     var fontFamily: String? = nil
 
-    init(bullets: [UsedBullet], primaryTextColor: Color? = nil, secondaryTextColor: Color? = nil, fontFamily: String? = nil ) {
+    init(bullets: [Bullet], primaryTextColor: Color? = nil, secondaryTextColor: Color? = nil, fontFamily: String? = nil ) {
         self.bullets = bullets
         self.primaryTextColor = primaryTextColor
         self.secondaryTextColor = secondaryTextColor

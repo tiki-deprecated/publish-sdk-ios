@@ -84,21 +84,37 @@ public class TikiSdk{
         if(instance.offers.isEmpty){
             throw TikiSdkError(message: "To proceed, kindly utilize the TikiSdk.offer() method to include at least one offer.", stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
         }
-        let viewController = UIApplication.shared.windows.first?.rootViewController
-        let vc = UIHostingController(
-            rootView:OfferFlow(
-                activeOffer: TikiSdk.instance.offers.values.first!,
-                offers: TikiSdk.instance.offers,
-                onSettings: instance._onSettings,
-                onDismiss: {viewController!.dismiss( animated: true, completion: nil )},
-                onAccept: instance._onAccept,
-                onDecline: instance._onDecline
+        let presentOffer = {
+            DispatchQueue.main.async {
+                let viewController = UIApplication.shared.windows.first?.rootViewController
+                let vc = UIHostingController(
+                    rootView:OfferFlow(
+                        activeOffer: TikiSdk.instance.offers.values.first!,
+                        offers: TikiSdk.instance.offers,
+                        onSettings: instance._onSettings,
+                        onDismiss: {viewController!.dismiss( animated: true, completion: nil )},
+                        onAccept: instance._onAccept,
+                        onDecline: instance._onDecline
+                    )
                 )
-            )
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        vc.view.layer.backgroundColor = UIColor.black.withAlphaComponent(0.3).cgColor
-        viewController!.present(vc, animated: true, completion: nil)
+                vc.modalPresentationStyle = .overFullScreen
+                vc.modalTransitionStyle = .crossDissolve
+                vc.view.layer.backgroundColor = UIColor.black.withAlphaComponent(0.3).cgColor
+                viewController!.present(vc, animated: true, completion: nil)
+            }
+        }
+        Task{
+            let ptr : String = TikiSdk.instance.offers.values.first!.ptr!
+            var usecases: [LicenseUsecase] = []
+            var destinations: [String] = []
+            TikiSdk.instance.offers.values.first!.uses.forEach{ licenseUse in
+                if(licenseUse.destinations != nil){
+                    destinations.append(contentsOf: licenseUse.destinations!)
+                }
+                usecases.append(contentsOf: licenseUse.usecases)
+            }
+            let _ = try await self.guard(ptr: ptr, usecases: usecases, destinations: destinations, onFail: {_ in presentOffer()})
+       }
     }
 
     /// Shows the pre built Settings UI
