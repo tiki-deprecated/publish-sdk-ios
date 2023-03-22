@@ -10,8 +10,8 @@ struct ReqLicense: Encodable {
     var terms: String?
     var titleDescription: String?
     var licenseDescription: String?
-    var origin: String?
     var uses: [LicenseUse] = []
     var tags: [TitleTag] = []
     var expiry: Date?
+    var origin: String?
 }

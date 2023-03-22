@@ -19,7 +19,7 @@
   */
 public struct TitleRecord: Codable {
      let id: String
-     let ptr: String
+     let hashedPtr: String
      let tags: [TitleTag]
      let description: String?
      let origin: String?
