@@ -29,7 +29,24 @@ public class TitleTag: Codable {
         _value = titleTagEnum.rawValue
     }
     
-    // TODO encode tag as list of string
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        var value: String = try container.decode(String.self)
+        if(value.hasPrefix("custom:")){
+            value = String(value.dropFirst("custom:".count))
+        }
+        do {
+           let titleTagEnum = try TitleTagEnum.fromValue(value: value)
+            _value = titleTagEnum.rawValue
+       } catch {
+           _value = "custom:\(value)"
+       }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(value)
+    }
     
     public static let emailAddress = TitleTag(TitleTagEnum.emailAddress)
     public static let phoneNumber = TitleTag(TitleTagEnum.phoneNumber)

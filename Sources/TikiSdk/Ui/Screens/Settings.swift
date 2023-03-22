@@ -148,7 +148,7 @@ public struct Settings: View {
                 revokedOffer.permissions = offer.permissions
                 revokedOffer.expiry = offer.expiry
                 revokedOffer.uses = []
-                let _ = try await TikiSdk.license(offer: revokedOffer)
+                let _ = try await license(offer: revokedOffer)
                 accepted = try await self.guard()
                 isLoading = false
             }catch{
@@ -168,7 +168,7 @@ public struct Settings: View {
             Task{
                 do{
                     isLoading = true
-                    let _ = try await TikiSdk.license(offer: offer)
+                    let _ = try await license(offer: offer)
                     accepted = try await self.guard()
                     isLoading = false
                 }catch{
@@ -192,4 +192,9 @@ public struct Settings: View {
         }
         return try await TikiSdk.guard(ptr: ptr, usecases: usecases, destinations: destinations)
     }
+    
+    func license(offer: Offer) async throws -> LicenseRecord {
+        return try await TikiSdk.license( offer.ptr!, offer.uses, offer.terms!, tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
+    }
+    
 }

@@ -170,7 +170,7 @@ public struct OfferFlow: View{
         Task{
             loading = true
             do{
-                let license: LicenseRecord = try await TikiSdk.license(offer: offer)
+                let license: LicenseRecord = try await license(offer: offer)
                 onAccept?(offer, license)
                 print(license)
                 loading = false
@@ -189,6 +189,10 @@ public struct OfferFlow: View{
             goTo(.endingDeclined)
             loading = false
         }
+    }
+    
+    func license(offer: Offer) async throws -> LicenseRecord {
+        return try await TikiSdk.license( offer.ptr!, offer.uses, offer.terms!, tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
     }
     
 }
