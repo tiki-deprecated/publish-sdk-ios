@@ -1,9 +1,7 @@
-## 1.1.1
+## 2.0.0
 
-* 
-## 1.1.0
-
-*
+* Upgrade Tiki SDK Flutter dependency to 2.1.2
+* Implement SDK UI
 ## 1.0.2
 
 * update release workflow
