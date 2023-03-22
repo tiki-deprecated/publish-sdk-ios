@@ -3,9 +3,9 @@ import SwiftUI
 struct BottomSheet: ViewModifier {
 
     @Environment(\.colorScheme) var colorScheme
-    
     @Binding var isShowing: Bool
     @Binding var offset: CGFloat
+    
     var onDismiss: (() -> Void)?
     
     func body(content: Content) -> some View {

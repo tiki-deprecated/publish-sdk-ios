@@ -18,7 +18,6 @@ public struct Settings: View {
     var onAccept: ((Offer?, LicenseRecord?) -> Void)? = nil
     var onDecline: ((Offer?, LicenseRecord?) -> Void)? = nil
     
-
     public init(
         offers: [String:Offer],
         onDismiss: @escaping (() -> Void),
