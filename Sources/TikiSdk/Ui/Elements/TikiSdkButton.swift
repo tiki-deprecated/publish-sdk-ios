@@ -7,6 +7,7 @@ import SwiftUI
 
 public struct TikiSdkButton: View {
     
+    @State private var debounceWorkItem: DispatchWorkItem?
     @Environment(\.colorScheme) private var colorScheme
     
     /// The button's text label.
@@ -73,7 +74,11 @@ public struct TikiSdkButton: View {
                         .stroke(borderColor!, lineWidth: 1)
                 )
         .onTapGesture() {
-            onTap()
+            self.debounceWorkItem?.cancel()
+            self.debounceWorkItem = DispatchWorkItem {
+                onTap()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: self.debounceWorkItem!)
         }
     }
 }
