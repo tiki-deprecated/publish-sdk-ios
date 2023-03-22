@@ -212,27 +212,35 @@ public class TikiSdk{
 
     
     /**
-     * Create a new LicenseRecord.
+     * Creates a new LicenseRecord.
      *
-     * If a TitleRecord for the Offer.ptr is not found, a new TitleRecord is created.
-     * If a TitleRecord is found, Offer.tags and Offer.description parameters are ignored.
-     *
+     * If a TitleRecord for the ptr and origin is not found, a new TitleRecord is created. If a TitleRecord is found, tags and titleDescription parameters are ignored.
+
      * - Parameters:
-     *   - offer: The Offer object containing details of the offer.
-     *   - accepted: The date when the license was accepted.
-     * - Returns: The newly created LicenseRecord object.
-     */
-    public static func license(offer: Offer) async throws -> LicenseRecord {
-        
+     *  ptr: The Pointer Records identifies data stored in your system, similar to a foreign key. Learn more about selecting good pointer records at
+     *  https://docs.mytiki.com/docs/selecting-a-pointer-record.
+     *  uses: A List defining how and where an asset may be used, in the format of usecases and destinations, per the terms of the license. Learn more about defining uses
+     *  https://docs.mytiki.com/docs/specifying-terms-and-usage.
+     *  terms: The legal terms of the contract (a lot of words).
+     *  origin: An optional override of the default origin specified in init. Follow a reverse-DNS syntax. i.e. com.myco.myapp.
+     *  tags: A List of metadata tags included in the TitleRecord describing the asset, for your use in record search and filtering. Learn more about adding tags at *
+     *  https://docs.mytiki.com/docs/adding-tags. Only set IF a title does not already exist for the ptr.
+     *  titleDescription: Sets the TitleRecord description IF a title does not already exist for the ptr. A short, human-readable, description of the TitleRecord as a future reminder.
+     *  licenseDescription: A short, human-readable, description of the LicenseRecord as a future reminder.
+     *  expiry: A LicenseRecord expiration date. Leave nil if the license never expires.
+     * - Returns: The created LicenseRecord
+    */
+    static func license(_ ptr: String, _ uses: [LicenseUse], _ terms: String, tags: [TitleTag] = [], titleDescription: String? = nil, licenseDescription: String? = nil, expiry: Date? = nil, origin: String? = nil) async throws -> LicenseRecord {
         let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
             do{
                 let licenseReq = ReqLicense(
-                    ptr: offer.ptr,
-                    terms: offer.terms,
-                    licenseDescription: offer.description,
-                    uses: offer.uses,
-                    tags: offer.tags,
-                    expiry: offer.expiry
+                    ptr: ptr,
+                    terms: terms,
+                    titleDescription: titleDescription,
+                    licenseDescription: licenseDescription,
+                    uses: uses,
+                    tags: tags,
+                    expiry: expiry
                 )
                 try instance.coreChannel.invokeMethod(
                     method: CoreMethod.license,
