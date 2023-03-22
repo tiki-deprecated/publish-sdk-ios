@@ -6,7 +6,6 @@ public struct Settings: View {
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     
     @State var accepted: Bool? = nil
-    @State var isLoading: Bool = false
     @State var showError: Bool = false
     @State var showLearnMore: Bool = false
     @State var pendingPermissions: [Permission]? = nil
@@ -68,7 +67,7 @@ public struct Settings: View {
                             .edgesIgnoringSafeArea(.horizontal)
                             .padding(.bottom, 30)
                             .padding(.horizontal, 15)
-                        if(accepted == nil || isLoading){
+                        if(accepted == nil){
                             ProgressView()
                         }else if(accepted!){
                             TikiSdkButton("Opt out",
@@ -136,7 +135,6 @@ public struct Settings: View {
     func _decline(offer: Offer) {
         Task{
             do{
-                isLoading = true
                 let revokedOffer = Offer()
                     .id(offer.id)
                     .ptr(offer.ptr!)
@@ -150,9 +148,7 @@ public struct Settings: View {
                 revokedOffer.uses = []
                 let _ = try await license(offer: revokedOffer)
                 accepted = try await self.guard()
-                isLoading = false
             }catch{
-                isLoading = false
                 print(error)
             }
         }
@@ -167,12 +163,9 @@ public struct Settings: View {
         }else{
             Task{
                 do{
-                    isLoading = true
-                    let _ = try await license(offer: offer)
+                    let _ = try await TikiSdk.license(offer: offer)
                     accepted = try await self.guard()
-                    isLoading = false
                 }catch{
-                    isLoading = false
                     print(error)
                 }
                 onAccept?(offer, nil)

@@ -8,7 +8,6 @@ public struct OfferFlow: View{
     @State var pendingPermissions: [Permission]? = nil
     @State var step: OfferFlowStep = .none
     @State var dragOffsetY: CGFloat = 0
-    @State var loading: Bool = false
     
     let offers: [String: Offer]
     
@@ -168,26 +167,21 @@ public struct OfferFlow: View{
     
     func accept(_ offer: Offer){
         Task{
-            loading = true
             do{
                 let license: LicenseRecord = try await license(offer: offer)
                 onAccept?(offer, license)
                 print(license)
-                loading = false
                 goTo(.endingAccepted)
             }catch{
                 print(error)
-                loading = false
             }
         }
     }
     
     func decline(_ offer: Offer){
         Task{
-            loading = true
             onDecline?(offer, nil)
             goTo(.endingDeclined)
-            loading = false
         }
     }
     
