@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C015E0429CB4B590024E1B5 /* learnMore.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C015E0329CB4AD00024E1B5 /* learnMore.md */; };
 		8C24F90C29BA770500A030AF /* ExampleApp.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C24F90B29BA770500A030AF /* ExampleApp.xcassets */; };
 		8C6ED7E72987E44E009C4B3F /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6ED7E62987E44E009C4B3F /* TikiSdk */; };
 		8C70C7CC29BEEA5A0051CE48 /* SpaceGrotesk-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C70C7CB29BEEA5A0051CE48 /* SpaceGrotesk-Regular.ttf */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C015E0329CB4AD00024E1B5 /* learnMore.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = learnMore.md; sourceTree = "<group>"; };
 		8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikiSdkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C24F90B29BA770500A030AF /* ExampleApp.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ExampleApp.xcassets; sourceTree = "<group>"; };
 		8C24F92229BA818100A030AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				8C24F92529BA9DED00A030AF /* SpaceGrotesk-Medium.ttf */,
 				8C24F92629BA9DEE00A030AF /* SpaceGrotesk-SemiBold.ttf */,
 				8CBC129C29C352DA00A451B2 /* terms.md */,
+				8C015E0329CB4AD00024E1B5 /* learnMore.md */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C015E0429CB4B590024E1B5 /* learnMore.md in Resources */,
 				8C24F90C29BA770500A030AF /* ExampleApp.xcassets in Resources */,
 				8C7113B829BABC4000C29B87 /* SpaceGrotesk-Medium.ttf in Resources */,
 				8C70C7CC29BEEA5A0051CE48 /* SpaceGrotesk-Regular.ttf in Resources */,
