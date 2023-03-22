@@ -18,7 +18,6 @@ public struct Settings: View {
     var onAccept: ((Offer?, LicenseRecord?) -> Void)? = nil
     var onDecline: ((Offer?, LicenseRecord?) -> Void)? = nil
     
-
     public init(
         offers: [String:Offer],
         onDismiss: @escaping (() -> Void),
@@ -170,7 +169,7 @@ public struct Settings: View {
                 do{
                     isLoading = true
                     let _ = try await TikiSdk.license(offer: offer)
-                    accepted = await try self.guard()
+                    accepted = try await self.guard()
                     isLoading = false
                 }catch{
                     isLoading = false
