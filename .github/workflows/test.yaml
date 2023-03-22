@@ -25,8 +25,8 @@ jobs:
       - name: Run tests
         run: |
           cat Package.swift
-          cd IntegrationTests
-          xcodebuild test -project IntegrationTests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14'
+          cd Tests
+          xcodebuild test -project Tests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14'
 
       - name: Next release
         run: |

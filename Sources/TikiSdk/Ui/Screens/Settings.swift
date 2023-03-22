@@ -163,7 +163,7 @@ public struct Settings: View {
         }else{
             Task{
                 do{
-                    let _ = try await TikiSdk.license(offer: offer)
+                    let _ = try await license(offer: offer)
                     accepted = try await self.guard()
                 }catch{
                     print(error)

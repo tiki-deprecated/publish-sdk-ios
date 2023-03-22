@@ -38,7 +38,7 @@
 		8C6165FF294BC9B20032A058 /* TestsRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C616601294BC9B20032A058 /* TestsRunnerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsRunnerApp.swift; sourceTree = "<group>"; };
 		8C616605294BC9B50032A058 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8C61660E294BC9B50032A058 /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C61660E294BC9B50032A058 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C616612294BC9B50032A058 /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
 		8C66BBFC294BCDAE0005326F /* tiki-sdk-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "tiki-sdk-ios"; path = ..; sourceTree = "<group>"; };
 		8CBC12A629CB2FCB00A451B2 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6165FF294BC9B20032A058 /* TestsRunner.app */,
-				8C61660E294BC9B50032A058 /* IntegrationTests.xctest */,
+				8C61660E294BC9B50032A058 /* Tests.xctest */,
 				8CBC12A629CB2FCB00A451B2 /* UnitTests.xctest */,
 			);
 			name = Products;
@@ -158,9 +158,9 @@
 			productReference = 8C6165FF294BC9B20032A058 /* TestsRunner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8C61660D294BC9B50032A058 /* IntegrationTests */ = {
+		8C61660D294BC9B50032A058 /* Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8C616623294BC9B50032A058 /* Build configuration list for PBXNativeTarget "IntegrationTests" */;
+			buildConfigurationList = 8C616623294BC9B50032A058 /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
 				8C61660A294BC9B50032A058 /* Sources */,
 				8C61660B294BC9B50032A058 /* Frameworks */,
@@ -171,9 +171,9 @@
 			dependencies = (
 				8C616610294BC9B50032A058 /* PBXTargetDependency */,
 			);
-			name = IntegrationTests;
+			name = Tests;
 			productName = IntegrationTestsRunnerTests;
-			productReference = 8C61660E294BC9B50032A058 /* IntegrationTests.xctest */;
+			productReference = 8C61660E294BC9B50032A058 /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		8CBC12A529CB2FCB00A451B2 /* UnitTests */ = {
@@ -233,7 +233,7 @@
 			projectRoot = "";
 			targets = (
 				8C6165FE294BC9B20032A058 /* TestsRunner */,
-				8C61660D294BC9B50032A058 /* IntegrationTests */,
+				8C61660D294BC9B50032A058 /* Tests */,
 				8CBC12A529CB2FCB00A451B2 /* UnitTests */,
 			);
 		};
@@ -617,7 +617,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8C616623294BC9B50032A058 /* Build configuration list for PBXNativeTarget "IntegrationTests" */ = {
+		8C616623294BC9B50032A058 /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C616624294BC9B50032A058 /* Debug */,

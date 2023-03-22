@@ -52,6 +52,7 @@ class IntegrationTests: XCTestCase {
                 .tag(TitleTag(TitleTagEnum.advertisingData))
                 .duration(365 * 24 * 60 * 60)
                 .permission(Permission.camera)
+                .terms("terms")
                 .add()
                 .offer
                 .id("randomId2")
@@ -64,6 +65,7 @@ class IntegrationTests: XCTestCase {
                 .tag(TitleTag(TitleTagEnum.advertisingData))
                 .duration(365 * 24 * 60 * 60)
                 .permission(Permission.camera)
+                .terms("terms")
                 .add()
                 .onAccept { _, __ in }
                 .onDecline { _, __ in }
@@ -111,25 +113,29 @@ class IntegrationTests: XCTestCase {
     
     func testGuard() async throws{
         do{
-            try TikiSdk.config().initialize(publishingId: publishingId, id:id)
-            let offer = try Offer()
-                .id("randomId")
-                .bullet(text: "test 1", isUsed: true)
-                .bullet(text: "test 2", isUsed: false)
-                .bullet(text: "test 3", isUsed: true)
-                .ptr("source")
-                .description("testing")
-                .terms("terms")
-                .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
-                .tag(TitleTag(TitleTagEnum.advertisingData))
-                .permission(Permission.camera)
-            let _ = try await license(offer: offer)
-            let guardResult = try await TikiSdk.guard(ptr: "source", usecases:[LicenseUsecase(LicenseUsecaseEnum.support)], destinations: [])
-            XCTAssert(guardResult)
-        }catch{
+            try TikiSdk.config().initialize(publishingId: publishingId, id:id, onComplete: {
+                Task{
+                    let offer = try Offer()
+                        .id("randomId")
+                        .bullet(text: "test 1", isUsed: true)
+                        .bullet(text: "test 2", isUsed: false)
+                        .bullet(text: "test 3", isUsed: true)
+                        .ptr("source")
+                        .description("testing")
+                        .terms("terms")
+                        .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
+                        .tag(TitleTag(TitleTagEnum.advertisingData))
+                        .permission(Permission.camera)
+                    let _ = try await license(offer: offer)
+                    let guardResult = try await TikiSdk.guard(ptr: "source", usecases:[LicenseUsecase(LicenseUsecaseEnum.support)], destinations: [])
+                    XCTAssert(guardResult)
+            }
+        })
+                    }catch{
             print(error)
             XCTFail(error.localizedDescription)
         }
+            
     }
 }
 
