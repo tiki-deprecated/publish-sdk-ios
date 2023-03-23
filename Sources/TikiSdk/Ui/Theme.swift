@@ -8,6 +8,12 @@ import SwiftUI
 
 /// Controls the UI theming for TikiSdk.
 public class Theme {
+    
+    static let backArrow = Image("backArrow", bundle: .module)
+    static let checkIcon = Image("checkIcon", bundle: .module)
+    static let questionIcon = Image("questionIcon", bundle: .module)
+    static let xIcon = Image("xIcon", bundle: .module)
+    
     var _primaryTextColor = Color(red: 0, green: 0, blue: 0)
     var _secondaryTextColor = Color(red: 0, green: 0, blue: 0).opacity(0.6)
     var _primaryBackgroundColor = Color(red: 1, green: 1, blue: 1)

@@ -19,8 +19,7 @@ struct LearnMoreButton: View {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: self.debounceWorkItem!)
         }) {
-            Image("questionIcon")
-                .resizable()
+            Theme.questionIcon
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                 .frame(width: 24, height: 24)
