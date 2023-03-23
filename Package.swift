@@ -24,7 +24,12 @@ let package = Package(
                            "path_provider_foundation",
                            "sqlite3_flutter_libs",
                            "sqlite3",
-                          ]),
+                          ],
+            resources: [
+                .process("Media.xcassets"),
+                .process("Resources/learnMore.md")
+            ]
+        ),
         
         .binaryTarget(name: "App",
                       url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.2/App_debug.xcframework.zip",

@@ -9,7 +9,7 @@ public struct NavigationHeader: View{
     
     public var body: some View {
         HStack(alignment: .center){
-            Image("backArrow").onTapGesture {
+            Theme.backArrow.onTapGesture {
                 onBackPressed()
             }.padding(.leading, 15).padding(.trailing, 20)
             Text(title).font(.custom(TikiSdk.theme(colorScheme).fontBold, size:20))

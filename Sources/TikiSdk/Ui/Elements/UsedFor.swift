@@ -14,9 +14,9 @@ struct UsedFor: View {
             ForEach(bullets, id: \.self) { item in
                 HStack {
                     if item.isUsed {
-                        Image("checkIcon")
+                        Theme.checkIcon
                     } else {
-                        Image("xIcon")
+                        Theme.xIcon
                     }
                     Text(item.text)
                         .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
