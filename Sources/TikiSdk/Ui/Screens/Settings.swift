@@ -33,7 +33,7 @@ public struct Settings: View {
                 HStack(alignment: .top, spacing:0){
                     VStack(alignment: .center, spacing: 0) {
                         HStack(alignment: .center, spacing: 0){
-                            Image("backArrow").onTapGesture {
+                            Theme.backArrow.onTapGesture {
                                 onDismiss()
                             }.padding(.trailing, 20)
                             title
@@ -47,7 +47,7 @@ public struct Settings: View {
                         .padding(.top, 16)
                         .padding(.bottom, 30)
                         OfferCard(TikiSdk.instance.offers.values.first!)
-                        UsedFor(bullets: TikiSdk.instance.offers.values.first!.usedBullet)
+                        UsedFor(bullets: TikiSdk.instance.offers.values.first!.bullets)
                         Text("TERMS & CONDITIONS")
                             .font(.custom(TikiSdk.theme(colorScheme).fontBold, size:16))
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -141,7 +141,7 @@ public struct Settings: View {
                     .description(offer.description)
                 revokedOffer.terms = offer.terms
                 revokedOffer.reward = offer.reward
-                revokedOffer.usedBullet = offer.usedBullet
+                revokedOffer.bullets = offer.bullets
                 revokedOffer.tags = offer.tags
                 revokedOffer.permissions = offer.permissions
                 revokedOffer.expiry = offer.expiry
