@@ -1,10 +1,10 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import Foundation
 
-/**
- * Default accepted tags.
- *
- * - value: The string value of the tag.
- */
+/// An enumeration of accepted tags for `TitleTag`
 public enum TitleTagEnum: String, Codable, CaseIterable {
     case emailAddress = "email_address"
     case phoneNumber = "phone_number"
@@ -37,10 +37,11 @@ public enum TitleTagEnum: String, Codable, CaseIterable {
     case performanceData = "performance_data"
     case diagnosticData = "diagnostic_data"
     
-    /**
-     * Builds a [TitleTagEnum] from [value]
-     * @throws [IllegalArgumentException] if value is not a valid [TitleTagEnum] value
-     */
+    /// Builds a `TitleTagEnum` from `value`.
+    ///
+    /// - Parameter value: The string value of the tag.
+    /// - Throws: An `NSError` if `value` is not a valid `TitleTagEnum` value.
+    /// - Returns: A `TitleTagEnum` value corresponding to the given `value`.
     public static func fromValue(value: String) throws -> TitleTagEnum {
         for type in TitleTagEnum.allCases {
             if type.rawValue == value {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import SwiftUI
 
 struct YourChoice: View{

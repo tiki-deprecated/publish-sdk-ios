@@ -1,21 +1,17 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import SwiftUI
 
 public struct Ending: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
-    /// A `Text` title to be shown in the top of the bottom sheet.
     let title: AnyView
-    
-    /// The center message of the ending screen.
     let message: String
-    
-    /// The sub text shown below the message.
     let footnote: AnyView
 
-    /// Ending Builder
-    ///
-    /// `TikiSdk.theme` is used for default styling.
     public init(title: AnyView, message: String, footnote: AnyView) {
         self.title = title
         self.message = message

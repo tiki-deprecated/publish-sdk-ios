@@ -1,10 +1,7 @@
-//
-//  IntegrationTestsRunnerApp.swift
-//  IntegrationTestsRunner
-//
-//  Created by Ricardo on 15/12/22.
-//
-
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import SwiftUI
 
 @main

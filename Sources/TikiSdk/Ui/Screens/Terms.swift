@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import SwiftUI
 
 public struct Terms : View{

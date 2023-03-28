@@ -2,7 +2,6 @@
  * Copyright (c) TIKI Inc.
  * MIT license. See LICENSE file in root directory.
  */
-
 import SwiftUI
 
 public struct TikiSdkButton: View {
@@ -10,27 +9,13 @@ public struct TikiSdkButton: View {
     @State private var debounceWorkItem: DispatchWorkItem?
     @Environment(\.colorScheme) private var colorScheme
     
-    /// The button's text label.
     let text: String
-    
-    /// The function to be called on user tap.
     let onTap: () -> Void
-    
-    /// The button's background color.
     var backgroundColor: Color?
-    
-    /// The button's border color.
     var borderColor: Color?
-    
-    /// The button's text color.
     var textColor: Color?
-    
-    /// The font family of the button's text from pubspec.
     var font: String?
     
-    /// The default constructor for outlined button.
-    ///
-    /// [TikiSdk.theme] is used for default styling.
     public init(_ text: String, _ onTap: @escaping () -> Void,
          textColor: Color,
          borderColor: Color,
@@ -43,9 +28,6 @@ public struct TikiSdkButton: View {
         self.backgroundColor = Color.white
     }
     
-    /// The constructor for a solid color button.
-    ///
-    /// [TikiSdk.theme] is used for default styling.
     public init(_ text: String, _ onTap: @escaping () -> Void,
          color: Color,
          font: String? = nil) {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import SwiftUI
 
 public struct OfferFlow: View{
@@ -117,13 +121,13 @@ public struct OfferFlow: View{
         )
     }
     
-    func goTo(_ step: OfferFlowStep){
+    private func goTo(_ step: OfferFlowStep){
         withAnimation(.easeOut){
             self.step = step
         }
     }
     
-    func isShowingBinding(_ step: OfferFlowStep) -> Binding<Bool>{
+    private func isShowingBinding(_ step: OfferFlowStep) -> Binding<Bool>{
         return Binding<Bool>(
             get: {
                 self.step == step
@@ -135,14 +139,14 @@ public struct OfferFlow: View{
         })
     }
     
-    func dismissSheet(){
+    private func dismissSheet(){
         withAnimation(.easeOut){
             step = .none
         }
         onDismiss()
     }
     
-    func onAcceptTerms(){
+    private func onAcceptTerms(){
         if(isPendingPermission()){
             goTo(.endingError)
         }else{
@@ -151,7 +155,7 @@ public struct OfferFlow: View{
         }
     }
     
-    func isPendingPermission() -> Bool{
+    private func isPendingPermission() -> Bool{
         if(pendingPermissions == nil || pendingPermissions!.isEmpty){
             return false
         }else{
@@ -165,7 +169,7 @@ public struct OfferFlow: View{
         }
     }
     
-    func accept(_ offer: Offer){
+    private func accept(_ offer: Offer){
         Task{
             do{
                 let license: LicenseRecord = try await license(offer: offer)
@@ -178,14 +182,14 @@ public struct OfferFlow: View{
         }
     }
     
-    func decline(_ offer: Offer){
+    private func decline(_ offer: Offer){
         Task{
             onDecline?(offer, nil)
             goTo(.endingDeclined)
         }
     }
     
-    func license(offer: Offer) async throws -> LicenseRecord {
+    private func license(offer: Offer) async throws -> LicenseRecord {
         return try await TikiSdk.license( offer.ptr!, offer.uses, offer.terms!, tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
     }
     
