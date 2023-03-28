@@ -1,3 +1,8 @@
+## 2.0.2
+* Fix - Settings screen backArrow reference
+* Fix - AccentColor warning in TikiSdkExample project
+## 2.0.1
+* Extract resources from TikiSdkExample
 ## 2.0.0
 
 * Upgrade Tiki SDK Flutter dependency to 2.1.2

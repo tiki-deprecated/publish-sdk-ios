@@ -33,7 +33,7 @@ public struct Settings: View {
                 HStack(alignment: .top, spacing:0){
                     VStack(alignment: .center, spacing: 0) {
                         HStack(alignment: .center, spacing: 0){
-                            Image("backArrow").onTapGesture {
+                            Theme.backArrow.onTapGesture {
                                 onDismiss()
                             }.padding(.trailing, 20)
                             title
