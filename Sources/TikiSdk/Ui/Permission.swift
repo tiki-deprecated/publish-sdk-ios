@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import AVFoundation
 import Photos
 import CoreLocation
@@ -10,6 +14,7 @@ import MediaPlayer
 import AppTrackingTransparency
 import CoreBluetooth
 
+/// Enumation of iOS permissions and its authorization methods.
 public enum Permission {
     /// Permission to access the device's camera.
     case camera
@@ -53,7 +58,15 @@ public enum Permission {
     /// Permission to track the user across apps and websites.
     case tracking
     
-    
+    /// Returns the name of the permission as a string.
+    ///
+    /// Example usage:
+    /// ```
+    /// let permission = Permission.camera
+    /// print(permission.name()) // "camera"
+    /// ```
+    ///
+    /// - Returns: The name of the permission as a string.
     public func name() -> String{
         switch self{
             case .camera:
@@ -87,6 +100,8 @@ public enum Permission {
         }
     }
     
+    /// Returns a Boolean value indicating whether the user has authorized the permission.
+    /// - Returns: A Boolean value indicating whether the user has authorized the permission.
     public func isAuthorized() -> Bool {
         switch self {
         case .camera:
@@ -128,6 +143,9 @@ public enum Permission {
         }
     }
     
+    /// Requests authorization for the specified permission].
+    ///
+    /// - Parameter completion: The closure to be called after requesting authorization. It takes a single Boolean parameter indicating whether permission was granted.
     public func requestAuth(_ completion: @escaping ((Bool) -> Void) = {_ in }) {
         switch self {
             case .camera:

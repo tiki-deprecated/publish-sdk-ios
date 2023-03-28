@@ -1,10 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 20/03/23.
-//
-
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import Foundation
 
 enum OfferFlowStep{

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 import SwiftUI
 
 public struct OfferPrompt: View {
@@ -24,7 +28,7 @@ public struct OfferPrompt: View {
                 }.padding(.trailing, 15)
             }.padding(.vertical, 32)
             OfferCard(currentOffer)
-            UsedFor(bullets: currentOffer.usedBullet)
+            UsedFor(bullets: currentOffer.bullets)
             HStack {
                 TikiSdkButton("Back Off", {onDecline(currentOffer)},
                               textColor: TikiSdk.theme(colorScheme).primaryTextColor,

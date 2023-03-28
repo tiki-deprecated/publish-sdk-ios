@@ -23,7 +23,7 @@ struct TikiSdkExampleApp: App {
                 .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
                 .permission(Permission.camera)
                 .permission(Permission.contacts)
-                .tag(TitleTag(TitleTagEnum.advertisingData))
+                .tag(.advertisingData)
                 .description("Trade your IDFA (kind of like a serial # for your phone) for a discount.")
                 .terms("terms")
                 .duration(365 * 24 * 60 * 60)
