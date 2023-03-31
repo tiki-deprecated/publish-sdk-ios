@@ -1,1 +1,58 @@
-**Lorem ipsum dolor sit amet**, consectetur adipiscing elit. This is a link: [TIKI](https://mytiki.com) Phasellus lobortis risus ac ultrices faucibus. Nullam vel pulvinar neque. Morbi ultrices maximus est, quis blandit urna vestibulum nec. Morbi et finibus nisi. Vestibulum dignissim rutrum mi sit amet sagittis. Aenean id ligula eget enim feugiat luctus vitae vitae orci. Maecenas aliquam semper nunc vel pellentesque. Ut cursus neque non est mattis consequat. Duis posuere odio et tellus aliquam, et tristique erat pharetra. Mauris sollicitudin lorem ligula. Ut lacinia, neque ac ornare gravida, libero turpis fermentum nibh, eget sodales diam magna sit amet lacus. Aliquam pretium suscipit mi eget luctus. Aliquam ut velit ut magna elementum sollicitudin in et magna. Ut a elementum tellus, eu cursus lacus. Pellentesque neque nisi, semper ac mi vel, fringilla semper nisl. Morbi at vulputate lectus, non ornare nulla.\nVestibulum convallis rutrum tellus sed vulputate. Suspendisse condimentum mauris quis odio aliquet, at posuere augue egestas. Nulla finibus nibh ac placerat pretium. Mauris volutpat urna sit amet vehicula fermentum. Praesent semper est diam, sit amet elementum orci luctus ac. Quisque condimentum ipsum in venenatis rutrum. Donec rutrum nisl id elit porttitor, vel scelerisque quam ultricies. Donec vulputate, mi at tempor hendrerit, risus tortor consequat neque, non laoreet orci ante tempor dolor. Curabitur placerat convallis risus, a facilisis diam mollis in.\nMauris in ex dolor. Nunc eu mollis mi. Integer ut nulla egestas, finibus tellus in, congue sem. Vestibulum sit amet velit cursus, consequat purus id, porttitor ligula. Aliquam pellentesque non augue quis tincidunt. Duis a pulvinar odio, non ultrices metus. Sed eu risus quam. Nam vehicula ligula id aliquet aliquet. Quisque faucibus odio pulvinar tellus tristique, eget tempus tellus accumsan. Nulla vehicula nunc quis dapibus lobortis. Sed urna magna, commodo vitae enim eget, scelerisque hendrerit mi. Pellentesque lobortis lectus vitae convallis facilisis.\nPhasellus lobortis purus sit amet sodales efficitur. Mauris sapien lorem, pretium id turpis eu, tristique maximus tellus. Donec porttitor, enim ut scelerisque dapibus, lectus tellus laoreet ante, a ornare dolor nisi sed risus. Vestibulum facilisis mollis urna in suscipit. Pellentesque sit amet lobortis nulla. Fusce semper rhoncus urna a gravida. In congue nec nisi eu hendrerit. Donec sed felis elementum lacus posuere porttitor eget quis dolor. Maecenas eu iaculis dolor. Nam venenatis tempor velit vel finibus. Phasellus purus nunc, condimentum sit amet porttitor nec, rhoncus et ante. Fusce tristique nibh quis sem varius ultricies. Maecenas egestas justo sed enim maximus consectetur.\nPhasellus malesuada magna a ex mollis varius. Quisque a vulputate metus. Cras in nibh lorem. Proin in enim efficitur, pellentesque elit sed, dictum turpis. Duis sagittis lectus eu magna imperdiet maximus. Nullam condimentum scelerisque arcu ac auctor. Phasellus malesuada erat quis gravida mollis."
+# What is data trading?
+It is pretty simple, really. You’re agreeing to trade specific types of data with us **in exchange for** the offered compensation.
+
+It's **100% optional**. Declining to participate will not negatively impact your current experience.
+
+The types of data are specified on the offer screen, and no other data than the explicitly stated data is traded as part of the program.
+
+Each _“trade”_ is legally binding and takes the form of a data license. By trading the data, you agree to let us license your data for the explicitly stated reasons found on the offer screen.
+
+<br />
+
+# What is a data license/data licensing?
+
+A data license is a legally binding, immutable contract that contains the exact details and parameters of the trade. This includes the type of data being traded, the purposes for which the business can access and use the data, and the duration for which it can be used.
+
+Once created, the license cannot be altered in any way; however, as a user, **you can always change your mind**. If you no longer want the business to use and/or access the data, your settings can be toggled off/on any time and the previous license becomes null and void.
+
+If you choose to participate again, a separate, new license is created replacing the previous license.
+
+<br />
+
+# Why should I trade/license my data?
+
+There are many reasons one may want to trade/license data, including receiving compensation in the form of:
+- discounts
+- loyalty points
+- access to exclusive features
+- and more.
+
+You may also want to receive more accurate advertisements or more personalization and customization from the chosen business.
+
+Other reasons **include contributing** to academic studies and assisting in improving products and services.
+
+<br />
+
+---
+
+<br />
+
+The **choice is completely up to you**; if the offer isn’t to your liking, simply decline and access/use is turned off. You can always change your mind later.
+
+The most important thing is understanding how your data is being accessed/used and receiving fair compensation for it; finally 🥳.
+
+<br />
+
+---
+
+<div style="margin: 3em 0;">
+    <strong style="text-align: center; margin-bottom: 0.5em; display: block">built on</strong>
+    <a href="https://mytiki.com">
+        <img alt="TIKI" src="https://cdn.mytiki.com/assets/icon-logo.svg"
+        style="height:3em; margin: auto; width: 100%;">
+    </a>
+    <div style="font-size: .75rem; font-style: italic; margin-top: 0.5em; text-align: center">
+        TIKI is infrastructure to make data trade and data licensing possible. Located in Nashville, we strive to improve the exchange of data —fairer, safer, easier to understand.
+    </div>
+</div>
+
