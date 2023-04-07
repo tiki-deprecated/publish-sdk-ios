@@ -36,6 +36,26 @@ jobs:
         with:
           token: ${{ github.token }}
           branch: ${{ steps.getpr.outputs.branch }}
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Build Docs
+        run: |
+          xcodebuild docbuild -scheme TikiSdk -derivedDataPath ./DerivedData -destination generic/platform=iOS
+
+      - name: Convert to Static
+        run: |
+          $(xcrun --find docc) process-archive transform-for-static-hosting ./DerivedData/Build/Products/Debug-iphoneos/TikiSdk.doccarchive --output-path doc/static
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './doc/static'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
 
       - name: Create a Release
         continue-on-error: true
