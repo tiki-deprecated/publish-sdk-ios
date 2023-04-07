@@ -1,0 +1,71 @@
+name: Version
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    if: startsWith(github.head_ref, 'release/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout TIKI SDK iOS
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Checkout PR
+        id: getpr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr checkout ${{ github.event.pull_request.number }}
+          export PR_BRANCH=$(git branch --show-current)
+          echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
+          
+      - name: Get Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ github.token }}
+          branch: ${{ steps.getpr.outputs.branch }}
+
+      - name: Get Frameworks versions
+        id: frameworks_versions
+        run: |
+          git checkout main
+          export TIKI_SDK_FLUTTER_VERSION=$(grep -oiP "download\/\d?\d\.\d?\d\.\d?\d" Package.swift | awk -F/ 'NR==1{print $2}')
+          echo "{TIKI_SDK_FLUTTER_VERSION}={$TIKI_SDK_FLUTTER_VERSION}" >> $GITHUB_OUTPUT
+          echo "TIKI_SDK_FLUTTER_VERSION:$TIKI_SDK_FLUTTER_VERSION"
+          export APP_RELEASE_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App.checksum.txt")
+          echo "APP_RELEASE_CHECKSUM=$APP_RELEASE_CHECKSUM" >> $GITHUB_OUTPUT
+          echo "APP_RELEASE_CHECKSUM:$APP_RELEASE_CHECKSUM"
+          export APP_DEBUG_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/App_debug.checksum.txt")
+          echo "APP_DEBUG_CHECKSUM=$APP_DEBUG_CHECKSUM" >> $GITHUB_OUTPUT
+          echo "APP_DEBUG_CHECKSUM:$APP_DEBUG_CHECKSUM"
+          export FLUTTER_RELEASE_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter.checksum.txt")
+          echo "FLUTTER_RELEASE_CHECKSUM=$FLUTTER_RELEASE_CHECKSUM" >> $GITHUB_OUTPUT
+          echo "FLUTTER_RELEASE_CHECKSUM:$FLUTTER_RELEASE_CHECKSUM"
+          export FLUTTER_DEBUG_CHECKSUM=$(curl -s -L "https://github.com/tiki/tiki-sdk-flutter/releases/download/$TIKI_SDK_FLUTTER_VERSION/Flutter_debug.checksum.txt")
+          echo "FLUTTER_DEBUG_CHECKSUM=$FLUTTER_DEBUG_CHECKSUM" >> $GITHUB_OUTPUT
+          echo "FLUTTER_DEBUG_CHECKSUM:$FLUTTER_DEBUG_CHECKSUM"
+      
+      - name: Update Package.swift to release version
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          sed -i 's/_debug//' Package.swift
+          sed -i "s/${{ steps.frameworks_versions.outputs.APP_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.APP_RELEASE_CHECKSUM }}/" Package.swift
+          sed -i "s/${{ steps.frameworks_versions.outputs.FLUTTER_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.FLUTTER_RELEASE_CHECKSUM }}/" Package.swift
+          echo "============= Package.swift ============="
+          cat Package.swift
+          git config --global user.email "action@github.com"
+          git config --global user.name "GH Action"
+          git add Package.swift
+          git commit -m "update Package.swift"
