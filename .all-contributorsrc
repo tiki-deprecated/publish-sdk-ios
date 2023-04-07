@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "mike-audi",
+      "name": "Mike Audi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3769672?v=4",
+      "profile": "http://mytiki.com",
+      "contributions": [
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "tiki-sdk-ios",
+  "projectOwner": "tiki"
+}
