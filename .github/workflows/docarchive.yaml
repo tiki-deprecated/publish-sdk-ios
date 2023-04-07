@@ -16,7 +16,6 @@ concurrency:
 
 jobs:
   publish:
-    environment: Production
     runs-on: macos-12
     steps:
       - name: Checkout
