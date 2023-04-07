@@ -11,14 +11,12 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "doccarchive"
+  group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
   publish:
-    environment:
-      name: Production
-      url: ${{ steps.deployment.outputs.page_url }}
+    environment: Production
     runs-on: macos-12
     steps:
       - name: Checkout
