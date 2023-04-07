@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release:
+  version:
     if: startsWith(github.head_ref, 'release/')
     runs-on: ubuntu-latest
     steps:
@@ -69,3 +69,4 @@ jobs:
           git config --global user.name "GH Action"
           git add Package.swift
           git commit -m "update Package.swift"
+          git push
