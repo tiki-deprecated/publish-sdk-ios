@@ -71,3 +71,6 @@ iOSInjectionProject/
 
 # IntelliJ
 .idea
+
+# Generated Docs
+doc/static
