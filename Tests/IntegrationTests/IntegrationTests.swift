@@ -17,7 +17,7 @@ class IntegrationTests: XCTestCase {
     func testInitSdk() async throws {
         do{
             try TikiSdk.config().initialize(publishingId: publishingId, id:id, onComplete: {
-                XCTAssert(TikiSdk.address != nil)
+                XCTAssert(TikiSdk.isInitialized)
             })
         }catch{
             XCTFail(error.localizedDescription)
@@ -73,7 +73,7 @@ class IntegrationTests: XCTestCase {
                 .disableAcceptEnding(false)
                 .disableDeclineEnding(true)
                 .initialize(publishingId: publishingId, id:id, onComplete: {
-                    XCTAssert(TikiSdk.address != nil)
+                    XCTAssert(TikiSdk.isInitialized)
                 })
         }catch{
             XCTFail(error.localizedDescription)
