@@ -15,7 +15,7 @@ jobs:
   release:
     if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     environment: Production
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
