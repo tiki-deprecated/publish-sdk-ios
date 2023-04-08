@@ -4,4 +4,4 @@ builder:
     - documentation_targets: [TikiSdk]
       platform: ios
 external_links:
-  documentation: "https://docs.mytiki.com/docs/tiki-sdk-ios-getting-started"
+  documentation: "https://mytiki.com/docs/sdk-overview"

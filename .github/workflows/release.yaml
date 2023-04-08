@@ -7,6 +7,11 @@ on:
     types:
       - closed
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
@@ -15,28 +20,18 @@ jobs:
   release:
     if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     environment: Production
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Checkout PR
-        id: getpr
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr checkout ${{ github.event.pull_request.number }}
-          export PR_BRANCH=$(git branch --show-current)
-          echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
-
       - name: Get Version
         id: semver
         uses: ietf-tools/semver-action@v1
         with:
           token: ${{ github.token }}
-          branch: ${{ steps.getpr.outputs.branch }}
           
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -47,6 +42,7 @@ jobs:
 
       - name: Convert to Static
         run: |
+          mkdir -p doc/static
           $(xcrun --find docc) process-archive transform-for-static-hosting ./DerivedData/Build/Products/Debug-iphoneos/TikiSdk.doccarchive --output-path doc/static
 
       - name: Upload artifact
