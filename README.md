@@ -1,7 +1,7 @@
 # TIKI SDK (iOS) —Consumer Data Licensing
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftiki%2Ftiki-sdk-ios%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/tiki/tiki-sdk-ios) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftiki%2Ftiki-sdk-ios%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/tiki/tiki-sdk-ios)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The TIKI SDK for iOS makes it easy to add consumer data licensing to your iOS applications. It's the client-side component that your users will interact with to accept (or decline) data licensing offers. TIKI's SDK creates immutable, digitally signed license records using cryptographic hashing, forming an audit trail. Programmatically consume records and enforce terms client or server-side using developer-friendly data structures and [APIs](https://mytiki.com/reference/getting-started).
