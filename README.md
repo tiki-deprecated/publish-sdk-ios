@@ -55,7 +55,7 @@ Read about styling, selecting metadata, and desiging your offer in our [📚 SDK
 
 ## UI Flows
 
-The The SDK includes 2 pre-built flows: `present()` and `settings()`. Use `present()` to display to the user a new data licensing offer.
+The SDK includes 2 pre-built flows: `present()` and `settings()`. Use `present()` to display to the user a new data licensing offer.
 
 ```
 try TikiSdk.present();
