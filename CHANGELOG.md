@@ -1,6 +1,7 @@
 ## 2.1.3
 
 * fix: upgrade TIKI SDK Flutter to 2.1.4
+* bump version
 
 ## 2.1.2
 
