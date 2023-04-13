@@ -1,19 +1,17 @@
-## 2.1.3
+## 2.1.0
 
-* fix: upgrade TIKI SDK Flutter to 2.1.4
+* fix: upgrade TIKI SDK Flutter to 2.1.0
+* bump version
 
-## 2.1.2
+## 2.0.4
 
 * fix: change encode/decode of uses and tags
 * fix: tag encoding to JSON
 * fix: update guard test
 * fix: rename PTRs in tests to prevent duplicate txns
-
-## 2.1.1
-
 * Update Flutter version in release actions
 
-## 2.1.0
+## 2.0.3
 
 * Update TIKI SDK Dart to 2.1.1
 
