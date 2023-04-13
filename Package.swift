@@ -32,32 +32,32 @@ let package = Package(
         ),
         
         .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.2/App.xcframework.zip",
-                      checksum: "a331f6726479d9308cc4bba90660a9c8341e08fd021eb4a1f7717a717a6c53af"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.4/App.xcframework.zip",
+                      checksum: "cc5ae619b793f1cfd476dce3b319173c369931bc874922fd2e2a5c9fef7662e8"),
         
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.2/Flutter.xcframework.zip",
-                      checksum: "46a9ef4d035a64fbf5622365803311317be1d17baf2093a1556f51ccb2cfbc20"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.4/Flutter.xcframework.zip",
+                      checksum: "d171082c4376800d34f27ef7e4465f375637599c3974876fda02acba19a2b32d"),
                           
         .binaryTarget(name: "FlutterPluginRegistrant", 
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.2/FlutterPluginRegistrant.xcframework.zip",
-                      checksum: "b5195d84c5e44d77fe491403e382354e29b11dd722ecdc9dc70569b48441f931"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.4/FlutterPluginRegistrant.xcframework.zip",
+                      checksum: "6bf7791c3e6f66ae7ba1cc0411cf218ae1e27a1c4f63d950333522cf042af467"),
         
         .binaryTarget(name: "flutter_secure_storage",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.2/flutter_secure_storage.xcframework.zip",
-                      checksum: "65f5817653213365af53337aeca5396d41264ce2ed870b05448793f415f36fd7"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.4/flutter_secure_storage.xcframework.zip",
+                      checksum: "3820e93940975f50585aba0c4a96e08e30cc5f6b84fbeba509a188a7ce19af6d"),
         
         .binaryTarget(name: "path_provider_foundation",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.2/path_provider_foundation.xcframework.zip",
-                      checksum: "ac48d171b014e266b6050109bfa988a928a587b70cf8002a9f59e931333d4473"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.4/path_provider_foundation.xcframework.zip",
+                      checksum: "7746a58897b6ccf4c1e4d5d207f5b27b58d96b641a76c76da7685d5c3f6f2cd2"),
         
         .binaryTarget(name: "sqlite3_flutter_libs",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.2/sqlite3_flutter_libs.xcframework.zip",
-                    checksum: "f04f22b364eea2d2b9478edd690a54206467bfbf4c364c3a18edda7bd07f4915"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.4/sqlite3_flutter_libs.xcframework.zip",
+                    checksum: "65f741cbbcca1bfaea66ab127530a327efef3d763d055bdf217e4ff5025afbae"),
         
         .binaryTarget(name: "sqlite3",
-                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.2/sqlite3.xcframework.zip",
-                      checksum: "ee9de5774e0ba2fc64d81aa31f8f568dabb45a22ce61cd906380b11e202926b6"),
+                      url: "https://github.com/tiki/tiki-sdk-flutter/releases/download/2.1.4/sqlite3.xcframework.zip",
+                      checksum: "722bac9c5ab7cb768f9a997eeedeb41fd9e867d2d9b51cebec9af25274aee8e5"),
         ]
 )
 
