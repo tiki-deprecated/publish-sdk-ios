@@ -74,7 +74,7 @@ try TikiSdk.settings();
 - Please use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) if you intend to add code to this project.
 
 ## Project Structure
-_This project leverages and bundles the Flutter Engine to create a bidirectional  ._
+_This project leverages and bundles the Flutter Engine to create a bidirectional channel between the native interface and the core library._
 
 - `/Sources`: The primary implementation source for the library.
     - `/Ui`: Declarative UI flows and elements (SwiftUI)
