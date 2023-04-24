@@ -281,7 +281,6 @@ public class TikiSdk{
     ///
     /// - Throws: `TikiSdkError` if the SDK is not initialized or if no `Offer` was created.
     public static func settings() throws {
-        
         try throwIfNotInitialized()
         try throwIfNoOffers()
         let viewController = UIApplication.shared.windows.first?.rootViewController

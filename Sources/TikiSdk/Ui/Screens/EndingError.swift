@@ -46,14 +46,14 @@ struct EndingError: View{
     
     
     func getPendingPermissionsNames() -> String{
-        if(pendingPermissions!.count == 1){
-            return pendingPermissions!.first!.name()
-        }
-        var nameList : [String] = []
-        pendingPermissions!.forEach{ perm in
-            nameList.append(perm.name())
-        }
-        return nameList.joined(separator: ", ")
+            if(pendingPermissions!.count == 1){
+                return pendingPermissions!.first!.name()
+            }
+            var nameList : [String] = []
+            pendingPermissions!.forEach{ perm in
+                nameList.append(perm.name())
+            }
+            return nameList.joined(separator: ", ")
     }
     
     func requestPendingPermissions(){

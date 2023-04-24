@@ -13,7 +13,7 @@ public struct Terms : View{
     public var body: some View {
         VStack(spacing:0){
             ScrollView(.vertical) {
-                Text(LocalizedStringKey(stringLiteral: terms))
+                Text(terms)
                 .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:16))}
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.horizontal, 30)

@@ -58,7 +58,7 @@ public struct Settings: View {
                             .padding(.horizontal, 15)
                             .padding(.bottom, 11)
                         ScrollView(.vertical) {
-                            Text(LocalizedStringKey(stringLiteral: TikiSdk.instance.offers.values.first!.terms!))
+                            Text(TikiSdk.instance.offers.values.first!.terms!)
                                 .padding(7)
                             .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:12))}
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -191,7 +191,7 @@ public struct Settings: View {
     }
     
     func license(offer: Offer) async throws -> LicenseRecord {
-        return try await TikiSdk.license( offer.ptr!, offer.uses, offer.terms!, tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
+        return try await TikiSdk.license( offer.ptr!, offer.uses, offer.terms!.stringKey!, tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
     }
     
 }

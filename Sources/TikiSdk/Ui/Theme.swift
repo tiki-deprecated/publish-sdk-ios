@@ -43,11 +43,11 @@ import SwiftUI
 /// To configure fonts, first load the font files into the project bundle. The fonts should be added with their respective weights in the
 /// filenames, like this:
 ///
-/// * `<fontFamily>-Regular"`
-/// * `<fontFamily>-Bold"`
-/// * `<fontFamily>-Light"`
-/// * `<fontFamily>-Medium"`
-/// * `<fontFamily>-Bold"`
+/// * `<fontFamily>Regular"`
+/// * `<fontFamily>Light"`
+/// * `<fontFamily>Medium"`
+/// * `<fontFamily>SemiBold"`
+/// * `<fontFamily>Bold"`
 public class Theme {
     
     // MARK: Constant images
@@ -163,11 +163,11 @@ public class Theme {
     
     private var font: Dictionary<String,String> {
         get {[
-            "regular" : "\(_fontFamily)-Regular",
-            "bold" : "\(_fontFamily)-Bold",
-            "light" : "\(_fontFamily)-Light",
-            "medium" : "\(_fontFamily)-Medium",
-            "semiBold" : "\(_fontFamily)-SemiBold",
+            "regular" : "\(_fontFamily)Regular",
+            "bold" : "\(_fontFamily)Bold",
+            "light" : "\(_fontFamily)Light",
+            "medium" : "\(_fontFamily)Medium",
+            "semiBold" : "\(_fontFamily)SemiBold",
         ]}
     }
     
