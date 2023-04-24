@@ -11,10 +11,11 @@
 		8C6ED7E72987E44E009C4B3F /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6ED7E62987E44E009C4B3F /* TikiSdk */; };
 		8CB058FD298D2CF600893F46 /* TikiSdkExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB058FC298D2CF600893F46 /* TikiSdkExampleApp.swift */; };
 		8CE1F16A29F6C3EA007231A9 /* SpaceGroteskBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F16529F6C3EA007231A9 /* SpaceGroteskBold.ttf */; };
-		8CE1F16F29F6C47D007231A9 /* SpaceGroteskLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F16B29F6C47D007231A9 /* SpaceGroteskLight.ttf */; };
-		8CE1F17029F6C47D007231A9 /* SpaceGroteskSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F16C29F6C47D007231A9 /* SpaceGroteskSemiBold.ttf */; };
-		8CE1F17129F6C47D007231A9 /* SpaceGroteskRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F16D29F6C47D007231A9 /* SpaceGroteskRegular.ttf */; };
-		8CE1F17229F6C47D007231A9 /* SpaceGroteskMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F16E29F6C47D007231A9 /* SpaceGroteskMedium.ttf */; };
+		8CE1F17429F6C92B007231A9 /* terms.md in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F17329F6C92B007231A9 /* terms.md */; };
+		8CE1F17929F6CF98007231A9 /* SpaceGroteskSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F17529F6CF98007231A9 /* SpaceGroteskSemiBold.ttf */; };
+		8CE1F17A29F6CF98007231A9 /* SpaceGroteskLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F17629F6CF98007231A9 /* SpaceGroteskLight.ttf */; };
+		8CE1F17B29F6CF98007231A9 /* SpaceGroteskMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F17729F6CF98007231A9 /* SpaceGroteskMedium.ttf */; };
+		8CE1F17C29F6CF98007231A9 /* SpaceGroteskRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F17829F6CF98007231A9 /* SpaceGroteskRegular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +25,11 @@
 		8C6ED7E52987E35A009C4B3F /* tiki-sdk-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "tiki-sdk-ios"; path = ../..; sourceTree = "<group>"; };
 		8CB058FC298D2CF600893F46 /* TikiSdkExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleApp.swift; sourceTree = "<group>"; };
 		8CE1F16529F6C3EA007231A9 /* SpaceGroteskBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskBold.ttf; sourceTree = "<group>"; };
-		8CE1F16B29F6C47D007231A9 /* SpaceGroteskLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskLight.ttf; sourceTree = SOURCE_ROOT; };
-		8CE1F16C29F6C47D007231A9 /* SpaceGroteskSemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskSemiBold.ttf; sourceTree = SOURCE_ROOT; };
-		8CE1F16D29F6C47D007231A9 /* SpaceGroteskRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskRegular.ttf; sourceTree = SOURCE_ROOT; };
-		8CE1F16E29F6C47D007231A9 /* SpaceGroteskMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskMedium.ttf; sourceTree = SOURCE_ROOT; };
+		8CE1F17329F6C92B007231A9 /* terms.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = terms.md; sourceTree = "<group>"; };
+		8CE1F17529F6CF98007231A9 /* SpaceGroteskSemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskSemiBold.ttf; sourceTree = "<group>"; };
+		8CE1F17629F6CF98007231A9 /* SpaceGroteskLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskLight.ttf; sourceTree = "<group>"; };
+		8CE1F17729F6CF98007231A9 /* SpaceGroteskMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskMedium.ttf; sourceTree = "<group>"; };
+		8CE1F17829F6CF98007231A9 /* SpaceGroteskRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskRegular.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,11 +91,12 @@
 		8CBC129929C3525400A451B2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8CE1F17629F6CF98007231A9 /* SpaceGroteskLight.ttf */,
+				8CE1F17729F6CF98007231A9 /* SpaceGroteskMedium.ttf */,
+				8CE1F17829F6CF98007231A9 /* SpaceGroteskRegular.ttf */,
+				8CE1F17529F6CF98007231A9 /* SpaceGroteskSemiBold.ttf */,
+				8CE1F17329F6C92B007231A9 /* terms.md */,
 				8CE1F16529F6C3EA007231A9 /* SpaceGroteskBold.ttf */,
-				8CE1F16B29F6C47D007231A9 /* SpaceGroteskLight.ttf */,
-				8CE1F16E29F6C47D007231A9 /* SpaceGroteskMedium.ttf */,
-				8CE1F16D29F6C47D007231A9 /* SpaceGroteskRegular.ttf */,
-				8CE1F16C29F6C47D007231A9 /* SpaceGroteskSemiBold.ttf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -162,11 +165,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CE1F16A29F6C3EA007231A9 /* SpaceGroteskBold.ttf in Resources */,
-				8CE1F16F29F6C47D007231A9 /* SpaceGroteskLight.ttf in Resources */,
-				8CE1F17029F6C47D007231A9 /* SpaceGroteskSemiBold.ttf in Resources */,
-				8CE1F17129F6C47D007231A9 /* SpaceGroteskRegular.ttf in Resources */,
-				8CE1F17229F6C47D007231A9 /* SpaceGroteskMedium.ttf in Resources */,
 				8C24F90C29BA770500A030AF /* ExampleApp.xcassets in Resources */,
+				8CE1F17929F6CF98007231A9 /* SpaceGroteskSemiBold.ttf in Resources */,
+				8CE1F17A29F6CF98007231A9 /* SpaceGroteskLight.ttf in Resources */,
+				8CE1F17B29F6CF98007231A9 /* SpaceGroteskMedium.ttf in Resources */,
+				8CE1F17C29F6CF98007231A9 /* SpaceGroteskRegular.ttf in Resources */,
+				8CE1F17429F6C92B007231A9 /* terms.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

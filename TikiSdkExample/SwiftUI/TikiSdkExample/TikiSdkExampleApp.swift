@@ -33,7 +33,9 @@ struct TikiSdkExampleApp: App {
             //.onSettings  { print("settings") }
             .disableAcceptEnding(false)
             .disableDeclineEnding(false)
-            .initialize( publishingId: "e12f5b7b-6b48-4503-8b39-28e4995b5f88", id: "user_123")
+            .initialize(
+                publishingId: "e12f5b7b-6b48-4503-8b39-28e4995b5f88",
+                id: "user_123")
        
     }
     
