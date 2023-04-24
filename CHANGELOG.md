@@ -1,12 +1,34 @@
+## 2.1.0
+
+* fix: upgrade TIKI SDK Flutter to 2.1.0
+* bump version
+
+## 2.0.4
+
+* fix: change encode/decode of uses and tags
+* fix: tag encoding to JSON
+* fix: update guard test
+* fix: rename PTRs in tests to prevent duplicate txns
+* Update Flutter version in release actions
+
+## 2.0.3
+
+* Update TIKI SDK Dart to 2.1.1
+
 ## 2.0.2
+
 * Fix - Settings screen backArrow reference
 * Fix - AccentColor warning in TikiSdkExample project
+
 ## 2.0.1
+
 * Extract resources from TikiSdkExample
+
 ## 2.0.0
 
 * Upgrade Tiki SDK Flutter dependency to 2.1.2
 * Implement SDK UI
+
 ## 1.0.2
 
 * update release workflow

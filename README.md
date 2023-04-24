@@ -1,7 +1,7 @@
 # TIKI SDK (iOS) —Consumer Data Licensing
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftiki%2Ftiki-sdk-ios%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/tiki/tiki-sdk-ios) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftiki%2Ftiki-sdk-ios%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/tiki/tiki-sdk-ios)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The TIKI SDK for iOS makes it easy to add consumer data licensing to your iOS applications. It's the client-side component that your users will interact with to accept (or decline) data licensing offers. TIKI's SDK creates immutable, digitally signed license records using cryptographic hashing, forming an audit trail. Programmatically consume records and enforce terms client or server-side using developer-friendly data structures and [APIs](https://mytiki.com/reference/getting-started).
@@ -55,7 +55,7 @@ Read about styling, selecting metadata, and desiging your offer in our [📚 SDK
 
 ## UI Flows
 
-The The SDK includes 2 pre-built flows: `present()` and `settings()`. Use `present()` to display to the user a new data licensing offer.
+The SDK includes 2 pre-built flows: `present()` and `settings()`. Use `present()` to display to the user a new data licensing offer.
 
 ```
 try TikiSdk.present();
@@ -74,7 +74,7 @@ try TikiSdk.settings();
 - Please use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) if you intend to add code to this project.
 
 ## Project Structure
-_This project leverages and bundles the Flutter Engine to create a bidirectional  ._
+_This project leverages and bundles the Flutter Engine to create a bidirectional channel between the native interface and the core library._
 
 - `/Sources`: The primary implementation source for the library.
     - `/Ui`: Declarative UI flows and elements (SwiftUI)
