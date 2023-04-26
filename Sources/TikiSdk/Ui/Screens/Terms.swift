@@ -8,13 +8,14 @@ public struct Terms : View{
     
     @Environment(\.colorScheme) var colorScheme
     var onAccept: (() -> Void)
-    var terms: String
+    var terms: AttributedString
     
     public var body: some View {
         VStack(spacing:0){
             ScrollView(.vertical) {
                 Text(terms)
-                .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:16))}
+                    .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
+            }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.horizontal, 30)
                     .padding(.top, 40)

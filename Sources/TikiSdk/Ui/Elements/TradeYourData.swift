@@ -10,9 +10,9 @@ import SwiftUI
         var body: some View{
             
             HStack{
-                Text("TRADE").font(.custom("SpaceGrotesk-Bold", size: 20))
+                Text("TRADE").font(.custom("SpaceGrotesk-Bold", size: 20)).foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
                 Text("YOUR").font(.custom("SpaceGrotesk-Bold", size: 20)).foregroundColor(TikiSdk.theme(colorScheme).accentColor)
-                Text("DATA").font(.custom("SpaceGrotesk-Bold", size: 20))
+                Text("DATA").font(.custom("SpaceGrotesk-Bold", size: 20)).foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
             }.frame(maxWidth: .infinity, alignment: .leading)
             
         }

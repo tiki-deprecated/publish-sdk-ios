@@ -53,16 +53,18 @@ public struct Settings: View {
                         OfferCard(TikiSdk.instance.offers.values.first!)
                         UsedFor(bullets: TikiSdk.instance.offers.values.first!.bullets)
                         Text("TERMS & CONDITIONS")
+                            .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
                             .font(.custom(TikiSdk.theme(colorScheme).fontBold, size:16))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 15)
                             .padding(.bottom, 11)
                         ScrollView(.vertical) {
                             Text(TikiSdk.instance.offers.values.first!.terms!)
+                                .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
                                 .padding(7)
                             .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:12))}
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color(.white))
+                        .background(TikiSdk.theme(colorScheme).primaryBackgroundColor)
                         .padding(.horizontal, 15)
                         .padding(.bottom, 0)
                         Rectangle()
@@ -191,7 +193,7 @@ public struct Settings: View {
     }
     
     func license(offer: Offer) async throws -> LicenseRecord {
-        return try await TikiSdk.license( offer.ptr!, offer.uses, offer.terms!.stringKey!, tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
+        return try await TikiSdk.license( offer.ptr!, offer.uses, String(offer.terms!.characters), tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
     }
     
 }
