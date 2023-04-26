@@ -78,7 +78,7 @@ public struct OfferFlow: View{
                 .transition(.bottomSheet)
             }
             if(step == .terms){
-                Terms(onAccept: onAcceptTerms, terms: activeOffer.terms!.stringKey!)
+                Terms(onAccept: onAcceptTerms, terms: activeOffer.terms!)
                     .asNavigationRoute(
                         isShowing: isShowingBinding(.terms),
                         title: "Terms and conditions",
@@ -190,7 +190,7 @@ public struct OfferFlow: View{
     }
     
     private func license(offer: Offer) async throws -> LicenseRecord {
-        return try await TikiSdk.license( offer.ptr!, offer.uses, offer.terms!.stringKey!, tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
+        return try await TikiSdk.license( offer.ptr!, offer.uses, String(offer.terms!.characters), tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
     }
     
 }

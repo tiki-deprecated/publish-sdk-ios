@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "TikiSdk",
     platforms: [
-            .iOS(.v14)
+            .iOS(.v15)
     ],
     products: [
         .library(
@@ -29,12 +29,14 @@ let package = Package(
         ),
         
         .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.8/App_debug.xcframework.zip",
-                      checksum: "15384112b7d71015b9a58057cca66bca4a33dec011bd9b1476afe1bcb32a77ef"),
+                      path: "Frameworks/Debug/App.xcframework"),
+//                      url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.8/App.xcframework.zip",
+//                      checksum: "b79fce0c511d4f11584e6dad5360548384e99fa37b1ddb07d031b996c3ba8c23"),
         
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.8/Flutter_debug.xcframework.zip",
-                      checksum: "c1e062bfa6ba0fa097bbecac09ef4417304a3fa972be5f07529c1269d2e1d6f1"),
+                      path: "Frameworks/Debug/Flutter.xcframework"),
+//                      url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.8/Flutter.xcframework.zip",
+//                      checksum: "221a8aa76ed6d6b6857dde129e72d35ebd951d7291a245076b32668661f018d4"),
                           
         .binaryTarget(name: "FlutterPluginRegistrant", 
                       url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.8/FlutterPluginRegistrant.xcframework.zip",
@@ -43,7 +45,7 @@ let package = Package(
         .binaryTarget(name: "flutter_secure_storage",
                       url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.8/flutter_secure_storage.xcframework.zip",
                       checksum: "4bcd062fb8dd741d1da57519e06a2ab86d0eaee5b87f05e96c7bfb4945153457"),
-
+        
         ]
 )
 
