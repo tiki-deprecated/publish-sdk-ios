@@ -12,7 +12,10 @@ let package = Package(
             name: "TikiSdk",
             targets: ["TikiSdk"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/SwiftPackageIndex/SPIManifest.git", from: "0.12.0"),
+        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui.git", from: "2.1.0")
+    ],
     targets: [
         .target(
             name: "TikiSdk",
@@ -21,13 +24,13 @@ let package = Package(
                            "flutter_secure_storage",
                            "Flutter",
                            "FlutterPluginRegistrant",
+                           .product(name: "MarkdownUI", package: "swift-markdown-ui")
                           ],
             resources: [
                 .process("Media.xcassets"),
                 .process("Resources/learnMore.md")
             ]
         ),
-        
         .binaryTarget(name: "App",
                       path: "Frameworks/Debug/App.xcframework"),
 //                      url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.8/App.xcframework.zip",
@@ -47,8 +50,4 @@ let package = Package(
                       checksum: "4bcd062fb8dd741d1da57519e06a2ab86d0eaee5b87f05e96c7bfb4945153457"),
         
         ]
-)
-
-package.dependencies.append(
-    .package(url: "https://github.com/SwiftPackageIndex/SPIManifest.git", from: "0.12.0")
 )

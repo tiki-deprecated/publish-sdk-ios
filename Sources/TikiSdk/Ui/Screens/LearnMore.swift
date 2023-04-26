@@ -3,18 +3,19 @@
  * MIT license. See LICENSE file in root directory.
  */
 import SwiftUI
+import MarkdownUI
 
 public struct LearnMore : View{
     
     @Environment(\.colorScheme) var colorScheme
     
-    var learnMoreText: AttributedString = try! AttributedString(markdown: String(
+    var learnMoreText: String = try! String(
         contentsOfFile: Bundle.module.path(forResource: "learnMore", ofType: "md")!,
-        encoding: String.Encoding(rawValue: NSUTF8StringEncoding)))
+        encoding: String.Encoding(rawValue: NSUTF8StringEncoding))
     
     public var body: some View {
         return ScrollView(.vertical){
-            Text(learnMoreText)
+            Markdown(MarkdownContent(learnMoreText))
                 .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

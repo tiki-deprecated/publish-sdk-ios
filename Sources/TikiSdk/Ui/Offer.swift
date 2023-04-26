@@ -43,7 +43,7 @@ public class Offer {
     /// loaded using the `terms` method will be overwritten.
     ///
     ///- Warning: The `terms` property must be set before calling the `add()` method, otherwise it will throw a `TikiSdkError`.
-    public var terms: AttributedString?
+    public var terms: String?
 
     
     /// The Image that represents the Offer.
@@ -294,9 +294,9 @@ public class Offer {
     /// - Warning: The `terms` property must be set before calling the `add()` method, otherwise it will throw
     /// a `TikiSdkError`.
     public func terms(_ filename: String) throws -> Offer {
-        terms = AttributedString(stringLiteral: try String(
+        terms = try String(
             contentsOfFile: Bundle.main.path(forResource: filename, ofType: "md")!,
-            encoding: String.Encoding(rawValue: NSUTF8StringEncoding)))
+            encoding: String.Encoding(rawValue: NSUTF8StringEncoding))
         return self
     }
     

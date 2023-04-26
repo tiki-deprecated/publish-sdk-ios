@@ -3,6 +3,7 @@
  * MIT license. See LICENSE file in root directory.
  */
 import SwiftUI
+import MarkdownUI
 
 public struct Settings: View {
     
@@ -59,7 +60,7 @@ public struct Settings: View {
                             .padding(.horizontal, 15)
                             .padding(.bottom, 11)
                         ScrollView(.vertical) {
-                            Text(TikiSdk.instance.offers.values.first!.terms!)
+                            Markdown(MarkdownContent(TikiSdk.instance.offers.values.first!.terms!))
                                 .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
                                 .padding(7)
                             .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:12))}
@@ -193,7 +194,7 @@ public struct Settings: View {
     }
     
     func license(offer: Offer) async throws -> LicenseRecord {
-        return try await TikiSdk.license( offer.ptr!, offer.uses, String(offer.terms!.characters), tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
+        return try await TikiSdk.license( offer.ptr!, offer.uses, String(offer.terms!), tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
     }
     
 }

@@ -3,18 +3,18 @@
  * MIT license. See LICENSE file in root directory.
  */
 import SwiftUI
+import MarkdownUI
 
 public struct Terms : View{
     
     @Environment(\.colorScheme) var colorScheme
     var onAccept: (() -> Void)
-    var terms: AttributedString
+    var terms: String
     
     public var body: some View {
         VStack(spacing:0){
             ScrollView(.vertical) {
-                Text(terms)
-                    .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
+                Markdown(MarkdownContent(terms))
             }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.horizontal, 30)
