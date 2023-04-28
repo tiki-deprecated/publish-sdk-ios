@@ -1,3 +1,10 @@
+## 2.1.3
+
+* fix: tag in rollback action
+
+## 2.1.2
+
+* fix: dev dependencies rollback in release action
 ## 2.1.1
 
 * fix: use TIKI SDK Platform Channel
