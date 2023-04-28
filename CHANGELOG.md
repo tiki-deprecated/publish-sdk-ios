@@ -1,3 +1,9 @@
+## 2.1.1
+
+* fix: use TIKI SDK Platform Channel
+* fiz: theme colors
+* fix: markdown render
+
 ## 2.1.0
 
 * fix: upgrade TIKI SDK Flutter to 2.1.0
