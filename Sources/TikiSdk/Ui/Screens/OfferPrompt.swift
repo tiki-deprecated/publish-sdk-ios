@@ -36,6 +36,7 @@ public struct OfferPrompt: View {
                               font: TikiSdk.theme(colorScheme).fontMedium
                 ).frame(maxWidth: .infinity).padding(.trailing, 12)
                 TikiSdkButton("I'm in", {onAccept(currentOffer)},
+                              textColor: TikiSdk.theme(colorScheme).primaryBackgroundColor,
                               color: TikiSdk.theme(colorScheme).accentColor,
                               font: TikiSdk.theme(colorScheme).fontMedium
                 ).frame(maxWidth: .infinity).padding(.leading, 12)

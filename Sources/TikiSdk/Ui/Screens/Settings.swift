@@ -61,9 +61,12 @@ public struct Settings: View {
                             .padding(.bottom, 11)
                         ScrollView(.vertical) {
                             Markdown(MarkdownContent(TikiSdk.instance.offers.values.first!.terms!))
-                                .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
+                                .markdownTextStyle(\.code) {
+                                    ForegroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
+                                    BackgroundColor(TikiSdk.theme(colorScheme).primaryBackgroundColor)
+                                }
                                 .padding(7)
-                            .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:12))}
+                        }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(TikiSdk.theme(colorScheme).primaryBackgroundColor)
                         .padding(.horizontal, 15)
@@ -86,6 +89,7 @@ public struct Settings: View {
                         }else{
                             TikiSdkButton("Opt in",
                                           {_accept(offer: TikiSdk.instance.offers.values.first!)},
+                                          textColor: TikiSdk.theme(colorScheme).primaryBackgroundColor,
                                           color: TikiSdk.theme(colorScheme).accentColor,
                                           font: TikiSdk.theme(colorScheme).fontMedium
                             ).frame(maxWidth: .infinity).padding(.bottom,16)

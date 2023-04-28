@@ -15,8 +15,10 @@ public struct LearnMore : View{
     
     public var body: some View {
         return ScrollView(.vertical){
-            Markdown(MarkdownContent(learnMoreText))
-                .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
+            Markdown(MarkdownContent(learnMoreText)).markdownTextStyle(\.code) {
+                ForegroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
+                BackgroundColor(TikiSdk.theme(colorScheme).primaryBackgroundColor)
+              }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 30)

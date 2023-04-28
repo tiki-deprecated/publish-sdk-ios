@@ -15,6 +15,10 @@ public struct Terms : View{
         VStack(spacing:0){
             ScrollView(.vertical) {
                 Markdown(MarkdownContent(terms))
+                    .markdownTextStyle(\.code) {
+                      ForegroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
+                      BackgroundColor(TikiSdk.theme(colorScheme).primaryBackgroundColor)
+                    }
             }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.horizontal, 30)
@@ -26,7 +30,7 @@ public struct Terms : View{
                 .edgesIgnoringSafeArea(.horizontal)
                 .padding(.bottom, 30)
                 .padding(.horizontal, 30)
-            TikiSdkButton("I agree", onAccept, color: TikiSdk.theme(colorScheme).accentColor).padding(16)
+            TikiSdkButton("I agree", onAccept, textColor: TikiSdk.theme(colorScheme).primaryBackgroundColor, color: TikiSdk.theme(colorScheme).accentColor).padding(16)
         }
     }
 }

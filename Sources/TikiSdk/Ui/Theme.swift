@@ -155,7 +155,7 @@ public class Theme {
     // MARK: Private properties
     
     private var _primaryTextColor = Color(red: 0.11, green: 0, blue: 0)
-    private var _secondaryTextColor = Color(red: 0, green: 0, blue: 0).opacity(0.6)
+    private var _secondaryTextColor = Color(red: 0.11, green: 0, blue: 0).opacity(0.6)
     private var _primaryBackgroundColor = Color(red: 1, green: 1, blue: 1)
     private var _secondaryBackgroundColor = Color(red: 0.96, green:0.96, blue:0.96)
     private var _accentColor = Color(red: 0, green: 0.7, blue: 0.44)
