@@ -14,6 +14,7 @@ struct YourChoice: View{
                 .foregroundColor(TikiSdk.theme(colorScheme).accentColor)
             Text("CHOICE")
                 .font(.custom(TikiSdk.theme(colorScheme).fontBold, size: 20))
+                .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }

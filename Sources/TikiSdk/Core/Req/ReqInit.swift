@@ -13,4 +13,5 @@ struct ReqInit: Encodable {
     let publishingId : String
     let id : String
     let origin : String
+    let dbDir: String
 }

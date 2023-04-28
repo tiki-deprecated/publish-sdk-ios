@@ -18,6 +18,7 @@ public struct NavigationHeader: View{
             }.padding(.leading, 15).padding(.trailing, 20)
             Text(title).font(.custom(TikiSdk.theme(colorScheme).fontBold, size:20))
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
         }
         .frame(maxWidth: .infinity)
     }

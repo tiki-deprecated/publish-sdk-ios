@@ -51,17 +51,18 @@ public class CoreChannel {
         callbacks.remove(at: callbacks.index(forKey: requestId)!)
     }
     
-    public func initChannel() async {
+    public func initChannel() async -> Bool {
         let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
-        await withCheckedContinuation{ continuation in
+        let result = await withCheckedContinuation{ continuation in
             DispatchQueue.main.async {
                 flutterEngine.run()
                 GeneratedPluginRegistrant.register(with: flutterEngine);
                 self.channel = FlutterMethodChannel.init(name: CoreChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
                 self.channel!.setMethodCallHandler(self.handle)
-                continuation.resume()
+                continuation.resume(returning: true)
             }
         }
+        return result
     }
     
     public func invokeMethod<T: Decodable, R: Encodable>(
@@ -89,7 +90,7 @@ public class CoreChannel {
         }
         Task{
             if(channel == nil){
-                await initChannel()
+                let _ = await initChannel()
             }
             channel!.invokeMethod(
                 method.rawValue, arguments: [

@@ -3,6 +3,7 @@
  * MIT license. See LICENSE file in root directory.
  */
 import SwiftUI
+import MarkdownUI
 
 public struct Settings: View {
     
@@ -53,16 +54,21 @@ public struct Settings: View {
                         OfferCard(TikiSdk.instance.offers.values.first!)
                         UsedFor(bullets: TikiSdk.instance.offers.values.first!.bullets)
                         Text("TERMS & CONDITIONS")
+                            .foregroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
                             .font(.custom(TikiSdk.theme(colorScheme).fontBold, size:16))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 15)
                             .padding(.bottom, 11)
                         ScrollView(.vertical) {
-                            Text(LocalizedStringKey(stringLiteral: TikiSdk.instance.offers.values.first!.terms!))
+                            Markdown(MarkdownContent(TikiSdk.instance.offers.values.first!.terms!))
+                                .markdownTextStyle(\.code) {
+                                    ForegroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
+                                    BackgroundColor(TikiSdk.theme(colorScheme).primaryBackgroundColor)
+                                }
                                 .padding(7)
-                            .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:12))}
+                        }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color(.white))
+                        .background(TikiSdk.theme(colorScheme).primaryBackgroundColor)
                         .padding(.horizontal, 15)
                         .padding(.bottom, 0)
                         Rectangle()
@@ -83,6 +89,7 @@ public struct Settings: View {
                         }else{
                             TikiSdkButton("Opt in",
                                           {_accept(offer: TikiSdk.instance.offers.values.first!)},
+                                          textColor: TikiSdk.theme(colorScheme).primaryBackgroundColor,
                                           color: TikiSdk.theme(colorScheme).accentColor,
                                           font: TikiSdk.theme(colorScheme).fontMedium
                             ).frame(maxWidth: .infinity).padding(.bottom,16)
@@ -191,7 +198,7 @@ public struct Settings: View {
     }
     
     func license(offer: Offer) async throws -> LicenseRecord {
-        return try await TikiSdk.license( offer.ptr!, offer.uses, offer.terms!, tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
+        return try await TikiSdk.license( offer.ptr!, offer.uses, String(offer.terms!), tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
     }
     
 }

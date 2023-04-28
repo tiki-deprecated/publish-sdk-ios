@@ -13,8 +13,10 @@ jobs:
   version:
     if: startsWith(github.head_ref, 'release/')
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.semver.outputs.nextStrict }}
     steps:
-      - name: Checkout TIKI SDK iOS
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -27,7 +29,7 @@ jobs:
           gh pr checkout ${{ github.event.pull_request.number }}
           export PR_BRANCH=$(git branch --show-current)
           echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
-          
+
       - name: Get Version
         id: semver
         uses: ietf-tools/semver-action@v1
@@ -69,3 +71,15 @@ jobs:
           git add Package.swift
           git commit -m "update Package.swift"
           git push
+
+      - name: Commit Changes
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GH Action"
+          git add app/build.gradle
+          git commit -m 'version bump'
+          git push
+

@@ -3,6 +3,7 @@
  * MIT license. See LICENSE file in root directory.
  */
 import SwiftUI
+import MarkdownUI
 
 public struct Terms : View{
     
@@ -13,8 +14,12 @@ public struct Terms : View{
     public var body: some View {
         VStack(spacing:0){
             ScrollView(.vertical) {
-                Text(LocalizedStringKey(stringLiteral: terms))
-                .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size:16))}
+                Markdown(MarkdownContent(terms))
+                    .markdownTextStyle(\.code) {
+                      ForegroundColor(TikiSdk.theme(colorScheme).primaryTextColor)
+                      BackgroundColor(TikiSdk.theme(colorScheme).primaryBackgroundColor)
+                    }
+            }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.horizontal, 30)
                     .padding(.top, 40)
@@ -25,7 +30,7 @@ public struct Terms : View{
                 .edgesIgnoringSafeArea(.horizontal)
                 .padding(.bottom, 30)
                 .padding(.horizontal, 30)
-            TikiSdkButton("I agree", onAccept, color: TikiSdk.theme(colorScheme).accentColor).padding(16)
+            TikiSdkButton("I agree", onAccept, textColor: TikiSdk.theme(colorScheme).primaryBackgroundColor, color: TikiSdk.theme(colorScheme).accentColor).padding(16)
         }
     }
 }

@@ -188,7 +188,11 @@ public class TikiSdk{
     public func initialize(publishingId: String, id: String, onComplete: (() -> Void)? = nil, origin: String? = nil) throws {
         Task{
             let rspBuild: RspInit = try await withCheckedThrowingContinuation{ continuation in
-                let buildRequest = ReqInit(publishingId: publishingId, id: id, origin: origin ?? Bundle.main.bundleIdentifier!)
+                let dbDir = NSSearchPathForDirectoriesInDomains(
+                    FileManager.SearchPathDirectory.documentDirectory,
+                    FileManager.SearchPathDomainMask.userDomainMask,
+                    true)
+                let buildRequest = ReqInit(publishingId: publishingId, id: id, origin: origin ?? Bundle.main.bundleIdentifier!, dbDir: dbDir.first! )
                 do{
                     try self._coreChannel.invokeMethod(
                         method: CoreMethod.build,
@@ -281,7 +285,6 @@ public class TikiSdk{
     ///
     /// - Throws: `TikiSdkError` if the SDK is not initialized or if no `Offer` was created.
     public static func settings() throws {
-        
         try throwIfNotInitialized()
         try throwIfNoOffers()
         let viewController = UIApplication.shared.windows.first?.rootViewController

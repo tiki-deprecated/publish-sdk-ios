@@ -43,11 +43,11 @@ import SwiftUI
 /// To configure fonts, first load the font files into the project bundle. The fonts should be added with their respective weights in the
 /// filenames, like this:
 ///
-/// * `<fontFamily>-Regular"`
-/// * `<fontFamily>-Bold"`
-/// * `<fontFamily>-Light"`
-/// * `<fontFamily>-Medium"`
-/// * `<fontFamily>-Bold"`
+/// * `<fontFamily>Regular"`
+/// * `<fontFamily>Light"`
+/// * `<fontFamily>Medium"`
+/// * `<fontFamily>SemiBold"`
+/// * `<fontFamily>Bold"`
 public class Theme {
     
     // MARK: Constant images
@@ -155,7 +155,7 @@ public class Theme {
     // MARK: Private properties
     
     private var _primaryTextColor = Color(red: 0.11, green: 0, blue: 0)
-    private var _secondaryTextColor = Color(red: 0, green: 0, blue: 0).opacity(0.6)
+    private var _secondaryTextColor = Color(red: 0.11, green: 0, blue: 0).opacity(0.6)
     private var _primaryBackgroundColor = Color(red: 1, green: 1, blue: 1)
     private var _secondaryBackgroundColor = Color(red: 0.96, green:0.96, blue:0.96)
     private var _accentColor = Color(red: 0, green: 0.7, blue: 0.44)
@@ -163,11 +163,11 @@ public class Theme {
     
     private var font: Dictionary<String,String> {
         get {[
-            "regular" : "\(_fontFamily)-Regular",
-            "bold" : "\(_fontFamily)-Bold",
-            "light" : "\(_fontFamily)-Light",
-            "medium" : "\(_fontFamily)-Medium",
-            "semiBold" : "\(_fontFamily)-SemiBold",
+            "regular" : "\(_fontFamily)Regular",
+            "bold" : "\(_fontFamily)Bold",
+            "light" : "\(_fontFamily)Light",
+            "medium" : "\(_fontFamily)Medium",
+            "semiBold" : "\(_fontFamily)SemiBold",
         ]}
     }
     

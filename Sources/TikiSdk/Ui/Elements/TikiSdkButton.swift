@@ -25,15 +25,15 @@ public struct TikiSdkButton: View {
         self.textColor = textColor
         self.borderColor = borderColor
         self.font = font
-        self.backgroundColor = Color.white
+        self.backgroundColor = TikiSdk.theme(colorScheme).primaryBackgroundColor
     }
     
-    public init(_ text: String, _ onTap: @escaping () -> Void,
+    public init(_ text: String, _ onTap: @escaping () -> Void, textColor: Color,
          color: Color,
          font: String? = nil) {
         self.text = text
         self.onTap = onTap
-        self.textColor = Color.white
+        self.textColor = textColor
         self.backgroundColor = color
         self.borderColor = color
         self.font = font

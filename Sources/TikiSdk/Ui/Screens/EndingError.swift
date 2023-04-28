@@ -18,14 +18,14 @@ struct EndingError: View{
                 VStack(spacing:0){
                     Text("Offer declined.")
                         .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
-                        .foregroundColor(Color(.black).opacity(0.6))
+                        .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                     HStack(spacing:0){
                         Text("To proceed, allow ")
                             .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
-                            .foregroundColor(Color(.black).opacity(0.6))
+                            .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                         Text("\(getPendingPermissionsNames()).").font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
                             .font(.custom(TikiSdk.theme(colorScheme).fontRegular, size: 18))
-                            .foregroundColor(Color(.black).opacity(0.6))
+                            .foregroundColor(TikiSdk.theme(colorScheme).secondaryTextColor)
                             .underline()
                             .onTapGesture {
                                 guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
@@ -46,14 +46,14 @@ struct EndingError: View{
     
     
     func getPendingPermissionsNames() -> String{
-        if(pendingPermissions!.count == 1){
-            return pendingPermissions!.first!.name()
-        }
-        var nameList : [String] = []
-        pendingPermissions!.forEach{ perm in
-            nameList.append(perm.name())
-        }
-        return nameList.joined(separator: ", ")
+            if(pendingPermissions!.count == 1){
+                return pendingPermissions!.first!.name()
+            }
+            var nameList : [String] = []
+            pendingPermissions!.forEach{ perm in
+                nameList.append(perm.name())
+            }
+            return nameList.joined(separator: ", ")
     }
     
     func requestPendingPermissions(){
