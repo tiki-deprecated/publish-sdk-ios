@@ -64,7 +64,22 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.semver.outputs.nextStrict }}
+          
+  rollback:
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+      - name: Checkout TIKI SDK iOS
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
+      - name: Get Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ github.token }}
+          
       - name: Change back to frameworks develop version
         run: |
           sed -i 's/App\.xcframework/App_debug\.xcframework/' Package.swift
