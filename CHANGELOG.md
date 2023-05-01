@@ -1,3 +1,7 @@
+## 2.1.5
+
+* fix: commit rollback with github token
+
 ## 2.1.4
 
 * fix: typo in release action
