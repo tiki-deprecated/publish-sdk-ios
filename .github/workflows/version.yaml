@@ -66,11 +66,6 @@ jobs:
           sed -i "s/${{ steps.frameworks_versions.outputs.FLUTTER_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.FLUTTER_RELEASE_CHECKSUM }}/" Package.swift
           echo "============= Package.swift ============="
           cat Package.swift
-          git config --global user.email "action@github.com"
-          git config --global user.name "GH Action"
-          git add Package.swift
-          git commit -m "update Package.swift"
-          git push
 
       - name: Commit Changes
         continue-on-error: true
@@ -79,7 +74,6 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GH Action"
-          git add app/build.gradle
           git commit -m 'version bump'
           git push
 
