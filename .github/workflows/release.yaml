@@ -98,4 +98,4 @@ jobs:
           git config --global user.email 'gh-release-action@mytiki'
           git add Package.swift
           git commit -a -m "${{needs.release.outputs.tag}} develop version"
-          git push origim
+          git push origin

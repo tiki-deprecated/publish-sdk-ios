@@ -1,3 +1,6 @@
+## 2.1.4
+
+* fix: typo in release action
 ## 2.1.3
 
 * fix: tag in rollback action
