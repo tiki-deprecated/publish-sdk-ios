@@ -7,6 +7,11 @@ on:
     types:
       - closed
 
+on:
+  push:
+    branches: 
+      - ci/docs_action
+
 permissions:
   contents: write
   pages: write
@@ -17,6 +22,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  docs:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
+    runs-on: macos-latest
+    steps:
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '14.2'
+
+      - name: Checkout TIKI SDK iOS
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Build Docs
+        id: build_docs
+        run: |
+          export TEMP_DIR=$(mktemp -d)
+          echo "TEMP_DIR=$TEMP_DIR" >> $GITHUB_OUTPUT 
+          xcodebuild docbuild -scheme TikiSdk -derivedDataPath $TEMP_DIR -destination generic/platform=iOS
+
+      - name: Convert to Static
+        run: |
+          mkdir -p doc/static
+          $(xcrun --find docc) process-archive transform-for-static-hosting ${{steps.build_docs.outputs.TEMP_DIR}}/Build/Products/Debug-iphoneos/TikiSdk.doccarchive --output-path doc/static
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './doc/static'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
   release:
     if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     environment: Production
@@ -34,27 +77,6 @@ jobs:
         uses: ietf-tools/semver-action@v1
         with:
           token: ${{ github.token }}
-          
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Build Docs
-        run: |
-          xcodebuild docbuild -scheme TikiSdk -derivedDataPath ./DerivedData -destination generic/platform=iOS
-
-      - name: Convert to Static
-        run: |
-          mkdir -p doc/static
-          $(xcrun --find docc) process-archive transform-for-static-hosting ./DerivedData/Build/Products/Debug-iphoneos/TikiSdk.doccarchive --output-path doc/static
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: './doc/static'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
 
       - name: Create a new tag
         run: |
