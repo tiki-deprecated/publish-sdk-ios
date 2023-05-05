@@ -35,6 +35,8 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Build Docs
+        with:
+          xcode-version: '13.4.1'
         run: |
           xcodebuild docbuild -scheme TikiSdk -derivedDataPath ./DerivedData -destination generic/platform=iOS
 
