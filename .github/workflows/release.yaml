@@ -40,13 +40,16 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Build Docs
+        id: build_docs
         run: |
-          xcodebuild docbuild -scheme TikiSdk -destination generic/platform=iOS
+          export TEMP_DIR=$(mktemp -d)
+          echo "{TEMP_DIR}={$TEMP_DIR}" >> $GITHUB_OUTPUT 
+          xcodebuild docbuild -scheme TikiSdk -derivedDataPath $TEMP_DIR -destination generic/platform=iOS
 
       - name: Convert to Static
         run: |
           mkdir -p doc/static
-          $(xcrun --find docc) process-archive transform-for-static-hosting ./DerivedData/Build/Products/Debug-iphoneos/TikiSdk.doccarchive --output-path doc/static
+          $(xcrun --find docc) process-archive transform-for-static-hosting ${{steps.build_docs.outputs.TEMP_DIR}}/Build/Products/Debug-iphoneos/TikiSdk.doccarchive --output-path doc/static
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
