@@ -41,7 +41,7 @@ jobs:
 
       - name: Build Docs
         run: |
-          xcodebuild docbuild -scheme TikiSdk -derivedDataPath ./DerivedData -destination generic/platform=iOS
+          xcodebuild docbuild -scheme TikiSdk -destination generic/platform=iOS
 
       - name: Convert to Static
         run: |
