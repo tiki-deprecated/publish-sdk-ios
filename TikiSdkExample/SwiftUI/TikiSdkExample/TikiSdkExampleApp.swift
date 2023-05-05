@@ -21,7 +21,7 @@ struct TikiSdkExampleApp: App {
                 do{
                     try TikiSdk.present()
                 }catch{
-                    initTikiSdk()
+//                    initTikiSdk()
                     print(error)
                 }
             }) {
@@ -31,7 +31,7 @@ struct TikiSdkExampleApp: App {
                 do{
                     try TikiSdk.settings()
                 }catch{
-                    initTikiSdk()
+//                    initTikiSdk()
                     print(error)
                 }
             }) {
