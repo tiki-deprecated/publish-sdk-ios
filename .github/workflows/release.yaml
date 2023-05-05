@@ -1,11 +1,16 @@
 name: Release
 
+# on:
+#   pull_request:
+#     branches:
+#       - main
+#     types:
+#       - closed
+
 on:
-  pull_request:
-    branches:
-      - main
-    types:
-      - closed
+  push:
+    branches: 
+      - ci/docs_action
 
 permissions:
   contents: write
@@ -17,23 +22,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release:
-    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
-    environment: Production
-    outputs:
-      tag: ${{ steps.semver.outputs.nextStrict }}
+  docs:
+#    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     runs-on: macos-latest
     steps:
       - name: Checkout TIKI SDK iOS
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - name: Get Version
-        id: semver
-        uses: ietf-tools/semver-action@v1
-        with:
-          token: ${{ github.token }}
           
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -55,6 +51,24 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
+  release:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
+    environment: Production
+    outputs:
+      tag: ${{ steps.semver.outputs.nextStrict }}
+    runs-on: macos-latest
+    steps:
+      - name: Checkout TIKI SDK iOS
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ github.token }}
 
       - name: Create a new tag
         run: |

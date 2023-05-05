@@ -24,7 +24,7 @@ jobs:
       - name: Checkout PR
         id: getpr
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           gh pr checkout ${{ github.event.pull_request.number }}
           export PR_BRANCH=$(git branch --show-current)
@@ -59,7 +59,7 @@ jobs:
       - name: Update Package.swift to release version
         continue-on-error: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           sed -i 's/_debug//' Package.swift
           sed -i "s/${{ steps.frameworks_versions.outputs.APP_DEBUG_CHECKSUM }}/${{ steps.frameworks_versions.outputs.APP_RELEASE_CHECKSUM }}/" Package.swift
@@ -70,7 +70,7 @@ jobs:
       - name: Commit Changes
         continue-on-error: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GH Action"
