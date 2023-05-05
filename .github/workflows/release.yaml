@@ -26,17 +26,6 @@ jobs:
 #    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     runs-on: macos-latest
     steps:
-
-      - name: Build Docs
-        id: build_docs
-        run: |
-          
-      - name: Convert to Static
-        run: |
-          echo ${{steps.build_docs.outputs.TEMP_DIR}}
-
-
-
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
