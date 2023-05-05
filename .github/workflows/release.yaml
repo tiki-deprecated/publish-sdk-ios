@@ -1,11 +1,11 @@
 name: Release
 
-# on:
-#   pull_request:
-#     branches:
-#       - main
-#     types:
-#       - closed
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
 
 on:
   push:
@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   docs:
-#    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     runs-on: macos-latest
     steps:
       - name: Setup Xcode
