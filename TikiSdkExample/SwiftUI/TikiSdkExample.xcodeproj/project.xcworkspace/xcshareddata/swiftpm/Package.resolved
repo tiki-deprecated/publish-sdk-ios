@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "swift-markdown-ui",
+        "repositoryURL": "https://github.com/gonzalezreal/swift-markdown-ui.git",
+        "state": {
+          "branch": null,
+          "revision": "12b351a75201a8124c2f2e1f9fc6ef5cd812c0b9",
+          "version": "2.1.0"
+        }
+      },
+      {
         "package": "Yams",
         "repositoryURL": "https://github.com/jpsim/Yams.git",
         "state": {

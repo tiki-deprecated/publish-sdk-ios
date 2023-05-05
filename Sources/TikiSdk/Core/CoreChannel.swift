@@ -14,12 +14,6 @@ public class CoreChannel {
     static let channelId = "tiki_sdk_flutter"
     var callbacks: Dictionary<String, ((_ jsonString : String?, _ error : Error?) -> Void)> = [:]
     
-    init() {
-        Task{
-            await initChannel()
-        }
-    }
-    
     /// Handles the method calls from Flutter.
     ///
     /// When calling TIKI SDK Flutter from native code, one should pass a requestId
@@ -51,18 +45,17 @@ public class CoreChannel {
         callbacks.remove(at: callbacks.index(forKey: requestId)!)
     }
     
-    public func initChannel() async -> Bool {
+    public func initChannel() async {
         let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
-        let result = await withCheckedContinuation{ continuation in
-            DispatchQueue.main.async {
+        await withCheckedContinuation{ continuation in
+            DispatchQueue.main.sync {
                 flutterEngine.run()
                 GeneratedPluginRegistrant.register(with: flutterEngine);
                 self.channel = FlutterMethodChannel.init(name: CoreChannel.channelId, binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
                 self.channel!.setMethodCallHandler(self.handle)
-                continuation.resume(returning: true)
+                continuation.resume()
             }
         }
-        return result
     }
     
     public func invokeMethod<T: Decodable, R: Encodable>(
@@ -90,7 +83,7 @@ public class CoreChannel {
         }
         Task{
             if(channel == nil){
-                let _ = await initChannel()
+                await initChannel()
             }
             channel!.invokeMethod(
                 method.rawValue, arguments: [

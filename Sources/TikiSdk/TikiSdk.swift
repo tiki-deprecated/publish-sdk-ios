@@ -205,7 +205,7 @@ public class TikiSdk{
                 
             }
             self._address = rspBuild.address
-            DispatchQueue.main.async {
+            DispatchQueue.main.sync {
                 onComplete?()
             }
         }
