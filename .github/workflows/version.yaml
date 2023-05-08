@@ -74,6 +74,7 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GH Action"
+          git add Package.swift
           git commit -m 'version bump'
           git push
 

@@ -7,11 +7,6 @@ on:
     types:
       - closed
 
-on:
-  push:
-    branches: 
-      - ci/docs_action
-
 permissions:
   contents: write
   pages: write
@@ -49,6 +44,7 @@ jobs:
       - name: Convert to Static
         run: |
           mkdir -p doc/static
+          ls ${{steps.build_docs.outputs.TEMP_DIR}}/Build/Products/Debug-iphoneos/TikiSdk.doccarchive
           $(xcrun --find docc) process-archive transform-for-static-hosting ${{steps.build_docs.outputs.TEMP_DIR}}/Build/Products/Debug-iphoneos/TikiSdk.doccarchive --output-path doc/static
 
       - name: Upload artifact
