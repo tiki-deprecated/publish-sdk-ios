@@ -7,11 +7,6 @@ on:
     types:
       - closed
 
-on:
-  push:
-    branches: 
-      - ci/docs_action
-
 permissions:
   contents: write
   pages: write
