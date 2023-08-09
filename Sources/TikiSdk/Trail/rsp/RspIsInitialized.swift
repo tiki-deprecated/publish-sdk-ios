@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct RspIsInitialized : Decodable {
-    let isInitialized: Bool
+struct RspInitialized : Decodable {
+    let isInitialized: String
     let requestId: String?
 }

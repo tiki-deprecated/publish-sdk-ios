@@ -9,4 +9,5 @@ struct RspInitialize : Decodable {
     let id: String?
     let address: String?
     let requestId: String?
+
 }

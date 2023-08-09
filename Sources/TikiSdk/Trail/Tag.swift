@@ -11,4 +11,3 @@ import Foundation
 public class Tag : Codable{
     let algo: String
 }
-

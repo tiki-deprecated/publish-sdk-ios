@@ -9,3 +9,4 @@ struct RspId : Decodable {
     let id: String?
     let requestId: String?
 }
+

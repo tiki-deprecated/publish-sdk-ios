@@ -6,6 +6,7 @@
 import Foundation
 
 struct RspReceipts : Decodable {
-    let receipts: String?
+    let receipts: [RspReceipt]?
     let requestId: String?
 }
+

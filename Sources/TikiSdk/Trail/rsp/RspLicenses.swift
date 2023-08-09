@@ -9,3 +9,4 @@ struct RspLicenses: Decodable {
     let licenses: [RspLicense]?
     let requestId: String?
 }
+

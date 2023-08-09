@@ -10,4 +10,7 @@ struct RspTitle : Decodable {
     let hashedPtr: String?
     let origin: String?
     let tags: [Tag]
+    let description: String?
+    let requestId: String?
+
 }
