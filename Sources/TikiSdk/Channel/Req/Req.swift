@@ -3,6 +3,9 @@
  * MIT license. See LICENSE file in root directory.
  */
 
-struct RspError : Decodable {
-    let message, stackTrace : String
+
+import Foundation
+
+protocol Req{
+    var requestId: String? { get set }
 }

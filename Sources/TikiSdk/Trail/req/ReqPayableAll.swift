@@ -3,9 +3,9 @@
  * MIT license. See LICENSE file in root directory.
  */
 
-
 import Foundation
 
-protocol Rsp{
-    var requestId: String? { get set }
+struct ReqPayableAll: Encodable, Req {
+    var licenseId: String
+    var requestId: String?
 }
