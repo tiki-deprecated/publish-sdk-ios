@@ -3,22 +3,14 @@
  * MIT license. See LICENSE file in root directory.
  */
 
+
 import Foundation
 
-struct ReqError: Req, Error {
-    var _domain: String
-    
-    var _code: Int
-    
-    var _userInfo: AnyObject?
-    
-    func _getEmbeddedNSError() -> AnyObject? {
-        <#code#>
-    }
+struct RspError: Rsp, CustomStringConvertible {
+    var requestId: String?
     
     let message: String?
     let stackTrace: String?
-    var requestId: String?
     
     init(message: String?, stackTrace: String?, requestId: String?) {
         self.message = message
@@ -26,8 +18,8 @@ struct ReqError: Req, Error {
         self.requestId = requestId
     }
     
-    static func from(map: [String: Any?]) -> Error {
-        return ReqError(
+    static func from(map: [String: Any?]) -> RspError {
+        return RspError(
             message: map["message"] as? String,
             stackTrace: map["stackTrace"] as? String,
             requestId: map["requestId"] as? String
@@ -35,6 +27,6 @@ struct ReqError: Req, Error {
     }
     
     var description: String {
-        return "reqError(message: \(message ?? "nil"), stackTrace: \(stackTrace ?? "nil"), requestId: \(requestId ?? "nil"))"
+        return "RspError(message=\(message ?? "nil"), stackTrace=\(stackTrace ?? "nil"), requestId=\(requestId ?? "nil"))"
     }
 }
