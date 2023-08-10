@@ -6,6 +6,6 @@
 import Foundation
 
 struct RspInitialized : Decodable, Rsp {
-    let isInitialized: String
+    let isInitialized: Bool
     var requestId: String?
 }
