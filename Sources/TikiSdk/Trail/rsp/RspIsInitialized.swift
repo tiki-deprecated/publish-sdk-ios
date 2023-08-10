@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct RspInitialized : Decodable {
+struct RspInitialized : Decodable, Rsp {
     let isInitialized: String
-    let requestId: String?
+    var requestId: String?
 }

@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct RspPayable: Decodable {
+struct RspPayable: Decodable, Rsp {
     let id: String?
     let license: RspLicense?
     let amount: String?
@@ -13,5 +13,5 @@ struct RspPayable: Decodable {
     let description: String?
     let expiry: Date?
     let reference: String?
-    let resquestId: String?
+    var requestId: String?
 }

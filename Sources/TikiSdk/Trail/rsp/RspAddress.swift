@@ -5,8 +5,7 @@
 
 import Foundation
 
-struct RspAdress : Decodable {
+struct RspAdress : Decodable, Rsp {
     let address: String
-    let requestId: String?
+    var requestId: String?
 }
-

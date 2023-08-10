@@ -5,9 +5,9 @@
 
 import Foundation
 
-struct RspInitialize : Decodable {
+struct RspInitialize : Decodable, Rsp {
     let id: String?
     let address: String?
-    let requestId: String?
+    var requestId: String?
 
 }

@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct RspPayables: Decodable {
+struct RspPayables: Decodable, Rsp {
     let payables: [RspPayable]?
-    let requestId: String?
+    var requestId: String?
 }

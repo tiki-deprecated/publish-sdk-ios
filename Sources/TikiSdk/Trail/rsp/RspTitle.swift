@@ -5,12 +5,12 @@
 
 import Foundation
 
-struct RspTitle : Decodable {
+struct RspTitle : Decodable , Rsp{
     let id: String?
     let hashedPtr: String?
     let origin: String?
     let tags: [Tag]
     let description: String?
-    let requestId: String?
+    var requestId: String?
 
 }

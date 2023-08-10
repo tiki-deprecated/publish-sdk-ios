@@ -5,9 +5,8 @@
 
 import Foundation
 
-struct RspGuard : Decodable {
+struct RspGuard : Decodable, Rsp {
     let success: Bool
     let reason: String?
-    let requestId: String?
+    var requestId: String?
 }
-

@@ -5,8 +5,8 @@
 
 import Foundation
 
-struct RspReceipts : Decodable {
+struct RspReceipts : Decodable, Rsp {
     let receipts: [RspReceipt]?
-    let requestId: String?
+    var requestId: String?
 }
 

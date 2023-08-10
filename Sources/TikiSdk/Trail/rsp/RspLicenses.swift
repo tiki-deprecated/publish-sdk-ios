@@ -5,8 +5,8 @@
 
 import Foundation
 
-struct RspLicenses: Decodable {
+struct RspLicenses: Decodable, Rsp {
     let licenses: [RspLicense]?
-    let requestId: String?
+    var requestId: String?
 }
 
