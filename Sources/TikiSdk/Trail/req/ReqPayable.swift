@@ -5,11 +5,12 @@
 
 import Foundation
 
-struct ReqPayable: Encodable {
+struct ReqPayable: Encodable, Req {
     var licenseId: String
     var amount: String
     var type: String
     var expiry: Date? = nil
     var description: String? = nil
     var reference: String? = nil
+    var requestId: String?
 }

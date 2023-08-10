@@ -5,6 +5,7 @@
 
 import Foundation
 
-struct ReqTitleId: Encodable {
+struct ReqTitleId: Encodable, Req {
     var id: String
+    var requestId: String?
 }

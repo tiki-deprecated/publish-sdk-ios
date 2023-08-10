@@ -5,6 +5,7 @@
 
 import Foundation
 
-struct ReqReceiptAll: Encodable {
+struct ReqReceiptAll: Encodable, Req {
     var payableId: String
+    var requestId: String?
 }

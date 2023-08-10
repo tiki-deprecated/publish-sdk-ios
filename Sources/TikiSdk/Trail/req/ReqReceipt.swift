@@ -5,9 +5,10 @@
 
 import Foundation
 
-struct ReqReceipt: Encodable {
+struct ReqReceipt: Encodable, Req {
     var payableId: String
     var amount: String
     var description: String? = nil
     var reference: String? = nil
+    var requestId: String?
 }
