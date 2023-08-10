@@ -3,7 +3,6 @@
  * MIT license. See LICENSE file in root directory.
  */
 
-
 import Foundation
 
 protocol Rsp{
