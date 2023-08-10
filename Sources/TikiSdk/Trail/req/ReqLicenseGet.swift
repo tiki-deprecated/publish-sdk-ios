@@ -5,7 +5,6 @@
 
 import Foundation
 
-struct ReqLicenseLatest: Encodable {
-    var ptr: String?
-    var origin: String?
+struct ReqLicenseGet: Encodable {
+    var id: String
 }

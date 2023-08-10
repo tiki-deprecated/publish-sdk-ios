@@ -6,8 +6,8 @@
 import Foundation
 
 struct ReqTitle: Encodable {
-    var ptr: String?
-    var tags: [TitleTag] = []
-    var description: String?
-    var origin: String?
+    var ptr: String
+    var tags: [Tag]
+    var description: String? = nil
+    var origin: String? = nil
 }

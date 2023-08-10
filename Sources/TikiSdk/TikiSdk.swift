@@ -554,7 +554,7 @@ public class TikiSdk{
                 continuation.resume(throwing: error)
             }
         }
-        return rspLicense.license
+        return rspLicense.self
     }
     /// Returns all LicenseRecords associated with a given Pointer Record.
     ///
