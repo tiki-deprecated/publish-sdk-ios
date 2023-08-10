@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		888C7E7D2A83AC4100017F9C /* tiki-sdk-ios in Resources */ = {isa = PBXBuildFile; fileRef = 8C6ED7E52987E35A009C4B3F /* tiki-sdk-ios */; };
 		8C24F90C29BA770500A030AF /* ExampleApp.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C24F90B29BA770500A030AF /* ExampleApp.xcassets */; };
 		8C6ED7E72987E44E009C4B3F /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6ED7E62987E44E009C4B3F /* TikiSdk */; };
 		8CB058FD298D2CF600893F46 /* TikiSdkExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB058FC298D2CF600893F46 /* TikiSdkExampleApp.swift */; };
@@ -168,6 +169,7 @@
 				8C24F90C29BA770500A030AF /* ExampleApp.xcassets in Resources */,
 				8CE1F17929F6CF98007231A9 /* SpaceGroteskSemiBold.ttf in Resources */,
 				8CE1F17A29F6CF98007231A9 /* SpaceGroteskLight.ttf in Resources */,
+				888C7E7D2A83AC4100017F9C /* tiki-sdk-ios in Resources */,
 				8CE1F17B29F6CF98007231A9 /* SpaceGroteskMedium.ttf in Resources */,
 				8CE1F17C29F6CF98007231A9 /* SpaceGroteskRegular.ttf in Resources */,
 				8CE1F17429F6C92B007231A9 /* terms.md in Resources */,

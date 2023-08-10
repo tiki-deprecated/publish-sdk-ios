@@ -3,7 +3,10 @@
  * MIT license. See LICENSE file in root directory.
  */
 
-struct RspGuard: Decodable{
+import Foundation
+
+struct RspGuard : Decodable, Rsp {
     let success: Bool
     let reason: String?
+    var requestId: String?
 }
