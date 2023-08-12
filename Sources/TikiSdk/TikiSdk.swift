@@ -227,6 +227,20 @@ public class TikiSdk{
         return instance._address != nil
     }
     
+    public static var address: String {
+        get throws {
+            try throwIfNotInitialized()
+            return instance._address!
+        }
+    }
+    
+    public static var id: String {
+        get throws {
+            try throwIfNotInitialized()
+            return instance._id!
+        }
+    }
+    
     
     // MARK: Type Methods
     
@@ -613,6 +627,7 @@ public class TikiSdk{
     // MARK: Private properties
     
     private var _address: String?
+    private var _id: String?
     private var _dark: Theme?
     private var _onAccept: ((Offer, LicenseRecord) -> Void)?
     private var _onDecline: ((Offer, LicenseRecord?)  -> Void)?

@@ -59,7 +59,7 @@ public class CoreChannel {
     }
     
     public func invokeMethod<T: Decodable, R: Encodable>(
-        method: CoreMethod,
+        method: ChannelMethod,
         request: R,
         continuation: CheckedContinuation<T, Error>
     ) throws -> Void {
