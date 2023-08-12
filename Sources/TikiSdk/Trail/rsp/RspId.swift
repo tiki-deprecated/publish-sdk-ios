@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct ReqLicenseLatest: Encodable {
-    var ptr: String?
-    var origin: String?
+struct RspId : Decodable, Rsp {
+    let id: String?
+    var requestId: String?
 }
