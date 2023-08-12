@@ -17,7 +17,7 @@ public struct LicenseRecord: Codable {
     var title: TitleRecord
     
     /// A list of `LicenseUse` instances describing how an asset can be used.
-    var uses: [LicenseUse]
+    var uses: [Use]
     
     /// The legal terms for the license.
     var terms: String

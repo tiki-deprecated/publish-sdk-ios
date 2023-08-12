@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct ReqExport: Req, Encodable{
-    let keyId: String
-    let `public: Bool
+struct RspIsInitialized: Rsp{
+    let isInitialized: Bool
     var requestId: String?
 }

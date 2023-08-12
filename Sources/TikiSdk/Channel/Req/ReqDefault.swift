@@ -6,5 +6,5 @@
 import Foundation
 
 struct ReqDefault: Req, Encodable {
-    let requestId: String?
+    var requestId: String?
 }

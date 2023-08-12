@@ -29,23 +29,23 @@ final class CodableTests: XCTestCase {
         }
     }
     
-    func testCodableLicenseUsecase(){
+    func testCodableUsecase(){
         do{
-            let licenseUsecase = LicenseUsecase(LicenseUsecaseEnum.support)
-            let jsonString = String(data: try JSONEncoder().encode(licenseUsecase), encoding: .utf8)!
-            let decoded: LicenseUsecase = try JSONDecoder().decode(LicenseUsecase.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(licenseUsecase.value, decoded.value)
+            let Usecase = Usecase(UsecaseCommon.support)
+            let jsonString = String(data: try JSONEncoder().encode(Usecase), encoding: .utf8)!
+            let decoded: Usecase = try JSONDecoder().decode(Usecase.self, from: Data(jsonString.utf8))
+            XCTAssertEqual(Usecase.value, decoded.value)
         }catch{
             XCTFail(error.localizedDescription)
         }
     }
     
-    func testCodableCustomLicenseUsecase(){
+    func testCodableCustomUsecase(){
         do{
-            let licenseUsecase = LicenseUsecase("abc")
-            let jsonString = String(data: try JSONEncoder().encode(licenseUsecase), encoding: .utf8)!
-            let decoded: LicenseUsecase = try JSONDecoder().decode(LicenseUsecase.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(licenseUsecase.value, decoded.value)
+            let Usecase = Usecase("abc")
+            let jsonString = String(data: try JSONEncoder().encode(Usecase), encoding: .utf8)!
+            let decoded: Usecase = try JSONDecoder().decode(Usecase.self, from: Data(jsonString.utf8))
+            XCTAssertEqual(Usecase.value, decoded.value)
         }catch{
             XCTFail(error.localizedDescription)
         }

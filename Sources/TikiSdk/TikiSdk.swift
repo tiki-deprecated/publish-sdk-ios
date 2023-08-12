@@ -279,7 +279,7 @@ public class TikiSdk{
         }
         Task{
             let ptr : String = TikiSdk.instance.offers.values.first!.ptr!
-            var usecases: [LicenseUsecase] = []
+            var usecases: [Usecase] = []
             var destinations: [String] = []
             TikiSdk.instance.offers.values.first!.uses.forEach{ licenseUse in
                 if(licenseUse.destinations != nil){
@@ -343,7 +343,7 @@ public class TikiSdk{
     ///        .bullet(text: "Share with 3rd party", isUsed: false)
     ///        .bullet(text: "Sell to other companies", isUsed: true)
     ///        .ptr("offer1")
-    ///        .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
+    ///        .use(usecases: [Usecase(UsecaseCommon.support)])
     ///        .tag(TitleTag(TitleTagEnum.advertisingData))
     ///        .duration(365 * 24 * 60 * 60)
     ///        .permission(Permission.camera)
@@ -375,63 +375,7 @@ public class TikiSdk{
         return colorScheme != nil && colorScheme == .dark && instance._dark != nil ? instance._dark! : instance._theme
     }
     
-    /// Creates a new `LicenseRecord` object.
-    ///
-    /// The method searches for a `TitleRecord` object that matches the provided `ptr` parameter. If such a record exists, the
-    /// `tags` and `titleDescription` parameters are ignored. Otherwise, a new `TitleRecord` is created using the provided
-    /// `tags` and `titleDescription` parameters.
-    ///
-    /// If the `origin` parameter is not provided, the default origin specified in initialization is used.
-    /// The `expiry` parameter sets the expiration date of the `LicenseRecord`. If the license never expires, leave this parameter
-    /// as `nil`.
-    ///
-    /// - Parameters:
-    ///   - ptr: The pointer record identifies data stored in your system, similar to a foreign key. Learn more about selecting good pointer
-    ///   records at https://docs.mytiki.com/docs/selecting-a-pointer-record.
-    ///   - uses: A list defining how and where an asset may be used, in the format of `LicenseUse` objects. Learn more about specifying
-    ///   uses at https://docs.mytiki.com/docs/specifying-terms-and-usage.
-    ///   - terms: The legal terms of the contract. This is a long text document that explains the terms of the license.
-    ///   - tags: A list of metadata tags included in the `TitleRecord` describing the asset, for your use in record search and filtering.
-    ///   This parameter is used only if a `TitleRecord` does not already exist for the provided `ptr`.
-    ///   - titleDescription: A short, human-readable description of the `TitleRecord` as a future reminder. This parameter is used
-    ///   only if a `TitleRecord` does not already exist for the provided `ptr`.
-    ///   - licenseDescription: A short, human-readable description of the `LicenseRecord` as a future reminder.
-    ///   - expiry: The expiration date of the `LicenseRecord`. If the license never expires, leave this parameter as `nil`.
-    ///   - origin: An optional override of the default origin specified in `init()`. Use a reverse-DNS syntax, e.g. `com.myco.myapp`.
-    ///
-    /// - Returns: The created `LicenseRecord` object.
-    ///
-    /// - Throws: `TikiSdkError` if the SDK is not initialized or if there is an error creating or saving the record.
-    public static func license(_ ptr: String,
-                               _ uses: [LicenseUse],
-                               _ terms: String,
-                               tags: [TitleTag] = [],
-                               titleDescription: String? = nil,
-                               licenseDescription: String? = nil,
-                               expiry: Date? = nil,
-                               origin: String? = nil) async throws -> LicenseRecord {
-        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let licenseReq = ReqLicense(
-                    ptr: ptr,
-                    terms: terms,
-                    titleDescription: titleDescription,
-                    licenseDescription: licenseDescription,
-                    uses: uses,
-                    tags: tags,
-                    expiry: expiry
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.license,
-                    request: licenseReq,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspLicense.license!
-    }
+
     
     /// Guard against an invalid LicenseRecord for a list of usecases and destinations.
     ///
@@ -463,7 +407,7 @@ public class TikiSdk{
     ///   - origin: An optional override of the default origin specified in the initializer.
     ///
     /// - Returns: `true` if the user has access, `false` otherwise.
-    public static func `guard`(ptr: String, usecases: [LicenseUsecase], destinations: [String],
+    public static func `guard`(ptr: String, usecases: [Usecase], destinations: [String],
                                onPass: (() -> Void)? = nil, onFail: ((String?) -> Void)? = nil, origin: String? = nil) async throws -> Bool {
         let rspGuard: RspGuard = try await withCheckedThrowingContinuation{ continuation in
             let guardReq = ReqGuard(ptr: ptr, usecases: usecases, destinations: destinations, origin: origin)
@@ -483,119 +427,6 @@ public class TikiSdk{
             onFail?(rspGuard.reason)
         }
         return rspGuard.success
-    }
-    
-    /// Creates a new TitleRecord, or retrieves an existing one.
-    ///
-    /// Use this function to create a new TitleRecord for a given Pointer Record (ptr), or retrieve an existing one if it already exists.
-    /// - Parameters:
-    ///     - ptr: The Pointer Record that identifies the data stored in your system, similar to a foreign key. Learn more about selecting good pointer records at https://docs.mytiki.com/docs/selecting-a-pointer-record.
-    ///     - origin: An optional override of the default origin specified in `initTikiSdkAsync`. Follow a reverse-DNS syntax,
-    ///     i.e. com.myco.myapp.
-    ///     - tags: A list of metadata tags included in the TitleRecord describing the asset, for your use in record search and filtering. Learn
-    ///     more about adding tags at https://docs.mytiki.com/docs/adding-tags.
-    ///     - description: A short, human-readable, description of the TitleRecord as a future reminder.
-    /// - Returns: The created or retrieved TitleRecord.
-    public static func title(ptr: String, origin: String? = nil, tags: [TitleTag]? = [], description: String? = nil) async throws -> TitleRecord {
-        
-        let rspTitle: RspTitle = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqTitle = ReqTitle(
-                    ptr: ptr,
-                    tags: tags ?? [],
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.title,
-                    request: reqTitle,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspTitle.title!
-    }
-    
-    /// Retrieves the TitleRecord with the specified ID, or `nil` if the record is not found.
-    ///
-    /// Use this method to retrieve the metadata associated with an asset identified by its TitleRecord ID.
-    /// - Parameters
-    ///  - id: The ID of the TitleRecord to retrieve.
-    ///  - origin: An optional override of the default origin specified in initialization. Follow a reverse-DNS syntax, i.e.
-    ///  com.myco.myapp`.
-    ///  - Returns: The TitleRecord with the specified ID, or `nil` if the record is not found.
-    public static func getTitle(id: String, origin: String? = nil) async throws -> TitleRecord?{
-        let rspTitle: RspTitle = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqTitle = ReqTitleGet(
-                    id: id,
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.getTitle,
-                    request: reqTitle,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspTitle.title
-    }
-    
-    /// Returns the LicenseRecord for a given ID or nil if the license or corresponding title record is not found.
-    ///
-    /// This method retrieves the LicenseRecord object that matches the specified ID. If no record is found, it returns nil. The `origin` parameter can be used to override the default origin specified in initialization.
-    ///
-    /// - Parameters
-    ///     - id: The ID of the LicenseRecord to retrieve.
-    ///     - origin: An optional override of the default origin specified in `initTikiSdkAsync`.
-    /// - Returns: The LicenseRecord that matches the specified ID or nil if the license or corresponding title record is not found.
-    public static func getLicense(id: String, origin: String? = nil) async throws -> LicenseRecord? {
-        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqLicense = ReqTitleGet(
-                    id: id,
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.getLicense,
-                    request: reqLicense,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspLicense.self
-    }
-    /// Returns all LicenseRecords associated with a given Pointer Record.
-    ///
-    /// Use this method to retrieve all LicenseRecords that have been previously stored for a given Pointer Record in your system.
-    ///
-    /// - Parameters:
-    ///    - ptr: The Pointer Record that identifies the data stored in your system, similar to a foreign key.
-    ///    - origin: An optional origin. If nil, the origin defaults to the package name.
-    /// - Returns: An array of all LicenseRecords associated with the given Pointer Record. If no LicenseRecords are found,
-    /// an empty array is returned.
-    public static func all(ptr: String, origin: String? = nil) async throws -> [LicenseRecord] {
-        let rspAll: RspLicenseList = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqAll = ReqLicenseAll(
-                    ptr: ptr,
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.all,
-                    request: reqAll,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspAll.licenseList
     }
     
     /// Returns the latest LicenseRecord for a ptr or nil if the corresponding title or license records are not found.

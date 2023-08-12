@@ -186,7 +186,7 @@ public struct Settings: View {
     
     func `guard`() async throws -> Bool{
         let ptr : String = TikiSdk.instance.offers.values.first!.ptr!
-        var usecases: [LicenseUsecase] = []
+        var usecases: [Usecase] = []
         var destinations: [String] = []
         TikiSdk.instance.offers.values.first!.uses.forEach{ licenseUse in
             if(licenseUse.destinations != nil){

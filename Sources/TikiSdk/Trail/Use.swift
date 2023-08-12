@@ -10,13 +10,13 @@ import Foundation
 /// LicenseRecords.
 ///
 /// Usecases explicitly define HOW an asset may be used. You can either use a list of common enumerations or define your own using
-/// LicenseUsecase.
+/// Usecase.
 ///
 /// Destinations explicitly define WHO can use an asset. Destinations can be a wildcard URL (*.your-co.com), a string defining a category of
 /// companies, or more. You can use ECMAScript Regex to specify flexible and easily enforceable rules.
-public struct LicenseUse: Codable {
+public struct Use: Codable {
     /// Usecases explicitly define HOW an asset may be used.
-    let usecases: [LicenseUsecase]
+    let usecases: [Usecase]
     
     /// Destinations explicitly define WHO can use an asset.
     let destinations: [String]?
@@ -26,7 +26,7 @@ public struct LicenseUse: Codable {
     /// - Parameters:
     ///   - usecases: Usecases explicitly define HOW an asset may be used.
     ///   - destinations: Destinations explicitly define WHO can use an asset.
-    public init(usecases: [LicenseUsecase], destinations: [String]? = nil) {
+    public init(usecases: [Usecase], destinations: [String]? = nil) {
         self.usecases = usecases
         self.destinations = destinations
     }

@@ -6,5 +6,5 @@
 import Foundation
 
 struct RspDefault: Rsp, Decodable {
-    let requestId: String?
+    var requestId: String?
 }

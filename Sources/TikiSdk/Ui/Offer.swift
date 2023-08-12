@@ -132,7 +132,7 @@ public class Offer {
     /// let licenseUse = LicenseUse(usecases: [.attribition, .support], destinations: ["*.example.com"])
     /// offer.uses.append(licenseUse)
     ///```
-    public var uses = [LicenseUse]()
+    public var uses = [Use]()
     
     /// An array of `TitleTag` that apply to this `Offer`.
     ///
@@ -312,8 +312,8 @@ public class Offer {
     ///  .use(usecases: [.attribution, .support], destinations: ["*.example.com"])
     ///  .use(usecases: [.attribution], destinations: ["*.myco.com"])
     ///```
-    public func use(usecases: [LicenseUsecase], destinations: [String]? = []) -> Offer {
-        uses.append(LicenseUse(usecases: usecases, destinations: destinations))
+    public func use(usecases: [Usecase], destinations: [String]? = []) -> Offer {
+        uses.append(Use(usecases: usecases, destinations: destinations))
         return self
     }
     

@@ -49,7 +49,7 @@ struct TikiSdkExampleApp: App {
                 .bullet(text: "Learn how our ads perform ", isUsed: true)
                 .bullet(text: "Reach you on other platforms", isUsed: false)
                 .bullet(text: "Sold to other companies", isUsed: false)
-                .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
+                .use(usecases: [Usecase(UsecaseCommon.support)])
                 .permission(Permission.camera)
                 .permission(Permission.contacts)
                 .tag(.advertisingData)

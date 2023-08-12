@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ReqExport: Req, Encodable{
-    let keyId: String
-    let `public: Bool
+struct ReqKey: Encodable{
     var requestId: String?
+    let keyId: String
+    let overwrite: Bool
 }

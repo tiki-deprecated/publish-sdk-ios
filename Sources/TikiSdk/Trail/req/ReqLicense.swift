@@ -7,7 +7,7 @@ import Foundation
 
 struct ReqLicense : Encodable, Req {
     var titleId: String
-    var uses: [LicenseUse]
+    var uses: [Use]
     var terms: String
     var expiry: Date? = nil
     var description: String? = nil
