@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct ReqDefault: Req {
+struct ReqDefault: Req, Encodable {
     var requestId: String?
     
     init(requestId: String?) {

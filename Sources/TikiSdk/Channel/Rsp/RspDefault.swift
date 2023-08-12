@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct RspDefault: Rsp {
+struct RspDefault: Rsp, Decodable {
     var requestId: String?
     
     init(requestId: String?) {

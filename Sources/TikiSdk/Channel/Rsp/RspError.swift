@@ -6,7 +6,7 @@
 
 import Foundation
 
-struct RspError: Rsp, CustomStringConvertible {
+struct RspError: Rsp, Decodable {
     var requestId: String?
     
     let message: String?
