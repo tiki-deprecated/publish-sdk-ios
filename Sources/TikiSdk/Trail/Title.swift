@@ -8,7 +8,7 @@
 import Foundation
 
 class Title{
-    private channel: Channel
+    private let channel: Channel
     
     init(channel: Channel){
         self.channel = channel
@@ -25,7 +25,7 @@ class Title{
     ///     more about adding tags at https://docs.mytiki.com/docs/adding-tags.
     ///     - description: A short, human-readable, description of the TitleRecord as a future reminder.
     /// - Returns: The created or retrieved TitleRecord.
-    public static func title(ptr: String, origin: String? = nil, tags: [TitleTag]? = [], description: String? = nil) async throws -> TitleRecord {
+    public static func title(ptr: String, origin: String? = nil, tags: [Tag]? = [], description: String? = nil) async throws -> TitleRecord {
         
         let rspTitle: RspTitle = try await withCheckedThrowingContinuation{ continuation in
             do{

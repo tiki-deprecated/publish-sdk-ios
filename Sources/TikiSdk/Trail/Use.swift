@@ -6,7 +6,7 @@ import Foundation
 
 /// License use.
 ///
-/// LicenseUse defines explicit uses for an asset, which are extremely helpful in programmatic search and enforcement of your
+/// Use defines explicit uses for an asset, which are extremely helpful in programmatic search and enforcement of your
 /// LicenseRecords.
 ///
 /// Usecases explicitly define HOW an asset may be used. You can either use a list of common enumerations or define your own using
@@ -21,7 +21,7 @@ public struct Use: Codable {
     /// Destinations explicitly define WHO can use an asset.
     let destinations: [String]?
     
-    /// Create a new `LicenseUse` instance.
+    /// Create a new `Use` instance.
     ///
     /// - Parameters:
     ///   - usecases: Usecases explicitly define HOW an asset may be used.
@@ -29,5 +29,12 @@ public struct Use: Codable {
     public init(usecases: [Usecase], destinations: [String]? = nil) {
         self.usecases = usecases
         self.destinations = destinations
+    }
+    
+    func asDictionary() -> [String: [String]?] {
+        return [
+            "usecases": usecases.map{ usecase in usecase.value },
+            "destinations": destinations
+        ]
     }
 }

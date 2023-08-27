@@ -5,7 +5,14 @@
 
 import Foundation
 
-struct ReqPayableAll: Encodable, Req {
+struct ReqPayableAll: Req {
     var licenseId: String
     var requestId: String?
+    
+    func asDictionary() -> [String : Any?] {
+        return [
+            "licenseId": licenseId,
+            "requestId": requestId
+        ]
+    }
 }

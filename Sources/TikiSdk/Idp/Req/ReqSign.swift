@@ -1,30 +1,20 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
-struct ReqSign: Req, Encodable, Equatable{
+struct ReqSign: Req {
     var requestId: String?
     let keyId: String?
     let message: Data
     
-    enum CodingKeys: String, CodingKey {
-       case keyId
-       case message
+    func asDictionary() -> [String : Any?] {
+        return [
+            "requestId" : requestId,
+            "keyId" : keyId,
+            "message" : message.base64EncodedString(),
+        ]
     }
-       
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(keyId, forKey: .keyId)
-        let base64Message = message.base64EncodedString()
-        try container.encode(base64Message, forKey: .message)
-    }
-    
-   static func == (lhs: ReqSign, rhs: ReqSign) -> Bool {
-       return lhs.keyId == rhs.keyId && lhs.message == rhs.message
-   }
 }

@@ -5,7 +5,14 @@
 
 import Foundation
 
-struct ReqLicenseGet: Encodable, Req {
+struct ReqLicenseGet: Req {
     var id: String
     var requestId: String?
+    
+    func asDictionary() -> [String : Any?] {
+        return [
+            "id": id,
+            "requestId": requestId
+        ]
+    }
 }

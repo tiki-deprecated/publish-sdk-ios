@@ -1,14 +1,20 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
-struct ReqExport: Req, Encodable{
+struct ReqExport: Req {
     let keyId: String
-    let `public: Bool
+    let isPublic: Bool
     var requestId: String?
+    
+    func asDictionary() -> [String : Any?] {
+        return [
+            "keyId" : keyId,
+            "public" : isPublic,
+            "requestId" : requestId
+        ]
+    }
 }

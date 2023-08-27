@@ -113,11 +113,11 @@ public class Offer {
     /// be used under this Offer. It will be shown in the pre-built UI
     public var bullets = [Bullet]()
     
-    /// An array of `LicenseUse` that apply to this `Offer`. Each `LicenseUse` specifies how the `TitleRecord`
+    /// An array of `Use` that apply to this `Offer`. Each `Use` specifies how the `TitleRecord`
     /// can be used under this Offer.
     ///
     /// It is recommended to use the `use(usecases:destinations:)` method to manage the Offer uses.
-    /// This method adds a new `LicenseUse` object to the `uses` array with the specified usecases and destinations properties,
+    /// This method adds a new `Use` object to the `uses` array with the specified usecases and destinations properties,
     /// ensuring that the `uses` array is correctly initialized and avoiding any potential overrides.
     ///
     /// Additionally, this method returns the Offer object to enable convenient chaining of method calls during offer initialization.
@@ -127,19 +127,19 @@ public class Offer {
     ///  .use(usecases: [.attribution, .support], destinations: ["*.example.com"])
     ///  .use(usecases: [.attribution], destinations: ["*.myco.com"])
     ///```
-    /// Alternatively, you can initialize a new LicenseUse object manually and add it to the uses array directly. For example:
+    /// Alternatively, you can initialize a new Use object manually and add it to the uses array directly. For example:
     ///```
-    /// let licenseUse = LicenseUse(usecases: [.attribition, .support], destinations: ["*.example.com"])
+    /// let licenseUse = Use(usecases: [.attribition, .support], destinations: ["*.example.com"])
     /// offer.uses.append(licenseUse)
     ///```
     public var uses = [Use]()
     
-    /// An array of `TitleTag` that apply to this `Offer`.
+    /// An array of `Tag` that apply to this `Offer`.
     ///
-    /// Each `TitleTag` is a representation of a tag that describes a data asset within a the TitleRecord to which this offer refers.
+    /// Each `Tag` is a representation of a tag that describes a data asset within a the TitleRecord to which this offer refers.
     ///
     /// It is recommended to use the `tag(titletag:)` method to manage the Offer tags.
-    /// This method adds a new `TitleTag` object to the `tags` array  ensuring that the `tags` array is correctly initialized and avoiding
+    /// This method adds a new `Tag` object to the `tags` array  ensuring that the `tags` array is correctly initialized and avoiding
     /// any potential overrides.
     ///
     /// Additionally, this method returns the Offer object to enable convenient chaining of method calls during offer initialization.
@@ -149,13 +149,13 @@ public class Offer {
     ///  .tag(.advertisingData)
     ///  .tag(.creditInfo)
     ///```
-    /// Alternatively, you can initialize a new TitleTag object manually and add it to the tags array directly.
+    /// Alternatively, you can initialize a new Tag object manually and add it to the tags array directly.
     /// For example:
     ///```
-    /// let tag = TitleTag.creditInfo
+    /// let tag = Tag.creditInfo
     /// offer.tags.append(tag)
     ///```
-    public var tags = [TitleTag]()
+    public var tags = [Tag]()
     
     /// An array of `Permission`required for this `Offer`.
     ///
@@ -302,7 +302,7 @@ public class Offer {
     
     /// Adds a LicenceUse to the Offer.
     ///
-    /// This method adds a new `LicenseUse` object to the `uses` array with the specified usecases and
+    /// This method adds a new `Use` object to the `uses` array with the specified usecases and
     /// destinations properties, ensuring that the `uses` array is correctly initialized and avoiding any potential overrides.
     ///
     /// Additionally, this method returns the Offer object to enable convenient chaining of method calls during offer initialization.
@@ -317,9 +317,9 @@ public class Offer {
         return self
     }
     
-    /// Adds a `TitleTag` that describe the data atached to this `Offer`.
+    /// Adds a `Tag` that describe the data atached to this `Offer`.
     ///
-    /// This method adds a new `TitleTag` object to the `tags` array  ensuring that the `tags` array is correctly
+    /// This method adds a new `Tag` object to the `tags` array  ensuring that the `tags` array is correctly
     /// initialized and avoiding any potential overrides.
     ///
     /// Additionally, this method returns the Offer object to enable convenient chaining of method calls during offer initialization.
@@ -329,7 +329,7 @@ public class Offer {
     ///  .tag(.advertisingData)
     ///  .tag(.creditInfo)
     ///```
-    public func tag(_ tag: TitleTag) -> Offer {
+    public func tag(_ tag: Tag) -> Offer {
         tags.append(tag)
         return self
     }

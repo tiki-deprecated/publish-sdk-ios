@@ -3,9 +3,9 @@
  * MIT license. See LICENSE file in root directory.
  */
 
-
 import Foundation
 
 protocol Req{
     var requestId: String? { get set }
+    func asDictionary() -> [String: Any?]
 }

@@ -5,8 +5,8 @@
 
 import Foundation
 
-class Tag : Decodable , Encodable{
-    private let value: String
+class Tag {
+    let value: String
     
     private init(value: String) {
         self.value = value

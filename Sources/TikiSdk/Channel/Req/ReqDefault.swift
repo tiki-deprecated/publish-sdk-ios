@@ -5,6 +5,14 @@
 
 import Foundation
 
-struct ReqDefault: Req, Encodable {
+struct ReqDefault: Req {
+    
     var requestId: String?
+    
+    func asDictionary() -> [String : Any?] {
+        return [
+            "requestId" : requestId
+        ]
+    }
+
 }

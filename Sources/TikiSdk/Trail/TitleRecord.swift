@@ -17,7 +17,7 @@ public struct TitleRecord: Codable {
     let hashedPtr: String
     
     /// A list of tags that describe the asset in a search-friendly way.
-    let tags: [TitleTag]
+    let tags: [Tag]
     
     /// A human-readable description of the asset.
     let description: String?
@@ -33,7 +33,7 @@ public struct TitleRecord: Codable {
     ///     - tags: A list of tags that describe the asset in a search-friendly way.
     ///     - description: A human-readable description of the asset.
     ///     - origin: An optional field to override the default origin from which the data was generated
-    public init(id: String, hashedPtr: String, tags: [TitleTag], description: String?, origin: String?) {
+    public init(id: String, hashedPtr: String, tags: [Tag], description: String?, origin: String?) {
         self.id = id
         self.hashedPtr = hashedPtr
         self.tags = tags

@@ -5,10 +5,20 @@
 
 import Foundation
 
-struct ReqReceipt: Encodable, Req {
+struct ReqReceipt: Req {
     var payableId: String
     var amount: String
     var description: String? = nil
     var reference: String? = nil
     var requestId: String?
+    
+    func asDictionary() -> [String : Any?] {
+        return [
+            "payableId": payableId,
+            "amount": amount,
+            "description": description,
+            "reference": reference,
+            "requestId": requestId
+        ]
+    }
 }

@@ -5,9 +5,19 @@
 
 import Foundation
 
-struct ReqGuard: Encodable {
+struct ReqGuard: Req {
+    var requestId: String?
     var ptr: String
     var usercases: [Usecase]
     var destinations: [String]? = nil
     var origin: String
+    
+    func asDictionary() -> [String : Any?] {
+        return [
+            "ptr": ptr,
+            "usercases": usercases.map{ usecase in usecase.value },
+            "destinations": destinations,
+            "origin": origin,
+        ]
+    }
 }
