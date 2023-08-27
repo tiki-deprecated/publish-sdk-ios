@@ -28,7 +28,7 @@ class License{
     /// - Parameters:
     ///   - ptr: The pointer record identifies data stored in your system, similar to a foreign key. Learn more about selecting good pointer
     ///   records at https://docs.mytiki.com/docs/selecting-a-pointer-record.
-    ///   - uses: A list defining how and where an asset may be used, in the format of `LicenseUse` objects. Learn more about specifying
+    ///   - uses: A list defining how and where an asset may be used, in the format of `Use` objects. Learn more about specifying
     ///   uses at https://docs.mytiki.com/docs/specifying-terms-and-usage.
     ///   - terms: The legal terms of the contract. This is a long text document that explains the terms of the license.
     ///   - tags: A list of metadata tags included in the `TitleRecord` describing the asset, for your use in record search and filtering.
@@ -43,9 +43,9 @@ class License{
     ///
     /// - Throws: `TikiSdkError` if the SDK is not initialized or if there is an error creating or saving the record.
     public static func create( _ ptr: String,
-                               _ uses: [LicenseUse],
+                               _ uses: [Use],
                                _ terms: String,
-                               tags: [TitleTag] = [],
+                               tags: [Tag] = [],
                                titleDescription: String? = nil,
                                licenseDescription: String? = nil,
                                expiry: Date? = nil,
