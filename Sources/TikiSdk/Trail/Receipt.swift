@@ -17,7 +17,7 @@ class Receipt {
         amount: String,
         description: String? = nil,
         reference: String? = nil,
-        completion: @escaping (ReceiptRecord?) -> Void
+        completion: ((ReceiptRecord?) -> Void)? = nil
     ) async throws -> ReceiptRecord? {
         let receiptReq = ReqReceipt(payableId: payableId, amount: amount, description: description, reference: reference)
         let rspReceipt: RspReceipt = try await channel.request(
@@ -27,11 +27,11 @@ class Receipt {
                 return paybaleResp
             }
         let receipt = ReceiptRecord(from: rspReceipt)
-        completion(receipt)
+        completion?(receipt)
         return receipt
     }
     
-    func get(id: String, completion: @escaping (ReceiptRecord?) -> Void) async throws -> ReceiptRecord? {
+    func get(id: String, completion: ((ReceiptRecord?) -> Void)? = nil) async throws -> ReceiptRecord? {
         let receiptReq = ReqReceiptGet(id: id)
         let rspReceipt: RspReceipt = try await channel.request(
             method: TrailMethod.RECEIPT_GET,
@@ -40,11 +40,11 @@ class Receipt {
                 return paybaleResp
             }
         let receipt = ReceiptRecord(from: rspReceipt)
-        completion(receipt)
+        completion?(receipt)
         return receipt
     }
     
-    func all(payableId: String, completion: @escaping ([ReceiptRecord]) -> Void) async throws -> [ReceiptRecord] {
+    func all(payableId: String, completion: (([ReceiptRecord]) -> Void)? = nil) async throws -> [ReceiptRecord] {
         let receiptReq = ReqReceiptAll(payableId: payableId)
         let rspReceipts: RspReceipts = try await channel.request(
             method: TrailMethod.RECEIPT_ALL,
@@ -54,7 +54,7 @@ class Receipt {
             }
         let receiptAll: [ReceiptRecord] = rspReceipts.receipts == nil ? [] :
         (rspReceipts.receipts! as [RspReceipt]).map{ ReceiptRecord(from: $0)! }
-        completion(receiptAll)
+        completion?(receiptAll)
         return receiptAll
     }
 }

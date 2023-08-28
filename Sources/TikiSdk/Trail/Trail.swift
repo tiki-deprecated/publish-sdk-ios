@@ -20,36 +20,36 @@ struct Trail {
         self.receipt = Receipt(channel: channel)
     }
     
-    func isInitialized(completion: @escaping (Bool) -> Void) async throws -> Bool {
+    func isInitialized(completion: ((Bool) -> Void)? = nil) async throws -> Bool {
         let rspIsInitialized = try await channel.request(
             method: TrailMethod.IS_INITIALIZED,
             request: ReqDefault()
         ) { rsp in
             RspIsInitialized(from: rsp)
         }
-        completion(rspIsInitialized.isInitialized)
+        completion?(rspIsInitialized.isInitialized)
         return rspIsInitialized.isInitialized
     }
     
-    func address(completion: @escaping (String) -> Void) async throws -> String {
+    func address(completion: ((String) -> Void)? = nil) async throws -> String {
         let rspAddress = try await channel.request(
             method: TrailMethod.ADDRESS,
             request: ReqDefault()
         ) { rsp in
             RspAdress(from: rsp)
         }
-        completion(rspAddress.address)
+        completion?(rspAddress.address)
         return rspAddress.address
     }
     
-    func id(completion: @escaping (String?) -> Void) async throws -> String? {
+    func id(completion: ((String?) -> Void)? = nil) async throws -> String? {
         let rspId = try await channel.request(
             method: TrailMethod.ID,
             request: ReqDefault()
         ) { rsp in
             RspId(from: rsp)
         }
-        completion(rspId.id)
+        completion?(rspId.id)
         return rspId.id
     }
     

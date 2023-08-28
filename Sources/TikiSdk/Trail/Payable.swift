@@ -19,7 +19,7 @@ class Payable {
         expiry: Date? = nil,
         description: String? = nil,
         reference: String? = nil,
-        completion: @escaping (PayableRecord?) -> Void
+        completion: ((PayableRecord?) -> Void)? = nil
     ) async throws -> PayableRecord? {
         let paybaleReq = ReqPayable(
             licenseId: licenseId,
@@ -36,11 +36,11 @@ class Payable {
                 return paybaleResp
             }
         let payable = PayableRecord(from: rspPayable)
-        completion(payable)
+        completion?(payable)
         return payable
     }
     
-    func get(id: String, completion: @escaping (PayableRecord?) -> Void) async throws -> PayableRecord? {
+    func get(id: String, completion: ((PayableRecord?) -> Void)? = nil) async throws -> PayableRecord? {
              let paybaleReq = ReqPayableGet(id: id)
              let rspPayable: RspPayable = try await channel.request(
                  method: TrailMethod.PAYABLE_GET,
@@ -49,11 +49,11 @@ class Payable {
                      return paybaleResp
                  }
              let payable = PayableRecord(from: rspPayable)
-             completion(payable)
+             completion?(payable)
              return payable
          }
     
-    func all(licenseId: String, completion: @escaping ([PayableRecord]) -> Void) async throws -> [PayableRecord] {
+    func all(licenseId: String, completion: (([PayableRecord]) -> Void)? = nil) async throws -> [PayableRecord] {
         let paybaleReq = ReqPayableAll(licenseId: licenseId)
         let rspPayables: RspPayables = try await channel.request(
             method: TrailMethod.PAYABLE_ALL,
@@ -63,7 +63,7 @@ class Payable {
             }
         let payableAll: [PayableRecord] = rspPayables.payables == nil ? [] :
             (rspPayables.payables! as [RspPayable]).map{ PayableRecord(from: $0)! }
-        completion(payableAll)
+        completion?(payableAll)
         return payableAll
     }
 }

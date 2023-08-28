@@ -13,7 +13,7 @@ struct ReceiptRecord {
     let reference: String?
     
     init?(from: RspReceipt){
-        guard let payableRecord = PayableRecord(from: from.payable!), from.id != nil, from.amount != id else{
+        guard let payableRecord = PayableRecord(from: from.payable!), from.id != nil, from.amount != nil else{
             return nil
         }
         self.id = from.id!

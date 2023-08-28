@@ -5,7 +5,7 @@
 
 import Foundation
 
-class Title{
+public class Title{
     private let channel: Channel
     
     init(channel: Channel){
@@ -17,7 +17,7 @@ class Title{
         tags: [Tag],
         description: String? = nil,
         origin: String? = nil,
-        completion: @escaping (TitleRecord?) -> Void
+        completion: ((TitleRecord?) -> Void)? = nil
     ) async throws -> TitleRecord? {
         let titleReq = ReqTitle(
             ptr: ptr,
@@ -32,11 +32,11 @@ class Title{
                 return paybaleResp
             }
         let title = TitleRecord(from: rspTitle)
-        completion(title)
+        completion?(title)
         return title
     }
     
-    func get(ptr: String, origin: String? = nil, completion: @escaping (TitleRecord?) -> Void) async throws -> TitleRecord? {
+    func get(ptr: String, origin: String? = nil, completion: ((TitleRecord?) -> Void)? = nil) async throws -> TitleRecord? {
         let titleReq = ReqTitleGet(ptr: ptr, origin: origin)
         let rspTitle: RspTitle = try await channel.request(
             method: TrailMethod.TITLE_GET,
@@ -45,11 +45,11 @@ class Title{
                 return paybaleResp
             }
         let title = TitleRecord(from: rspTitle)
-        completion(title)
+        completion?(title)
         return title
     }
     
-    func id(id: String, completion: @escaping (TitleRecord?) -> Void) async throws -> TitleRecord? {
+    func id(id: String, completion: ((TitleRecord?) -> Void)? = nil) async throws -> TitleRecord? {
         let titleReq = ReqTitleId(id: id)
         let rspTitle: RspTitle = try await channel.request(
             method: TrailMethod.TITLE_ID,
@@ -58,8 +58,7 @@ class Title{
                 return titlesResp
             }
         let title = TitleRecord(from: rspTitle)
-        completion(title)
+        completion?(title)
         return title
     }
-    
 }

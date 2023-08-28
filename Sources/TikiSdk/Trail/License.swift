@@ -46,7 +46,7 @@ class License{
             terms: String,
             expiry: Date? = nil,
             description: String? = nil,
-            completion: ((LicenseRecord?) ->  Void)?) async throws -> LicenseRecord?
+            completion: ((LicenseRecord?) ->  Void)? = nil) async throws -> LicenseRecord?
     {
         let licenseReq = ReqLicense(titleId: titleId, uses: uses, terms: terms, expiry: expiry, description: description)
         let rspLicense: RspLicense = try await channel.request(
@@ -69,7 +69,7 @@ class License{
     ///     - id: The ID of the LicenseRecord to retrieve.
     ///     - origin: An optional override of the default origin specified in `initTikiSdkAsync`.
     /// - Returns: The LicenseRecord that matches the specified ID or nil if the license or corresponding title record is not found.
-    public func get(id: String, completion: ((LicenseRecord?) -> Void)?) async throws -> LicenseRecord? {
+    public func get(id: String, completion: ((LicenseRecord?) -> Void)? = nil) async throws -> LicenseRecord? {
         let licenseReq = ReqLicenseGet(id: id)
         let rspLicense: RspLicense = try await channel.request(
             method: TrailMethod.LICENSE_GET,
@@ -91,7 +91,10 @@ class License{
     ///    - origin: An optional origin. If nil, the origin defaults to the package name.
     /// - Returns: An array of all LicenseRecords associated with the given Pointer Record. If no LicenseRecords are found,
     /// an empty array is returned.
-    public func all(titleId: String, completion: (([LicenseRecord]) -> Void))? async throws -> [LicenseRecord] {
+    public func all(
+        titleId: String,
+        completion: (([LicenseRecord]) -> Void)? = nil
+    ) async throws -> [LicenseRecord] {
         let licenseReq = ReqLicenseAll(titleId: titleId)
         let rspLicenses: RspLicenses = try await channel.request(
             method: TrailMethod.LICENSE_ALL,
