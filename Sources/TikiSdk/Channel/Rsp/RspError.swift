@@ -10,7 +10,7 @@ struct RspError: Rsp {
     let stackTrace: String?
     let requestId: String
     var description: String {
-        return "RspError(message=\(message ?? "nil"), stackTrace=\(stackTrace ?? "nil"), requestId=\(requestId ?? "nil"))"
+        return "RspError(message=\(message ?? "nil"), stackTrace=\(stackTrace ?? "nil"), requestId=\(requestId ))"
     }
     
     init(from: [String : Any?]) {

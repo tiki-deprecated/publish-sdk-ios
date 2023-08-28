@@ -8,7 +8,7 @@ import Foundation
 struct ReqImport: Req {
     let keyId: String
     let key: Data
-    let isPublic: Bool = false
+    var isPublic: Bool = false
     let requestId = UUID().uuidString
     
     func asDictionary() -> [String : Any?] {

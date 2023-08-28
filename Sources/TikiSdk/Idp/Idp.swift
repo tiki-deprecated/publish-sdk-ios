@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
@@ -14,87 +12,60 @@ class Idp {
         self.channel = channel
     }
     
-    func export(keyId: String, isPublic: Bool = false, completion: @escaping (Result<String?, Error>) -> Void) {
-        let request = ReqExport
-        channel.request(method: IdpMethod.export, request: request) { args in
-            RspExport.from(args)
-        } completion: { result in
-            switch result {
-            case .success(let rsp):
-                completion(.success(rsp.key))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+    func export(keyId: String, isPublic: Bool = false, completion: @escaping (RspExport) -> Void) async throws -> RspExport{
+        let request = ReqExport(keyId: keyId, isPublic: isPublic)
+        return try await channel.request(method: IdpMethod.export, request: request) { rsp in
+            let rspExport = RspExport(from: rsp)
+            completion(rspExport)
+            return rspExport
+        }
+        
+    }
+    
+    func importMethod(keyId: String, key: Data, isPublic: Bool = false, completion: @escaping (Rsp) -> Void) async throws -> RspDefault {
+        let request = ReqImport(keyId: keyId, key: key, isPublic: isPublic)
+        return try await channel.request(method: IdpMethod.importMethod, request: request) { rsp in
+            let rspDefault = RspDefault(from: rsp)
+            completion(rspDefault)
+            return rspDefault
         }
     }
     
-    func importMethod(keyId: String, key: [UInt8], public: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
-        let request = ReqImport(keyId: keyId, key: key, public: `public`)
-        channel.request(method: IdpMethod.importMethod, request: request) { args in
-            RspDefault.from(args)
-        } completion: { result in
-            switch result {
-            case .success:
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func key(keyId: String, overwrite: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
+    func key(keyId: String, overwrite: Bool = false, completion: @escaping (Rsp) -> Void) async throws -> RspDefault{
         let request = ReqKey(keyId: keyId, overwrite: overwrite)
-        channel.request(method: IdpMethod.key, request: request) { args in
-            RspDefault.from(args)
-        } completion: { result in
-            switch result {
-            case .success:
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+        return try await channel.request(method: IdpMethod.importMethod, request: request) { rsp in
+            let rspDefault = RspDefault(from: rsp)
+            completion(rspDefault)
+            return rspDefault
         }
     }
     
-    func sign(keyId: String, message: [UInt8], completion: @escaping (Result<[UInt8]?, Error>) -> Void) {
+    func sign(keyId: String, message: Data, completion: (Data?) -> Void) async throws -> Data? {
         let request = ReqSign(keyId: keyId, message: message)
-        channel.request(method: IdpMethod.sign, request: request) { args in
-            RspSign.from(args)
-        } completion: { result in
-            switch result {
-            case .success(let rsp):
-                completion(.success(rsp.signature))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+        let rspSign = try await channel.request(method: IdpMethod.sign, request: request) { rsp in
+            return RspSign(from: rsp)
         }
+        let signature = rspSign.signature
+        completion(signature)
+        return signature
     }
     
-    func verify(keyId: String, message: [UInt8], signature: [UInt8], completion: @escaping (Result<Bool, Error>) -> Void) {
+    func verify(keyId: String, message: Data, signature: Data, completion: (Bool) -> Void) async throws -> Bool {
         let request = ReqVerify(keyId: keyId, message: message, signature: signature)
-        channel.request(method: IdpMethod.verify, request: request) { args in
-            RspVerify.from(args)
-        } completion: { result in
-            switch result {
-            case .success(let rsp):
-                completion(.success(rsp.isVerified))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+        let rspVerify = try await channel.request(method: IdpMethod.verify, request: request) { rsp in
+            RspVerify(from:rsp)
         }
+        let isVerified = rspVerify.isVerified
+        completion(isVerified)
+        return isVerified
     }
     
-    func token(completion: @escaping (Result<Token, Error>) -> Void) {
-        let request = ReqDefault()
-        channel.request(method: IdpMethod.token, request: request) { args in
-            RspToken.from(args)
-        } completion: { result in
-            switch result {
-            case .success(let rsp):
-                completion(.success(Token.from(rsp)))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+    func token(completion: (Token) -> Void) async throws -> Token{
+        let rspToken = try await channel.request(method: IdpMethod.token, request: ReqDefault()) { rsp in
+            RspToken(from: rsp)
         }
+        let token = Token(from: rspToken)
+        completion(token)
+        return token
     }
 }
