@@ -10,7 +10,7 @@ struct RspLicenses: Rsp {
     let requestId: String
     
     init(from: [String : Any?]) {
-        self.licenses = (from["licenses"] as? [[String: Any?]])?.map{ license in RspLicense(from: license) }
+        self.licenses = (from["licenses"] as? [[String: Any?]])?.map{ RspLicense(from: $0) }
         self.requestId = from["requestId"] as! String
     }
 }

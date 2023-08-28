@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
@@ -21,63 +19,51 @@ class Payable {
         expiry: Date? = nil,
         description: String? = nil,
         reference: String? = nil,
-        completion: @escaping (Result<PayableRecord, Error>) -> Void
-    ) {
-        channel.request(
-            TrailMethod.PAYABLE_CREATE,
-            ReqPayable(licenseId: licenseId, amount: amount, type: type, expiry: expiry, description: description, reference: reference)
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspPayable = try RspPayable.from(args)
-                    let payableRecord = try PayableRecord.from(rsp)
-                    completion(.success(payableRecord))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
+        completion: @escaping (PayableRecord?) -> Void
+    ) async throws -> PayableRecord? {
+        let paybaleReq = ReqPayable(
+            licenseId: licenseId,
+            amount: amount,
+            type: type,
+            expiry: expiry,
+            description: description,
+            reference: reference
+        )
+        let rspPayable: RspPayable = try await channel.request(
+            method: TrailMethod.PAYABLE_CREATE,
+            request: paybaleReq) { rsp in
+                let paybaleResp = RspPayable(from: rsp)
+                return paybaleResp
             }
-        }
+        let payable = PayableRecord(from: rspPayable)
+        completion(payable)
+        return payable
     }
     
-    func get(id: String, completion: @escaping (Result<PayableRecord, Error>) -> Void) {
-        channel.request(
-            TrailMethod.PAYABLE_GET,
-            ReqPayableGet(id: id)
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspPayable = try RspPayable.from(args)
-                    let payableRecord = try PayableRecord.from(rsp)
-                    completion(.success(payableRecord))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
-    }
+    func get(id: String, completion: @escaping (PayableRecord?) -> Void) async throws -> PayableRecord? {
+             let paybaleReq = ReqPayableGet(id: id)
+             let rspPayable: RspPayable = try await channel.request(
+                 method: TrailMethod.PAYABLE_GET,
+                 request: paybaleReq) { rsp in
+                     let paybaleResp = RspPayable(from: rsp)
+                     return paybaleResp
+                 }
+             let payable = PayableRecord(from: rspPayable)
+             completion(payable)
+             return payable
+         }
     
-    func all(licenseId: String, completion: @escaping (Result<[PayableRecord], Error>) -> Void) {
-        channel.request(
-            TrailMethod.PAYABLE_ALL,
-            ReqPayableAll(licenseId: licenseId)
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspPayables = try RspPayables.from(args)
-                    let payables = rsp.payables?.compactMap { payable in
-                        try? PayableRecord.from(payable)
-                    } ?? []
-                    completion(.success(payables))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
+    func all(licenseId: String, completion: @escaping ([PayableRecord]) -> Void) async throws -> [PayableRecord] {
+        let paybaleReq = ReqPayableAll(licenseId: licenseId)
+        let rspPayables: RspPayables = try await channel.request(
+            method: TrailMethod.PAYABLE_ALL,
+            request: paybaleReq) { rsp in
+                let payablesResp = RspPayables(from: rsp)
+                return payablesResp
             }
-        }
+        let payableAll: [PayableRecord] = rspPayables.payables == nil ? [] :
+            (rspPayables.payables! as [RspPayable]).map{ PayableRecord(from: $0)! }
+        completion(payableAll)
+        return payableAll
     }
 }

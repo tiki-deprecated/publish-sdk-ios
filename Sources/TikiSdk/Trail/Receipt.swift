@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
@@ -19,63 +17,44 @@ class Receipt {
         amount: String,
         description: String? = nil,
         reference: String? = nil,
-        completion: @escaping (Result<ReceiptRecord, Error>) -> Void
-    ) {
-        channel.request(
-            TrailMethod.RECEIPT_CREATE,
-            ReqReceipt(payableId: payableId, amount: amount, description: description, reference: reference)
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspReceipt = try RspReceipt.from(args)
-                    let receiptRecord = try ReceiptRecord.from(rsp)
-                    completion(.success(receiptRecord))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
+        completion: @escaping (ReceiptRecord?) -> Void
+    ) async throws -> ReceiptRecord? {
+        let receiptReq = ReqReceipt(payableId: payableId, amount: amount, description: description, reference: reference)
+        let rspReceipt: RspReceipt = try await channel.request(
+            method: TrailMethod.RECEIPT_CREATE,
+            request: receiptReq) { rsp in
+                let paybaleResp = RspReceipt(from: rsp)
+                return paybaleResp
             }
-        }
+        let receipt = ReceiptRecord(from: rspReceipt)
+        completion(receipt)
+        return receipt
     }
     
-    func get(id: String, completion: @escaping (Result<ReceiptRecord, Error>) -> Void) {
-        channel.request(
-            TrailMethod.RECEIPT_GET,
-            ReqReceiptGet(id: id)
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspReceipt = try RspReceipt.from(args)
-                    let receiptRecord = try ReceiptRecord.from(rsp)
-                    completion(.success(receiptRecord))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
+    func get(id: String, completion: @escaping (ReceiptRecord?) -> Void) async throws -> ReceiptRecord? {
+        let receiptReq = ReqReceiptGet(id: id)
+        let rspReceipt: RspReceipt = try await channel.request(
+            method: TrailMethod.RECEIPT_GET,
+            request: receiptReq) { rsp in
+                let paybaleResp = RspReceipt(from: rsp)
+                return paybaleResp
             }
-        }
+        let receipt = ReceiptRecord(from: rspReceipt)
+        completion(receipt)
+        return receipt
     }
     
-    func all(payableId: String, completion: @escaping (Result<[ReceiptRecord], Error>) -> Void) {
-        channel.request(
-            TrailMethod.RECEIPT_ALL,
-            ReqReceiptAll(payableId: payableId)
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspReceipts = try RspReceipts.from(args)
-                    let receipts = rsp.receipts?.compactMap { receipt in
-                        try? ReceiptRecord.from(receipt)
-                    } ?? []
-                    completion(.success(receipts))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
+    func all(payableId: String, completion: @escaping ([ReceiptRecord]) -> Void) async throws -> [ReceiptRecord] {
+        let receiptReq = ReqReceiptAll(payableId: payableId)
+        let rspReceipts: RspReceipts = try await channel.request(
+            method: TrailMethod.RECEIPT_ALL,
+            request: receiptReq) { rsp in
+                let receiptsResp = RspReceipts(from: rsp)
+                return receiptsResp
             }
-        }
+        let receiptAll: [ReceiptRecord] = rspReceipts.receipts == nil ? [] :
+        (rspReceipts.receipts! as [RspReceipt]).map{ ReceiptRecord(from: $0)! }
+        completion(receiptAll)
+        return receiptAll
     }
 }

@@ -190,7 +190,12 @@ public struct OfferFlow: View{
     }
     
     private func license(offer: Offer) async throws -> LicenseRecord {
-        return try await TikiSdk.license( offer.ptr!, offer.uses, String(offer.terms!), tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
-    }
+//        return try await TikiSdk.trail.license.create( offer.ptr!, offer.uses, String(offer.terms!), tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
+        return try await TikiSdk.instance.trail.title.get(ptr: offer.ptr!, completion{ title in
+            Task{
+                if(title == nil){
+                    let titleRecord = try await TikiSdk.instance.trail.title.create( ptr: offer.ptr!, tags: offer.tags)
+                    
+                    
     
 }

@@ -5,7 +5,7 @@
 
 import Foundation
 
-class Tag {
+public class Tag {
     let value: String
     
     private init(value: String) {

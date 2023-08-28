@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
@@ -42,35 +40,24 @@ class License{
     /// - Returns: The created `LicenseRecord` object.
     ///
     /// - Throws: `TikiSdkError` if the SDK is not initialized or if there is an error creating or saving the record.
-    public static func create( _ ptr: String,
-                               _ uses: [Use],
-                               _ terms: String,
-                               tags: [Tag] = [],
-                               titleDescription: String? = nil,
-                               licenseDescription: String? = nil,
-                               expiry: Date? = nil,
-                               origin: String? = nil) async throws -> LicenseRecord {
-        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let licenseReq = ReqLicense(
-                    ptr: ptr,
-                    terms: terms,
-                    titleDescription: titleDescription,
-                    licenseDescription: licenseDescription,
-                    uses: uses,
-                    tags: tags,
-                    expiry: expiry
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.license,
-                    request: licenseReq,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
+    public func create(
+            titleId: String,
+            uses: [Use],
+            terms: String,
+            expiry: Date? = nil,
+            description: String? = nil,
+            completion: ((LicenseRecord?) ->  Void)?) async throws -> LicenseRecord?
+    {
+        let licenseReq = ReqLicense(titleId: titleId, uses: uses, terms: terms, expiry: expiry, description: description)
+        let rspLicense: RspLicense = try await channel.request(
+            method: TrailMethod.LICENSE_CREATE,
+            request: licenseReq) { rsp in
+                let rspLicense = RspLicense(from: rsp)
+                return rspLicense
             }
-        }
-        return rspLicense.license!
+        let license = LicenseRecord(from: rspLicense)
+        completion?(license)
+        return license
     }
     
     
@@ -82,24 +69,19 @@ class License{
     ///     - id: The ID of the LicenseRecord to retrieve.
     ///     - origin: An optional override of the default origin specified in `initTikiSdkAsync`.
     /// - Returns: The LicenseRecord that matches the specified ID or nil if the license or corresponding title record is not found.
-    public static func get(id: String, origin: String? = nil) async throws -> LicenseRecord? {
-        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqLicense = ReqTitleGet(
-                    id: id,
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.getLicense,
-                    request: reqLicense,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
+    public func get(id: String, completion: ((LicenseRecord?) -> Void)?) async throws -> LicenseRecord? {
+        let licenseReq = ReqLicenseGet(id: id)
+        let rspLicense: RspLicense = try await channel.request(
+            method: TrailMethod.LICENSE_GET,
+            request: licenseReq) { rsp in
+                let rspLicense = RspLicense(from: rsp)
+                return rspLicense
             }
-        }
-        return rspLicense.self
+        let license = LicenseRecord(from: rspLicense)
+        completion?(license)
+        return license
     }
+    
     /// Returns all LicenseRecords associated with a given Pointer Record.
     ///
     /// Use this method to retrieve all LicenseRecords that have been previously stored for a given Pointer Record in your system.
@@ -109,23 +91,18 @@ class License{
     ///    - origin: An optional origin. If nil, the origin defaults to the package name.
     /// - Returns: An array of all LicenseRecords associated with the given Pointer Record. If no LicenseRecords are found,
     /// an empty array is returned.
-    public static func all(ptr: String, origin: String? = nil) async throws -> [LicenseRecord] {
-        let rspAll: RspLicenseList = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqAll = ReqLicenseAll(
-                    ptr: ptr,
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.all,
-                    request: reqAll,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
+    public func all(titleId: String, completion: (([LicenseRecord]) -> Void))? async throws -> [LicenseRecord] {
+        let licenseReq = ReqLicenseAll(titleId: titleId)
+        let rspLicenses: RspLicenses = try await channel.request(
+            method: TrailMethod.LICENSE_ALL,
+            request: licenseReq) { rsp in
+                let rspLicenses = RspLicenses(from: rsp)
+                return rspLicenses
             }
-        }
-        return rspAll.licenseList
+        let licenseAll: [LicenseRecord] = rspLicenses.licenses == nil ? [] :
+            (rspLicenses.licenses! as [RspLicense]).map{ LicenseRecord(from: $0)! }
+        completion?(licenseAll)
+        return licenseAll
     }
     
 }

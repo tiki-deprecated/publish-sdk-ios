@@ -2,6 +2,7 @@
  * Copyright (c) TIKI Inc.
  * MIT license. See LICENSE file in root directory.
  */
+
 import Foundation
 
 /// A use case for a license, describing how an asset may be used.

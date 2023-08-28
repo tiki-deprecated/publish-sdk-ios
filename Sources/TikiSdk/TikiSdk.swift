@@ -287,7 +287,7 @@ public class TikiSdk{
     /// accepting/declining the `Offer`, the root view controller is called again to dismiss the created hosting controller.
     ///
     /// - Throws: `TikiSdkError` if the SDK is not initialized or if no `Offer` was created.
-    public static func present() throws {
+    public static func present() async throws {
         try throwIfNotInitialized()
         try throwIfNoOffers()
         
@@ -319,7 +319,7 @@ public class TikiSdk{
                 }
                 usecases.append(contentsOf: licenseUse.usecases)
             }
-        let _ = try instance.trail.guard(ptr: ptr, usecases: usecases, destinations: destinations, onFail: {_ in presentOffer()
+        let _ = try await instance.trail.guard(ptr: ptr, usecases: usecases, destinations: destinations, onFail: {_ in presentOffer()
         })
     }
     
@@ -333,16 +333,18 @@ public class TikiSdk{
     public static func settings() throws {
         try throwIfNotInitialized()
         try throwIfNoOffers()
-        let viewController = UIApplication.shared.windows.first?.rootViewController
-        let vc = UIHostingController(rootView: Settings(
-            offers: TikiSdk.instance.offers,
-            onDismiss: {
-                viewController!.dismiss( animated: true, completion: nil )
-                
-            }))
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        viewController!.present(vc, animated: true, completion: nil)
+        DispatchQueue.main.async{
+            let viewController = UIApplication.shared.windows.first?.rootViewController
+            let vc = UIHostingController(rootView: Settings(
+                offers: TikiSdk.instance.offers,
+                onDismiss: {
+                    viewController!.dismiss( animated: true, completion: nil )
+                    
+                }))
+            vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            viewController!.present(vc, animated: true, completion: nil)
+        }
     }
     
     /// Starts the configuration process for the Tiki SDK instance.

@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
@@ -13,4 +11,16 @@ struct ReceiptRecord {
     let amount: String
     let description: String?
     let reference: String?
+    
+    init?(from: RspReceipt){
+        guard let payableRecord = PayableRecord(from: from.payable!), from.id != nil, from.amount != id else{
+            return nil
+        }
+        self.id = from.id!
+        self.payable = payableRecord
+        self.amount = from.amount!
+        self.description = from.description
+        self.reference = from.reference
+        
+    }
 }

@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
@@ -22,58 +20,37 @@ struct Trail {
         self.receipt = Receipt(channel: channel)
     }
     
-    func isInitialized(completion: @escaping (Result<Bool, Error>) -> Void) {
-        channel.request(
-            TrailMethod.IS_INITIALIZED,
-            ReqDefault()
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspIsInitialized = try RspIsInitialized.from(args)
-                    completion(.success(rsp.isInitialized))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
-            }
+    func isInitialized(completion: @escaping (Bool) -> Void) async throws -> Bool {
+        let rspIsInitialized = try await channel.request(
+            method: TrailMethod.IS_INITIALIZED,
+            request: ReqDefault()
+        ) { rsp in
+            RspIsInitialized(from: rsp)
         }
+        completion(rspIsInitialized.isInitialized)
+        return rspIsInitialized.isInitialized
     }
     
-    func address(completion: @escaping (Result<String?, Error>) -> Void) {
-        channel.request(
-            TrailMethod.ADDRESS,
-            ReqDefault()
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspAddress = try RspAddress.from(args)
-                    completion(.success(rsp.address))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
-            }
+    func address(completion: @escaping (String) -> Void) async throws -> String {
+        let rspAddress = try await channel.request(
+            method: TrailMethod.ADDRESS,
+            request: ReqDefault()
+        ) { rsp in
+            RspAdress(from: rsp)
         }
+        completion(rspAddress.address)
+        return rspAddress.address
     }
     
-    func id(completion: @escaping (Result<String?, Error>) -> Void) {
-        channel.request(
-            TrailMethod.ID,
-            ReqDefault()
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspId = try RspId.from(args)
-                    completion(.success(rsp.id))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
-            }
+    func id(completion: @escaping (String?) -> Void) async throws -> String? {
+        let rspId = try await channel.request(
+            method: TrailMethod.ID,
+            request: ReqDefault()
+        ) { rsp in
+            RspId(from: rsp)
         }
+        completion(rspId.id)
+        return rspId.id
     }
     
     func `guard`(
@@ -82,28 +59,20 @@ struct Trail {
         destinations: [String]? = nil,
         onPass: (() -> Void)? = nil,
         onFail: ((String?) -> Void)? = nil,
-        origin: String? = nil,
-        completion: ((Result<Bool, Error>) -> Void)? = nil
-    ) {
-        channel.request(
-            TrailMethod.GUARD,
-            ReqGuard(ptr: ptr, usecases: usecases, destinations: destinations, origin: origin)
-        ) { args in
-            withCheckedContinuation { continuation in
-                do {
-                    let rsp: RspGuard = try RspGuard.from(args)
-                    if let onPass = onPass, rsp.success {
-                        onPass()
-                    } else if let onFail = onFail, !rsp.success {
-                        onFail(rsp.reason)
-                    }
-                    completion(.success(rsp.success))
-                    continuation.resume(returning: ())
-                } catch {
-                    completion(.failure(error))
-                    continuation.resume(throwing: error)
-                }
-            }
+        origin: String? = nil
+    ) async throws -> Bool{
+        let reqGuard = ReqGuard(ptr: ptr, usercases: usecases, destinations: destinations, origin: origin ?? Bundle.main.bundleIdentifier!)
+        let rspGuard = try await channel.request(
+            method: TrailMethod.GUARD,
+            request: reqGuard
+        ) { rsp in
+            RspGuard(from: rsp)
         }
+        if let onPass = onPass, rspGuard.success {
+            onPass()
+        } else if let onFail = onFail, !rspGuard.success {
+            onFail(rspGuard.reason)
+        }
+        return rspGuard.success
     }
 }
