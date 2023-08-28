@@ -13,7 +13,7 @@ struct RspPayable: Rsp {
     let description: String?
     let expiry: Date?
     let reference: String?
-    var requestId: String?
+    let requestId: String
     
     init(from: [String : Any?]) {
         self.id = from["id"] as? String
@@ -23,6 +23,6 @@ struct RspPayable: Rsp {
         self.description = from["description"] as? String
         self.expiry = from["expiry"] as? Int64 != nil ? Date(milliseconds: from["expiry"] as! Int64) : nil
         self.reference = from["reference"] as? String
-        self.requestId = from["requestId"] as? String
+        self.requestId = from["requestId"] as! String
     }
 }

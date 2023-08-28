@@ -7,10 +7,10 @@ import Foundation
 
 struct RspVerify: Rsp {
     let isVerified: Bool
-    var requestId: String?
+    let requestId: String
     
     init(from: [String : Any?]) {
         self.isVerified = from["isVerified"] as! Bool
-        self.requestId = from["requestId"] as? String
+        self.requestId = from["requestId"] as! String
     }
 }

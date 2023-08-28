@@ -6,7 +6,7 @@
 import Foundation
 
 struct ReqVerify: Req {
-    var requestId: String?
+    let requestId = UUID().uuidString
     let keyId: String
     let message: Data
     let signature: Data

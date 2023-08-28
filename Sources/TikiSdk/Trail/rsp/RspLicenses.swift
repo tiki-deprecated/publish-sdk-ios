@@ -7,11 +7,11 @@ import Foundation
 
 struct RspLicenses: Rsp {
     let licenses: [RspLicense]?
-    var requestId: String?
+    let requestId: String
     
     init(from: [String : Any?]) {
         self.licenses = (from["licenses"] as? [[String: Any?]])?.map{ license in RspLicense(from: license) }
-        self.requestId = from["requestId"] as? String
+        self.requestId = from["requestId"] as! String
     }
 }
 

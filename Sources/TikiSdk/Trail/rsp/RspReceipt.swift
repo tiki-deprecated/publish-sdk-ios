@@ -11,8 +11,7 @@ struct RspReceipt: Rsp {
     let amount: String?
     let description: String?
     let reference: String?
-    var requestId: String?
-    
+    let requestId: String
     
     init(from: [String : Any?]) {
         self.id = from["id"] as? String
@@ -20,6 +19,6 @@ struct RspReceipt: Rsp {
         self.amount = from["amount"] as? String
         self.description = from["description"] as? String
         self.reference = from["reference"] as? String
-        self.requestId = from["requestId"] as? String
+        self.requestId = from["requestId"] as! String
     }
 }

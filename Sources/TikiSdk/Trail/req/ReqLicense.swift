@@ -11,7 +11,7 @@ struct ReqLicense: Req {
     var terms: String
     var expiry: Date? = nil
     var description: String? = nil
-    var requestId: String?
+    let requestId = UUID().uuidString
     
     func asDictionary() -> [String : Any?] {
         return [

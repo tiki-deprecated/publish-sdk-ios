@@ -8,11 +8,11 @@ import Foundation
 struct RspGuard: Rsp {
     let success: Bool
     let reason: String?
-    var requestId: String?
+    let requestId: String
     
     init(from: [String : Any?]) {
         self.success = from["success"] as! Bool
         self.reason = from["reason"] as? String
-        self.requestId = from["requestId"] as? String
+        self.requestId = from["requestId"] as! String
     }
 }

@@ -6,9 +6,9 @@
 import Foundation
 
 struct RspDefault: Rsp {
-    var requestId: String?
+    let requestId: String
     
     init(from: [String : Any?]) {
-        self.requestId = from["requestId"] as? String
+        self.requestId = from["requestId"] as! String
     }
 }

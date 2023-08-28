@@ -7,7 +7,7 @@ import Foundation
 
 struct ReqLicenseGet: Req {
     var id: String
-    var requestId: String?
+    let requestId = UUID().uuidString
     
     func asDictionary() -> [String : Any?] {
         return [

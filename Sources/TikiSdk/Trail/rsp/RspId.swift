@@ -7,10 +7,10 @@ import Foundation
 
 struct RspId: Rsp {
     let id: String?
-    var requestId: String?
+    let requestId: String
     
     init(from: [String : Any?]) {
         self.id = from["id"] as? String
-        self.requestId = from["requestId"] as? String
+        self.requestId = from["requestId"] as! String
     }
 }

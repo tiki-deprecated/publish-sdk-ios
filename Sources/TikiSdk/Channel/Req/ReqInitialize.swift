@@ -10,7 +10,7 @@ struct ReqInitialize: Req {
     let publishingId: String
     let origin: String
     let dir: String
-    var requestId: String?
+    let requestId = UUID().uuidString
     
     func asDictionary() -> [String : Any?] {
         return [

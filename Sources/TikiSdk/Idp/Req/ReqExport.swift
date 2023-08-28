@@ -8,7 +8,7 @@ import Foundation
 struct ReqExport: Req {
     let keyId: String
     let isPublic: Bool
-    var requestId: String?
+    let requestId = UUID().uuidString
     
     func asDictionary() -> [String : Any?] {
         return [

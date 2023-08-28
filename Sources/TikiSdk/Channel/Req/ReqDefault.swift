@@ -7,7 +7,7 @@ import Foundation
 
 struct ReqDefault: Req {
     
-    var requestId: String?
+    let requestId = UUID().uuidString
     
     func asDictionary() -> [String : Any?] {
         return [

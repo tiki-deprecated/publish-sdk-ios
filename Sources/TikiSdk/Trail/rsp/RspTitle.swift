@@ -11,7 +11,7 @@ struct RspTitle: Rsp {
     let origin: String?
     let tags: [Tag]?
     let description: String?
-    var requestId: String?
+    let requestId: String
     
     init(from: [ String: Any? ]){
         self.id = from["id"] as? String
@@ -19,6 +19,6 @@ struct RspTitle: Rsp {
         self.origin = from["origin"] as? String
         self.tags = from["tags"] != nil ? (from["tags"] as! [String]).map{ tagValue in Tag.from(tag: tagValue) } : nil
         self.description = from["description"] as? String
-        self.requestId = from["requestId"] as? String
+        self.requestId = from["requestId"] as! String
     }
 }

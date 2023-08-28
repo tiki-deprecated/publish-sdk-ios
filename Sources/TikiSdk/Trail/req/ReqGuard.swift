@@ -6,7 +6,7 @@
 import Foundation
 
 struct ReqGuard: Req {
-    var requestId: String?
+    let requestId = UUID().uuidString
     var ptr: String
     var usercases: [Usecase]
     var destinations: [String]? = nil

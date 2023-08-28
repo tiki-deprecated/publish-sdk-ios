@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol Req{
-    var requestId: String? { get set }
+public protocol Req{
+    var requestId: String { get }
     func asDictionary() -> [String: Any?]
 }

@@ -7,12 +7,12 @@ import Foundation
 
 struct RspPayables: Rsp {
     let payables: [RspPayable]?
-    var requestId: String?
+    let requestId: String
     
     init(from: [String : Any?]) {
         self.payables = from["payables"] != nil ? (from["payables"] as! [[String: Any?]]).map{ payable in
             RspPayable(from: payable)
         } : nil
-        self.requestId = from["requestId"] as? String
+        self.requestId = from["requestId"] as! String
     }
 }

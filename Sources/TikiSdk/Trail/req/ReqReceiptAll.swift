@@ -7,7 +7,7 @@ import Foundation
 
 struct ReqReceiptAll: Req {
     var payableId: String
-    var requestId: String?
+    let requestId = UUID().uuidString
     
     func asDictionary() -> [String : Any?] {
         return [

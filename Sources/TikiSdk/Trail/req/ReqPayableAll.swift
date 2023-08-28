@@ -7,7 +7,7 @@ import Foundation
 
 struct ReqPayableAll: Req {
     var licenseId: String
-    var requestId: String?
+    let requestId = UUID().uuidString
     
     func asDictionary() -> [String : Any?] {
         return [
