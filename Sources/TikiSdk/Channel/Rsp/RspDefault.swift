@@ -6,15 +6,9 @@
 import Foundation
 
 struct RspDefault: Rsp {
-    var requestId: String?
+    let requestId: String
     
-    init(requestId: String?) {
-        self.requestId = requestId
-    }
-    
-    static func from(map: [String: Any?]) -> RspDefault {
-        return RspDefault(
-            requestId: map["requestId"] as? String
-        )
+    init(from: [String : Any?]) {
+        self.requestId = from["requestId"] as! String
     }
 }

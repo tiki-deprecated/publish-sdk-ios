@@ -186,7 +186,7 @@ public struct Settings: View {
     
     func `guard`() async throws -> Bool{
         let ptr : String = TikiSdk.instance.offers.values.first!.ptr!
-        var usecases: [LicenseUsecase] = []
+        var usecases: [Usecase] = []
         var destinations: [String] = []
         TikiSdk.instance.offers.values.first!.uses.forEach{ licenseUse in
             if(licenseUse.destinations != nil){
@@ -194,11 +194,15 @@ public struct Settings: View {
             }
             usecases.append(contentsOf: licenseUse.usecases)
         }
-        return try await TikiSdk.guard(ptr: ptr, usecases: usecases, destinations: destinations)
+        return try await TikiSdk.instance.trail.guard(ptr: ptr, usecases: usecases, destinations: destinations)
     }
     
-    func license(offer: Offer) async throws -> LicenseRecord {
-        return try await TikiSdk.license( offer.ptr!, offer.uses, String(offer.terms!), tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
-    }
-    
+    private func license(offer: Offer) async throws -> LicenseRecord? {
+            var title = try await TikiSdk.instance.trail.title.get(ptr: offer.ptr!)
+            if( title == nil ){
+                title = try await TikiSdk.instance.trail.title.create(ptr: offer.ptr!, tags: offer.tags, description: offer.description!)
+            }
+            let licenceRecord = try await TikiSdk.instance.trail.license.create(titleId: title!.id, uses: offer.uses, terms: offer.terms!)
+            return licenceRecord
+        }
 }

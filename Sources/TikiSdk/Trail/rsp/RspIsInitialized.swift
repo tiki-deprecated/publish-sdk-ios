@@ -5,7 +5,12 @@
 
 import Foundation
 
-struct RspInitialized : Decodable, Rsp {
+struct RspIsInitialized: Rsp {
     let isInitialized: Bool
-    var requestId: String?
+    let requestId: String
+    
+    init(from: [String : Any?]) {
+        self.requestId = from["requestId"] as! String
+        self.isInitialized = from["isInitialized"] as! Bool
+    }
 }

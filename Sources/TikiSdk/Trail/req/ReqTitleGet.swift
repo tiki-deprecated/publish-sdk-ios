@@ -5,8 +5,16 @@
 
 import Foundation
 
-struct ReqTitleGet: Encodable, Req {
+struct ReqTitleGet: Req {
     var ptr: String
     var origin: String? = nil
-    var requestId: String?
+    let requestId = UUID().uuidString
+    
+    func asDictionary() -> [String : Any?] {
+        return [
+            "ptr": ptr,
+            "origin": origin,
+            "requestId": requestId
+        ]
+    }
 }

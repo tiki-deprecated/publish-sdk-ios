@@ -32,20 +32,19 @@ let package = Package(
             ]
         ),
         .binaryTarget(name: "App",
-                      url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.11/App.xcframework.zip",
-                      checksum: "28ac8da55e884e1f734a4aad5be937ccbb4a6e83e92e31c2f7ed6417794a7cf6"),
+                      url: "https://github.com/tiki/tiki-trail-platform-channel/releases/download/2.1.0/App_debug.xcframework.zip",
+                      checksum: "a28b9ac49ef9a9f3fb59cb75553ab2901f5ff997003ee799dd8e29f70ec41733"),
         
         .binaryTarget(name: "Flutter",
-                      url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.11/Flutter.xcframework.zip",
-                      checksum: "2585a53e3b545b01c5c3ead6573b2c6cb350295db65a528a6132824d99d68f13"),
+                      url: "https://github.com/tiki/tiki-trail-platform-channel/releases/download/2.1.0/Flutter_debug.xcframework.zip",
+                      checksum: "998644e57af7dbccb9d147fe0f1cba1a2fca4b048ddca4193420373d7fe5da6e"),
                           
-        .binaryTarget(name: "FlutterPluginRegistrant", 
-                      url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.11/FlutterPluginRegistrant.xcframework.zip",
-                      checksum: "21674c00f0ff2213c3371205e80337a08838cbde3ea026a529e9fd3820da2b36"),
+        .binaryTarget(name: "FlutterPluginRegistrant",
+                      url: "https://github.com/tiki/tiki-trail-platform-channel/releases/download/2.1.0/FlutterPluginRegistrant_debug.xcframework.zip",
+                      checksum: "bd1282fe9455e4ead8c925214231f329360c8b413504bbcdb3cdb9a95283fb66"),
         
         .binaryTarget(name: "flutter_secure_storage",
-                      url: "https://github.com/tiki/tiki-sdk-platform-channel/releases/download/1.0.11/flutter_secure_storage.xcframework.zip",
-                      checksum: "cdde9748181e754ba9d1f7ac5189693d69fdb1006976853e91af98efd8d639f8"),
-        
+                      url: "https://github.com/tiki/tiki-trail-platform-channel/releases/download/2.1.0/flutter_secure_storage_debug.xcframework.zip",
+                      checksum: "c0ec1b0dc36e92b84c88ba149aab6c3e668b2a93e630d6bfe2399970218212fb"),
         ]
 )

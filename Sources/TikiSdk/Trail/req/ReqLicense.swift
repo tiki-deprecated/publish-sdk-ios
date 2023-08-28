@@ -5,11 +5,23 @@
 
 import Foundation
 
-struct ReqLicense : Encodable, Req {
+struct ReqLicense: Req {
     var titleId: String
-    var uses: [LicenseUse]
+    var uses: [Use]
     var terms: String
     var expiry: Date? = nil
     var description: String? = nil
-    var requestId: String?
+    let requestId = UUID().uuidString
+    
+    func asDictionary() -> [String : Any?] {
+        return [
+            "titleId": titleId,
+            "uses": uses.map{ use in use.asDictionary() },
+            "terms": terms,
+            "expiry": expiry ?? expiry!.millisecondsSinceEpoch(),
+            "description": description,
+            "requestId": requestId,
+        ]
+    }
+        
 }

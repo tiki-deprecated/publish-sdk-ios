@@ -2,10 +2,11 @@
  * Copyright (c) TIKI Inc.
  * MIT license. See LICENSE file in root directory.
  */
+
 import Foundation
 
-/// An enumeration of default accepted use cases for a `LicenseUsecase`.
-public enum LicenseUsecaseEnum: String, Codable, CaseIterable {
+/// An enumeration of default accepted use cases for a `Usecase`.
+public enum UsecaseCommon: String, Codable, CaseIterable {
     
     /// Use case for attribution.
     case attribution = "attribution"
@@ -33,18 +34,18 @@ public enum LicenseUsecaseEnum: String, Codable, CaseIterable {
         return self.rawValue
     }
     
-    /// Returns a `LicenseUsecaseEnum` instance for the given string value.
+    /// Returns a `UsecaseCommon` instance for the given string value.
     /// - Parameters:
     ///    - value: A string value representing a use case for a license.
-    /// - Throws: An `NSError` object with domain `InvalidLicenseUsecaseErrorDomain` and code 0, if `value`
-    /// is not a valid `LicenseUsecaseEnum` value.
-    /// - Returns: A `LicenseUsecaseEnum` instance that matches the given string value.
-    static func fromValue(_ value: String) throws -> LicenseUsecaseEnum {
-        for type in LicenseUsecaseEnum.allCases {
+    /// - Throws: An `NSError` object with domain `InvalidUsecaseErrorDomain` and code 0, if `value`
+    /// is not a valid `UsecaseCommon` value.
+    /// - Returns: A `UsecaseCommon` instance that matches the given string value.
+    static func fromValue(_ value: String) throws -> UsecaseCommon {
+        for type in UsecaseCommon.allCases {
             if type.rawValue == value {
                 return type
             }
         }
-        throw NSError(domain: "InvalidLicenseUsecaseErrorDomain", code: 0, userInfo: ["value": value])
+        throw NSError(domain: "InvalidUsecaseErrorDomain", code: 0, userInfo: ["value": value])
     }
 }
