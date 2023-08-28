@@ -83,7 +83,7 @@ struct Trail {
         onPass: (() -> Void)? = nil,
         onFail: ((String?) -> Void)? = nil,
         origin: String? = nil,
-        completion: @escaping (Result<Bool, Error>) -> Void
+        completion: ((Result<Bool, Error>) -> Void)? = nil
     ) {
         channel.request(
             TrailMethod.GUARD,

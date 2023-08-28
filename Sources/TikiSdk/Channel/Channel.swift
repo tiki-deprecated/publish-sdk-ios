@@ -30,7 +30,7 @@ public class Channel {
         toResponse: @escaping ( [String: Any?] ) -> R
     ) async throws -> R {
         guard let handler = handler else {
-            fatalError("Channel not initialized. Call .initialize(...).")
+            fatalError("Channel not initialized yet. Use Channel(onCompletion: ...).")
         }
         let rsp: [String: Any?] = try await withCheckedThrowingContinuation{ continuation in
             handler.invokeMethod(
