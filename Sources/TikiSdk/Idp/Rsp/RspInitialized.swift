@@ -5,12 +5,12 @@
 
 import Foundation
 
-struct RspId: Rsp {
-    let id: String?
+struct RspInitialized: Rsp {
+    let isInitialized: Bool
     var requestId: String?
     
     init(from: [String : Any?]) {
-        self.id = from["id"] as? String
+        self.isInitialized = from["isInitialized"] as! Bool
         self.requestId = from["requestId"] as? String
     }
 }

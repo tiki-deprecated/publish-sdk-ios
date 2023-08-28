@@ -5,6 +5,10 @@
 
 import Foundation
 
-struct RspDefault: Rsp, Decodable {
+struct RspDefault: Rsp {
     var requestId: String?
+    
+    init(from: [String : Any?]) {
+        self.requestId = from["requestId"] as? String
+    }
 }

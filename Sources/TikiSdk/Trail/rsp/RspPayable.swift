@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct RspPayable: Decodable, Rsp {
+struct RspPayable: Rsp {
     let id: String?
     let license: RspLicense?
     let amount: String?
@@ -14,4 +14,15 @@ struct RspPayable: Decodable, Rsp {
     let expiry: Date?
     let reference: String?
     var requestId: String?
+    
+    init(from: [String : Any?]) {
+        self.id = from["id"] as? String
+        self.license = from["license"] as? [String: Any?] != nil ? RspLicense(from: (from["license"] as! [String: Any?])) : nil
+        self.amount = from["amount"] as? String
+        self.type = from["type"] as? String
+        self.description = from["description"] as? String
+        self.expiry = from["expiry"] as? Int64 != nil ? Date(milliseconds: from["expiry"] as! Int64) : nil
+        self.reference = from["reference"] as? String
+        self.requestId = from["requestId"] as? String
+    }
 }

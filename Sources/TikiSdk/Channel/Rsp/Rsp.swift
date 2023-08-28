@@ -5,6 +5,8 @@
 
 import Foundation
 
-protocol Rsp{
+protocol Rsp {
     var requestId: String? { get set }
+    
+    init(from: [String:Any?])
 }

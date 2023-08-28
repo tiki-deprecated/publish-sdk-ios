@@ -31,6 +31,11 @@ public struct Use: Codable {
         self.destinations = destinations
     }
     
+    init(from: [String: [String]?]){
+        self.usecases = (from["usecases"]!!).map{ usecase in Usecase(usecase) }
+        self.destinations = from["destinations"] as? [String]
+    }
+    
     func asDictionary() -> [String: [String]?] {
         return [
             "usecases": usecases.map{ usecase in usecase.value },

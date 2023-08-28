@@ -1,13 +1,16 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
-struct RspExport: Rsp{
+struct RspExport: Rsp {
     let key: String?
     var requestId: String?
+    
+    init(from: [String : Any?]) {
+        self.key = from["key"] as? String
+        self.requestId = from["requestId"] as? String
+    }
 }

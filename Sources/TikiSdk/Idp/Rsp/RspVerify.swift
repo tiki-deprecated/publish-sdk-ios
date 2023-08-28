@@ -1,13 +1,16 @@
-//
-//  File.swift
-//  
-//
-//  Created by Ricardo on 12/08/23.
-//
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in root directory.
+ */
 
 import Foundation
 
-struct RspVerify: Rsp{
+struct RspVerify: Rsp {
     let isVerified: Bool
     var requestId: String?
+    
+    init(from: [String : Any?]) {
+        self.isVerified = from["isVerified"] as! Bool
+        self.requestId = from["requestId"] as? String
+    }
 }
