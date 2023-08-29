@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum IdpMethod: String, ChannelMethod {
+public enum IdpMethod: String, ChannelMethod {
     case isInitialized = "idp.isInitialized"
     case key = "idp.key"
     case export = "idp.export"
@@ -14,7 +14,7 @@ enum IdpMethod: String, ChannelMethod {
     case verify = "idp.verify"
     case token = "idp.token"
     
-    func value() -> String {
+    public func value() -> String {
         return self.rawValue
     }
 }

@@ -17,10 +17,10 @@ import Foundation
 /// companies, or more. You can use ECMAScript Regex to specify flexible and easily enforceable rules.
 public struct Use: Codable {
     /// Usecases explicitly define HOW an asset may be used.
-    let usecases: [Usecase]
+    public let usecases: [Usecase]
     
     /// Destinations explicitly define WHO can use an asset.
-    let destinations: [String]?
+    public let destinations: [String]?
     
     /// Create a new `Use` instance.
     ///
@@ -32,12 +32,12 @@ public struct Use: Codable {
         self.destinations = destinations
     }
     
-    init(from: [String: [String]?]){
+    public init(from: [String: [String]?]){
         self.usecases = (from["usecases"]!!).map{ usecase in Usecase(usecase) }
         self.destinations = from["destinations"] as? [String]
     }
     
-    func asDictionary() -> [String: [String]?] {
+    public func asDictionary() -> [String: [String]?] {
         return [
             "usecases": usecases.map{ usecase in usecase.value },
             "destinations": destinations

@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct RspExport: Rsp {
-    let key: String?
-    let requestId: String
+public struct RspExport: Rsp {
+    public let key: String?
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.key = from["key"] as? String
         self.requestId = from["requestId"] as! String
     }

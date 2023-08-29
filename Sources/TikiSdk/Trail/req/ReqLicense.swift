@@ -5,15 +5,15 @@
 
 import Foundation
 
-struct ReqLicense: Req {
-    var titleId: String
-    var uses: [Use]
-    var terms: String
-    var expiry: Date? = nil
-    var description: String? = nil
-    let requestId = UUID().uuidString
+public struct ReqLicense: Req {
+    public var titleId: String
+    public var uses: [Use]
+    public var terms: String
+    public var expiry: Date? = nil
+    public var description: String? = nil
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "titleId": titleId,
             "uses": uses.map{ use in use.asDictionary() },

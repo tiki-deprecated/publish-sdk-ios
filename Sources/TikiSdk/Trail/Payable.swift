@@ -5,14 +5,14 @@
 
 import Foundation
 
-class Payable {
+public class Payable {
     private let channel: Channel
     
-    init(channel: Channel) {
+    public init(channel: Channel) {
         self.channel = channel
     }
     
-    func create(
+    public func create(
         licenseId: String,
         amount: String,
         type: String,
@@ -40,7 +40,7 @@ class Payable {
         return payable
     }
     
-    func get(id: String, completion: ((PayableRecord?) -> Void)? = nil) async throws -> PayableRecord? {
+    public func get(id: String, completion: ((PayableRecord?) -> Void)? = nil) async throws -> PayableRecord? {
              let paybaleReq = ReqPayableGet(id: id)
              let rspPayable: RspPayable = try await channel.request(
                  method: TrailMethod.PAYABLE_GET,
@@ -53,7 +53,7 @@ class Payable {
              return payable
          }
     
-    func all(licenseId: String, completion: (([PayableRecord]) -> Void)? = nil) async throws -> [PayableRecord] {
+    public func all(licenseId: String, completion: (([PayableRecord]) -> Void)? = nil) async throws -> [PayableRecord] {
         let paybaleReq = ReqPayableAll(licenseId: licenseId)
         let rspPayables: RspPayables = try await channel.request(
             method: TrailMethod.PAYABLE_ALL,

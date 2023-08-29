@@ -5,13 +5,13 @@
 
 import Foundation
 
-struct ReqVerify: Req {
-    let requestId = UUID().uuidString
-    let keyId: String
-    let message: Data
-    let signature: Data
+public struct ReqVerify: Req {
+    public let requestId = UUID().uuidString
+    public let keyId: String
+    public let message: Data
+    public let signature: Data
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "requestId": requestId,
             "keyId": keyId,

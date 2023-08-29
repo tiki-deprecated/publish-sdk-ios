@@ -5,11 +5,11 @@
 
 import Foundation
 
-class License{
+public class License{
     
     let channel: Channel
     
-    init(channel: Channel){
+    public init(channel: Channel){
         self.channel = channel
     }
     

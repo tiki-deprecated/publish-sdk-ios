@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct RspAdress: Rsp {
-    let address: String
-    let requestId: String
+public struct RspAdress: Rsp {
+    public let address: String
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.address = from["address"] as! String
         self.requestId = from["requestId"] as! String
     }

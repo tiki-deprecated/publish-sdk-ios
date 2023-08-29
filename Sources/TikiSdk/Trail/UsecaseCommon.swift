@@ -40,7 +40,7 @@ public enum UsecaseCommon: String, Codable, CaseIterable {
     /// - Throws: An `NSError` object with domain `InvalidUsecaseErrorDomain` and code 0, if `value`
     /// is not a valid `UsecaseCommon` value.
     /// - Returns: A `UsecaseCommon` instance that matches the given string value.
-    static func fromValue(_ value: String) throws -> UsecaseCommon {
+    public static func fromValue(_ value: String) throws -> UsecaseCommon {
         for type in UsecaseCommon.allCases {
             if type.rawValue == value {
                 return type

@@ -5,14 +5,14 @@
 
 import Foundation
 
-class Idp {
+public class Idp {
     private let channel: Channel
     
-    init(channel: Channel) {
+    public init(channel: Channel) {
         self.channel = channel
     }
     
-    func export(keyId: String, isPublic: Bool = false, completion: @escaping (RspExport) -> Void) async throws -> RspExport{
+    public func export(keyId: String, isPublic: Bool = false, completion: @escaping (RspExport) -> Void) async throws -> RspExport{
         let request = ReqExport(keyId: keyId, isPublic: isPublic)
         return try await channel.request(method: IdpMethod.export, request: request) { rsp in
             let rspExport = RspExport(from: rsp)
@@ -22,7 +22,7 @@ class Idp {
         
     }
     
-    func importMethod(keyId: String, key: Data, isPublic: Bool = false, completion: @escaping (Rsp) -> Void) async throws -> RspDefault {
+    public func importMethod(keyId: String, key: Data, isPublic: Bool = false, completion: @escaping (RspDefault) -> Void) async throws -> RspDefault {
         let request = ReqImport(keyId: keyId, key: key, isPublic: isPublic)
         return try await channel.request(method: IdpMethod.importMethod, request: request) { rsp in
             let rspDefault = RspDefault(from: rsp)
@@ -31,7 +31,7 @@ class Idp {
         }
     }
     
-    func key(keyId: String, overwrite: Bool = false, completion: @escaping (Rsp) -> Void) async throws -> RspDefault{
+    public func key(keyId: String, overwrite: Bool = false, completion: @escaping (RspDefault) -> Void) async throws -> RspDefault{
         let request = ReqKey(keyId: keyId, overwrite: overwrite)
         return try await channel.request(method: IdpMethod.importMethod, request: request) { rsp in
             let rspDefault = RspDefault(from: rsp)
@@ -40,7 +40,7 @@ class Idp {
         }
     }
     
-    func sign(keyId: String, message: Data, completion: (Data?) -> Void) async throws -> Data? {
+    public func sign(keyId: String, message: Data, completion: (Data?) -> Void) async throws -> Data? {
         let request = ReqSign(keyId: keyId, message: message)
         let rspSign = try await channel.request(method: IdpMethod.sign, request: request) { rsp in
             return RspSign(from: rsp)
@@ -50,7 +50,7 @@ class Idp {
         return signature
     }
     
-    func verify(keyId: String, message: Data, signature: Data, completion: (Bool) -> Void) async throws -> Bool {
+    public func verify(keyId: String, message: Data, signature: Data, completion: (Bool) -> Void) async throws -> Bool {
         let request = ReqVerify(keyId: keyId, message: message, signature: signature)
         let rspVerify = try await channel.request(method: IdpMethod.verify, request: request) { rsp in
             RspVerify(from:rsp)
@@ -60,12 +60,12 @@ class Idp {
         return isVerified
     }
     
-    func token(completion: (Token) -> Void) async throws -> Token{
+    public func token(completion: ((Token) -> Void)? = nil) async throws -> Token{
         let rspToken = try await channel.request(method: IdpMethod.token, request: ReqDefault()) { rsp in
             RspToken(from: rsp)
         }
         let token = Token(from: rspToken)
-        completion(token)
+        completion?(token)
         return token
     }
 }

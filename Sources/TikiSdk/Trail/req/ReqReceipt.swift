@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct ReqReceipt: Req {
-    var payableId: String
-    var amount: String
-    var description: String? = nil
-    var reference: String? = nil
-    let requestId = UUID().uuidString
+public struct ReqReceipt: Req {
+    public var payableId: String
+    public var amount: String
+    public var description: String? = nil
+    public var reference: String? = nil
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "payableId": payableId,
             "amount": amount,

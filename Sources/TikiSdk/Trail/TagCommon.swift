@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum TagCommon: String, CaseIterable {
+public enum TagCommon: String, CaseIterable {
     case EMAIL_ADDRESS = "email_address"
     case PHONE_NUMBER = "phone_number"
     case PHYSICAL_ADDRESS = "physical_address"

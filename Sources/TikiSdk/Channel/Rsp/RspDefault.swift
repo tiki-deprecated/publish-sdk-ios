@@ -5,10 +5,10 @@
 
 import Foundation
 
-struct RspDefault: Rsp {
-    let requestId: String
+public struct RspDefault: Rsp {
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.requestId = from["requestId"] as! String
     }
 }

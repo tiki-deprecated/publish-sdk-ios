@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct RspSign: Rsp{
-    let signature: Data?
-    let requestId: String
+public struct RspSign: Rsp{
+    public let signature: Data?
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.signature = from["signature"] as? String != nil ? (from["signature"] as! String).data(using: .utf8) : nil
         self.requestId = from["requestId"] as! String
     }

@@ -5,16 +5,16 @@
 
 import Foundation
 
-struct ReqPayable: Req {
-    var licenseId: String
-    var amount: String
-    var type: String
-    var expiry: Date? = nil
-    var description: String? = nil
-    var reference: String? = nil
-    let requestId = UUID().uuidString
+public struct ReqPayable: Req {
+    public var licenseId: String
+    public var amount: String
+    public var type: String
+    public var expiry: Date? = nil
+    public var description: String? = nil
+    public var reference: String? = nil
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "licenseId": licenseId,
             "amount": amount,

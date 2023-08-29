@@ -5,15 +5,15 @@
 
 import Foundation
 
-struct RspTitle: Rsp {
-    let id: String?
-    let hashedPtr: String?
-    let origin: String?
-    let tags: [Tag]?
-    let description: String?
-    let requestId: String
+public struct RspTitle: Rsp {
+    public let id: String?
+    public let hashedPtr: String?
+    public let origin: String?
+    public let tags: [Tag]?
+    public let description: String?
+    public let requestId: String
     
-    init(from: [ String: Any? ]){
+    public init(from: [ String: Any? ]){
         self.id = from["id"] as? String
         self.hashedPtr = from["hashedPtr"] as? String
         self.origin = from["origin"] as? String

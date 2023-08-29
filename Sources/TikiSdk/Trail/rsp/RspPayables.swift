@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct RspPayables: Rsp {
-    let payables: [RspPayable]?
-    let requestId: String
+public struct RspPayables: Rsp {
+    public let payables: [RspPayable]?
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.payables = from["payables"] != nil ? (from["payables"] as! [[String: Any?]]).map{ payable in
             RspPayable(from: payable)
         } : nil

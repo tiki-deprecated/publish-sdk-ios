@@ -6,10 +6,10 @@
 import Foundation
 
 struct ReqReceiptGet: Req {
-    var id: String
-    let requestId = UUID().uuidString
+    public var id: String
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "id": id,
             "requestId": requestId

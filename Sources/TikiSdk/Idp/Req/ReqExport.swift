@@ -5,12 +5,12 @@
 
 import Foundation
 
-struct ReqExport: Req {
-    let keyId: String
-    let isPublic: Bool
-    let requestId = UUID().uuidString
+public struct ReqExport: Req {
+    public let keyId: String
+    public let isPublic: Bool
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "keyId" : keyId,
             "public" : isPublic,

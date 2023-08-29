@@ -5,14 +5,14 @@
 
 import Foundation
 
-class Receipt {
+public class Receipt {
     private let channel: Channel
     
     init(channel: Channel) {
         self.channel = channel
     }
     
-    func create(
+    public func create(
         payableId: String,
         amount: String,
         description: String? = nil,
@@ -31,7 +31,7 @@ class Receipt {
         return receipt
     }
     
-    func get(id: String, completion: ((ReceiptRecord?) -> Void)? = nil) async throws -> ReceiptRecord? {
+    public func get(id: String, completion: ((ReceiptRecord?) -> Void)? = nil) async throws -> ReceiptRecord? {
         let receiptReq = ReqReceiptGet(id: id)
         let rspReceipt: RspReceipt = try await channel.request(
             method: TrailMethod.RECEIPT_GET,
@@ -44,7 +44,7 @@ class Receipt {
         return receipt
     }
     
-    func all(payableId: String, completion: (([ReceiptRecord]) -> Void)? = nil) async throws -> [ReceiptRecord] {
+    public func all(payableId: String, completion: (([ReceiptRecord]) -> Void)? = nil) async throws -> [ReceiptRecord] {
         let receiptReq = ReqReceiptAll(payableId: payableId)
         let rspReceipts: RspReceipts = try await channel.request(
             method: TrailMethod.RECEIPT_ALL,

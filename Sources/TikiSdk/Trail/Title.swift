@@ -8,11 +8,11 @@ import Foundation
 public class Title{
     private let channel: Channel
     
-    init(channel: Channel){
+    public init(channel: Channel){
         self.channel = channel
     }
     
-    func create(
+    public func create(
         ptr: String,
         tags: [Tag],
         description: String? = nil,
@@ -36,7 +36,7 @@ public class Title{
         return title
     }
     
-    func get(ptr: String, origin: String? = nil, completion: ((TitleRecord?) -> Void)? = nil) async throws -> TitleRecord? {
+    public func get(ptr: String, origin: String? = nil, completion: ((TitleRecord?) -> Void)? = nil) async throws -> TitleRecord? {
         let titleReq = ReqTitleGet(ptr: ptr, origin: origin)
         let rspTitle: RspTitle = try await channel.request(
             method: TrailMethod.TITLE_GET,
@@ -49,7 +49,7 @@ public class Title{
         return title
     }
     
-    func id(id: String, completion: ((TitleRecord?) -> Void)? = nil) async throws -> TitleRecord? {
+    public func id(id: String, completion: ((TitleRecord?) -> Void)? = nil) async throws -> TitleRecord? {
         let titleReq = ReqTitleId(id: id)
         let rspTitle: RspTitle = try await channel.request(
             method: TrailMethod.TITLE_ID,

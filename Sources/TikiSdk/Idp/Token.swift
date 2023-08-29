@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct Token{
-    let accessToken: String
-    let tokenType: String
-    let expires: Date?
-    let refreshToken: String?
-    let scope: [String]?
+public struct Token{
+    public let accessToken: String
+    public let tokenType: String
+    public let expires: Date?
+    public let refreshToken: String?
+    public let scope: [String]?
     
-    init(from: RspToken){
+    public init(from: RspToken){
         self.accessToken = from.accessToken!
         self.tokenType = from.tokenType!
         self.expires = from.expires

@@ -5,12 +5,12 @@
 
 import Foundation
 
-struct ReqTitleGet: Req {
-    var ptr: String
-    var origin: String? = nil
-    let requestId = UUID().uuidString
+public struct ReqTitleGet: Req {
+    public var ptr: String
+    public var origin: String? = nil
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "ptr": ptr,
             "origin": origin,

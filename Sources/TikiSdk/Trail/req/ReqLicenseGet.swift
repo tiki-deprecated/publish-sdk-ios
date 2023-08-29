@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct ReqLicenseGet: Req {
-    var id: String
-    let requestId = UUID().uuidString
+public struct ReqLicenseGet: Req {
+    public var id: String
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "id": id,
             "requestId": requestId

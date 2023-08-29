@@ -5,15 +5,15 @@
 
 import Foundation
 
-struct RspToken: Rsp {
-    let accessToken: String?
-    let tokenType: String?
-    let expires: Date?
-    let refreshToken: String?
-    let scope: [String]?
-    let requestId: String
+public struct RspToken: Rsp {
+    public let accessToken: String?
+    public let tokenType: String?
+    public let expires: Date?
+    public let refreshToken: String?
+    public let scope: [String]?
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.accessToken = from["accessToken"] as? String
         self.tokenType = from["tokenType"] as? String
         self.expires = from["expires"] as? Int64 != nil ? Date(milliseconds: from["expiry"] as! Int64) : nil

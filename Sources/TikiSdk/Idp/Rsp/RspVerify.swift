@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct RspVerify: Rsp {
-    let isVerified: Bool
-    let requestId: String
+public struct RspVerify: Rsp {
+    public let isVerified: Bool
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.isVerified = from["isVerified"] as! Bool
         self.requestId = from["requestId"] as! String
     }

@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct ReqReceiptAll: Req {
-    var payableId: String
-    let requestId = UUID().uuidString
+public struct ReqReceiptAll: Req {
+    public var payableId: String
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "payableId": payableId,
             "requestId": requestId

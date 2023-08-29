@@ -5,12 +5,12 @@
 
 import Foundation
 
-struct RspInitialize: Rsp {
-    let id: String?
-    let address: String?
-    let requestId: String
+public struct RspInitialize: Rsp {
+    public let id: String?
+    public let address: String?
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.id = from["id"] as? String
         self.address = from["address"] as? String
         self.requestId = from["requestId"] as! String

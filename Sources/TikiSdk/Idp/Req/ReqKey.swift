@@ -5,12 +5,12 @@
 
 import Foundation
 
-struct ReqKey: Req {
-    let requestId = UUID().uuidString
-    let keyId: String
-    let overwrite: Bool
+public struct ReqKey: Req {
+    public let requestId = UUID().uuidString
+    public let keyId: String
+    public let overwrite: Bool
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "requestId": requestId,
             "keyId": keyId,

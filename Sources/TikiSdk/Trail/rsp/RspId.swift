@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct RspId: Rsp {
-    let id: String?
-    let requestId: String
+public struct RspId: Rsp {
+    public let id: String?
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.id = from["id"] as? String
         self.requestId = from["requestId"] as! String
     }
