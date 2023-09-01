@@ -24,6 +24,7 @@ let package = Package(
                            "flutter_secure_storage",
                            "Flutter",
                            "FlutterPluginRegistrant",
+                           "sqlite3_flutter_libs",
                            .product(name: "MarkdownUI", package: "swift-markdown-ui")
                           ],
             resources: [
@@ -46,5 +47,9 @@ let package = Package(
         .binaryTarget(name: "flutter_secure_storage",
                       url: "https://github.com/tiki/tiki-trail-platform-channel/releases/download/2.1.0/flutter_secure_storage_debug.xcframework.zip",
                       checksum: "c0ec1b0dc36e92b84c88ba149aab6c3e668b2a93e630d6bfe2399970218212fb"),
-        ]
+        
+        .binaryTarget(name: "sqlite3_flutter_libs",
+                      url: "https://github.com/tiki/tiki-trail-platform-channel/releases/download/2.1.0/sqlite3_flutter_libs_debug.xcframework.zip",
+                      checksum: "26b41a952a176172d24cf554d55f14b2d5f11d73865933d0fa3cdc8bd44a9e50"),
+    ]
 )
