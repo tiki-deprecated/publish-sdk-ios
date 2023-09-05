@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Date{
-    public func millisecondsSinceEpoch() -> Int64{
+    func millisecondsSinceEpoch() -> Int64{
         return Int64(round(self.timeIntervalSince1970 * 1000))
     }
     

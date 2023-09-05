@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class Tag : Encodable, Decodable{
+public class Tag {
     let value: String
     
     private init(value: String) {
@@ -28,5 +28,9 @@ public class Tag : Encodable, Decodable{
         } else {
             return custom(tag: tag)
         }
+    }
+    
+    public func toString() -> String {
+        return value
     }
 }

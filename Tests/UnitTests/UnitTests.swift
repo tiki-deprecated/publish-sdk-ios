@@ -10,9 +10,7 @@ final class CodableTests: XCTestCase {
     func testCodableTag(){
         do{
             let titleTag = Tag(tag: TagCommon.EMAIL_ADDRESS)
-            let jsonString = String(data: try JSONEncoder().encode(titleTag), encoding: .utf8)!
-            let decoded: Tag = try JSONDecoder().decode(Tag.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(titleTag.value, decoded.value)
+            XCTAssertEqual(titleTag.toString(),TagCommon.EMAIL_ADDRESS.rawValue)
         }catch{
             XCTFail(error.localizedDescription)
         }
@@ -20,10 +18,8 @@ final class CodableTests: XCTestCase {
     
     func testCodableCustomTag(){
         do{
-            let titleTag = Tag(tag: TagCommon.from(value: "abc")!)
-            let jsonString = String(data: try JSONEncoder().encode(titleTag), encoding: .utf8)!
-            let decoded: Tag = try JSONDecoder().decode(Tag.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(titleTag.value, decoded.value)
+            let titleTag = Tag.from(tag: "abc")
+            XCTAssertEqual(titleTag.toString(), "custom:abc")
         }catch{
             XCTFail(error.localizedDescription)
         }
@@ -31,10 +27,9 @@ final class CodableTests: XCTestCase {
     
     func testCodableUsecase(){
         do{
-            let Usecase = Usecase(UsecaseCommon.support)
-            let jsonString = String(data: try JSONEncoder().encode(Usecase), encoding: .utf8)!
-            let decoded: Usecase = try JSONDecoder().decode(Usecase.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(Usecase.value, decoded.value)
+            let usecase = Usecase(UsecaseCommon.support)
+
+            XCTAssertEqual(usecase.value, UsecaseCommon.support.rawValue)
         }catch{
             XCTFail(error.localizedDescription)
         }
@@ -42,10 +37,8 @@ final class CodableTests: XCTestCase {
     
     func testCodableCustomUsecase(){
         do{
-            let Usecase = Usecase("abc")
-            let jsonString = String(data: try JSONEncoder().encode(Usecase), encoding: .utf8)!
-            let decoded: Usecase = try JSONDecoder().decode(Usecase.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(Usecase.value, decoded.value)
+            let usecase = Usecase("abc")
+            XCTAssertEqual(usecase.value, "custom:abc")
         }catch{
             XCTFail(error.localizedDescription)
         }
