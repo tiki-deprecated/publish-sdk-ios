@@ -25,6 +25,7 @@ let package = Package(
                            "Flutter",
                            "FlutterPluginRegistrant",
                            "sqlite3_flutter_libs",
+                           "sqlite3",
                            .product(name: "MarkdownUI", package: "swift-markdown-ui")
                           ],
             resources: [
@@ -51,5 +52,9 @@ let package = Package(
         .binaryTarget(name: "sqlite3_flutter_libs",
                       url: "https://github.com/tiki/tiki-trail-platform-channel/releases/download/2.1.0/sqlite3_flutter_libs_debug.xcframework.zip",
                       checksum: "26b41a952a176172d24cf554d55f14b2d5f11d73865933d0fa3cdc8bd44a9e50"),
+        .binaryTarget(name: "sqlite3",
+                      url: "https://github.com/tiki/tiki-trail-platform-channel/releases/download/2.1.0/sqlite3_debug.xcframework.zip",
+                      checksum: "f355801f6582f035de223ca970e1c29d278106cd0279915a5346a54a89ad53c0"),
     ]
 )
+

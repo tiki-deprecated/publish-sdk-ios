@@ -20,6 +20,8 @@ struct TikiSdkExampleApp: App {
             Button(action: {
                 Task{
                     do {
+                        
+                            await initTikiSdk()
                         try await TikiSdk.present()
                     }catch{
                         await initTikiSdk()
@@ -46,7 +48,7 @@ struct TikiSdkExampleApp: App {
     
     func initTikiSdk() {
         Task {
-            try? await TikiSdk.config()
+            try await TikiSdk.config()
                 .offer
                 .id("test_offer")
                 .ptr("test_offer")

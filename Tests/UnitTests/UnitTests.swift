@@ -9,7 +9,7 @@ final class CodableTests: XCTestCase {
     
     func testCodableTag(){
         do{
-            let titleTag = Tag(TagCommon.emailAddress)
+            let titleTag = Tag(tag: TagCommon.EMAIL_ADDRESS)
             let jsonString = String(data: try JSONEncoder().encode(titleTag), encoding: .utf8)!
             let decoded: Tag = try JSONDecoder().decode(Tag.self, from: Data(jsonString.utf8))
             XCTAssertEqual(titleTag.value, decoded.value)
@@ -20,7 +20,7 @@ final class CodableTests: XCTestCase {
     
     func testCodableCustomTag(){
         do{
-            let titleTag = Tag("abc")
+            let titleTag = Tag(tag: TagCommon.from(value: "abc")!)
             let jsonString = String(data: try JSONEncoder().encode(titleTag), encoding: .utf8)!
             let decoded: Tag = try JSONDecoder().decode(Tag.self, from: Data(jsonString.utf8))
             XCTAssertEqual(titleTag.value, decoded.value)

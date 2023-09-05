@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class Tag {
+public class Tag : Encodable, Decodable{
     let value: String
     
     private init(value: String) {
