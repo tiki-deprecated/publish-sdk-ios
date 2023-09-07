@@ -16,7 +16,7 @@ class IntegrationTests: XCTestCase {
     
     func testInitSdk() async throws {
         do{
-            try TikiSdk.config().initialize(publishingId: publishingId, id:id, onComplete: {
+            try await TikiSdk.config().initialize(id:id, publishingId: publishingId, onComplete: {
                 XCTAssert(TikiSdk.isInitialized)
             })
         }catch{
@@ -26,7 +26,7 @@ class IntegrationTests: XCTestCase {
     
     func testTikiSdkConfig() async throws{
         do{
-            try TikiSdk.config()
+            try await TikiSdk.config()
                 .theme
                 .primaryTextColor(.white)
                 .primaryBackgroundColor(.white)
@@ -48,8 +48,8 @@ class IntegrationTests: XCTestCase {
                 .bullet(text: "test 3", isUsed: true)
                 .ptr("source")
                 .description("testing")
-                .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
-                .tag(TitleTag(TitleTagEnum.advertisingData))
+                .use(usecases: [Usecase(UsecaseCommon.support)])
+                .tag(Tag(tag: TagCommon.ADVERTISING_DATA))
                 .duration(365 * 24 * 60 * 60)
                 .permission(Permission.camera)
                 .terms("terms")
@@ -61,8 +61,8 @@ class IntegrationTests: XCTestCase {
                 .bullet(text: "test 3", isUsed: true)
                 .ptr("source2")
                 .description("testing")
-                .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
-                .tag(TitleTag(TitleTagEnum.advertisingData))
+                .use(usecases: [Usecase(UsecaseCommon.support)])
+                .tag(Tag(tag: TagCommon.ADVERTISING_DATA))
                 .duration(365 * 24 * 60 * 60)
                 .permission(Permission.camera)
                 .terms("terms")
@@ -72,7 +72,7 @@ class IntegrationTests: XCTestCase {
                 .onSettings { }
                 .disableAcceptEnding(false)
                 .disableDeclineEnding(true)
-                .initialize(publishingId: publishingId, id:id, onComplete: {
+                .initialize(id:id, publishingId: publishingId, onComplete: {
                     XCTAssert(TikiSdk.isInitialized)
                 })
         }catch{
@@ -82,7 +82,7 @@ class IntegrationTests: XCTestCase {
     
     func testLicense() async throws{
         do{
-            try TikiSdk.config().initialize(publishingId: publishingId, id:id, onComplete: {
+            try await TikiSdk.config().initialize(id:id, publishingId: publishingId, onComplete: {
                 Task{
                     do{
                         let offer = try Offer()
@@ -93,14 +93,14 @@ class IntegrationTests: XCTestCase {
                             .ptr("source")
                             .description("testing")
                             .terms("terms")
-                            .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
-                            .tag(TitleTag(TitleTagEnum.advertisingData))
+                            .use(usecases: [Usecase(UsecaseCommon.support)])
+                            .tag(Tag(tag: TagCommon.ADVERTISING_DATA))
                             .permission(Permission.camera)
-                        let license = try await TikiSdk.license(
-                            offer.ptr!, offer.uses, offer.terms ?? "terms", tags: offer.tags, licenseDescription: offer.description, expiry: offer.expiry)
-                        XCTAssertEqual(license.description, "testing")
-                        XCTAssertEqual(license.uses[0].usecases[0].value, LicenseUsecase(LicenseUsecaseEnum.support).value)
-                        XCTAssertEqual(license.title.tags[0].value, TitleTagEnum.advertisingData.rawValue)
+                        let license = try await TikiSdk.instance.trail.license.create(titleId: offer.id, uses: offer.uses, terms: offer.terms!)
+//                            offer.ptr!, offer.uses, offer.terms ?? "terms", tags: offer.tags, licenseDescription: offer.description, expiry: offer.expiry)
+                        XCTAssertEqual(license?.description!, "testing")
+                        XCTAssertEqual(license?.uses[0].usecases[0].value, Usecase(UsecaseCommon.support).value)
+                        XCTAssertEqual(license?.title.tags[0].value, TagCommon.ADVERTISING_DATA.rawValue)
                     }catch{
                         XCTFail()
                     }
@@ -113,7 +113,7 @@ class IntegrationTests: XCTestCase {
     
     func testGuard() async throws{
         do{
-            try TikiSdk.config().initialize(publishingId: publishingId, id:id, onComplete: {
+            try await TikiSdk.config().initialize(id:id, publishingId: publishingId, onComplete: {
                 Task{
                     let offer = try Offer()
                         .id("randomId")
@@ -123,11 +123,11 @@ class IntegrationTests: XCTestCase {
                         .ptr("source")
                         .description("testing")
                         .terms("terms")
-                        .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
-                        .tag(TitleTag(TitleTagEnum.advertisingData))
+                        .use(usecases: [Usecase(UsecaseCommon.support)])
+                        .tag(Tag(tag: TagCommon.ADVERTISING_DATA))
                         .permission(Permission.camera)
                     let _ = try await license(offer: offer)
-                    let guardResult = try await TikiSdk.guard(ptr: "source", usecases:[LicenseUsecase(LicenseUsecaseEnum.support)], destinations: [])
+                    let guardResult = try await TikiSdk.instance.trail.guard(ptr: "source", usecases:[Usecase(UsecaseCommon.support)], destinations: [])
                     XCTAssert(guardResult)
             }
         })
@@ -140,5 +140,5 @@ class IntegrationTests: XCTestCase {
 }
 
 func license(offer: Offer) async throws -> LicenseRecord {
-    return try await TikiSdk.license( offer.ptr!, offer.uses, offer.terms!, tags: offer.tags, licenseDescription: offer.description,expiry: offer.expiry)
+    return try await TikiSdk.instance.trail.license.create(titleId: offer.id, uses: offer.uses, terms: offer.terms!)!
 }

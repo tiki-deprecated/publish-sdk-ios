@@ -5,7 +5,14 @@
 
 import Foundation
 
-struct ReqLicenseAll: Encodable, Req {
-    var titleId: String
-    var requestId: String?
+public struct ReqLicenseAll: Req {
+    public var titleId: String
+    public let requestId = UUID().uuidString
+    
+    public func asDictionary() -> [String : Any?] {
+        return [
+            "titleId": titleId,
+            "requestId": requestId
+        ]
+    }
 }

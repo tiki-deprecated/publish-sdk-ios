@@ -5,12 +5,24 @@
 
 import Foundation
 
-struct ReqPayable: Encodable, Req {
-    var licenseId: String
-    var amount: String
-    var type: String
-    var expiry: Date? = nil
-    var description: String? = nil
-    var reference: String? = nil
-    var requestId: String?
+public struct ReqPayable: Req {
+    public var licenseId: String
+    public var amount: String
+    public var type: String
+    public var expiry: Date? = nil
+    public var description: String? = nil
+    public var reference: String? = nil
+    public let requestId = UUID().uuidString
+    
+    public func asDictionary() -> [String : Any?] {
+        return [
+            "licenseId": licenseId,
+            "amount": amount,
+            "type": type,
+            "expiry": expiry ?? expiry!.millisecondsSinceEpoch(),
+            "description": description,
+            "reference": reference,
+            "requestId": requestId,
+        ]
+    }
 }

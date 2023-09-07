@@ -7,45 +7,38 @@ import TikiSdk
 
 final class CodableTests: XCTestCase {
     
-    func testCodableTitleTag(){
+    func testCodableTag(){
         do{
-            let titleTag = TitleTag(TitleTagEnum.emailAddress)
-            let jsonString = String(data: try JSONEncoder().encode(titleTag), encoding: .utf8)!
-            let decoded: TitleTag = try JSONDecoder().decode(TitleTag.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(titleTag.value, decoded.value)
+            let titleTag = Tag(tag: TagCommon.EMAIL_ADDRESS)
+            XCTAssertEqual(titleTag.toString(),TagCommon.EMAIL_ADDRESS.rawValue)
         }catch{
             XCTFail(error.localizedDescription)
         }
     }
     
-    func testCodableCustomTitleTag(){
+    func testCodableCustomTag(){
         do{
-            let titleTag = TitleTag("abc")
-            let jsonString = String(data: try JSONEncoder().encode(titleTag), encoding: .utf8)!
-            let decoded: TitleTag = try JSONDecoder().decode(TitleTag.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(titleTag.value, decoded.value)
+            let titleTag = Tag.from(tag: "abc")
+            XCTAssertEqual(titleTag.toString(), "custom:abc")
         }catch{
             XCTFail(error.localizedDescription)
         }
     }
     
-    func testCodableLicenseUsecase(){
+    func testCodableUsecase(){
         do{
-            let licenseUsecase = LicenseUsecase(LicenseUsecaseEnum.support)
-            let jsonString = String(data: try JSONEncoder().encode(licenseUsecase), encoding: .utf8)!
-            let decoded: LicenseUsecase = try JSONDecoder().decode(LicenseUsecase.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(licenseUsecase.value, decoded.value)
+            let usecase = Usecase(UsecaseCommon.support)
+
+            XCTAssertEqual(usecase.value, UsecaseCommon.support.rawValue)
         }catch{
             XCTFail(error.localizedDescription)
         }
     }
     
-    func testCodableCustomLicenseUsecase(){
+    func testCodableCustomUsecase(){
         do{
-            let licenseUsecase = LicenseUsecase("abc")
-            let jsonString = String(data: try JSONEncoder().encode(licenseUsecase), encoding: .utf8)!
-            let decoded: LicenseUsecase = try JSONDecoder().decode(LicenseUsecase.self, from: Data(jsonString.utf8))
-            XCTAssertEqual(licenseUsecase.value, decoded.value)
+            let usecase = Usecase("abc")
+            XCTAssertEqual(usecase.value, "custom:abc")
         }catch{
             XCTFail(error.localizedDescription)
         }

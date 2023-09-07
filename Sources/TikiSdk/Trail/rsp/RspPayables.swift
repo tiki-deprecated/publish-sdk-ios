@@ -5,7 +5,14 @@
 
 import Foundation
 
-struct RspPayables: Decodable, Rsp {
-    let payables: [RspPayable]?
-    var requestId: String?
+public struct RspPayables: Rsp {
+    public let payables: [RspPayable]?
+    public let requestId: String
+    
+    public init(from: [String : Any?]) {
+        self.payables = from["payables"] != nil ? (from["payables"] as! [[String: Any?]]).map{ payable in
+            RspPayable(from: payable)
+        } : nil
+        self.requestId = from["requestId"] as! String
+    }
 }

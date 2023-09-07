@@ -5,7 +5,14 @@
 
 import Foundation
 
-struct ReqPayableGet: Encodable, Req {
-    var id: String
-    var requestId: String?
+public struct ReqPayableGet: Req {
+    public var id: String
+    public let requestId = UUID().uuidString
+    
+    public func asDictionary() -> [String : Any?] {
+        return [
+            "id": id,
+            "requestId": requestId
+        ]
+    }
 }

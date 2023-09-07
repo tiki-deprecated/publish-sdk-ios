@@ -5,16 +5,14 @@
 
 import Foundation
 
-struct ReqDefault: Req {
-    var requestId: String?
+public struct ReqDefault: Req {
     
-    init(requestId: String?) {
-        self.requestId = requestId
-    }
+    public let requestId = UUID().uuidString
     
-    static func from(map: [String: Any?]) -> ReqDefault {
-        return ReqDefault(
-            requestId: map["requestId"] as? String
-        )
+    public func asDictionary() -> [String : Any?] {
+        return [
+            "requestId" : requestId
+        ]
     }
+
 }

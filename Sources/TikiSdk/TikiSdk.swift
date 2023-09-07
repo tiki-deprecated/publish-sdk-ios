@@ -11,6 +11,39 @@ import UIKit
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
     
+    public var idp: Idp {
+        get throws {
+            if(_channel == nil) {
+                throw(
+                    TikiSdkError(
+                        message: "SDK not initialized. Call .initialize(...)",
+                        stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
+                )
+            }
+            if( _idp == nil) {
+                _idp = Idp(channel: _channel!)
+            }
+            return _idp!
+        }
+    }
+    
+    
+    public var trail: Trail {
+        get throws {
+            if(_channel == nil) {
+                throw(
+                    TikiSdkError(
+                        message: "SDK not initialized. Call .initialize(...)",
+                        stackTrace: Thread.callStackSymbols.joined(separator: "\n"))
+                )
+            }
+            if( _trail == nil) {
+                _trail = Trail(channel: _channel!)
+            }
+            return _trail!
+        }
+    }
+    
     // MARK: Instance properties
     
     /// A `Theme` object for pre-built UIs.
@@ -180,34 +213,35 @@ public class TikiSdk{
     ///Use this method to initialize the TIKI SDK with the specified *publishingId*, *id*, and *origin*.
     ///You can also provide an optional `onComplete` closure that will be executed once the initialization process is complete.
     /// - Parameters:
-    ///    - publishingId: The *publishingId* for connecting to the TIKI cloud.
+    ///   - publishingId: The *publishingId* for connecting to the TIKI cloud.
     ///   - id: The ID that uniquely identifies your user.
     ///   - onComplete: An optional closure to be executed once the initialization process is complete.
     ///   - origin: The default *origin* for all transactions. Defaults to `Bundle.main.bundleIdentifier` if *nil*.
     /// - Throws: `TikiSdkError` if the initialization process encounters an error.
-    public func initialize(publishingId: String, id: String, onComplete: (() -> Void)? = nil, origin: String? = nil) throws {
-        Task{
-            let rspBuild: RspInit = try await withCheckedThrowingContinuation{ continuation in
-                let dbDir = NSSearchPathForDirectoriesInDomains(
-                    FileManager.SearchPathDirectory.documentDirectory,
-                    FileManager.SearchPathDomainMask.userDomainMask,
-                    true)
-                let buildRequest = ReqInit(publishingId: publishingId, id: id, origin: origin ?? Bundle.main.bundleIdentifier!, dbDir: dbDir.first! )
-                do{
-                    try self._coreChannel.invokeMethod(
-                        method: CoreMethod.build,
-                        request: buildRequest,
-                        continuation: continuation
-                    )
-                }catch{
-                    continuation.resume(throwing: error)
+    public func initialize( id: String, publishingId: String,  onComplete: (() -> Void)? = nil ) async throws {
+        if( _channel == nil ){
+            try await withCheckedThrowingContinuation{ initChannel in
+                _channel = Channel{
+                    initChannel.resume()
                 }
-                
             }
-            self._address = rspBuild.address
-            DispatchQueue.main.sync {
-                onComplete?()
-            }
+        }
+        let dbDir = NSSearchPathForDirectoriesInDomains(
+            FileManager.SearchPathDirectory.documentDirectory,
+            FileManager.SearchPathDomainMask.userDomainMask,
+            true)
+        let reqInitialize = ReqInitialize(
+            id: id,
+            publishingId: publishingId,
+            origin: Bundle.main.bundleIdentifier!,
+            dir: dbDir.first! )
+        let rspInitialize: RspInitialize = try await self._channel!.request( method: DefaultMethod.INITIALIZE,
+            request: reqInitialize
+        ){ rspDictionary in RspInitialize(from: rspDictionary) }
+        self._address = rspInitialize.address
+
+        DispatchQueue.main.sync {
+            onComplete?()
         }
     }
     
@@ -227,6 +261,20 @@ public class TikiSdk{
         return instance._address != nil
     }
     
+    public static var address: String {
+        get throws {
+            try throwIfNotInitialized()
+            return instance._address!
+        }
+    }
+    
+    public static var id: String {
+        get throws {
+            try throwIfNotInitialized()
+            return instance._id!
+        }
+    }
+    
     
     // MARK: Type Methods
     
@@ -240,7 +288,7 @@ public class TikiSdk{
     /// accepting/declining the `Offer`, the root view controller is called again to dismiss the created hosting controller.
     ///
     /// - Throws: `TikiSdkError` if the SDK is not initialized or if no `Offer` was created.
-    public static func present() throws {
+    public static func present() async throws {
         try throwIfNotInitialized()
         try throwIfNoOffers()
         
@@ -263,9 +311,8 @@ public class TikiSdk{
                 viewController!.present(vc, animated: true, completion: nil)
             }
         }
-        Task{
             let ptr : String = TikiSdk.instance.offers.values.first!.ptr!
-            var usecases: [LicenseUsecase] = []
+            var usecases: [Usecase] = []
             var destinations: [String] = []
             TikiSdk.instance.offers.values.first!.uses.forEach{ licenseUse in
                 if(licenseUse.destinations != nil){
@@ -273,8 +320,8 @@ public class TikiSdk{
                 }
                 usecases.append(contentsOf: licenseUse.usecases)
             }
-            let _ = try await self.guard(ptr: ptr, usecases: usecases, destinations: destinations, onFail: {_ in presentOffer()})
-        }
+        let _ = try await instance.trail.guard(ptr: ptr, usecases: usecases, destinations: destinations, onFail: {_ in presentOffer()
+        })
     }
     
     /// Presents the Tiki SDK's pre-built user interface for the settings screen, which allows the user to accept or decline the current offer.
@@ -287,16 +334,18 @@ public class TikiSdk{
     public static func settings() throws {
         try throwIfNotInitialized()
         try throwIfNoOffers()
-        let viewController = UIApplication.shared.windows.first?.rootViewController
-        let vc = UIHostingController(rootView: Settings(
-            offers: TikiSdk.instance.offers,
-            onDismiss: {
-                viewController!.dismiss( animated: true, completion: nil )
-                
-            }))
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        viewController!.present(vc, animated: true, completion: nil)
+        DispatchQueue.main.async{
+            let viewController = UIApplication.shared.windows.first?.rootViewController
+            let vc = UIHostingController(rootView: Settings(
+                offers: TikiSdk.instance.offers,
+                onDismiss: {
+                    viewController!.dismiss( animated: true, completion: nil )
+                    
+                }))
+            vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            viewController!.present(vc, animated: true, completion: nil)
+        }
     }
     
     /// Starts the configuration process for the Tiki SDK instance.
@@ -329,8 +378,8 @@ public class TikiSdk{
     ///        .bullet(text: "Share with 3rd party", isUsed: false)
     ///        .bullet(text: "Sell to other companies", isUsed: true)
     ///        .ptr("offer1")
-    ///        .use(usecases: [LicenseUsecase(LicenseUsecaseEnum.support)])
-    ///        .tag(TitleTag(TitleTagEnum.advertisingData))
+    ///        .use(usecases: [Usecase(UsecaseCommon.support)])
+    ///        .tag(Tag(TagCommon.advertisingData))
     ///        .duration(365 * 24 * 60 * 60)
     ///        .permission(Permission.camera)
     ///        .terms("terms.md")
@@ -361,258 +410,10 @@ public class TikiSdk{
         return colorScheme != nil && colorScheme == .dark && instance._dark != nil ? instance._dark! : instance._theme
     }
     
-    /// Creates a new `LicenseRecord` object.
-    ///
-    /// The method searches for a `TitleRecord` object that matches the provided `ptr` parameter. If such a record exists, the
-    /// `tags` and `titleDescription` parameters are ignored. Otherwise, a new `TitleRecord` is created using the provided
-    /// `tags` and `titleDescription` parameters.
-    ///
-    /// If the `origin` parameter is not provided, the default origin specified in initialization is used.
-    /// The `expiry` parameter sets the expiration date of the `LicenseRecord`. If the license never expires, leave this parameter
-    /// as `nil`.
-    ///
-    /// - Parameters:
-    ///   - ptr: The pointer record identifies data stored in your system, similar to a foreign key. Learn more about selecting good pointer
-    ///   records at https://docs.mytiki.com/docs/selecting-a-pointer-record.
-    ///   - uses: A list defining how and where an asset may be used, in the format of `LicenseUse` objects. Learn more about specifying
-    ///   uses at https://docs.mytiki.com/docs/specifying-terms-and-usage.
-    ///   - terms: The legal terms of the contract. This is a long text document that explains the terms of the license.
-    ///   - tags: A list of metadata tags included in the `TitleRecord` describing the asset, for your use in record search and filtering.
-    ///   This parameter is used only if a `TitleRecord` does not already exist for the provided `ptr`.
-    ///   - titleDescription: A short, human-readable description of the `TitleRecord` as a future reminder. This parameter is used
-    ///   only if a `TitleRecord` does not already exist for the provided `ptr`.
-    ///   - licenseDescription: A short, human-readable description of the `LicenseRecord` as a future reminder.
-    ///   - expiry: The expiration date of the `LicenseRecord`. If the license never expires, leave this parameter as `nil`.
-    ///   - origin: An optional override of the default origin specified in `init()`. Use a reverse-DNS syntax, e.g. `com.myco.myapp`.
-    ///
-    /// - Returns: The created `LicenseRecord` object.
-    ///
-    /// - Throws: `TikiSdkError` if the SDK is not initialized or if there is an error creating or saving the record.
-    public static func license(_ ptr: String,
-                               _ uses: [LicenseUse],
-                               _ terms: String,
-                               tags: [TitleTag] = [],
-                               titleDescription: String? = nil,
-                               licenseDescription: String? = nil,
-                               expiry: Date? = nil,
-                               origin: String? = nil) async throws -> LicenseRecord {
-        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let licenseReq = ReqLicense(
-                    ptr: ptr,
-                    terms: terms,
-                    titleDescription: titleDescription,
-                    licenseDescription: licenseDescription,
-                    uses: uses,
-                    tags: tags,
-                    expiry: expiry
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.license,
-                    request: licenseReq,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspLicense.license!
-    }
-    
-    /// Guard against an invalid LicenseRecord for a list of usecases and destinations.
-    ///
-    /// Use this method to verify that a non-expired LicenseRecord for the specified pointer record exists and permits the listed usecases and destinations.
-    ///
-    /// This method can be used in two ways:
-    /// 1. As an async traditional guard, returning a pass/fail boolean:
-    /// ```
-    /// let pass = await `guard`(ptr: "example-ptr", usecases: [.attribution], destinations: ["https://example.com"])
-    /// if pass {
-    ///     // Perform the action allowed by the LicenseRecord.
-    /// }
-    /// ```
-    /// 2. As a wrapper around a function:
-    /// ```
-    /// `guard`(ptr: "example-ptr", usecases: [.attribution], destinations: ["https://example.com"], onPass: {
-    ///     // Perform the action allowed by the LicenseRecord.
-    /// }, onFail: { error in
-    ///     // Handle the error.
-    /// })
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - ptr: The pointer record for the asset. Used to locate the latest relevant LicenseRecord.
-    ///   - usecases: A list of usecases defining how the asset will be used.
-    ///   - destinations: A list of destinations defining where the asset will be used, often URLs.
-    ///   - onPass: A closure to execute automatically upon successfully resolving the LicenseRecord against the usecases and destinations.
-    ///   - onFail: A closure to execute automatically upon failure to resolve the LicenseRecord. Accepts an optional error message describing the reason for failure.
-    ///   - origin: An optional override of the default origin specified in the initializer.
-    ///
-    /// - Returns: `true` if the user has access, `false` otherwise.
-    public static func `guard`(ptr: String, usecases: [LicenseUsecase], destinations: [String],
-                               onPass: (() -> Void)? = nil, onFail: ((String?) -> Void)? = nil, origin: String? = nil) async throws -> Bool {
-        let rspGuard: RspGuard = try await withCheckedThrowingContinuation{ continuation in
-            let guardReq = ReqGuard(ptr: ptr, usecases: usecases, destinations: destinations, origin: origin)
-            do{
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.guard,
-                    request: guardReq,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        if(rspGuard.success){
-            onPass?();
-        }else{
-            onFail?(rspGuard.reason)
-        }
-        return rspGuard.success
-    }
-    
-    /// Creates a new TitleRecord, or retrieves an existing one.
-    ///
-    /// Use this function to create a new TitleRecord for a given Pointer Record (ptr), or retrieve an existing one if it already exists.
-    /// - Parameters:
-    ///     - ptr: The Pointer Record that identifies the data stored in your system, similar to a foreign key. Learn more about selecting good pointer records at https://docs.mytiki.com/docs/selecting-a-pointer-record.
-    ///     - origin: An optional override of the default origin specified in `initTikiSdkAsync`. Follow a reverse-DNS syntax,
-    ///     i.e. com.myco.myapp.
-    ///     - tags: A list of metadata tags included in the TitleRecord describing the asset, for your use in record search and filtering. Learn
-    ///     more about adding tags at https://docs.mytiki.com/docs/adding-tags.
-    ///     - description: A short, human-readable, description of the TitleRecord as a future reminder.
-    /// - Returns: The created or retrieved TitleRecord.
-    public static func title(ptr: String, origin: String? = nil, tags: [TitleTag]? = [], description: String? = nil) async throws -> TitleRecord {
-        
-        let rspTitle: RspTitle = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqTitle = ReqTitle(
-                    ptr: ptr,
-                    tags: tags ?? [],
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.title,
-                    request: reqTitle,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspTitle.title!
-    }
-    
-    /// Retrieves the TitleRecord with the specified ID, or `nil` if the record is not found.
-    ///
-    /// Use this method to retrieve the metadata associated with an asset identified by its TitleRecord ID.
-    /// - Parameters
-    ///  - id: The ID of the TitleRecord to retrieve.
-    ///  - origin: An optional override of the default origin specified in initialization. Follow a reverse-DNS syntax, i.e.
-    ///  com.myco.myapp`.
-    ///  - Returns: The TitleRecord with the specified ID, or `nil` if the record is not found.
-    public static func getTitle(id: String, origin: String? = nil) async throws -> TitleRecord?{
-        let rspTitle: RspTitle = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqTitle = ReqTitleGet(
-                    id: id,
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.getTitle,
-                    request: reqTitle,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspTitle.title
-    }
-    
-    /// Returns the LicenseRecord for a given ID or nil if the license or corresponding title record is not found.
-    ///
-    /// This method retrieves the LicenseRecord object that matches the specified ID. If no record is found, it returns nil. The `origin` parameter can be used to override the default origin specified in initialization.
-    ///
-    /// - Parameters
-    ///     - id: The ID of the LicenseRecord to retrieve.
-    ///     - origin: An optional override of the default origin specified in `initTikiSdkAsync`.
-    /// - Returns: The LicenseRecord that matches the specified ID or nil if the license or corresponding title record is not found.
-    public static func getLicense(id: String, origin: String? = nil) async throws -> LicenseRecord? {
-        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqLicense = ReqTitleGet(
-                    id: id,
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.getLicense,
-                    request: reqLicense,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspLicense.self
-    }
-    /// Returns all LicenseRecords associated with a given Pointer Record.
-    ///
-    /// Use this method to retrieve all LicenseRecords that have been previously stored for a given Pointer Record in your system.
-    ///
-    /// - Parameters:
-    ///    - ptr: The Pointer Record that identifies the data stored in your system, similar to a foreign key.
-    ///    - origin: An optional origin. If nil, the origin defaults to the package name.
-    /// - Returns: An array of all LicenseRecords associated with the given Pointer Record. If no LicenseRecords are found,
-    /// an empty array is returned.
-    public static func all(ptr: String, origin: String? = nil) async throws -> [LicenseRecord] {
-        let rspAll: RspLicenseList = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqAll = ReqLicenseAll(
-                    ptr: ptr,
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.all,
-                    request: reqAll,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspAll.licenseList
-    }
-    
-    /// Returns the latest LicenseRecord for a ptr or nil if the corresponding title or license records are not found.
-    /// - Parameters:
-    ///    - ptr: The Pointer Records identifies data stored in your system, similar to a foreign key.
-    ///    - origin: An optional origin. If nil, the origin defaults to the package name.
-    ///
-    /// - Returns: The latest LicenseRecord for the given ptr, or nil if the corresponding title or license records are not found.
-    public static func latest(ptr: String, origin: String? = nil) async throws -> LicenseRecord? {
-        let rspLicense: RspLicense = try await withCheckedThrowingContinuation{ continuation in
-            do{
-                let reqLicense = ReqLicenseLatest(
-                    ptr: ptr,
-                    origin: origin
-                )
-                try instance._coreChannel.invokeMethod(
-                    method: CoreMethod.latest,
-                    request: reqLicense,
-                    continuation: continuation
-                )
-            }catch{
-                continuation.resume(throwing: error)
-            }
-        }
-        return rspLicense.license
-    }
-    
-    
     // MARK: Private properties
     
     private var _address: String?
+    private var _id: String?
     private var _dark: Theme?
     private var _onAccept: ((Offer, LicenseRecord) -> Void)?
     private var _onDecline: ((Offer, LicenseRecord?)  -> Void)?
@@ -622,7 +423,10 @@ public class TikiSdk{
     private var _isDeclineEndingDisabled = false
     private var _offers = [String: Offer]()
     private var _theme = Theme()
-    private var _coreChannel: CoreChannel = CoreChannel()
+    
+    private var _idp: Idp?
+    private var _trail: Trail?
+    private var _channel: Channel?
     
     // MARK: Private methods
     

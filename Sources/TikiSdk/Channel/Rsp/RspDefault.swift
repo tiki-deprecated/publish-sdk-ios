@@ -5,16 +5,10 @@
 
 import Foundation
 
-struct RspDefault: Rsp {
-    var requestId: String?
+public struct RspDefault: Rsp {
+    public let requestId: String
     
-    init(requestId: String?) {
-        self.requestId = requestId
-    }
-    
-    static func from(map: [String: Any?]) -> RspDefault {
-        return RspDefault(
-            requestId: map["requestId"] as? String
-        )
+    public init(from: [String : Any?]) {
+        self.requestId = from["requestId"] as! String
     }
 }

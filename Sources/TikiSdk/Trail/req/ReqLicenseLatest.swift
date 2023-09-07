@@ -5,8 +5,16 @@
 
 import Foundation
 
-struct ReqLicenseLatest: Encodable, Req {
-    var ptr: String
-    var origin: String? = nil
-    var requestId: String?
+public struct ReqLicenseLatest: Req {
+    public var ptr: String
+    public var origin: String? = nil
+    public let requestId = UUID().uuidString
+    
+    public func asDictionary() -> [String : Any?] {
+        return [
+            "ptr": ptr,
+            "origin": origin,
+            "requestId": requestId
+        ]
+    }
 }
