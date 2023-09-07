@@ -5,13 +5,13 @@
 
 import Foundation
 
-struct ReqImport: Req {
-    let keyId: String
-    let key: Data
-    var isPublic: Bool = false
-    let requestId = UUID().uuidString
+public struct ReqImport: Req {
+    public let keyId: String
+    public let key: Data
+    public var isPublic: Bool = false
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "keyId": keyId,
             "key": key.base64EncodedString(),

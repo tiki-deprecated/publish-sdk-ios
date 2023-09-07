@@ -11,19 +11,19 @@
 public struct TitleRecord {
     
     /// This record's unique identifier.
-    let id: String
+    public let id: String
     
     /// A hashed `PointerRecord` identifying the asset in your system.
-    let hashedPtr: String
+    public let hashedPtr: String
     
     /// A list of tags that describe the asset in a search-friendly way.
-    let tags: [Tag]
+    public let tags: [Tag]
     
     /// A human-readable description of the asset.
-    let description: String?
+    public let description: String?
     
     /// An optional field to override the default origin from which the data was generated.
-    let origin: String?
+    public let origin: String?
     
     /// Initializes a new instance of `TitleRecord`.
      
@@ -41,7 +41,7 @@ public struct TitleRecord {
         self.origin = origin
     }
     
-    init?(from: RspTitle){
+    public init?(from: RspTitle){
         guard from.id != nil, from.hashedPtr != nil, from.tags != nil else {
             return nil
         }

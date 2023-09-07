@@ -5,16 +5,16 @@
 
 import Foundation
 
-struct RspLicense: Rsp {
-    let id: String?
-    let title: RspTitle?
-    let uses: [Use]?
-    let terms: String?
-    let description: String?
-    let expiry: Date?
-    let requestId: String
+public struct RspLicense: Rsp {
+    public let id: String?
+    public let title: RspTitle?
+    public let uses: [Use]?
+    public let terms: String?
+    public let description: String?
+    public let expiry: Date?
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.requestId = from["requestId"] as! String
         self.id = from["id"] as? String
         self.title = from["title"] != nil ? RspTitle(from: from["title"] as! [String: Any?]) : nil

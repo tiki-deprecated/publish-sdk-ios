@@ -24,7 +24,7 @@ public class Channel {
         }
     }
     
-    public func request<T: Req, R: Rsp>(
+    func request<T: Req, R: Rsp>(
         method: ChannelMethod,
         request: T,
         toResponse: @escaping ( [String: Any?] ) -> R

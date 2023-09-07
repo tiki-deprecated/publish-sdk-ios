@@ -5,12 +5,12 @@
 
 import Foundation
 
-struct ReqSign: Req {
-    let requestId = UUID().uuidString
-    let keyId: String?
-    let message: Data
+public struct ReqSign: Req {
+    public let requestId = UUID().uuidString
+    public let keyId: String?
+    public let message: Data
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "requestId" : requestId,
             "keyId" : keyId,

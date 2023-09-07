@@ -6,7 +6,7 @@
 import Foundation
 import Flutter
 
-class ChannelHandler{
+public class ChannelHandler{
     
     static let channelId = "tiki_sdk_flutter"
     

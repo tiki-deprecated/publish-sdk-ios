@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct Trail {
+public struct Trail {
     private let channel: Channel
-    let title: Title
-    let license: License
-    let payable: Payable
-    let receipt: Receipt
+    public let title: Title
+    public let license: License
+    public let payable: Payable
+    public let receipt: Receipt
     
-    init(channel: Channel) {
+    public init(channel: Channel) {
         self.channel = channel
         self.title = Title(channel: channel)
         self.license = License(channel: channel)
@@ -20,7 +20,7 @@ struct Trail {
         self.receipt = Receipt(channel: channel)
     }
     
-    func isInitialized(completion: ((Bool) -> Void)? = nil) async throws -> Bool {
+    public func isInitialized(completion: ((Bool) -> Void)? = nil) async throws -> Bool {
         let rspIsInitialized = try await channel.request(
             method: TrailMethod.IS_INITIALIZED,
             request: ReqDefault()
@@ -31,7 +31,7 @@ struct Trail {
         return rspIsInitialized.isInitialized
     }
     
-    func address(completion: ((String) -> Void)? = nil) async throws -> String {
+    public func address(completion: ((String) -> Void)? = nil) async throws -> String {
         let rspAddress = try await channel.request(
             method: TrailMethod.ADDRESS,
             request: ReqDefault()
@@ -42,7 +42,7 @@ struct Trail {
         return rspAddress.address
     }
     
-    func id(completion: ((String?) -> Void)? = nil) async throws -> String? {
+    public func id(completion: ((String?) -> Void)? = nil) async throws -> String? {
         let rspId = try await channel.request(
             method: TrailMethod.ID,
             request: ReqDefault()
@@ -53,7 +53,7 @@ struct Trail {
         return rspId.id
     }
     
-    func `guard`(
+    public func `guard`(
         ptr: String,
         usecases: [Usecase],
         destinations: [String]? = nil,

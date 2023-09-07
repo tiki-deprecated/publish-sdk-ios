@@ -11,7 +11,7 @@ import UIKit
 /// The TIKI SDK main class. Use this to add tokenized data ownership, consent, and rewards.
 public class TikiSdk{
     
-    var idp: Idp {
+    public var idp: Idp {
         get throws {
             if(_channel == nil) {
                 throw(
@@ -28,7 +28,7 @@ public class TikiSdk{
     }
     
     
-    var trail: Trail {
+    public var trail: Trail {
         get throws {
             if(_channel == nil) {
                 throw(
@@ -239,6 +239,7 @@ public class TikiSdk{
             request: reqInitialize
         ){ rspDictionary in RspInitialize(from: rspDictionary) }
         self._address = rspInitialize.address
+
         DispatchQueue.main.sync {
             onComplete?()
         }

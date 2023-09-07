@@ -5,11 +5,11 @@
 
 import Foundation
 
-struct ReqDefault: Req {
+public struct ReqDefault: Req {
     
-    let requestId = UUID().uuidString
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "requestId" : requestId
         ]

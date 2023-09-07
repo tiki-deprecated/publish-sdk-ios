@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct ReqInitialize: Req {
+public struct ReqInitialize: Req {
     let id: String
     let publishingId: String
     let origin: String
     let dir: String
-    let requestId = UUID().uuidString
+    public let requestId = UUID().uuidString
     
-    func asDictionary() -> [String : Any?] {
+    public func asDictionary() -> [String : Any?] {
         return [
             "id" : id,
             "publishingId" : publishingId,

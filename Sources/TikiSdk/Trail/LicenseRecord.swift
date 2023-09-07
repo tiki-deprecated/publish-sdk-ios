@@ -12,24 +12,24 @@ import Foundation
 public struct LicenseRecord {
     
     /// This record's unique identifier.
-    var id: String?
+    public var id: String?
     
     /// The `TitleRecord` associated with this license.
-    var title: TitleRecord
+    public var title: TitleRecord
     
     /// A list of `Use` instances describing how an asset can be used.
-    var uses: [Use]
+    public var uses: [Use]
     
     /// The legal terms for the license.
-    var terms: String
+    public var terms: String
     
     /// A human-readable description of the license.
-    var description: String?
+    public var description: String?
     
     /// The date when the license expires.
-    var expiry: Date?
+    public var expiry: Date?
     
-    init?(from: RspLicense){
+    public init?(from: RspLicense){
         guard let titleRecord = TitleRecord(from: from.title!), from.id != nil, from.title != nil, from.uses != nil, from.terms != nil, from.title != nil else{
             return nil
         }

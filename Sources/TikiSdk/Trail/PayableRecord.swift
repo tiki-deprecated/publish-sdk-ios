@@ -5,16 +5,16 @@
 
 import Foundation
 
-struct PayableRecord{
-    let id: String
-    let license: LicenseRecord
-    let amount: String
-    let type: String?
-    let description: String?
-    let expiry: Date?
-    let reference: String?
+public struct PayableRecord{
+    public let id: String
+    public let license: LicenseRecord
+    public let amount: String
+    public let type: String?
+    public let description: String?
+    public let expiry: Date?
+    public let reference: String?
     
-    init?(from: RspPayable){
+    public init?(from: RspPayable){
         guard let licenseRecord = LicenseRecord(from: from.license!), from.id != nil, from.license != nil, from.amount != nil else{
             return nil
         }

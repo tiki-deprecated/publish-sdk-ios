@@ -12,27 +12,33 @@ struct TikiSdkExampleApp: App {
     @State var isShowingOfferPrompt = false
     
     init() {
-        initTikiSdk()
+           initTikiSdk()
     }
     
     var body: some Scene {
         WindowGroup {
             Button(action: {
-                do{
-                    try TikiSdk.present()
-                }catch{
-//                    initTikiSdk()
-                    print(error)
+                Task{
+                    do {
+                        
+                            await initTikiSdk()
+                        try await TikiSdk.present()
+                    }catch{
+                        await initTikiSdk()
+                        print(error)
+                    }
                 }
             }) {
                 Text("Start").font(.custom("SpaceGrotesk-Regular", size:20))
             }.padding(.bottom, 48)
             Button(action: {
-                do{
-                    try TikiSdk.settings()
-                }catch{
-//                    initTikiSdk()
-                    print(error)
+                Task{
+                    do {
+                        try TikiSdk.settings()
+                    }catch{
+                        await initTikiSdk()
+                        print(error)
+                    }
                 }
             }) {
                 Text("Settings").font(.custom("SpaceGrotesk-Regular", size:20))
@@ -40,9 +46,10 @@ struct TikiSdkExampleApp: App {
         }
     }
     
-    func initTikiSdk(){
-        try? TikiSdk.config()
-            .offer
+    func initTikiSdk() {
+        Task {
+            try await TikiSdk.config()
+                .offer
                 .id("test_offer")
                 .ptr("test_offer")
                 .reward("offerImage")
@@ -52,17 +59,19 @@ struct TikiSdkExampleApp: App {
                 .use(usecases: [Usecase(UsecaseCommon.support)])
                 .permission(Permission.camera)
                 .permission(Permission.contacts)
-                .tag(.advertisingData)
+                .tag(.init(tag: .ADVERTISING_DATA))
                 .description("Trade your IDFA (kind of like a serial # for your phone) for a discount.")
                 .terms("terms")
                 .duration(365 * 24 * 60 * 60)
                 .add()
-            .onAccept { offer, license in print("accepted")}
-            .onDecline { offer, license in print("declined")}
-            .disableAcceptEnding(false)
-            .disableDeclineEnding(false)
-            .initialize(
-                publishingId: "e12f5b7b-6b48-4503-8b39-28e4995b5f88",
-                id: "user_123")
+                .onAccept { offer, license in print("accepted")}
+                .onDecline { offer, license in print("declined")}
+                .disableAcceptEnding(false)
+                .disableDeclineEnding(false)
+                .initialize(
+                    id: "user_123",
+                    publishingId: "e12f5b7b-6b48-4503-8b39-28e4995b5f88"
+                )
+        }
     }
 }

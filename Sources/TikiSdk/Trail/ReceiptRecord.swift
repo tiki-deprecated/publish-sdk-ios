@@ -5,14 +5,14 @@
 
 import Foundation
 
-struct ReceiptRecord {
-    let id: String
-    let payable: PayableRecord
-    let amount: String
-    let description: String?
-    let reference: String?
+public struct ReceiptRecord {
+    public let id: String
+    public let payable: PayableRecord
+    public let amount: String
+    public let description: String?
+    public let reference: String?
     
-    init?(from: RspReceipt){
+    public init?(from: RspReceipt){
         guard let payableRecord = PayableRecord(from: from.payable!), from.id != nil, from.amount != nil else{
             return nil
         }

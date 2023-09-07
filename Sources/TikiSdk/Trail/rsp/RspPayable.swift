@@ -5,17 +5,17 @@
 
 import Foundation
 
-struct RspPayable: Rsp {
-    let id: String?
-    let license: RspLicense?
-    let amount: String?
-    let type: String?
-    let description: String?
-    let expiry: Date?
-    let reference: String?
-    let requestId: String
+public struct RspPayable: Rsp {
+    public let id: String?
+    public let license: RspLicense?
+    public let amount: String?
+    public let type: String?
+    public let description: String?
+    public let expiry: Date?
+    public let reference: String?
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.id = from["id"] as? String
         self.license = from["license"] as? [String: Any?] != nil ? RspLicense(from: (from["license"] as! [String: Any?])) : nil
         self.amount = from["amount"] as? String

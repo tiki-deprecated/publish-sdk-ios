@@ -64,6 +64,10 @@ public class Usecase: Codable {
         try container.encode(value)
     }
     
+    public func toString() -> String {
+        return value
+    }
+    
     /// A predefined use case for attribution.
     public static let attribution = Usecase(UsecaseCommon.attribution)
     /// A predefined use case for retargeting.

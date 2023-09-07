@@ -5,12 +5,12 @@
 
 import Foundation
 
-struct RspGuard: Rsp {
-    let success: Bool
-    let reason: String?
-    let requestId: String
+public struct RspGuard: Rsp {
+    public let success: Bool
+    public let reason: String?
+    public let requestId: String
     
-    init(from: [String : Any?]) {
+    public init(from: [String : Any?]) {
         self.success = from["success"] as! Bool
         self.reason = from["reason"] as? String
         self.requestId = from["requestId"] as! String
