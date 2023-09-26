@@ -14,7 +14,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout TIKI SDK iOS
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: Setup XCode
         uses: maxim-lobanov/setup-xcode@v1
