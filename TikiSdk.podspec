@@ -6,9 +6,9 @@ Pod::Spec.new do |s|
   s.description      = 'Description of TikiSdk'
   s.homepage         = 'https://mytiki.com'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Your Name' => 'your@email.com' }
+  s.author           = { 'TIKI Team' => 'your@email.com' }
   s.platforms        = { :ios => '15.0' }
-  s.source           = { :git => './', :tag => 'test12' }
+  s.source           = { :git => 'https://github.com/tiki/publish-sdk-ios.git', :tag => 'podspec-2.1.0' }
   s.swift_versions   = '5.8.0'
 
   s.source_files = 'Sources/**/*.swift'
