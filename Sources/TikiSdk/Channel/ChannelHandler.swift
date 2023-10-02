@@ -50,7 +50,7 @@ public class ChannelHandler{
         method: ChannelMethod,
         request: T,
         continuation: CheckedContinuation<[String: Any?], Error>) {
-        var reqDictionary = request.asDictionary()
+        let reqDictionary = request.asDictionary()
         callbacks[request.requestId] = { rsp, err in
             if(err != nil){
                 continuation.resume(throwing: err!)
