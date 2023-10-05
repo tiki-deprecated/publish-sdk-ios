@@ -12,7 +12,7 @@ public extension Date{
         return Int64(round(self.timeIntervalSince1970 * 1000))
     }
     
-    public init(milliseconds:Int64) {
+    init(milliseconds:Int64) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
 }
