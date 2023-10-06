@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		54B35698AB54701DB357DCC2 /* Pods_TikiSdkExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8137528F1392267877E841 /* Pods_TikiSdkExample.framework */; };
-		888C7E7D2A83AC4100017F9C /* tiki-sdk-ios in Resources */ = {isa = PBXBuildFile; fileRef = 8C6ED7E52987E35A009C4B3F /* tiki-sdk-ios */; };
 		8C24F90C29BA770500A030AF /* ExampleApp.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C24F90B29BA770500A030AF /* ExampleApp.xcassets */; };
-		8C6ED7E72987E44E009C4B3F /* TikiSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6ED7E62987E44E009C4B3F /* TikiSdk */; };
 		8CB058FD298D2CF600893F46 /* TikiSdkExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB058FC298D2CF600893F46 /* TikiSdkExampleApp.swift */; };
 		8CE1F16A29F6C3EA007231A9 /* SpaceGroteskBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F16529F6C3EA007231A9 /* SpaceGroteskBold.ttf */; };
 		8CE1F17429F6C92B007231A9 /* terms.md in Resources */ = {isa = PBXBuildFile; fileRef = 8CE1F17329F6C92B007231A9 /* terms.md */; };
@@ -25,7 +23,6 @@
 		8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikiSdkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C24F90B29BA770500A030AF /* ExampleApp.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ExampleApp.xcassets; sourceTree = "<group>"; };
 		8C24F92229BA818100A030AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8C6ED7E52987E35A009C4B3F /* tiki-sdk-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "tiki-sdk-ios"; path = ../..; sourceTree = "<group>"; };
 		8CB058FC298D2CF600893F46 /* TikiSdkExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkExampleApp.swift; sourceTree = "<group>"; };
 		8CE1F16529F6C3EA007231A9 /* SpaceGroteskBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGroteskBold.ttf; sourceTree = "<group>"; };
 		8CE1F17329F6C92B007231A9 /* terms.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = terms.md; sourceTree = "<group>"; };
@@ -42,7 +39,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C6ED7E72987E44E009C4B3F /* TikiSdk in Frameworks */,
 				54B35698AB54701DB357DCC2 /* Pods_TikiSdkExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -55,7 +51,6 @@
 			children = (
 				8CBC129929C3525400A451B2 /* Resources */,
 				8C24F90B29BA770500A030AF /* ExampleApp.xcassets */,
-				8C6ED7E42987E35A009C4B3F /* Packages */,
 				8C1F5BD5295FC369001AA520 /* TikiSdkExample */,
 				8C1F5BD4295FC369001AA520 /* Products */,
 				8C49E8B9296273070068338E /* Frameworks */,
@@ -88,14 +83,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8C6ED7E42987E35A009C4B3F /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				8C6ED7E52987E35A009C4B3F /* tiki-sdk-ios */,
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		8CBC129929C3525400A451B2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,7 +102,6 @@
 				74646754B881F557FB373CC7 /* Pods-TikiSdkExample.debug.xcconfig */,
 				E5ABBDC43853E489E9728545 /* Pods-TikiSdkExample.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -138,7 +124,6 @@
 			);
 			name = TikiSdkExample;
 			packageProductDependencies = (
-				8C6ED7E62987E44E009C4B3F /* TikiSdk */,
 			);
 			productName = TikiSdkExample;
 			productReference = 8C1F5BD3295FC369001AA520 /* TikiSdkExample.app */;
@@ -186,7 +171,6 @@
 				8C24F90C29BA770500A030AF /* ExampleApp.xcassets in Resources */,
 				8CE1F17929F6CF98007231A9 /* SpaceGroteskSemiBold.ttf in Resources */,
 				8CE1F17A29F6CF98007231A9 /* SpaceGroteskLight.ttf in Resources */,
-				888C7E7D2A83AC4100017F9C /* tiki-sdk-ios in Resources */,
 				8CE1F17B29F6CF98007231A9 /* SpaceGroteskMedium.ttf in Resources */,
 				8CE1F17C29F6CF98007231A9 /* SpaceGroteskRegular.ttf in Resources */,
 				8CE1F17429F6C92B007231A9 /* terms.md in Resources */,
@@ -460,13 +444,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		8C6ED7E62987E44E009C4B3F /* TikiSdk */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TikiSdk;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8C1F5BCB295FC369001AA520 /* Project object */;
 }

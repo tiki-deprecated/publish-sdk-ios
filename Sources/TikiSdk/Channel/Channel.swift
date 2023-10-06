@@ -13,15 +13,19 @@ public class Channel {
     
     public init(onCompletion: @escaping (() -> Void)) {
         let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
+        
         DispatchQueue.main.async {
+            
             flutterEngine.run()
-            GeneratedPluginRegistrant.register(with: flutterEngine);
-            self.handler = ChannelHandler(FlutterMethodChannel.init(
-                name: ChannelHandler.channelId,
-                binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-            )
-            onCompletion()
-        }
+            Task{
+                GeneratedPluginRegistrant.register(with: flutterEngine);
+                self.handler = ChannelHandler(FlutterMethodChannel.init(
+                    name: ChannelHandler.channelId,
+                    binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
+                )
+                onCompletion()
+                
+            }}
     }
     
     func request<T: Req, R: Rsp>(
@@ -41,6 +45,6 @@ public class Channel {
         }
         return toResponse(rsp)
     }
-
-}
     
+}
+

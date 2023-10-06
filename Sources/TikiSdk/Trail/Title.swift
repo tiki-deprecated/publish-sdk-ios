@@ -41,8 +41,8 @@ public class Title{
         let rspTitle: RspTitle = try await channel.request(
             method: TrailMethod.TITLE_GET,
             request: titleReq) { rsp in
-                let paybaleResp = RspTitle(from: rsp)
-                return paybaleResp
+                let titleResp = RspTitle(from: rsp)
+                return titleResp
             }
         let title = TitleRecord(from: rspTitle)
         completion?(title)

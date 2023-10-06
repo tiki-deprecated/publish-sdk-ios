@@ -7,8 +7,8 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://mytiki.com'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'TIKI Team' => 'your@email.com' }
-  s.platforms        = { :ios => '15.0' }
-  s.source           = { :git => 'https://github.com/tiki/publish-sdk-ios.git', :tag => 'podspec-2.1.0' }
+  s.platforms        = { :ios => '13.0' }
+  s.source           = { :git => 'https://github.com/tiki/publish-sdk-ios.git', :tag => 'podspec-2.1.1' }
   s.swift_versions   = '5.8.0'
 
   s.source_files = 'Sources/**/*.swift'
@@ -18,11 +18,11 @@ Pod::Spec.new do |s|
   }
 
   s.vendored_frameworks = [
-    'Frameworks/Debug/App.xcframework',
-    'Frameworks/Debug/Flutter.xcframework',
-    'Frameworks/Debug/FlutterPluginRegistrant.xcframework',
-    'Frameworks/Debug/flutter_secure_storage.xcframework',
-    'Frameworks/Debug/sqlite3_flutter_libs.xcframework',
-    'Frameworks/Debug/sqlite3.xcframework'
+    'Frameworks/Release/App.xcframework',
+    'Frameworks/Release/Flutter.xcframework',
+    'Frameworks/Release/FlutterPluginRegistrant.xcframework',
+    'Frameworks/Release/flutter_secure_storage.xcframework',
+    'Frameworks/Release/sqlite3_flutter_libs.xcframework',
+    'Frameworks/Release/sqlite3.xcframework'
   ]
 end

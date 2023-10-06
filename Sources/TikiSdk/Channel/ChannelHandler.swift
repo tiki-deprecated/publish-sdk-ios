@@ -8,7 +8,7 @@ import Flutter
 
 public class ChannelHandler{
     
-    static let channelId = "tiki_sdk_flutter"
+    static let channelId = "com.mytiki.sdk"
     
     private var callbacks: Dictionary<String, ((_ rsp: [String: Any?], _ error: Error?) -> Void)>
     private var channel: FlutterMethodChannel
@@ -58,6 +58,9 @@ public class ChannelHandler{
                 continuation.resume(returning: rsp)
             }
         }
-        channel.invokeMethod( method.value(), arguments: reqDictionary )
+        DispatchQueue.main.async {
+            self.channel.invokeMethod( method.value(), arguments: reqDictionary )
+            print("invoke method")
+        }
     }
 }
