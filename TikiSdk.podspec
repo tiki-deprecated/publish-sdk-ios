@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Sources/**/*.swift'
 
-  s.preserve_paths = 'Frameworks/**/*.xcframework'
+  s.preserve_paths = '**/*'
 
 end

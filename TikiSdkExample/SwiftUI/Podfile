@@ -8,7 +8,5 @@ target 'TikiSdkExample' do
   # Pods for TikiSdkExample
 
   pod 'TikiSdk', :path => '../../'
-  pod 'TikiSdkRelease', :configuration => 'Release', :path => '../../'
-  pod 'TikiSdkDebug', :configuration => 'Debug', :path => '../../'
 
 end
