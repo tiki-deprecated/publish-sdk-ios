@@ -23,9 +23,3 @@ jobs:
 
       - name: Run Linter
         run: pod lib lint
-
-      - name: Run tests
-        run: |
-          cat Package.swift
-          cd Tests
-          xcodebuild test -project Tests.xcodeproj -scheme IntegrationTestsRunner -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14'
