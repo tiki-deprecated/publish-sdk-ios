@@ -33,7 +33,7 @@ public struct Use: Codable {
     }
     
     public init(from: [String: Any]){
-        self.usecases = (from["usecases"] as? [String])?.map{ usecase in Usecase(usecase) } ?? []
+        self.usecases = (from["usecases"] as? [String])?.map{ usecase in Usecase.from(usecase: usecase) } ?? []
         self.destinations = from["destinations"] as? [String] ?? []
     }
     
