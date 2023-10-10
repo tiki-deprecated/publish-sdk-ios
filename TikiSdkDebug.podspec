@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author           = { 'TIKI Team' => 'hello@mytiki.com' }
   s.platforms        = { :ios => '13.0' }
   s.source           = { :git => 'https://github.com/tiki/publish-sdk-ios.git', :tag => '2.1.8' }
-  s.static_framework = true
+
   s.swift_versions   = '5.8.0'
 
   s.source_files = 'Sources/**/*.swift'
