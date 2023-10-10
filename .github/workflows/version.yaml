@@ -37,9 +37,10 @@ jobs:
           token: ${{ github.token }}
           branch: ${{ steps.getpr.outputs.branch }}
 
-      - name: Update Podspec
+      - name: Update Podspecs
         run: |
-          sed -i 's/${{ steps.semver.outputs.current }}/${{ steps.semver.outputs.nextStrict }}/' TikiSdk.podspec 
+          sed -i 's/${{ steps.semver.outputs.current }}/${{ steps.semver.outputs.nextStrict }}/' TikiSdkDebug.podspec 
+          sed -i 's/${{ steps.semver.outputs.current }}/${{ steps.semver.outputs.nextStrict }}/' TikiSdkRelease.podspec 
 
       - name: Commit Changes
         continue-on-error: true
@@ -48,7 +49,8 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GH Action"
-          git add TikiSdk.podspec
+          git add TikiSdkDebug.podspec
+          git add TikiSdkRelease.podspec
           git commit -m 'version bump'
           git push
 
