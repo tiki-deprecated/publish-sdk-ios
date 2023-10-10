@@ -13,12 +13,4 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Sources/**/*.swift'
 
-  s.vendored_frameworks = [
-    'Frameworks/Release/App.xcframework',
-    'Frameworks/Release/Flutter.xcframework',
-    'Frameworks/Release/FlutterPluginRegistrant.xcframework',
-    'Frameworks/Release/flutter_secure_storage.xcframework',
-    'Frameworks/Release/sqlite3_flutter_libs.xcframework',
-    'Frameworks/Release/sqlite3.xcframework'
-  ]
 end
