@@ -18,7 +18,7 @@ public struct ReqLicense: Req {
             "titleId": titleId,
             "uses": uses.map{ use in use.asDictionary() },
             "terms": terms,
-            "expiry": expiry ?? expiry!.millisecondsSinceEpoch(),
+            "expiry": expiry == nil ? nil : expiry!.millisecondsSinceEpoch(),
             "description": description,
             "requestId": requestId,
         ]

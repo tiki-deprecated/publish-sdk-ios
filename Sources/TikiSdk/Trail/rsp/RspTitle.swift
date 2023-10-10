@@ -17,8 +17,8 @@ public struct RspTitle: Rsp {
         self.id = from["id"] as? String
         self.hashedPtr = from["hashedPtr"] as? String
         self.origin = from["origin"] as? String
-        self.tags = from["tags"] != nil ? (from["tags"] as! [String]).map{ tagValue in Tag.from(tag: tagValue) } : nil
+        self.tags = RspTitle.nullToNil(value: from["tags"] as Any?) != nil ? (from["tags"] as! [String]).map{ tagValue in Tag.from(tag: tagValue) } : nil
         self.description = from["description"] as? String
-        self.requestId = from["requestId"] as! String
+        self.requestId = from["requestId"] as? String ?? ""
     }
 }

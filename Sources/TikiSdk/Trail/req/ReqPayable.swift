@@ -19,7 +19,7 @@ public struct ReqPayable: Req {
             "licenseId": licenseId,
             "amount": amount,
             "type": type,
-            "expiry": expiry ?? expiry!.millisecondsSinceEpoch(),
+            "expiry": expiry != nil ? expiry!.millisecondsSinceEpoch() : nil,
             "description": description,
             "reference": reference,
             "requestId": requestId,

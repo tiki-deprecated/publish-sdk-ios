@@ -1,0 +1,16 @@
+PODS:
+  - TikiSdk (2.1.0)
+
+DEPENDENCIES:
+  - TikiSdk (from `../../`)
+
+EXTERNAL SOURCES:
+  TikiSdk:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  TikiSdk: f4fe341d545860181e6b69b1d5c2dd6211c9ec01
+
+PODFILE CHECKSUM: 37776fed5c706d3aa4eb2a30ce200b002a740c10
+
+COCOAPODS: 1.12.1
