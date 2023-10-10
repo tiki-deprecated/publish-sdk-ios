@@ -11,8 +11,8 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/tiki/publish-sdk-ios.git', :branch => 'fix/add-podspec-debug' }
   s.swift_versions   = '5.8.0'
 
-  s.source_files = 'Sources/**/*.swift'
+  s.source_files = './Sources/**/*.swift'
 
-  s.preserve_paths = '**/*'
+  s.preserve_paths = './**/*'
 
 end
