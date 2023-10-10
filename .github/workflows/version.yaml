@@ -40,6 +40,7 @@ jobs:
       - name: Update Podspec
         run: |
           sed -i 's/${{ steps.semver.outputs.current }}/${{ steps.semver.outputs.nextStrict }}/' TikiSdk.podspec 
+          sed -i 's/${{ steps.semver.outputs.current }}/${{ steps.semver.outputs.nextStrict }}/' TikiSdkDebug.podspec 
 
       - name: Commit Changes
         continue-on-error: true
