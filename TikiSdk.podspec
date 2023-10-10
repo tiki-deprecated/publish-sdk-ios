@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'TIKI Team' => 'hello@mytiki.com' }
   s.platforms        = { :ios => '13.0' }
-  s.source           = { :git => 'https://github.com/tiki/publish-sdk-ios.git', :branch => '2.1.7' }
+  s.source           = { :git => 'https://github.com/tiki/publish-sdk-ios.git', :branch => 'fix/add-podspec-debug' }
   s.swift_versions   = '5.8.0'
 
   s.source_files = 'Sources/**/*.swift'
