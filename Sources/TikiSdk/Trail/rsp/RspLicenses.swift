@@ -10,8 +10,8 @@ public struct RspLicenses: Rsp {
     public let requestId: String
     
     public init(from: [String : Any?]) {
-        self.licenses = (from["licenses"] as? [[String: Any?]])?.map{ RspLicense(from: $0) }
+        let licDict = RspLicenses.nullToNil(value: from["licenses"] as Any?) as? [[String: Any?]]
+        self.licenses = licDict?.map{ dict in RspLicense.init(from: dict)}
         self.requestId = from["requestId"] as! String
     }
 }
-
