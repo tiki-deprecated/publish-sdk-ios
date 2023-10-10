@@ -57,7 +57,7 @@ jobs:
         uses: actions/deploy-pages@v2
 
   release:
-#    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     environment: Production
     outputs:
       tag: ${{ steps.semver.outputs.nextStrict }}
@@ -73,10 +73,6 @@ jobs:
         uses: ietf-tools/semver-action@v1
         with:
           token: ${{ github.token }}
-
-      - name: Update Podspec
-        run: |
-          sed -i '' 's/${{ steps.semver.outputs.current }}/${{ steps.semver.outputs.nextStrict }}/' TikiSdk.podspec 
 
       - name: Create a new tag
         run: |
