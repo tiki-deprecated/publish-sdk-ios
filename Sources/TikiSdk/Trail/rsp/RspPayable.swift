@@ -23,6 +23,6 @@ public struct RspPayable: Rsp {
         self.description = from["description"] as? String
         self.expiry = from["expiry"] as? Int64 != nil ? Date(milliseconds: from["expiry"] as! Int64) : nil
         self.reference = from["reference"] as? String
-        self.requestId = from["requestId"] as! String
+        self.requestId = RspPayable.nullToNil(value: from["requestId"]) != nil ? from["requestId"] as! String : ""
     }
 }
