@@ -4,8 +4,8 @@ on:
   pull_request:
     branches:
       - main
-    types:
-      - closed
+#    types:
+#      - closed
 
 permissions:
   contents: write
@@ -57,7 +57,7 @@ jobs:
         uses: actions/deploy-pages@v2
 
   release:
-    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
+#    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
     environment: Production
     outputs:
       tag: ${{ steps.semver.outputs.nextStrict }}
