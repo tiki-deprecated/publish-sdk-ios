@@ -1,7 +1,5 @@
 PODS:
-  - TikiSdk (2.1.8)
-  - TikiSdkDebug (2.1.8)
-  - TikiSdkRelease (2.1.8)
+  - TikiSdk (2.1.7)
 
 DEPENDENCIES:
   - TikiSdk (from `../../`)
@@ -17,9 +15,7 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  TikiSdk: fbe8bee2bd758e5c430d76d5b8286f42523122ac
-  TikiSdkDebug: dbf4c69e9dde3c2a41e774c2dbd762963db42450
-  TikiSdkRelease: 9d6a7a5bd9cb574e9c3ade25d95076160007462a
+  TikiSdk: 5f49dd58afa9484b89e834cc34ef3c3e24e9df06
 
 PODFILE CHECKSUM: bfbcbda8f7ecabcbd734312c080194ca3f017ecc
 
