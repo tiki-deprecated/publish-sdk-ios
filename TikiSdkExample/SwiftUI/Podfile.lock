@@ -1,4 +1,5 @@
 PODS:
+  - TikiSdk (2.1.8)
   - TikiSdkDebug (2.1.8)
   - TikiSdkRelease (2.1.8)
 
