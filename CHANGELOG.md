@@ -1,3 +1,23 @@
+## 2.1.10
+
+* fix: binary frameworks update
+
+## 2.1.9
+
+* fix: cocoa pods implementation
+
+## 2.1.8
+
+* fix: Any? to nil coarse
+
+## 2.1.7
+
+* fix: serialization issues
+
+## 2.1.6
+
+* fix: update API to Dart SDK v3
+
 ## 2.1.5
 
 * fix: commit rollback with github token
@@ -5,6 +25,7 @@
 ## 2.1.4
 
 * fix: typo in release action
+
 ## 2.1.3
 
 * fix: tag in rollback action
