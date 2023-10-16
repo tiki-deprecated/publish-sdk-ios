@@ -42,5 +42,17 @@ struct TikiSdkExampleApp: App {
                     id: "user_123",
                     publishingId: "e12f5b7b-6b48-4503-8b39-28e4995b5f88"
                 )
+        let title = try await TikiSdk.instance.trail.title.create(ptr: "testdsdsa", tags: [Tag(tag: TagCommon.ADVERTISING_DATA)])
+        print("title")
+        print(title!.id)
+        let license = try await TikiSdk.instance.trail.license.create(titleId: title!.id, uses: [Use(usecases: [Usecase(usecase: UsecaseCommon.analytics)])], terms: "terms")
+        print("license")
+        print(license!.id)
+        let payable = try await TikiSdk.instance.trail.payable.create(licenseId: license!.id!, amount: "10", type: "test")
+        print("payable")
+        print(payable!.id)
+        let receipt = try await TikiSdk.instance.trail.receipt.create(payableId: payable!.id, amount: "10")
+        print("receipt")
+        print(receipt!.id)
     }
 }
