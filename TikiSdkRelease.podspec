@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   
   s.swift_versions   = '5.8.0'
 
-  s.source_files = 'Sources/**/*.swift'
+  s.source_files = 'TikiSdk/**/*.swift'
 
   s.vendored_frameworks = [
     'Frameworks/Release/App.xcframework',
