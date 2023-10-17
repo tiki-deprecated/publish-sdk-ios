@@ -1,6 +1,6 @@
 PODS:
-  - TikiSdkDebug (2.1.9)
-  - TikiSdkRelease (2.1.9)
+  - TikiSdkDebug (2.1.10)
+  - TikiSdkRelease (2.1.10)
 
 DEPENDENCIES:
   - TikiSdkDebug (from `../../TikiSdkDebug.podspec`)
@@ -13,8 +13,8 @@ EXTERNAL SOURCES:
     :path: "../../TikiSdkRelease.podspec"
 
 SPEC CHECKSUMS:
-  TikiSdkDebug: 99d80853e674f83154b5f6043d1ef66a7b180824
-  TikiSdkRelease: 5eb8564696b91a424bb8c08d5e9feb0edd872b6a
+  TikiSdkDebug: a84070ecc0a826c2cdde3e926c8d70021df52f5a
+  TikiSdkRelease: 075117d8873b89db71950dec9b8bb9da69cd34a6
 
 PODFILE CHECKSUM: 7809044ab68afb496e83c4154a8de522e0b4f90e
 

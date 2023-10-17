@@ -42,7 +42,9 @@ struct TikiSdkExampleApp: App {
                     id: "user_123",
                     publishingId: "e12f5b7b-6b48-4503-8b39-28e4995b5f88"
                 )
-        let title = try await TikiSdk.instance.trail.title.create(ptr: "testdsdsa", tags: [Tag(tag: TagCommon.ADVERTISING_DATA)])
+        let ptr = NSUUID().uuidString
+        print(ptr)
+        let title = try await TikiSdk.instance.trail.title.create(ptr: ptr, tags: [Tag(tag: TagCommon.ADVERTISING_DATA)])
         print("title")
         print(title!.id)
         let license = try await TikiSdk.instance.trail.license.create(titleId: title!.id, uses: [Use(usecases: [Usecase(usecase: UsecaseCommon.analytics)])], terms: "terms")
