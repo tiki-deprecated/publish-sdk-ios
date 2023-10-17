@@ -39,7 +39,7 @@ struct TikiSdkExampleApp: App {
     func initTikiSdk() async throws {
             try await TikiSdk.config()
                 .initialize(
-                    id: "user_123",
+                    id: UUID().uuidString,
                     publishingId: "e12f5b7b-6b48-4503-8b39-28e4995b5f88"
                 )
         let ptr = NSUUID().uuidString
