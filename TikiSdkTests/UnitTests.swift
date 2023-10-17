@@ -8,40 +8,23 @@ import TikiSdk
 final class CodableTests: XCTestCase {
     
     func testCodableTag(){
-        do{
-            let titleTag = Tag(tag: TagCommon.EMAIL_ADDRESS)
-            XCTAssertEqual(titleTag.toString(),TagCommon.EMAIL_ADDRESS.rawValue)
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
+        let titleTag = Tag(tag: TagCommon.EMAIL_ADDRESS)
+        XCTAssertEqual(titleTag.toString(),TagCommon.EMAIL_ADDRESS.rawValue)
     }
     
     func testCodableCustomTag(){
-        do{
-            let titleTag = Tag.from(tag: "abc")
-            XCTAssertEqual(titleTag.toString(), "custom:abc")
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
+        let titleTag = Tag.from(tag: "abc")
+        XCTAssertEqual(titleTag.toString(), "custom:abc")
     }
     
     func testCodableUsecase(){
-        do{
-            let usecase = Usecase(UsecaseCommon.support)
-
-            XCTAssertEqual(usecase.value, UsecaseCommon.support.rawValue)
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
+        let usecase = Usecase(usecase: UsecaseCommon.support)
+        XCTAssertEqual(usecase.toString(), UsecaseCommon.support.rawValue)
     }
     
     func testCodableCustomUsecase(){
-        do{
-            let usecase = Usecase("abc")
-            XCTAssertEqual(usecase.value, "custom:abc")
-        }catch{
-            XCTFail(error.localizedDescription)
-        }
+        let usecase = Usecase.custom(usecase: "abc")
+        XCTAssertEqual(usecase.toString(), "custom:abc")
     }
 
 }

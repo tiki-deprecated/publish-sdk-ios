@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8687B0EAC772BA46586270E9 /* Pods_TikiSdkExample_TikiSdkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F52A0B23694D1588A853FC1 /* Pods_TikiSdkExample_TikiSdkTests.framework */; };
 		8B638412D963DCA31CBF092E /* Pods_TikiSdkExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8067D26BAA34327A2BF7E21 /* Pods_TikiSdkExample.framework */; };
-		8C383E102ADEC7D300AD5F7A /* TikiSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C383E0F2ADEC7D300AD5F7A /* TikiSdkTests.swift */; };
 		8C383E1E2ADEC90300AD5F7A /* UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C383E1C2ADEC90300AD5F7A /* UnitTests.swift */; };
 		8C383E1F2ADEC90300AD5F7A /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C383E1D2ADEC90300AD5F7A /* IntegrationTests.swift */; };
 		8CB058FD298D2CF600893F46 /* TikiSdkExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB058FC298D2CF600893F46 /* TikiSdkExampleApp.swift */; };
@@ -33,7 +32,6 @@
 		835D0BCB00697B3D7999F083 /* Pods-TikiSdkExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikiSdkExample.debug.xcconfig"; path = "Target Support Files/Pods-TikiSdkExample/Pods-TikiSdkExample.debug.xcconfig"; sourceTree = "<group>"; };
 		8C24F92229BA818100A030AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8C383E082ADEC66900AD5F7A /* TikiSdkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikiSdkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C383E0F2ADEC7D300AD5F7A /* TikiSdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikiSdkTests.swift; sourceTree = "<group>"; };
 		8C383E1A2ADEC8B900AD5F7A /* TikiSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TikiSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C383E1C2ADEC90300AD5F7A /* UnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitTests.swift; sourceTree = "<group>"; };
 		8C383E1D2ADEC90300AD5F7A /* IntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 			children = (
 				8C383E1D2ADEC90300AD5F7A /* IntegrationTests.swift */,
 				8C383E1C2ADEC90300AD5F7A /* UnitTests.swift */,
-				8C383E0F2ADEC7D300AD5F7A /* TikiSdkTests.swift */,
 			);
 			path = TikiSdkTests;
 			sourceTree = "<group>";
@@ -303,7 +300,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C383E102ADEC7D300AD5F7A /* TikiSdkTests.swift in Sources */,
 				8C383E1E2ADEC90300AD5F7A /* UnitTests.swift in Sources */,
 				8C383E1F2ADEC90300AD5F7A /* IntegrationTests.swift in Sources */,
 			);
