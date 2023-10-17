@@ -31,8 +31,8 @@ target 'TikiSdkExample'  do
 
 use_frameworks!
   # ... other dependencies
-  pod 'TikiSdkDebug', '2.1.10', :configurations => 'Debug'
-  pod 'TikiSdkRelease', '2.1.10', :configurations => 'Release'
+  pod 'TikiSdkDebug', '3.0.0', :configurations => 'Debug'
+  pod 'TikiSdkRelease', '3.0.0', :configurations => 'Release'
 
 end
 ```  
