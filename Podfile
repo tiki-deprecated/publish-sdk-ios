@@ -1,13 +1,16 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
-
 target 'TikiSdkExample' do
-  # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
-  # Pods for TikiSdkExample
 
   pod 'TikiSdkDebug', :path => './TikiSdkDebug.podspec', :configurations => 'Debug'
   pod 'TikiSdkRelease', :path => './TikiSdkRelease.podspec', :configurations => 'Release'
-
+  
+  target 'TikiSdkTests' do
+    use_frameworks!
+  
+    pod 'TikiSdkDebug', :path => './TikiSdkDebug.podspec', :configurations => 'Debug'
+    pod 'TikiSdkRelease', :path => './TikiSdkRelease.podspec', :configurations => 'Release'
+  
+  end
+  
 end
+
