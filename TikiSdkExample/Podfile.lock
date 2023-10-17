@@ -3,19 +3,19 @@ PODS:
   - TikiSdkRelease (2.1.10)
 
 DEPENDENCIES:
-  - TikiSdkDebug (from `../../TikiSdkDebug.podspec`)
-  - TikiSdkRelease (from `../../TikiSdkRelease.podspec`)
+  - TikiSdkDebug (from `../TikiSdkDebug.podspec`)
+  - TikiSdkRelease (from `../TikiSdkRelease.podspec`)
 
 EXTERNAL SOURCES:
   TikiSdkDebug:
-    :path: "../../TikiSdkDebug.podspec"
+    :path: "../TikiSdkDebug.podspec"
   TikiSdkRelease:
-    :path: "../../TikiSdkRelease.podspec"
+    :path: "../TikiSdkRelease.podspec"
 
 SPEC CHECKSUMS:
   TikiSdkDebug: a84070ecc0a826c2cdde3e926c8d70021df52f5a
   TikiSdkRelease: 075117d8873b89db71950dec9b8bb9da69cd34a6
 
-PODFILE CHECKSUM: 7809044ab68afb496e83c4154a8de522e0b4f90e
+PODFILE CHECKSUM: f706ad3f9fdff9743b109f80f2e87d804953427d
 
 COCOAPODS: 1.12.1
