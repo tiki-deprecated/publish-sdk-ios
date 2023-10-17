@@ -1,3 +1,5 @@
+platform :ios, '14'
+
 target 'TikiSdkExample' do
   use_frameworks!
 
