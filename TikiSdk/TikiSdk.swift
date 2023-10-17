@@ -55,11 +55,10 @@ public class TikiSdk{
     ///   - origin: The default *origin* for all transactions. Defaults to `Bundle.main.bundleIdentifier` if *nil*.
     /// - Throws: `TikiSdkError` if the initialization process encounters an error.
     public func initialize( id: String, publishingId: String,  onComplete: (() -> Void)? = nil ) async throws {
-        if( _channel == nil ){
-            try await withCheckedThrowingContinuation{ initChannel in
-                _channel = Channel{
-                    initChannel.resume()
-                }
+        try await withCheckedThrowingContinuation{ initChannel in
+            Channel.initialize{ channel in
+                self._channel = channel
+                initChannel.resume()
             }
         }
         let dbDir = NSSearchPathForDirectoriesInDomains(

@@ -11,7 +11,11 @@ public class Channel {
     
     private var handler: ChannelHandler?
     
-    public init(onCompletion: @escaping (() -> Void)) {
+    private init(handler: ChannelHandler) {
+        self.handler = handler
+    }
+    
+    static public func initialize(onCompletion: @escaping ((Channel) -> Void)){
         let flutterEngine: FlutterEngine = FlutterEngine(name: "tiki_sdk_flutter_engine")
         
         DispatchQueue.main.async {
@@ -19,12 +23,11 @@ public class Channel {
             flutterEngine.run()
             Task{
                 GeneratedPluginRegistrant.register(with: flutterEngine);
-                self.handler = ChannelHandler(FlutterMethodChannel.init(
+                let channel = Channel(handler: ChannelHandler(FlutterMethodChannel.init(
                     name: ChannelHandler.channelId,
                     binaryMessenger: flutterEngine as! FlutterBinaryMessenger)
-                )
-                onCompletion()
-                
+                ))
+                onCompletion(channel)
             }}
     }
     
@@ -34,7 +37,7 @@ public class Channel {
         toResponse: @escaping ( [String: Any?] ) -> R
     ) async throws -> R {
         guard let handler = handler else {
-            fatalError("Channel not initialized yet. Use Channel(onCompletion: ...).")
+            fatalError("Channel not initialized yet. Use Channel.initialize(onCompletion: ...).")
         }
         let rsp: [String: Any?] = try await withCheckedThrowingContinuation{ continuation in
             handler.invokeMethod(

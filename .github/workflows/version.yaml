@@ -41,6 +41,7 @@ jobs:
         run: |
           sed -i 's/${{ steps.semver.outputs.current }}/${{ steps.semver.outputs.nextStrict }}/' TikiSdkDebug.podspec 
           sed -i 's/${{ steps.semver.outputs.current }}/${{ steps.semver.outputs.nextStrict }}/' TikiSdkRelease.podspec 
+          sed -i 's/${{ steps.semver.outputs.current }}/${{ steps.semver.outputs.nextStrict }}/' README.md
 
       - name: Commit Changes
         continue-on-error: true
@@ -51,6 +52,7 @@ jobs:
           git config --global user.name "GH Action"
           git add TikiSdkDebug.podspec
           git add TikiSdkRelease.podspec
+          git add README.md
           git commit -m 'version bump'
           git push
 
