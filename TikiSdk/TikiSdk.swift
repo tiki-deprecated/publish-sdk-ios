@@ -49,10 +49,9 @@ public class TikiSdk{
     ///Use this method to initialize the TIKI SDK with the specified *publishingId*, *id*, and *origin*.
     ///You can also provide an optional `onComplete` closure that will be executed once the initialization process is complete.
     /// - Parameters:
-    ///   - publishingId: The *publishingId* for connecting to the TIKI cloud.
     ///   - id: The ID that uniquely identifies your user.
+    ///   - publishingId: The *publishingId* for connecting to the TIKI cloud.
     ///   - onComplete: An optional closure to be executed once the initialization process is complete.
-    ///   - origin: The default *origin* for all transactions. Defaults to `Bundle.main.bundleIdentifier` if *nil*.
     /// - Throws: `TikiSdkError` if the initialization process encounters an error.
     public func initialize( id: String, publishingId: String,  onComplete: (() -> Void)? = nil ) async throws {
         try await withCheckedThrowingContinuation{ initChannel in
