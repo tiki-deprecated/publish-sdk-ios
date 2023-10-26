@@ -16,7 +16,7 @@ public struct RspToken: Rsp {
     public init(from: [String : Any?]) {
         self.accessToken = from["accessToken"] as? String
         self.tokenType = from["tokenType"] as? String
-        self.expires = from["expires"] as? Int64 != nil ? Date(milliseconds: from["expiry"] as! Int64) : nil
+        self.expires = from["expires"] as? Int64 != nil ? Date(milliseconds: from["expires"] as! Int64) : nil
         self.refreshToken = from["refreshToken"] as? String
         self.scope = from["scope"] as? [String]
         self.requestId = from["requestId"] as! String
