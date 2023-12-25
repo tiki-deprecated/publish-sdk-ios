@@ -54,7 +54,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
 
   release:
     if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
